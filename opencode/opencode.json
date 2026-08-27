@@ -1,0 +1,31 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "opencode-ponytail",
+    "superpowers@git+https://github.com/obra/superpowers.git",
+    "opencode-notify",
+    "opencode-worktree",
+    "opencode-antigravity-auth",
+    "./plugins/claude-mem.js"
+  ],
+  "model": "lmstudio/qwen2.5-coder-7b-instruct",
+  "small_model": "lmstudio/google/gemma-4-e4b",
+  "provider": {
+    "lmstudio": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LM Studio (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:1234/v1"
+      },
+      "models": {
+        "qwen2.5-coder-7b-instruct": {
+          "name": "Qwen 2.5 Coder 7B (local)",
+          "limit": { "context": 32768, "output": 8192 }
+        },
+        "google/gemma-4-e4b": {
+          "name": "Gemma 4 E4B (local)"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,116 @@
+﻿{
+    "$comment":  "Manifest of installed Claude Code plugins. Reinstall with: claude plugin install <id>. Add-only: removals must be edited here manually.",
+    "version":  2,
+    "plugins":  [
+                    {
+                        "id":  "ponytail@ponytail",
+                        "marketplace":  "ponytail",
+                        "version":  "4.9.0",
+                        "gitCommitSha":  "2ed6c52c9d7e5e56942508591085fd45dea277d3",
+                        "source":  {
+                                       "repo":  "DietrichGebert/ponytail",
+                                       "source":  "github"
+                                   }
+                    },
+                    {
+                        "id":  "frontend-design@claude-plugins-official",
+                        "marketplace":  "claude-plugins-official",
+                        "version":  "unknown",
+                        "gitCommitSha":  null,
+                        "source":  {
+                                       "repo":  "claude-plugins-official",
+                                       "source":  "official"
+                                   }
+                    },
+                    {
+                        "id":  "figma@claude-plugins-official",
+                        "marketplace":  "claude-plugins-official",
+                        "version":  "2.2.91",
+                        "gitCommitSha":  "22b2c566d98880ebdb5a8e48eb2c66c596a6d990",
+                        "source":  {
+                                       "repo":  "claude-plugins-official",
+                                       "source":  "official"
+                                   }
+                    },
+                    {
+                        "id":  "superpowers@claude-plugins-official",
+                        "marketplace":  "claude-plugins-official",
+                        "version":  "6.2.0",
+                        "gitCommitSha":  "44c9b2d6e889982ac18c27d05a19fefe335194e1",
+                        "source":  {
+                                       "repo":  "claude-plugins-official",
+                                       "source":  "official"
+                                   }
+                    },
+                    {
+                        "id":  "code-simplifier@claude-plugins-official",
+                        "marketplace":  "claude-plugins-official",
+                        "version":  "1.0.0",
+                        "gitCommitSha":  null,
+                        "source":  {
+                                       "repo":  "claude-plugins-official",
+                                       "source":  "official"
+                                   }
+                    },
+                    {
+                        "id":  "security-guidance@claude-plugins-official",
+                        "marketplace":  "claude-plugins-official",
+                        "version":  "2.0.6",
+                        "gitCommitSha":  null,
+                        "source":  {
+                                       "repo":  "claude-plugins-official",
+                                       "source":  "official"
+                                   }
+                    },
+                    {
+                        "id":  "claude-mem@thedotmack",
+                        "marketplace":  "thedotmack",
+                        "version":  "13.15.0",
+                        "gitCommitSha":  null,
+                        "source":  {
+                                       "repo":  "thedotmack/claude-mem",
+                                       "source":  "github"
+                                   }
+                    },
+                    {
+                        "id":  "code-review@claude-plugins-official",
+                        "marketplace":  "claude-plugins-official",
+                        "version":  "unknown",
+                        "gitCommitSha":  null,
+                        "source":  {
+                                       "repo":  "claude-plugins-official",
+                                       "source":  "official"
+                                   }
+                    },
+                    {
+                        "id":  "commit-commands@claude-plugins-official",
+                        "marketplace":  "claude-plugins-official",
+                        "version":  "unknown",
+                        "gitCommitSha":  null,
+                        "source":  {
+                                       "repo":  "claude-plugins-official",
+                                       "source":  "official"
+                                   }
+                    },
+                    {
+                        "id":  "context7@claude-plugins-official",
+                        "marketplace":  "claude-plugins-official",
+                        "version":  "unknown",
+                        "gitCommitSha":  null,
+                        "source":  {
+                                       "repo":  "claude-plugins-official",
+                                       "source":  "official"
+                                   }
+                    },
+                    {
+                        "id":  "planning-with-files@planning-with-files",
+                        "marketplace":  "planning-with-files",
+                        "version":  "3.11.2",
+                        "gitCommitSha":  "9e94390e5912b1ff296556505cd999ff84838160",
+                        "source":  {
+                                       "repo":  "OthmanAdi/planning-with-files",
+                                       "source":  "github"
+                                   }
+                    }
+                ]
+}

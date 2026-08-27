@@ -1,0 +1,30 @@
+{
+  "$comment": "Marketplaces used by claude/. 'official' is built-in; the rest are registered by claude/install.ps1.",
+  "marketplaces": [
+    {
+      "id": "claude-plugins-official",
+      "source": "builtin"
+    },
+    {
+      "id": "ponytail",
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    },
+    {
+      "id": "thedotmack",
+      "source": {
+        "source": "github",
+        "repo": "thedotmack/claude-mem"
+      }
+    },
+    {
+      "id": "planning-with-files",
+      "source": {
+        "source": "github",
+        "repo": "OthmanAdi/planning-with-files"
+      }
+    }
+  ]
+}
