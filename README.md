@@ -1,4 +1,4 @@
-# AI Toolkit
+# Maleta.dev
 
 Coleção curada e instalável de **skills**, **plugins** e **configurações de IA** para
 [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [opencode](https://opencode.ai)
@@ -10,7 +10,7 @@ ambiente na sua máquina. Nada do seu ambiente é enviado de volta para cá.
 ## O que tem aqui
 
 ```
-ai-toolkit/
+maleta.dev/
 ├── claude/
 │   ├── skills/          # 82 skills (SKILL.md + scripts + dados)
 │   ├── plugins/         # manifest plugins.json + marketplaces.json
@@ -45,8 +45,8 @@ ai-toolkit/
 Clone o repositório e rode o instalador completo:
 
 ```powershell
-git clone https://github.com/diego-ruas/ai-toolkit.git
-cd ai-toolkit
+git clone https://github.com/diego-ruas/maleta.dev.git
+cd maleta.dev
 powershell -ExecutionPolicy Bypass -File scripts/install.ps1
 ```
 

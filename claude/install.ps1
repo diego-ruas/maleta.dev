@@ -24,9 +24,30 @@ $srcClaude = Join-Path $RepoRoot 'claude'
 $srcSkills = Join-Path $srcClaude 'skills'
 $dstSkills = Join-Path $claudeDir 'skills'
 New-Item -ItemType Directory -Path $dstSkills -Force | Out-Null
-robocopy $srcSkills $dstSkills /E /NFL /NDL /NJH /NJS /NC /NS /NP | Out-Null
-if ($LASTEXITCODE -gt 7) { throw "robocopy skills failed (exit $LASTEXITCODE)" }
-Write-Host "[ok] skills restored -> $dstSkills ($((Get-ChildItem -LiteralPath $dstSkills -Directory).Count) skills)"
+
+# Selecao opcional: se claude/skills-selection.txt existir, instala so essas.
+$selectionFile = Join-Path $srcClaude 'skills-selection.txt'
+$selected = @()
+if (Test-Path -LiteralPath $selectionFile) {
+    $selected = @(Get-Content -LiteralPath $selectionFile |
+        Where-Object { $_.Trim() -and -not $_.Trim().StartsWith('#') } |
+        ForEach-Object { $_.Trim() })
+}
+if ($selected.Count -gt 0) {
+    foreach ($s in $selected) {
+        $src = Join-Path $srcSkills $s
+        if (Test-Path -LiteralPath $src) {
+            Copy-Item -LiteralPath $src -Destination (Join-Path $dstSkills $s) -Recurse -Force
+        } else {
+            Write-Host "[warn] skill '$s' not found in repo, skipped"
+        }
+    }
+    Write-Host "[ok] skills restored -> $dstSkills ($($selected.Count) selecionadas; $((Get-ChildItem -LiteralPath $dstSkills -Directory).Count) no total)"
+} else {
+    robocopy $srcSkills $dstSkills /E /NFL /NDL /NJH /NJS /NC /NS /NP | Out-Null
+    if ($LASTEXITCODE -gt 7) { throw "robocopy skills failed (exit $LASTEXITCODE)" }
+    Write-Host "[ok] skills restored -> $dstSkills ($((Get-ChildItem -LiteralPath $dstSkills -Directory).Count) skills)"
+}
 
 # --- 2. settings.json (deep merge; local-only keys are preserved) ---
 function ConvertTo-Hashtable([object]$Value) {

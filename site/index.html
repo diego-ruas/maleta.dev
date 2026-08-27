@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <script>(function () { try { var t = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); document.documentElement.setAttribute('data-theme', t); } catch (e) { } })();</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maleta.dev — baixe e instale skills, plugins e configs de IA</title>
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" href="logo.png" sizes="512x512">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="description" content="Coleção curada e instalável de skills, plugins e configurações de IA para Claude Code e opencode. Clone, rode o instalador e pronto." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Maleta.dev — baixe e instale skills, plugins e configs de IA" />
+    <meta property="og:description" content="Coleção curada e instalável de skills, plugins e configurações de IA para Claude Code e opencode." />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f9f9f9" media="(prefers-color-scheme: light)" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..1000&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/base.css?v=1.0" />
+    <link rel="stylesheet" href="css/site.css?v=1.0" />
+    <link rel="stylesheet" href="css/transitions.css?v=1.0" />
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
+</head>
+
+<body>
+    <a href="#main" class="skip-link">Ir para o conteúdo</a>
+
+    <header>
+        <a href="/" class="site-name" aria-current="page">
+            <span>Maleta.dev</span>
+        </a>
+        <nav aria-label="Navegação principal">
+            <ul class="nav-links">
+                <li><a href="#instalar">Instalar</a></li>
+                <li><a href="#ferramentas">O que tem</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#plugins">Plugins</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+
+        <section class="intro">
+            <div class="intro-mascot">
+                <div class="mascot-backdrop"></div>
+                <img src="logo.png" alt="" width="512" height="512" class="mascot-img" fetchpriority="high">
+            </div>
+            <h1>Skills, plugins e configs de IA <span class="highlight-word">prontos para instalar</span></h1>
+            <p>
+                Coleção curada e instalável para <span class="highlight-word">Claude Code</span> e
+                <span class="highlight-word">opencode</span>. É instalação somente: clona, roda o
+                instalador e o ambiente é reproduzido na sua máquina. Nada do seu ambiente volta para cá.
+            </p>
+            <div class="intro-highlights">
+                <div class="intro-badge-item">
+                    <svg class="brand-icon" style="color: var(--accent); font-size: 1.15rem;" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 10.5h3v3h-3v3h-1.5v3H18v-3h-1.5v3H15v-3H9v3H7.5v-3H6v3H4.5v-3H3v-3H0v-3h3v-6h18Zm-15 0h1.5v-3H6Zm10.5 0H18v-3h-1.5z"/></svg>
+                    <span>Claude Code — 82 skills + 11 plugins</span>
+                </div>
+                <div class="intro-badge-item">
+                    <svg class="brand-icon" style="color: var(--accent); font-size: 1.15rem;" aria-hidden="true" viewBox="0 0 24 24"><path d="M22 24H2V0h20zM17 4.8H7v14.4h10z"/></svg>
+                    <span>opencode — 6 plugins + MCP</span>
+                </div>
+            </div>
+            <div class="intro-links">
+                <div class="intro-actions">
+                    <a href="https://github.com/diego-ruas/maleta.dev/archive/refs/heads/main.zip" class="btn-gh"
+                        aria-label="Baixar o repositório em ZIP">
+                        <span>Baixar ZIP</span>
+                        <i aria-hidden="true" class="ph ph-download-simple"></i>
+                    </a>
+                    <button type="button" class="btn-primary"
+                        data-copy="git clone https://github.com/diego-ruas/maleta.dev.git">
+                        <span>Copiar git clone</span>
+                        <i aria-hidden="true" class="ph ph-copy"></i>
+                    </button>
+                </div>
+                <div class="intro-socials">
+                    <a href="https://github.com/diego-ruas/maleta.dev" target="_blank" rel="noopener noreferrer"
+                        aria-label="GitHub" title="GitHub">
+                        <svg class="brand-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="instalar" class="reveal" aria-labelledby="instalar-heading">
+            <h2 id="instalar-heading">Como instalar</h2>
+            <p>
+                Três comandos e o ambiente inteiro é instalado. Requer Windows com PowerShell 5.1 e
+                <a href="https://git-scm.com" target="_blank" rel="noopener noreferrer">Git</a>.
+                Prefere só algumas skills? Use a <a href="#skills">personalização na seção Skills</a>.
+            </p>
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="process-num">01</div>
+                    <div class="process-content">
+                        <h3 class="process-title">Requisitos</h3>
+                        <p class="process-desc">Windows com PowerShell 5.1 (nativo), Git instalado e a ferramenta alvo:
+                            Claude Code e/ou opencode.</p>
+                    </div>
+                </div>
+                <div class="process-card">
+                    <div class="process-num">02</div>
+                    <div class="process-content">
+                        <h3 class="process-title">Clonar</h3>
+                        <p class="process-desc">Sem Git? Use o botão <strong>Baixar ZIP</strong> acima e extraia a pasta.</p>
+                    </div>
+                    <div class="cmd">
+                        <code>git clone https://github.com/diego-ruas/maleta.dev.git</code>
+                        <button type="button" class="cmd-copy" aria-label="Copiar comando git clone" title="Copiar comando">
+                            <i aria-hidden="true" class="ph ph-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="process-card">
+                    <div class="process-num">03</div>
+                    <div class="process-content">
+                        <h3 class="process-title">Instalar</h3>
+                        <p class="process-desc">Instala tudo de uma vez (Claude + opencode):</p>
+                    </div>
+                    <div class="cmd">
+                        <code>powershell -ExecutionPolicy Bypass -File scripts/install.ps1</code>
+                        <button type="button" class="cmd-copy" aria-label="Copiar comando de instalação" title="Copiar comando">
+                            <i aria-hidden="true" class="ph ph-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="process-card">
+                    <div class="process-num">04</div>
+                    <div class="process-content">
+                        <h3 class="process-title">Reiniciar</h3>
+                        <p class="process-desc">Reinicie o Claude Code ou o opencode para carregar skills, plugins e MCP.
+                            Só uma ferramenta? Rode <code>claude/install.ps1</code> ou <code>opencode/install.ps1</code>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ferramentas" class="reveal" aria-labelledby="ferramentas-heading">
+            <h2 id="ferramentas-heading">O que tem aqui</h2>
+            <p>
+                Cada pasta instala a parte de uma ferramenta no lugar certo.
+            </p>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-card-icon">
+                        <svg class="brand-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 10.5h3v3h-3v3h-1.5v3H18v-3h-1.5v3H15v-3H9v3H7.5v-3H6v3H4.5v-3H3v-3H0v-3h3v-6h18Zm-15 0h1.5v-3H6Zm10.5 0H18v-3h-1.5z"/></svg>
+                    </div>
+                    <div class="contact-card-info">
+                        <h3>Claude Code</h3>
+                        <p>82 skills, 11 plugins, settings, MCP e regras globais em <code>~/.claude/</code>.</p>
+                    </div>
+                    <a href="https://github.com/diego-ruas/maleta.dev/tree/main/claude" target="_blank"
+                        rel="noopener noreferrer" class="contact-card-action">
+                        <span>Ver pasta claude/</span>
+                        <i aria-hidden="true" class="ph ph-arrow-up-right"></i>
+                    </a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-card-icon">
+                        <svg class="brand-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M22 24H2V0h20zM17 4.8H7v14.4h10z"/></svg>
+                    </div>
+                    <div class="contact-card-info">
+                        <h3>opencode</h3>
+                        <p>6 plugins, MCP open-websearch, provider local LM Studio em <code>~/.config/opencode/</code>.</p>
+                    </div>
+                    <a href="https://github.com/diego-ruas/maleta.dev/tree/main/opencode" target="_blank"
+                        rel="noopener noreferrer" class="contact-card-action">
+                        <span>Ver pasta opencode/</span>
+                        <i aria-hidden="true" class="ph ph-arrow-up-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+                                        <section id="skills" class="reveal" aria-labelledby="skills-heading">
+            <h2 id="skills-heading">Skills (82)</h2>
+            <p>
+                Todas as skills instaladas em <code>~/.claude/skills/</code> pelo <code>claude/install.ps1</code>. Passe o mouse para ver o que cada uma faz.
+            </p>
+            <div class="skills-toolbar">
+                <div class="skills-toolbar-row">
+                    <div class="skills-search-wrap">
+                        <label for="skills-search">Buscar skill</label>
+                        <input type="search" id="skills-search" placeholder="ex.: a11y, cloudflare, docx…" autocomplete="off" />
+                    </div>
+                    <button type="button" id="personalize-toggle" class="btn-gh skills-personalize-toggle">
+                        <span>Personalizar seleção</span>
+                        <i aria-hidden="true" class="ph ph-sliders-horizontal"></i>
+                    </button>
+                </div>
+                <div class="articles-filter" role="group" aria-label="Filtrar por categoria">
+                    <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">Todas <span class="filter-count">(82)</span></button>
+                    <button type="button" class="filter-btn" data-filter="Acessibilidade" aria-pressed="false">Acessibilidade <span class="filter-count">(6)</span></button>
+                    <button type="button" class="filter-btn" data-filter="Cloudflare" aria-pressed="false">Cloudflare <span class="filter-count">(12)</span></button>
+                    <button type="button" class="filter-btn" data-filter="Design UI" aria-pressed="false">Design UI <span class="filter-count">(20)</span></button>
+                    <button type="button" class="filter-btn" data-filter="Documentos" aria-pressed="false">Documentos <span class="filter-count">(6)</span></button>
+                    <button type="button" class="filter-btn" data-filter="Testes" aria-pressed="false">Testes <span class="filter-count">(13)</span></button>
+                    <button type="button" class="filter-btn" data-filter="Escrita" aria-pressed="false">Escrita <span class="filter-count">(2)</span></button>
+                    <button type="button" class="filter-btn" data-filter="Ferramentas" aria-pressed="false">Ferramentas <span class="filter-count">(16)</span></button>
+                </div>
+            </div>
+            <p id="skills-count" class="skills-count" role="status" aria-live="polite">82 skills</p>
+            <div id="selection-controls" class="selection-controls" hidden>
+                <span id="selection-count" class="selection-count" role="status" aria-live="polite">0 de 82 selecionadas</span>
+                <button type="button" id="select-all" class="btn-gh">Tudo</button>
+                <button type="button" id="select-none" class="btn-gh">Nenhum</button>
+                <button type="button" id="download-selection" class="btn-primary">
+                    <span>Baixar skills-selection.txt</span>
+                    <i aria-hidden="true" class="ph ph-download-simple"></i>
+                </button>
+                <button type="button" id="copy-command" class="btn-gh">
+                    <span>Copiar comando</span>
+                    <i aria-hidden="true" class="ph ph-copy"></i>
+                </button>
+                <p class="selection-help">
+                    Baixe o arquivo e salve como <code>claude/skills-selection.txt</code> no repo clonado, depois
+                    rode <code>claude/install.ps1</code> — só as selecionadas são instaladas. Ou cole o comando
+                    para copiá-las agora. Atenção: rodar <code>scripts/install.ps1</code> depois sincroniza todas as skills.
+                </p>
+            </div>
+            <ul class="skills-grid" id="skills-grid">
+                <li class="skill-card" tabindex="0" data-category="Acessibilidade" data-desc="Auditoria de acessibilidade (a11y) de um site ou produto inteiro contra WCAG 2.2, seguindo a metodologia WCAG-EM." aria-describedby="sd-accessibility-audit">accessibility-audit<span class="visually-hidden" id="sd-accessibility-audit">: Auditoria de acessibilidade (a11y) de um site ou produto inteiro contra WCAG 2.2, seguindo a metodologia WCAG-EM.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Acessibilidade" data-desc="Verificação de regressão — compara as violações de acessibilidade (a11y) de uma página ao vivo contra uma linha de base." aria-describedby="sd-accessibility-diff">accessibility-diff<span class="visually-hidden" id="sd-accessibility-diff">: Verificação de regressão — compara as violações de acessibilidade (a11y) de uma página ao vivo contra uma linha de base.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Acessibilidade" data-desc="Somente remediação — corrige violações de acessibilidade (a11y) contra WCAG 2.2 com um loop de linha de base, edição e verificação." aria-describedby="sd-accessibility-fix">accessibility-fix<span class="visually-hidden" id="sd-accessibility-fix">: Somente remediação — corrige violações de acessibilidade (a11y) contra WCAG 2.2 com um loop de linha de base, edição e verificação.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Acessibilidade" data-desc="Uma página, tier manual — conduz uma página ao vivo pelos checks de acessibilidade (a11y) que um rule engine não decide." aria-describedby="sd-accessibility-inspect">accessibility-inspect<span class="visually-hidden" id="sd-accessibility-inspect">: Uma página, tier manual — conduz uma página ao vivo pelos checks de acessibilidade (a11y) que um rule engine não decide.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Acessibilidade" data-desc="Uma página, tier automatizado — roda o rule engine de acessibilidade (a11y) numa página ao vivo e localiza cada violação que detecta mecanicamente." aria-describedby="sd-accessibility-scan">accessibility-scan<span class="visually-hidden" id="sd-accessibility-scan">: Uma página, tier automatizado — roda o rule engine de acessibilidade (a11y) numa página ao vivo e localiza cada violação que detecta mecanicamente.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="Construa agentes de IA em Cloudflare Workers usando o Agents SDK." aria-describedby="sd-agents-sdk">agents-sdk<span class="visually-hidden" id="sd-agents-sdk">: Construa agentes de IA em Cloudflare Workers usando o Agents SDK.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Responda perguntas sobre o AI SDK e ajude a construir funcionalidades com IA." aria-describedby="sd-ai-sdk">ai-sdk<span class="visually-hidden" id="sd-ai-sdk">: Responda perguntas sobre o AI SDK e ajude a construir funcionalidades com IA.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Criação de arte algorítmica com p5.js, aleatoriedade com seed e exploração interativa de parâmetros." aria-describedby="sd-algorithmic-art">algorithmic-art<span class="visually-hidden" id="sd-algorithmic-art">: Criação de arte algorítmica com p5.js, aleatoriedade com seed e exploração interativa de parâmetros.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Animações" data-desc="Construa uma animação do zero, tomando as decisões na ordem que determina se ela funciona — se deve animar, com qual propósito e qual ferramenta." aria-describedby="sd-animate">animate<span class="visually-hidden" id="sd-animate">: Construa uma animação do zero, tomando as decisões na ordem que determina se ela funciona — se deve animar, com qual propósito e qual ferramenta.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Animações" data-desc="Construa animações em React Native e Expo, tomando as decisões na ordem que determina se elas funcionam — se deve animar e em qual thread roda." aria-describedby="sd-animate-expo">animate-expo<span class="visually-hidden" id="sd-animate-expo">: Construa animações em React Native e Expo, tomando as decisões na ordem que determina se elas funcionam — se deve animar e em qual thread roda.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Animações" data-desc="Glossário de consulta reversa que transforma uma descrição vaga de animação ou efeito de movimento no termo exato." aria-describedby="sd-animation-vocabulary">animation-vocabulary<span class="visually-hidden" id="sd-animation-vocabulary">: Glossário de consulta reversa que transforma uma descrição vaga de animação ou efeito de movimento no termo exato.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="A abordagem da Apple para design de interface e movimento físico e fluido, traduzida para a web." aria-describedby="sd-apple-design">apple-design<span class="visually-hidden" id="sd-apple-design">: A abordagem da Apple para design de interface e movimento físico e fluido, traduzida para a web.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Guia de Sonner, a biblioteca de toasts do React — instale e configure o Toaster, escolha a chamada toast() certa, toasts de promise e loading." aria-describedby="sd-ask-sonner">ask-sonner<span class="visually-hidden" id="sd-ask-sonner">: Guia de Sonner, a biblioteca de toasts do React — instale e configure o Toaster, escolha a chamada toast() certa, toasts de promise e loading.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Orientação especializada de UI/UX para interfaces únicas e acessíveis." aria-describedby="sd-bencium-controlled-ux-designer">bencium-controlled-ux-designer<span class="visually-hidden" id="sd-bencium-controlled-ux-designer">: Orientação especializada de UI/UX para interfaces únicas e acessíveis.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Crie interfaces frontend distintivas e prontas para produção, com alta qualidade de design." aria-describedby="sd-bencium-innovative-ux-designer">bencium-innovative-ux-designer<span class="visually-hidden" id="sd-bencium-innovative-ux-designer">: Crie interfaces frontend distintivas e prontas para produção, com alta qualidade de design.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Acessibilidade" data-desc="Engenharia de acessibilidade para interfaces de produtos." aria-describedby="sd-better-accessibility">better-accessibility<span class="visually-hidden" id="sd-better-accessibility">: Engenharia de acessibilidade para interfaces de produtos.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Sistemas de cor para produtos digitais." aria-describedby="sd-better-colors">better-colors<span class="visually-hidden" id="sd-better-colors">: Sistemas de cor para produtos digitais.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Revisão de interface interdisciplinar." aria-describedby="sd-better-interface">better-interface<span class="visually-hidden" id="sd-better-interface">: Revisão de interface interdisciplinar.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Estrutura de layout para interfaces web." aria-describedby="sd-better-layout">better-layout<span class="visually-hidden" id="sd-better-layout">: Estrutura de layout para interfaces web.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Tipografia web." aria-describedby="sd-better-typography">better-typography<span class="visually-hidden" id="sd-better-typography">: Tipografia web.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Princípios de engenharia de design para interfaces com acabamento polido." aria-describedby="sd-better-ui">better-ui<span class="visually-hidden" id="sd-better-ui">: Princípios de engenharia de design para interfaces com acabamento polido.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Escrita" data-desc="UX writing e copy de interface." aria-describedby="sd-better-writing">better-writing<span class="visually-hidden" id="sd-better-writing">: UX writing e copy de interface.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Aplica as cores e tipografia oficiais da Anthropic a artefatos que se beneficiam do visual da Anthropic." aria-describedby="sd-brand-guidelines">brand-guidelines<span class="visually-hidden" id="sd-brand-guidelines">: Aplica as cores e tipografia oficiais da Anthropic a artefatos que se beneficiam do visual da Anthropic.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Responde &quot;isso sobrevive?&quot; para um componente — renderiza-o em todos os estados que o uso real pode colocar." aria-describedby="sd-break">break<span class="visually-hidden" id="sd-break">: Responde &quot;isso sobrevive?&quot; para um componente — renderiza-o em todos os estados que o uso real pode colocar.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Crie arte visual bonita em documentos .png e .pdf usando filosofia de design." aria-describedby="sd-canvas-design">canvas-design<span class="visually-hidden" id="sd-canvas-design">: Crie arte visual bonita em documentos .png e .pdf usando filosofia de design.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Referência da Claude API / SDK Anthropic — ids de modelo, preços, parâmetros, streaming, tool use, MCP, agentes." aria-describedby="sd-claude-api">claude-api<span class="visually-hidden" id="sd-claude-api">: Referência da Claude API / SDK Anthropic — ids de modelo, preços, parâmetros, streaming, tool use, MCP, agentes.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="Skill abrangente da plataforma Cloudflare cobrindo Workers, Pages, storage (KV, D1, R2), IA (Workers AI, Vectorize, Agents SDK)." aria-describedby="sd-cloudflare">cloudflare<span class="visually-hidden" id="sd-cloudflare">: Skill abrangente da plataforma Cloudflare cobrindo Workers, Pages, storage (KV, D1, R2), IA (Workers AI, Vectorize, Agents SDK).</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="Envie e receba e-mails transacionais com o Cloudflare Email Service (Email Sending + Email Routing)." aria-describedby="sd-cloudflare-email-service">cloudflare-email-service<span class="visually-hidden" id="sd-cloudflare-email-service">: Envie e receba e-mails transacionais com o Cloudflare Email Service (Email Sending + Email Routing).</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="Orienta o trabalho de Zero Trust e SASE do Cloudflare One em Access, Gateway, WARP, Tunnel, Cloudflare WAN, DLP, CASB." aria-describedby="sd-cloudflare-one">cloudflare-one<span class="visually-hidden" id="sd-cloudflare-one">: Orienta o trabalho de Zero Trust e SASE do Cloudflare One em Access, Gateway, WARP, Tunnel, Cloudflare WAN, DLP, CASB.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="Planeja migrações de Zscaler ZIA/ZPA, Palo Alto, VPN legada, SWG ou stacks SASE para o Cloudflare One." aria-describedby="sd-cloudflare-one-migrations">cloudflare-one-migrations<span class="visually-hidden" id="sd-cloudflare-one-migrations">: Planeja migrações de Zscaler ZIA/ZPA, Palo Alto, VPN legada, SWG ou stacks SASE para o Cloudflare One.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Use 1000+ aplicativos externos via Composio — direto pela CLI ou construindo agentes e apps de IA com o SDK." aria-describedby="sd-composio">composio<span class="visually-hidden" id="sd-composio">: Use 1000+ aplicativos externos via Composio — direto pela CLI ou construindo agentes e apps de IA com o SDK.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Sistema multi-agente que minera o cofre Obsidian em busca de conexões não óbvias entre notas." aria-describedby="sd-daydream">daydream<span class="visually-hidden" id="sd-daydream">: Sistema multi-agente que minera o cofre Obsidian em busca de conexões não óbvias entre notas.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Skill de frontend anti-slop para landing pages, portfólios e redesigns." aria-describedby="sd-design-taste-frontend">design-taste-frontend<span class="visually-hidden" id="sd-design-taste-frontend">: Skill de frontend anti-slop para landing pages, portfólios e redesigns.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Documentos" data-desc="Guia usuários por um fluxo de trabalho estruturado para coautoria de documentação." aria-describedby="sd-doc-coauthoring">doc-coauthoring<span class="visually-hidden" id="sd-doc-coauthoring">: Guia usuários por um fluxo de trabalho estruturado para coautoria de documentação.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Documentos" data-desc="Crie, leia, edite ou manipule documentos do Word (.docx) ou modelos do Word (.dotx)." aria-describedby="sd-docx">docx<span class="visually-hidden" id="sd-docx">: Crie, leia, edite ou manipule documentos do Word (.docx) ou modelos do Word (.dotx).</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="Crie e revise Cloudflare Durable Objects." aria-describedby="sd-durable-objects">durable-objects<span class="visually-hidden" id="sd-durable-objects">: Crie e revise Cloudflare Durable Objects.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Esta skill codifica a filosofia de Emil Kowalski sobre polimento de UI, design de componentes e decisões de animação." aria-describedby="sd-emil-design-eng">emil-design-eng<span class="visually-hidden" id="sd-emil-design-eng">: Esta skill codifica a filosofia de Emil Kowalski sobre polimento de UI, design de componentes e decisões de animação.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Responde &quot;como isso foi construído?&quot; sobre uma interface." aria-describedby="sd-explain-interface">explain-interface<span class="visually-hidden" id="sd-explain-interface">: Responde &quot;como isso foi construído?&quot; sobre uma interface.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Extrai primitivas de design de um site público e gera arquivos de tokens iniciais para o seu projeto." aria-describedby="sd-extract-design-system">extract-design-system<span class="visually-hidden" id="sd-extract-design-system">: Extrai primitivas de design de um site público e gera arquivos de tokens iniciais para o seu projeto.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Animações" data-desc="Busca num codebase ou UI lugares que não animam mas deveriam, e rejeita tudo o que não deveria." aria-describedby="sd-find-animation-opportunities">find-animation-opportunities<span class="visually-hidden" id="sd-find-animation-opportunities">: Busca num codebase ou UI lugares que não animam mas deveriam, e rejeita tudo o que não deveria.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Orientação para design visual distintivo e intencional ao construir nova UI ou reformular uma existente." aria-describedby="sd-frontend-design">frontend-design<span class="visually-hidden" id="sd-frontend-design">: Orientação para design visual distintivo e intencional ao construir nova UI ou reformular uma existente.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Ensina a IA a desenhar como uma agência de alto nível." aria-describedby="sd-high-end-visual-design">high-end-visual-design<span class="visually-hidden" id="sd-high-end-visual-design">: Ensina a IA a desenhar como uma agência de alto nível.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Desenhe, redesenhe, modele, critique, audite, polia, clarifique, destile, endureça, otimize, adapte, anime, colore, extraia." aria-describedby="sd-impeccable">impeccable<span class="visually-hidden" id="sd-impeccable">: Desenhe, redesenhe, modele, critique, audite, polia, clarifique, destile, endureça, otimize, adapte, anime, colore, extraia.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Animações" data-desc="Levanta o codebase de animação e movimento como um consultor sênior de motion e produz uma auditoria priorizada e planos de implementação." aria-describedby="sd-improve-animations">improve-animations<span class="visually-hidden" id="sd-improve-animations">: Levanta o codebase de animação e movimento como um consultor sênior de motion e produz uma auditoria priorizada e planos de implementação.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Revisão de interface de uma mudança em vez de uma tela: trabalho não commitado, a branch atual ou um pull request." aria-describedby="sd-interface-review">interface-review<span class="visually-hidden" id="sd-interface-review">: Revisão de interface de uma mudança em vez de uma tela: trabalho não commitado, a branch atual ou um pull request.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Documentos" data-desc="Um conjunto de recursos para escrever todos os tipos de comunicações internas nos formatos que a empresa gosta de usar." aria-describedby="sd-internal-comms">internal-comms<span class="visually-hidden" id="sd-internal-comms">: Um conjunto de recursos para escrever todos os tipos de comunicações internas nos formatos que a empresa gosta de usar.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Guia para criar servidores MCP (Model Context Protocol) de alta qualidade que permitem LLMs interagirem com serviços externos." aria-describedby="sd-mcp-builder">mcp-builder<span class="visually-hidden" id="sd-mcp-builder">: Guia para criar servidores MCP (Model Context Protocol) de alta qualidade que permitem LLMs interagirem com serviços externos.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Ative Cache Components num app Next.js e resolva as rotas bloqueantes que ele revela." aria-describedby="sd-next-cache-components-adoption">next-cache-components-adoption<span class="visually-hidden" id="sd-next-cache-components-adoption">: Ative Cache Components num app Next.js e resolva as rotas bloqueantes que ele revela.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Leve uma rota Next.js à navegação instantânea configurando um loop agentic sob Cache Components / PPR." aria-describedby="sd-next-cache-components-optimizer">next-cache-components-optimizer<span class="visually-hidden" id="sd-next-cache-components-optimizer">: Leve uma rota Next.js à navegação instantânea configurando um loop agentic sob Cache Components / PPR.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Escrita" data-desc="Edite rascunhos para uma escrita mais afiada e humana preservando a voz do autor, ou detecte padrões de AI slop." aria-describedby="sd-no-ai-slop">no-ai-slop<span class="visually-hidden" id="sd-no-ai-slop">: Edite rascunhos para uma escrita mais afiada e humana preservando a voz do autor, ou detecte padrões de AI slop.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Skill de entrada única para setup do open-websearch e recuperação ao vivo focada, preferindo caminhos locais de CLI/daemon." aria-describedby="sd-open-websearch">open-websearch<span class="visually-hidden" id="sd-open-websearch">: Skill de entrada única para setup do open-websearch e recuperação ao vivo focada, preferindo caminhos locais de CLI/daemon.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Documentos" data-desc="Use esta skill sempre que o usuário quiser fazer qualquer coisa com arquivos PDF." aria-describedby="sd-pdf">pdf<span class="visually-hidden" id="sd-pdf">: Use esta skill sempre que o usuário quiser fazer qualquer coisa com arquivos PDF.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Escolha a biblioteca certa para uma tarefa de frontend a partir de uma lista curada e opinativa." aria-describedby="sd-pick-ui-library">pick-ui-library<span class="visually-hidden" id="sd-pick-ui-library">: Escolha a biblioteca certa para uma tarefa de frontend a partir de uma lista curada e opinativa.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Escreva testes Playwright, corrija testes flaky, depure falhas, implemente Page Object Model, configure CI/CD." aria-describedby="sd-playwright-best-practices">playwright-best-practices<span class="visually-hidden" id="sd-playwright-best-practices">: Escreva testes Playwright, corrija testes flaky, depure falhas, implemente Page Object Model, configure CI/CD.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Automatize interações de navegador, teste páginas web e trabalhe com testes Playwright." aria-describedby="sd-playwright-cli">playwright-cli<span class="visually-hidden" id="sd-playwright-cli">: Automatize interações de navegador, teste páginas web e trabalhe com testes Playwright.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Documentos" data-desc="Use esta skill sempre que um arquivo .pptx ou .potx estiver envolvido — como entrada, saída ou ambos." aria-describedby="sd-pptx">pptx<span class="visually-hidden" id="sd-pptx">: Use esta skill sempre que um arquivo .pptx ou .potx estiver envolvido — como entrada, saída ou ambos.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Construa várias versões genuinamente diferentes de uma peça de UI que você descreve, renderizadas atrás de um seletor visual." aria-describedby="sd-prototype">prototype<span class="visually-hidden" id="sd-prototype">: Construa várias versões genuinamente diferentes de uma peça de UI que você descreve, renderizadas atrás de um seletor visual.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Animações" data-desc="Revisa código de animação e movimento contra um alto padrão de craft derivado da filosofia de engenharia de design de Emil Kowalski." aria-describedby="sd-review-animations">review-animations<span class="visually-hidden" id="sd-review-animations">: Revisa código de animação e movimento contra um alto padrão de craft derivado da filosofia de engenharia de design de Emil Kowalski.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="Porta um app de Cloudflare Sandbox do estável @cloudflare/sandbox para @cloudflare/sandbox@next (prévia do Sandbox SDK 1.0)." aria-describedby="sd-sandbox-migrate-to-next">sandbox-migrate-to-next<span class="visually-hidden" id="sd-sandbox-migrate-to-next">: Porta um app de Cloudflare Sandbox do estável @cloudflare/sandbox para @cloudflare/sandbox@next (prévia do Sandbox SDK 1.0).</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="Construa ou mude apps de Cloudflare Sandbox em @cloudflare/sandbox@next (prévia do Sandbox SDK 1.0) — execução de código, AI runners, interpretadores." aria-describedby="sd-sandbox-next">sandbox-next<span class="visually-hidden" id="sd-sandbox-next">: Construa ou mude apps de Cloudflare Sandbox em @cloudflare/sandbox@next (prévia do Sandbox SDK 1.0) — execução de código, AI runners, interpretadores.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="Construa ou mude apps de Cloudflare Sandbox no pacote estável atual @cloudflare/sandbox (tag npm padrão)." aria-describedby="sd-sandbox-stable">sandbox-stable<span class="visually-hidden" id="sd-sandbox-stable">: Construa ou mude apps de Cloudflare Sandbox no pacote estável atual @cloudflare/sandbox (tag npm padrão).</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Gerencia componentes e projetos shadcn — adicionar, buscar, corrigir, depurar, estilizar e compor UI." aria-describedby="sd-shadcn">shadcn<span class="visually-hidden" id="sd-shadcn">: Gerencia componentes e projetos shadcn — adicionar, buscar, corrigir, depurar, estilizar e compor UI.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Recursos compartilhados usados pelas outras skills desta coleção." aria-describedby="sd-shared">shared<span class="visually-hidden" id="sd-shared">: Recursos compartilhados usados pelas outras skills desta coleção.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Crie novas skills, modifique e melhore skills existentes e meça a performance delas." aria-describedby="sd-skill-creator">skill-creator<span class="visually-hidden" id="sd-skill-creator">: Crie novas skills, modifique e melhore skills existentes e meça a performance delas.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Animações" data-desc="Conhecimento e utilitários para criar GIFs animados otimizados para o Slack." aria-describedby="sd-slack-gif-creator">slack-gif-creator<span class="visually-hidden" id="sd-slack-gif-creator">: Conhecimento e utilitários para criar GIFs animados otimizados para o Slack.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Use ao encontrar qualquer bug, falha de teste ou comportamento inesperado, antes de propor correções." aria-describedby="sd-systematic-debugging">systematic-debugging<span class="visually-hidden" id="sd-systematic-debugging">: Use ao encontrar qualquer bug, falha de teste ou comportamento inesperado, antes de propor correções.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Use ao implementar qualquer funcionalidade ou correção de bug, antes de escrever código de implementação." aria-describedby="sd-test-driven-development">test-driven-development<span class="visually-hidden" id="sd-test-driven-development">: Use ao implementar qualquer funcionalidade ou correção de bug, antes de escrever código de implementação.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Kit de ferramentas para estilizar artefatos com um tema." aria-describedby="sd-theme-factory">theme-factory<span class="visually-hidden" id="sd-theme-factory">: Kit de ferramentas para estilizar artefatos com um tema.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="Configure o Cloudflare Turnstile de ponta a ponta num projeto." aria-describedby="sd-turnstile-spin">turnstile-spin<span class="visually-hidden" id="sd-turnstile-spin">: Configure o Cloudflare Turnstile de ponta a ponta num projeto.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Inteligência de design UI/UX para web, mobile e desktop." aria-describedby="sd-ui-ux-pro-max">ui-ux-pro-max<span class="visually-hidden" id="sd-ui-ux-pro-max">: Inteligência de design UI/UX para web, mobile e desktop.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Responde &quot;qual destas?&quot; em vez de &quot;isso está certo?&quot;." aria-describedby="sd-variant">variant<span class="visually-hidden" id="sd-variant">: Responde &quot;qual destas?&quot; em vez de &quot;isso está certo?&quot;.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Padrões de composição React que escalam." aria-describedby="sd-vercel-composition-patterns">vercel-composition-patterns<span class="visually-hidden" id="sd-vercel-composition-patterns">: Padrões de composição React que escalam.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Diretrizes de otimização de performance para React e Next.js do Vercel Engineering." aria-describedby="sd-vercel-react-best-practices">vercel-react-best-practices<span class="visually-hidden" id="sd-vercel-react-best-practices">: Diretrizes de otimização de performance para React e Next.js do Vercel Engineering.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Use antes de afirmar que o trabalho está completo, corrigido ou passando — exige rodar comandos de verificação e confirmar a saída." aria-describedby="sd-verification-before-completion">verification-before-completion<span class="visually-hidden" id="sd-verification-before-completion">: Use antes de afirmar que o trabalho está completo, corrigido ou passando — exige rodar comandos de verificação e confirmar a saída.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Testes" data-desc="Kit de ferramentas para interagir e testar aplicações web locais usando Playwright." aria-describedby="sd-webapp-testing">webapp-testing<span class="visually-hidden" id="sd-webapp-testing">: Kit de ferramentas para interagir e testar aplicações web locais usando Playwright.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Suíte de ferramentas para criar artefatos HTML elaborados de múltiplos componentes para o claude.ai usando tecnologias frontend modernas." aria-describedby="sd-web-artifacts-builder">web-artifacts-builder<span class="visually-hidden" id="sd-web-artifacts-builder">: Suíte de ferramentas para criar artefatos HTML elaborados de múltiplos componentes para o claude.ai usando tecnologias frontend modernas.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Design UI" data-desc="Revisa código de UI para conformidade com as Web Interface Guidelines." aria-describedby="sd-web-design-guidelines">web-design-guidelines<span class="visually-hidden" id="sd-web-design-guidelines">: Revisa código de UI para conformidade com as Web Interface Guidelines.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Analisa performance web usando Chrome DevTools MCP." aria-describedby="sd-web-perf">web-perf<span class="visually-hidden" id="sd-web-perf">: Analisa performance web usando Chrome DevTools MCP.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="Revisa e produz código de Cloudflare Workers contra boas práticas de produção." aria-describedby="sd-workers-best-practices">workers-best-practices<span class="visually-hidden" id="sd-workers-best-practices">: Revisa e produz código de Cloudflare Workers contra boas práticas de produção.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Cloudflare" data-desc="CLI do Cloudflare Workers para deploy, desenvolvimento e gerenciamento de Workers, KV, R2, D1, Vectorize, Hyperdrive, Workers AI." aria-describedby="sd-wrangler">wrangler<span class="visually-hidden" id="sd-wrangler">: CLI do Cloudflare Workers para deploy, desenvolvimento e gerenciamento de Workers, KV, R2, D1, Vectorize, Hyperdrive, Workers AI.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Ferramentas" data-desc="Como escrever Swift moderno bem — value types, segurança de data-race do Swift 6 e concorrência acessível." aria-describedby="sd-write-swift">write-swift<span class="visually-hidden" id="sd-write-swift">: Como escrever Swift moderno bem — value types, segurança de data-race do Swift 6 e concorrência acessível.</span></li>
+                <li class="skill-card" tabindex="0" data-category="Documentos" data-desc="Use esta skill sempre que um arquivo de planilha for a entrada ou saída principal." aria-describedby="sd-xlsx">xlsx<span class="visually-hidden" id="sd-xlsx">: Use esta skill sempre que um arquivo de planilha for a entrada ou saída principal.</span></li>
+            </ul>
+            <p id="skills-empty" class="skills-empty" hidden>
+                Nenhuma skill encontrada. Tente outro termo
+                <button type="button" id="clear-filters" class="btn-gh">Limpar filtros</button>
+            </p>
+        </section>
+
+        <section id="plugins" class="reveal" aria-labelledby="plugins-heading">
+            <h2 id="plugins-heading">Plugins</h2>
+            <p>
+                O que o instalador registra em cada ferramenta.
+            </p>
+            <div class="plugin-groups">
+                <div class="plugin-group">
+                    <h3>Claude Code (11)</h3>
+                    <ul>
+                        <li><strong>superpowers</strong> — workflow completo: brainstorm → plan → TDD → review</li>
+                        <li><strong>frontend-design</strong> — UI distintiva, sem cara de AI slop</li>
+                        <li><strong>ponytail</strong> — respostas de código minimalistas</li>
+                        <li><strong>code-simplifier</strong> — simplifica código e reduz complexidade</li>
+                        <li><strong>security-guidance</strong> — revisão de segurança</li>
+                        <li><strong>code-review</strong> — revisão multi-agente antes do commit</li>
+                        <li><strong>commit-commands</strong> — commits convencionais</li>
+                        <li><strong>claude-mem</strong> — memória persistente entre sessões</li>
+                        <li><strong>figma</strong> — trabalhar com designs do Figma</li>
+                        <li><strong>context7</strong> — docs atualizadas das libs (MCP)</li>
+                        <li><strong>planning-with-files</strong> — planos em markdown que sobrevivem a /clear</li>
+                    </ul>
+                </div>
+                <div class="plugin-group">
+                    <h3>opencode (6)</h3>
+                    <ul>
+                        <li><strong>superpowers</strong> — workflow completo (git)</li>
+                        <li><strong>opencode-ponytail</strong> — princípio minimalista do ponytail</li>
+                        <li><strong>opencode-notify</strong> — notificações nativas ao fim de tarefas</li>
+                        <li><strong>opencode-worktree</strong> — git worktrees sem fricção</li>
+                        <li><strong>opencode-antigravity-auth</strong> — Gemini/Claude via login Google</li>
+                        <li><strong>claude-mem.js</strong> — adaptador do worker claude-mem</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="reveal" aria-labelledby="faq-heading">
+            <h2 id="faq-heading">Perguntas frequentes</h2>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary>Preciso instalar as três ferramentas? <i aria-hidden="true" class="ph ph-caret-down"></i></summary>
+                    <p>Não. O <code>scripts/install.ps1</code> instala tudo, mas cada pasta tem o próprio
+                        <code>install.ps1</code> — rode só o da ferramenta que você usa.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Meus dados são enviados para algum lugar? <i aria-hidden="true" class="ph ph-caret-down"></i></summary>
+                    <p>Não. O repositório é instalação somente: os scripts copiam arquivos para a sua máquina e nada
+                        do seu ambiente é enviado de volta.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Como atualizo depois de instalar? <i aria-hidden="true" class="ph ph-caret-down"></i></summary>
+                    <p>Rode <code>git pull</code> na pasta clonada e execute o instalador da ferramenta de novo — ele
+                        recopia skills e configurações atualizadas.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Sem Git na máquina? <i aria-hidden="true" class="ph ph-caret-down"></i></summary>
+                    <p>Use o botão <strong>Baixar ZIP</strong> no topo da página, extraia a pasta e rode o instalador
+                        como no passo 03.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Qual é a licença? <i aria-hidden="true" class="ph ph-caret-down"></i></summary>
+                    <p>O wrapper do repositório (scripts, docs, configurações) é MIT. As skills de terceiros dentro de
+                        <code>claude/skills/</code> pertencem aos seus autores e mantêm as próprias licenças.</p>
+                </details>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p class="footer-copy">© 2026 Diego <span style="margin: 0 0.5rem; opacity: 0.5;">|</span>
+            <a href="https://github.com/diego-ruas/maleta.dev/blob/main/LICENSE" target="_blank"
+                rel="noopener noreferrer">MIT</a>
+            <span style="margin: 0 0.5rem; opacity: 0.5;">|</span>
+            <span title="Este site foi codificado e otimizado com auxílio de Inteligência Artificial"
+                style="cursor: help;"><i aria-hidden="true" class="ph ph-sparkles"
+                    style="font-size: 0.85em; vertical-align: -1px; margin-right: 2px;"></i> Co-criado com IA</span>
+        </p>
+        <div class="footer-links">
+            <a href="https://github.com/diego-ruas/maleta.dev" target="_blank" rel="noopener noreferrer"
+                aria-label="GitHub">
+                <svg class="brand-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+        </div>
+    </footer>
+
+    <div id="global-toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="script.js?v=1.0"></script>
+</body>
+
+</html>
