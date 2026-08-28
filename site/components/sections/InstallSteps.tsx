@@ -16,8 +16,9 @@ export default function InstallSteps() {
         <a href="https://git-scm.com" target="_blank" rel="noopener noreferrer">
           Git
         </a>
-        . Não precisa de administrador. Prefere só algumas skills? Escolha
-        na <a href="#skills">seção Skills</a> antes de instalar.
+        . Não precisa de administrador. Se você personalizou sua seleção
+        na <a href="#skills">seção de Skills</a>, basta colocar o arquivo{" "}
+        <code>skills-selection.txt</code> baixado na pasta do repositório ou rodar o comando copiado.
       </p>
       <div className="process-grid">
         <div className="process-card">

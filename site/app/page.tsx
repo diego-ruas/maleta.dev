@@ -20,11 +20,11 @@ export default function Page() {
 
       <main id="main">
         <Hero />
-        <SecuritySection />
-        <InstallSteps />
         <ToolsGrid />
         <SkillsSection />
         <PluginsSection />
+        <InstallSteps />
+        <SecuritySection />
         <FaqSection />
       </main>
 

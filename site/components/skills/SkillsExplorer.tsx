@@ -242,6 +242,9 @@ export default function SkillsExplorer({ skills, categories }: SkillsExplorerPro
           <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
           <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
         </CopyButton>
+        <a href="#instalar" className="btn-gh selection-next-btn">
+          <span>Como instalar com seleção &darr;</span>
+        </a>
         <p className="selection-help">
           Baixe o arquivo e salve como <code>claude/skills-selection.txt</code> no repo clonado —
           tanto <code>claude/install.ps1</code> quanto <code>scripts/install.ps1</code> respeitam

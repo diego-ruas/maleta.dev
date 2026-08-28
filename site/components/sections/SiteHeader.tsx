@@ -4,16 +4,38 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const NAV_LINKS = [
-  { href: "#seguranca", label: "Segurança" },
-  { href: "#instalar", label: "Instalar" },
   { href: "#ferramentas", label: "O que tem" },
   { href: "#skills", label: "Skills" },
   { href: "#plugins", label: "Plugins" },
+  { href: "#instalar", label: "Instalar" },
+  { href: "#seguranca", label: "Segurança" },
   { href: "#faq", label: "FAQ" },
 ];
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
+
+  useEffect(() => {
+    const ids = NAV_LINKS.map((link) => link.href.replace("#", ""));
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 140;
+      for (let i = ids.length - 1; i >= 0; i--) {
+        const el = document.getElementById(ids[i]);
+        if (el && el.offsetTop <= scrollPosition) {
+          setActiveSection(ids[i]);
+          return;
+        }
+      }
+      if (window.scrollY < 200) {
+        setActiveSection("");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -34,11 +56,16 @@ export default function SiteHeader() {
 
       <nav aria-label="Navegação principal" className="nav-desktop">
         <ul className="nav-links">
-          {NAV_LINKS.map(({ href, label }) => (
-            <li key={href}>
-              <a href={href}>{label}</a>
-            </li>
-          ))}
+          {NAV_LINKS.map(({ href, label }) => {
+            const isActive = activeSection === href.replace("#", "");
+            return (
+              <li key={href}>
+                <a href={href} className={isActive ? "active" : ""}>
+                  {label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
 
@@ -61,13 +88,16 @@ export default function SiteHeader() {
         className={`mobile-menu${open ? " is-open" : ""}`}
       >
         <ul>
-          {NAV_LINKS.map(({ href, label }) => (
-            <li key={href}>
-              <a href={href} onClick={close}>
-                {label}
-              </a>
-            </li>
-          ))}
+          {NAV_LINKS.map(({ href, label }) => {
+            const isActive = activeSection === href.replace("#", "");
+            return (
+              <li key={href}>
+                <a href={href} className={isActive ? "active" : ""} onClick={close}>
+                  {label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </header>
