@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
+import { motion } from "motion/react";
 
 interface RevealProps {
   id: string;
@@ -11,35 +11,17 @@ interface RevealProps {
 }
 
 export default function Reveal({ id, className, ariaLabelledby, children }: RevealProps) {
-  const ref = useRef<HTMLElement>(null);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setRevealed(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section
+    <motion.section
       id={id}
-      ref={ref}
       aria-labelledby={ariaLabelledby}
-      className={revealed ? `${className ?? ""} revealed`.trim() : className}
+      className={className}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
-    </section>
+    </motion.section>
   );
 }

@@ -1,16 +1,4 @@
-.reveal {
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.25s ease,
-                transform 0.25s ease;
-}
-
-.reveal.revealed {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@media (max-width: 768px) {
+@media (prefers-reduced-motion: reduce) {
     .reveal {
         opacity: 1 !important;
         transform: none !important;

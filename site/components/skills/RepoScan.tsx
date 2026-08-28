@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { useToast } from "@/components/Toast";
 import type { CustomSkill } from "@/components/skills/SkillsExplorer";
 
@@ -109,25 +110,50 @@ export default function RepoScan({ existing, onAdd }: RepoScanProps) {
           />
         </div>
         <button type="button" id="repo-scan" className="btn-gh" disabled={scanning} onClick={scan}>
-          Escanear
+          {scanning ? "Escaneando…" : "Escanear"}
         </button>
       </div>
       <p id="repo-status" className={error ? "repo-status error" : "repo-status"} role="status" aria-live="polite">
         {status}
       </p>
-      <ul id="repo-results" className="repo-results" hidden={results.length === 0}>
-        {results.map((r) => (
-          <li key={`${r.repo}/${r.path}`} className="repo-result">
-            <span className="repo-result-name">{r.name}</span>
-            <span className="repo-result-repo">
-              {r.repo}/{r.path.replace(/\/SKILL\.md$/, "")}
-            </span>
-            <button type="button" className="btn-gh repo-result-add" onClick={() => addResult(r)}>
-              Adicionar
-            </button>
-          </li>
-        ))}
-      </ul>
+      <AnimatePresence>
+        {results.length > 0 && (
+          <motion.ul
+            id="repo-results"
+            className="repo-results"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={{
+              hidden: { opacity: 0, height: 0 },
+              visible: {
+                opacity: 1,
+                height: "auto",
+                transition: { staggerChildren: 0.05, duration: 0.2 },
+              },
+            }}
+          >
+            {results.map((r) => (
+              <motion.li
+                key={`${r.repo}/${r.path}`}
+                className="repo-result"
+                variants={{
+                  hidden: { opacity: 0, y: 6 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } },
+                }}
+              >
+                <span className="repo-result-name">{r.name}</span>
+                <span className="repo-result-repo">
+                  {r.repo}/{r.path.replace(/\/SKILL\.md$/, "")}
+                </span>
+                <button type="button" className="btn-gh repo-result-add" onClick={() => addResult(r)}>
+                  Adicionar
+                </button>
+              </motion.li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

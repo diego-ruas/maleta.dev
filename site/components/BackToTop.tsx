@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import { ArrowUpIcon } from "@/components/icons/arrow-up";
 
@@ -31,14 +32,23 @@ export default function BackToTop() {
   };
 
   return (
-    <button
-      type="button"
-      className={`back-to-top${visible ? " visible" : ""}`}
-      onClick={scrollToTop}
-      aria-label="Voltar ao topo"
-      tabIndex={visible ? 0 : -1}
-    >
-      <AnimatedIcon Icon={ArrowUpIcon} size={18} />
-    </button>
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          type="button"
+          className="back-to-top"
+          onClick={scrollToTop}
+          aria-label="Voltar ao topo"
+          initial={{ opacity: 0, scale: 0.8, y: 8 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8, y: 8 }}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <AnimatedIcon Icon={ArrowUpIcon} size={18} />
+        </motion.button>
+      )}
+    </AnimatePresence>
   );
 }
