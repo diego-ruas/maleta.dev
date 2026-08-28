@@ -1,8 +1,6 @@
 (function () {
     'use strict';
 
-    const REPO = 'https://github.com/diego-ruas/maleta.dev';
-
     // Toast
     let toast = document.getElementById('global-toast');
     if (!toast) {
@@ -144,13 +142,19 @@
         }
 
         let selected = new Set();
+        let hasSaved = false;
         try {
-            const saved = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
+            const raw = localStorage.getItem(STORE_KEY);
+            hasSaved = raw !== null;
+            const saved = JSON.parse(raw || '[]');
             if (Array.isArray(saved)) {
                 const valid = new Set(cards.map(cardName));
                 selected = new Set(saved.filter(n => valid.has(n)));
             }
         } catch (e) { /* ignore */ }
+        // Primeira visita: tudo marcado, espelhando o instalador. Uma selecao vazia
+        // ja salva ("Nenhum") e uma escolha e precisa sobreviver ao reload.
+        if (!hasSaved) cards.forEach(c => selected.add(cardName(c)));
 
         function persistSelection() {
             try { localStorage.setItem(STORE_KEY, JSON.stringify([...selected])); } catch (e) { }
@@ -196,8 +200,13 @@
         function setSelecting(on) {
             skillsGrid.classList.toggle('selecting', on);
             selectionControls.hidden = !on;
-            personalizeToggle.querySelector('span').textContent = on ? 'Fechar personalização' : 'Personalizar seleção';
-            cards.forEach(c => { c.tabIndex = on ? -1 : 0; });
+            personalizeToggle.querySelector('span').textContent = on ? 'Ver descrições' : 'Selecionar skills';
+            // No modo de selecao quem recebe foco e o checkbox; o card larga o role=button
+            // (foco dentro de um role=button e conteudo interativo invalido).
+            cards.forEach(c => {
+                c.tabIndex = on ? -1 : 0;
+                if (on) { c.removeAttribute('role'); } else { c.setAttribute('role', 'button'); }
+            });
             if (on) { renderChecks(); } else { removeChecks(); }
             updateSelectionCount();
         }
@@ -240,9 +249,12 @@
         copyBtn.addEventListener('click', () => {
             if (!selected.size) { showToast('Selecione ao menos uma skill', 'ph-warning'); return; }
             const list = [...selected].sort().map(n => "'" + n.replace(/'/g, "''") + "'").join(', ');
-            const cmd = '$s = @(' + list + '); New-Item -ItemType Directory "$env:USERPROFILE\\.claude\\skills" -Force | Out-Null; foreach ($n in $s) { Copy-Item ".\\claude\\skills\\$n" "$env:USERPROFILE\\.claude\\skills\\$n" -Recurse -Force }';
+            const cmd = '$s = @(' + list + '); foreach ($n in $s) { $d = "$env:USERPROFILE\\.claude\\skills\\$n"; New-Item -ItemType Directory $d -Force | Out-Null; Copy-Item ".\\claude\\skills\\$n\\*" $d -Recurse -Force }';
             copyText(cmd, copyBtn);
         });
+
+        // Selecao ligada por padrao; "Ver descrições" desliga e devolve o tooltip por toque
+        setSelecting(true);
 
         // Tooltip por toque nas skills (hover sozinho nao funciona no touch)
         function closeSkillTip() {
@@ -266,38 +278,6 @@
             if (!e.target.closest('.skills-grid')) closeSkillTip();
         });
     }
-
-    // Toggle de tema no fim da nav
-    const navLinks = document.querySelector('.nav-links');
-    if (navLinks) {
-        const toggleLi = document.createElement('li');
-        const themeToggle = document.createElement('button');
-        themeToggle.className = 'theme-toggle';
-        themeToggle.type = 'button';
-        const setIcon = () => {
-            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            const label = isLight ? 'Ativar tema escuro' : 'Ativar tema claro';
-            themeToggle.innerHTML = `<i aria-hidden="true" class="ph ${isLight ? 'ph-moon' : 'ph-sun'}"></i>`;
-            themeToggle.setAttribute('aria-label', label);
-            themeToggle.setAttribute('title', label);
-        };
-        setIcon();
-        themeToggle.addEventListener('click', () => {
-            const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
-            setIcon();
-        });
-        toggleLi.appendChild(themeToggle);
-        navLinks.appendChild(toggleLi);
-    }
-
-    // Highlight das palavras do hero
-    const highlights = document.querySelectorAll('.highlight-word');
-    highlights.forEach((el, i) => {
-        setTimeout(() => el.classList.add('active'), 400 + i * 600);
-        setTimeout(() => el.classList.remove('active'), 3400 + i * 600);
-    });
 
     // Scroll reveal
     if ('IntersectionObserver' in window) {

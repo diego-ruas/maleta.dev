@@ -37,7 +37,10 @@ if ($selected.Count -gt 0) {
     foreach ($s in $selected) {
         $src = Join-Path $srcSkills $s
         if (Test-Path -LiteralPath $src) {
-            Copy-Item -LiteralPath $src -Destination (Join-Path $dstSkills $s) -Recurse -Force
+            # robocopy, nao Copy-Item: com a pasta de destino ja existente o Copy-Item
+            # aninha (~/.claude/skills/<nome>/<nome>) na segunda execucao.
+            robocopy $src (Join-Path $dstSkills $s) /E /NFL /NDL /NJH /NJS /NC /NS /NP | Out-Null
+            if ($LASTEXITCODE -gt 7) { throw "robocopy skill '$s' failed (exit $LASTEXITCODE)" }
         } else {
             Write-Host "[warn] skill '$s' not found in repo, skipped"
         }
