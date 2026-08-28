@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import CopyButton from "@/components/CopyButton";
 import { useToast } from "@/components/Toast";
@@ -209,17 +208,8 @@ Write-Host "[maleta.dev] Instalando $($Skills.Count) skills selecionadas..." -Fo
               onClick={() => applyPreset(preset.id)}
               title={preset.description}
             >
-              {activePreset === preset.id && (
-                <motion.span
-                  layoutId="active-preset-indicator"
-                  className="preset-btn-indicator"
-                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                />
-              )}
-              <span className="preset-btn-label">
-                <span>{preset.name}</span>
-                <span className="preset-count">({preset.skills.length})</span>
-              </span>
+              <span>{preset.name}</span>
+              <span className="preset-count">({preset.skills.length})</span>
             </button>
           ))}
         </div>
@@ -257,16 +247,7 @@ Write-Host "[maleta.dev] Instalando $($Skills.Count) skills selecionadas..." -Fo
               aria-pressed={cat.key === activeCategory ? "true" : "false"}
               onClick={() => setActiveCategory(cat.key)}
             >
-              {cat.key === activeCategory && (
-                <motion.span
-                  layoutId="active-category-indicator"
-                  className="filter-btn-indicator"
-                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                />
-              )}
-              <span className="filter-btn-label">
-                {cat.label} <span className="filter-count">({categoryCounts[cat.key] ?? 0})</span>
-              </span>
+              {cat.label} <span className="filter-count">({categoryCounts[cat.key] ?? 0})</span>
             </button>
           ))}
         </div>
@@ -329,21 +310,19 @@ Write-Host "[maleta.dev] Instalando $($Skills.Count) skills selecionadas..." -Fo
         </p>
       </div>
       <RepoScan existing={customSkills} onAdd={addCustomSkill} />
-      <motion.div layout className="skills-grid" id="skills-grid" role="group" aria-labelledby="skills-heading">
-        <AnimatePresence mode="popLayout">
-          {visibleSkills.map((skill) => (
-            <SkillCard
-              key={skill.name}
-              skill={skill}
-              selecting={selecting}
-              selected={selected.has(skill.name)}
-              tipOpen={openTip === skill.name}
-              onToggleSelect={() => toggleSelect(skill.name)}
-              onToggleTip={() => toggleTip(skill.name)}
-            />
-          ))}
-        </AnimatePresence>
-      </motion.div>
+      <div className="skills-grid" id="skills-grid" role="group" aria-labelledby="skills-heading">
+        {visibleSkills.map((skill) => (
+          <SkillCard
+            key={skill.name}
+            skill={skill}
+            selecting={selecting}
+            selected={selected.has(skill.name)}
+            tipOpen={openTip === skill.name}
+            onToggleSelect={() => toggleSelect(skill.name)}
+            onToggleTip={() => toggleTip(skill.name)}
+          />
+        ))}
+      </div>
       <p id="skills-empty" className="skills-empty" hidden={visibleSkills.length !== 0}>
         {search.trim()
           ? `Nenhuma skill encontrada para "${search.trim()}".`

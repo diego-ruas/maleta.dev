@@ -484,8 +484,7 @@ section > p {
     font-size: var(--text-xs);
     padding: var(--space-half) var(--space-1);
     cursor: pointer;
-    overflow: hidden;
-    transition: border-color var(--transition-fast), color var(--transition-fast);
+    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
 }
 
 .oneliner-tab:hover {
@@ -495,21 +494,9 @@ section > p {
 
 .oneliner-tab.active {
     color: var(--color-void);
+    background: var(--color-accent);
     border-color: var(--color-accent);
     font-weight: var(--font-bold);
-}
-
-.oneliner-tab-indicator {
-    position: absolute;
-    inset: 0;
-    background: var(--color-accent);
-    border-radius: var(--radius-sm);
-    z-index: 0;
-}
-
-.oneliner-tab-label {
-    position: relative;
-    z-index: 1;
 }
 
 .terminal-cursor {
@@ -575,8 +562,7 @@ section > p {
     font-size: var(--text-xs);
     padding: var(--space-half) var(--space-1);
     cursor: pointer;
-    overflow: hidden;
-    transition: border-color var(--transition-fast), color var(--transition-fast);
+    transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
 }
 
 .preset-btn:hover {
@@ -585,25 +571,10 @@ section > p {
 }
 
 .preset-btn.active {
+    background: var(--color-accent);
     border-color: var(--color-accent);
     color: var(--color-void);
     font-weight: var(--font-bold);
-}
-
-.preset-btn-indicator {
-    position: absolute;
-    inset: 0;
-    background: var(--color-accent);
-    border-radius: var(--radius-sm);
-    z-index: 0;
-}
-
-.preset-btn-label {
-    position: relative;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-half);
 }
 
 .preset-btn .preset-count {
@@ -1290,13 +1261,17 @@ section > p {
     padding: var(--space-2);
     border-radius: var(--radius-sm);
     border: 1px solid var(--color-iron);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     font-weight: var(--font-regular);
+    line-height: 1.4;
     z-index: 9999;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    max-width: min(calc(100vw - 2rem), 480px);
+    width: max-content;
+    box-sizing: border-box;
 }
 
 /* Botão Voltar ao Topo */
@@ -1687,8 +1662,7 @@ footer {
     font-size: var(--text-xs);
     padding: var(--space-half) var(--space-1);
     cursor: pointer;
-    overflow: hidden;
-    transition: border-color var(--transition-fast), color var(--transition-fast);
+    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
     white-space: nowrap;
 }
 
@@ -1699,21 +1673,9 @@ footer {
 
 .filter-btn.active {
     color: var(--color-void);
+    background: var(--color-accent);
     border-color: var(--color-accent);
     font-weight: var(--font-bold);
-}
-
-.filter-btn-indicator {
-    position: absolute;
-    inset: 0;
-    background: var(--color-accent);
-    border-radius: var(--radius-sm);
-    z-index: 0;
-}
-
-.filter-btn-label {
-    position: relative;
-    z-index: 1;
 }
 
 /* Contagem de-emphasizada dentro dos chips de filtro (menor, sem perder contraste) */
