@@ -1,7 +1,6 @@
 "use client";
 
 import type { KeyboardEvent } from "react";
-import { motion } from "motion/react";
 
 export interface DisplaySkill {
   name: string;
@@ -37,12 +36,7 @@ export default function SkillCard({
   }
 
   return (
-    <motion.div
-      layout="position"
-      initial={{ opacity: 0, scale: 0.96 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.96 }}
-      transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+    <div
       className={[
         "skill-card",
         selecting && selected ? "selected" : "",
@@ -72,6 +66,6 @@ export default function SkillCard({
       <span className="visually-hidden" id={descId}>
         : {skill.description}
       </span>
-    </motion.div>
+    </div>
   );
 }

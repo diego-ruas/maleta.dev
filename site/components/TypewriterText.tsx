@@ -33,9 +33,10 @@ export default function TypewriterText({
     setDisplayed("");
     setComplete(false);
 
+    let interval: ReturnType<typeof setInterval> | undefined;
     const startTimeout = setTimeout(() => {
       let index = 0;
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         index++;
         setDisplayed(text.slice(0, index));
         if (index >= text.length) {
@@ -43,11 +44,12 @@ export default function TypewriterText({
           setComplete(true);
         }
       }, speed);
-
-      return () => clearInterval(interval);
     }, delay);
 
-    return () => clearTimeout(startTimeout);
+    return () => {
+      clearTimeout(startTimeout);
+      if (interval) clearInterval(interval);
+    };
   }, [text, speed, delay]);
 
   return (

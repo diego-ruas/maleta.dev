@@ -130,14 +130,7 @@ export default function Hero() {
               className={`oneliner-tab${targetTool === "all" ? " active" : ""}`}
               onClick={() => setTargetTool("all")}
             >
-              {targetTool === "all" && (
-                <motion.span
-                  layoutId="hero-oneliner-indicator"
-                  className="oneliner-tab-indicator"
-                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                />
-              )}
-              <span className="oneliner-tab-label">Tudo (Claude + opencode)</span>
+              <span>Tudo (Claude + opencode)</span>
             </button>
             <button
               type="button"
@@ -146,14 +139,7 @@ export default function Hero() {
               className={`oneliner-tab${targetTool === "claude" ? " active" : ""}`}
               onClick={() => setTargetTool("claude")}
             >
-              {targetTool === "claude" && (
-                <motion.span
-                  layoutId="hero-oneliner-indicator"
-                  className="oneliner-tab-indicator"
-                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                />
-              )}
-              <span className="oneliner-tab-label">Apenas Claude Code</span>
+              <span>Apenas Claude Code</span>
             </button>
             <button
               type="button"
@@ -162,26 +148,19 @@ export default function Hero() {
               className={`oneliner-tab${targetTool === "opencode" ? " active" : ""}`}
               onClick={() => setTargetTool("opencode")}
             >
-              {targetTool === "opencode" && (
-                <motion.span
-                  layoutId="hero-oneliner-indicator"
-                  className="oneliner-tab-indicator"
-                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                />
-              )}
-              <span className="oneliner-tab-label">Apenas opencode</span>
+              <span>Apenas opencode</span>
             </button>
           </div>
           <div className="cmd oneliner-cmd">
             <AnimatePresence mode="wait" initial={false}>
               <motion.code
                 key={targetTool}
-                initial={{ opacity: 0, y: 3 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -3 }}
-                transition={{ duration: 0.12 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
               >
-                <TypewriterText text={installCommand} speed={12} delay={10} cursor={false} />
+                {installCommand}
               </motion.code>
             </AnimatePresence>
             <CopyButton
