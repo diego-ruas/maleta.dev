@@ -8,26 +8,9 @@ import { CopyIcon } from "@/components/icons/copy";
 import { CheckIcon } from "@/components/icons/check";
 import { DownloadIcon } from "@/components/icons/download";
 import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
-import { SparklesIcon } from "@/components/icons/sparkles";
-import { PaletteIcon } from "@/components/icons/palette";
-import { AccessibilityIcon } from "@/components/icons/accessibility";
-import { ZapIcon } from "@/components/icons/zap";
-import { CloudLightningIcon } from "@/components/icons/cloud-lightning";
-import { FlaskIcon } from "@/components/icons/flask";
-import { FileTextIcon } from "@/components/icons/file-text";
 import SkillCard, { type DisplaySkill } from "@/components/skills/SkillCard";
 import RepoScan from "@/components/skills/RepoScan";
 import { type Skill, SKILL_PRESETS } from "@/lib/data";
-
-const PRESET_ICONS = {
-  sparkles: SparklesIcon,
-  palette: PaletteIcon,
-  accessibility: AccessibilityIcon,
-  zap: ZapIcon,
-  cloud: CloudLightningIcon,
-  flask: FlaskIcon,
-  "file-text": FileTextIcon,
-} as const;
 
 export interface CustomSkill {
   name: string;
@@ -215,27 +198,20 @@ Write-Host "[maleta.dev] Instalando $($Skills.Count) skills selecionadas..." -Fo
   return (
     <>
       <div className="skills-presets-wrap" role="group" aria-label="Presets recomendados">
-        <div className="presets-label">
-          <AnimatedIcon Icon={SparklesIcon} className="icon" size={14} />
-          <span>Presets recomendados:</span>
-        </div>
+        <span className="presets-label">Presets:</span>
         <div className="presets-list">
-          {SKILL_PRESETS.map((preset) => {
-            const PresetIconComponent = PRESET_ICONS[preset.icon];
-            return (
-              <button
-                key={preset.id}
-                type="button"
-                className={`preset-btn${activePreset === preset.id ? " active" : ""}`}
-                onClick={() => applyPreset(preset.id)}
-                title={preset.description}
-              >
-                <AnimatedIcon Icon={PresetIconComponent} className="icon" size={14} />
-                <span>{preset.name}</span>
-                <span className="preset-count">({preset.skills.length})</span>
-              </button>
-            );
-          })}
+          {SKILL_PRESETS.map((preset) => (
+            <button
+              key={preset.id}
+              type="button"
+              className={`preset-btn${activePreset === preset.id ? " active" : ""}`}
+              onClick={() => applyPreset(preset.id)}
+              title={preset.description}
+            >
+              <span>{preset.name}</span>
+              <span className="preset-count">({preset.skills.length})</span>
+            </button>
+          ))}
         </div>
       </div>
 

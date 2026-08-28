@@ -1,9 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import AnimatedIcon from "@/components/AnimatedIcon";
-import { FolderGit2Icon } from "@/components/icons/folder-git-2";
-import { PlusIcon } from "@/components/icons/plus";
 import { useToast } from "@/components/Toast";
 import type { CustomSkill } from "@/components/skills/SkillsExplorer";
 
@@ -112,8 +109,7 @@ export default function RepoScan({ existing, onAdd }: RepoScanProps) {
           />
         </div>
         <button type="button" id="repo-scan" className="btn-gh" disabled={scanning} onClick={scan}>
-          <span>Escanear</span>
-          <AnimatedIcon Icon={FolderGit2Icon} className="icon" size={16} />
+          Escanear
         </button>
       </div>
       <p id="repo-status" className={error ? "repo-status error" : "repo-status"} role="status" aria-live="polite">
@@ -127,8 +123,7 @@ export default function RepoScan({ existing, onAdd }: RepoScanProps) {
               {r.repo}/{r.path.replace(/\/SKILL\.md$/, "")}
             </span>
             <button type="button" className="btn-gh repo-result-add" onClick={() => addResult(r)}>
-              <span>Adicionar</span>
-              <AnimatedIcon Icon={PlusIcon} className="icon" size={14} />
+              Adicionar
             </button>
           </li>
         ))}

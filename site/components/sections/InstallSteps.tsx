@@ -6,8 +6,6 @@ import CopyButton from "@/components/CopyButton";
 import Reveal from "@/components/Reveal";
 import { CopyIcon } from "@/components/icons/copy";
 import { CheckIcon } from "@/components/icons/check";
-import { ZapIcon } from "@/components/icons/zap";
-import { FolderGit2Icon } from "@/components/icons/folder-git-2";
 
 export default function InstallSteps() {
   const [activeTab, setActiveTab] = useState<"express" | "manual">("express");
@@ -27,8 +25,7 @@ export default function InstallSteps() {
           className={`install-tab-btn${activeTab === "express" ? " active" : ""}`}
           onClick={() => setActiveTab("express")}
         >
-          <AnimatedIcon Icon={ZapIcon} className="icon" size={16} />
-          <span>Instalação Expressa (One-Liner)</span>
+          Instalação Expressa (One-Liner)
         </button>
         <button
           type="button"
@@ -37,8 +34,7 @@ export default function InstallSteps() {
           className={`install-tab-btn${activeTab === "manual" ? " active" : ""}`}
           onClick={() => setActiveTab("manual")}
         >
-          <AnimatedIcon Icon={FolderGit2Icon} className="icon" size={16} />
-          <span>Instalação Manual / Git Clone</span>
+          Instalação Manual / Git Clone
         </button>
       </div>
 

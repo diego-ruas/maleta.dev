@@ -32,7 +32,6 @@ export interface SkillPreset {
   id: string;
   name: string;
   badge: string;
-  icon: "sparkles" | "palette" | "accessibility" | "zap" | "cloud" | "flask" | "file-text";
   description: string;
   skills: string[];
 }
@@ -42,7 +41,6 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "essentials",
     name: "Essenciais",
     badge: "Recomendado",
-    icon: "sparkles",
     description: "TDD, testes, design anti-slop, debugging e coautoria de documentação.",
     skills: [
       "design-taste-frontend",
@@ -60,7 +58,6 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "frontend",
     name: "Frontend & UI/UX",
     badge: "UI/UX",
-    icon: "palette",
     description: "Design anti-slop, micro-interações, tipografia, cores e design systems.",
     skills: [
       "design-taste-frontend",
@@ -87,7 +84,6 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "a11y",
     name: "Acessibilidade",
     badge: "WCAG 2.2",
-    icon: "accessibility",
     description: "Auditoria, scan mecânico, diff de regressão e remediação acessível.",
     skills: [
       "accessibility-audit",
@@ -102,7 +98,6 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "nextjs",
     name: "Next.js & Vercel",
     badge: "Next.js",
-    icon: "zap",
     description: "Component cache, padrões de composição, performance e sandbox Next.",
     skills: [
       "next-cache-components-adoption",
@@ -117,7 +112,6 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "cloudflare",
     name: "Cloudflare & Edge",
     badge: "Edge & IA",
-    icon: "cloud",
     description: "Workers, Durable Objects, Agents SDK, Cloudflare One e Wrangler.",
     skills: [
       "cloudflare",
@@ -134,7 +128,6 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "testing",
     name: "Testes & Qualidade",
     badge: "Testes",
-    icon: "flask",
     description: "Playwright, TDD rigoroso, debugging sistemático e testes de regressão.",
     skills: [
       "test-driven-development",
@@ -151,7 +144,6 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "docs",
     name: "Documentos",
     badge: "Docs & Mídia",
-    icon: "file-text",
     description: "Manipulação de DOCX, XLSX, PDF, PPTX e comunicação interna.",
     skills: [
       "docx",

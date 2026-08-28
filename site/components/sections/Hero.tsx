@@ -7,8 +7,6 @@ import CopyButton from "@/components/CopyButton";
 import { DownloadIcon } from "@/components/icons/download";
 import { CopyIcon } from "@/components/icons/copy";
 import { CheckIcon } from "@/components/icons/check";
-import { TerminalIcon } from "@/components/icons/terminal";
-import { ShieldCheckIcon } from "@/components/icons/shield-check";
 import { SKILLS, PLUGIN_GROUPS } from "@/lib/data";
 
 type ToolTarget = "all" | "claude" | "opencode";
@@ -64,7 +62,9 @@ export default function Hero() {
             <span>opencode — {opencodePlugins} plugins + MCP</span>
           </div>
           <a href="#seguranca" className="intro-badge-item intro-badge-link" title="Ver relatório de auditoria de segurança">
-            <AnimatedIcon Icon={ShieldCheckIcon} className="icon" size={16} />
+            <svg className="brand-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+            </svg>
             <span>NVIDIA SkillSpector — 0 vulns / 100% auditado</span>
           </a>
         </div>
@@ -112,10 +112,9 @@ export default function Hero() {
               <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
             </CopyButton>
           </div>
-          <div className="oneliner-hint">
-            <AnimatedIcon Icon={TerminalIcon} className="icon oneliner-hint-icon" size={14} />
-            <span>Cole no PowerShell (nativo do Windows) e pressione Enter. Sem necessidade de admin ou git clone prévio.</span>
-          </div>
+          <p className="oneliner-hint">
+            Cole no PowerShell (nativo do Windows) e pressione Enter. Sem necessidade de admin ou git clone prévio.
+          </p>
         </div>
 
         <div className="intro-links">
