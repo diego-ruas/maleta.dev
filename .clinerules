@@ -1,0 +1,17 @@
+# Roo Code / Cline Rules — maleta.dev
+
+See [AGENTS.md](./AGENTS.md) for full project architecture, golden rules, and standard workflows.
+
+## Key Directives
+- **Project Structure**:
+  - `claude/`: Skills (`claude/skills/`), manifest configs, and installer.
+  - `opencode/`: Config, plugins, and installer.
+  - `antigravity/`: Antigravity configs and installer.
+  - `site/`: Next.js 15 static export (`output: 'export'`) deployed on Vercel.
+  - `scripts/install.ps1`: Multi-tool setup.
+- **Rules & Verification**:
+  - Zero private/secret data commits.
+  - Upstream skills in `claude/skills/` must remain untouched copies with licenses.
+  - Keep `site/lib/data.ts` in sync with skills/plugins catalog.
+  - Verify changes in `site/` with `npm run lint` and `npm run build`.
+  - PowerShell scripts must run on PowerShell 5.1.
