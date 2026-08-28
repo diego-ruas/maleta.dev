@@ -35,6 +35,7 @@
                 <li><a href="#instalar">Instalar</a></li>
                 <li><a href="#ferramentas">O que tem</a></li>
                 <li><a href="#skills">Skills</a></li>
+                <li><a href="#seguranca">Segurança</a></li>
                 <li><a href="#plugins">Plugins</a></li>
                 <li><a href="#faq">FAQ</a></li>
             </ul>
@@ -213,7 +214,13 @@
                     <button type="button" class="filter-btn" data-filter="Ferramentas" aria-pressed="false">Ferramentas <span class="filter-count">(16)</span></button>
                 </div>
             </div>
-            <p id="skills-count" class="skills-count" role="status" aria-live="polite">82 skills</p>
+            <div class="skills-meta-bar">
+                <p id="skills-count" class="skills-count" role="status" aria-live="polite">82 skills</p>
+                <a href="#seguranca" class="skills-audit-pill" title="Ver detalhes da auditoria SkillSpector">
+                    <i aria-hidden="true" class="ph ph-shield-check"></i>
+                    <span>100% auditadas com SkillSpector</span>
+                </a>
+            </div>
             <div id="selection-controls" class="selection-controls" hidden>
                 <span id="selection-count" class="selection-count" role="status" aria-live="polite">0 de 82 selecionadas</span>
                 <button type="button" id="select-all" class="btn-gh">Tudo</button>
@@ -323,6 +330,101 @@
             </p>
         </section>
 
+        <section id="seguranca" class="reveal" aria-labelledby="seguranca-heading">
+            <h2 id="seguranca-heading">Segurança & Auditoria</h2>
+            <p>
+                Todas as 82 skills passam por auditoria de segurança estática automatizada com o
+                <a href="https://github.com/diego-ruas/skillspector" target="_blank" rel="noopener noreferrer">SkillSpector</a>.
+                O scanner inspeciona prompts contra injeções ocultas, analisa AST de scripts auxiliares,
+                valida regras YARA e assegura o princípio do menor privilégio antes de qualquer instalação.
+            </p>
+
+            <div class="security-stats-grid">
+                <div class="security-stat-card">
+                    <span class="security-stat-value">82 / 82</span>
+                    <span class="security-stat-label">Skills Auditadas</span>
+                    <span class="security-stat-desc">100% da suíte inspecionada</span>
+                </div>
+                <div class="security-stat-card">
+                    <span class="security-stat-value highlight-num">0</span>
+                    <span class="security-stat-label">Vulnerabilidades Críticas</span>
+                    <span class="security-stat-desc">Sem backdoors ou exploits</span>
+                </div>
+                <div class="security-stat-card">
+                    <span class="security-stat-value highlight-num">0</span>
+                    <span class="security-stat-label">Injeções Ocultas</span>
+                    <span class="security-stat-desc">Sem bypass de diretrizes</span>
+                </div>
+                <div class="security-stat-card">
+                    <span class="security-stat-value">100%</span>
+                    <span class="security-stat-label">Fontes Oficiais Upstream</span>
+                    <span class="security-stat-desc">Anthropic, Cloudflare, Obra</span>
+                </div>
+            </div>
+
+            <div class="security-pillars-grid">
+                <div class="security-pillar-card">
+                    <div class="security-pillar-header">
+                        <span class="security-pillar-tag">CAMADA 01</span>
+                        <h3 class="security-pillar-title">Injeção de Prompt & Anti-Refusal</h3>
+                    </div>
+                    <p class="security-pillar-desc">
+                        Varredura de caracteres invisíveis, tags HTML ocultas, comentários e payloads que tentem manipular ou sobrescrever as diretrizes de segurança do modelo.
+                    </p>
+                </div>
+                <div class="security-pillar-card">
+                    <div class="security-pillar-header">
+                        <span class="security-pillar-tag">CAMADA 02</span>
+                        <h3 class="security-pillar-title">Menor Privilégio & MCP</h3>
+                    </div>
+                    <p class="security-pillar-desc">
+                        Proteção contra tool poisoning, abuso de ferramentas e conexões excessivas a servidores MCP fora do escopo funcional declarado da skill.
+                    </p>
+                </div>
+                <div class="security-pillar-card">
+                    <div class="security-pillar-header">
+                        <span class="security-pillar-tag">CAMADA 03</span>
+                        <h3 class="security-pillar-title">AST & Execução Segura</h3>
+                    </div>
+                    <p class="security-pillar-desc">
+                        Análise de sintaxe (AST) em scripts auxiliares TypeScript/Python, bloqueando chamadas arbitrárias de sistema e deserialização insegura.
+                    </p>
+                </div>
+                <div class="security-pillar-card">
+                    <div class="security-pillar-header">
+                        <span class="security-pillar-tag">CAMADA 04</span>
+                        <h3 class="security-pillar-title">Supply Chain & Lockfiles</h3>
+                    </div>
+                    <p class="security-pillar-desc">
+                        Auditoria de integridade de dependências upstream, garantindo que nenhum pacote corrompido ou não declarado seja executado na máquina local.
+                    </p>
+                </div>
+            </div>
+
+            <div class="security-report-card">
+                <div class="security-report-content">
+                    <span class="security-report-tag">RELATÓRIO COMPLETO</span>
+                    <h3 class="security-report-title">Relatório de Conformidade: SKILLSPECTOR_REPORT.md</h3>
+                    <p class="security-report-desc">
+                        Consulte a tabela detalhada com o resultado individual de cada uma das 82 skills na raiz do repositório ou reproduza a varredura na sua máquina:
+                    </p>
+                </div>
+                <div class="security-report-actions">
+                    <a href="https://github.com/diego-ruas/maleta.dev/blob/main/SKILLSPECTOR_REPORT.md" target="_blank"
+                        rel="noopener noreferrer" class="btn-gh">
+                        <span>Ver SKILLSPECTOR_REPORT.md</span>
+                        <i aria-hidden="true" class="ph ph-arrow-up-right"></i>
+                    </a>
+                    <div class="cmd">
+                        <code>skillspector scan claude/skills -r --no-llm</code>
+                        <button type="button" class="cmd-copy" aria-label="Copiar comando de auditoria SkillSpector" title="Copiar comando">
+                            <i aria-hidden="true" class="ph ph-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="plugins" class="reveal" aria-labelledby="plugins-heading">
             <h2 id="plugins-heading">Plugins</h2>
             <p>
@@ -367,6 +469,14 @@
                     <p>Não. O <code>scripts/install.ps1</code> instala tudo, mas cada pasta tem o próprio
                         <code>install.ps1</code> — rode só o da ferramenta que você usa. O repo também tem uma pasta
                         <code>antigravity/</code>, mas ela é um placeholder: hoje o instalador dela não copia nada.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>As skills são seguras? Como são auditadas? <i aria-hidden="true" class="ph ph-caret-down"></i></summary>
+                    <p>Sim. Todas as 82 skills são provenientes de repositórios upstream oficiais ou de alta reputação
+                        (Anthropic, Cloudflare, Obra/Superpowers, Emil Kowalski, Shadcn, Vercel) e passam por auditoria
+                        automatizada com o <strong>SkillSpector</strong>, scanner de segurança especializado para agentes de IA
+                        que inspeciona injeções de prompt, regras YARA, integridade de AST e permissões MCP. O relatório detalhado
+                        de conformidade está disponível em <code>SKILLSPECTOR_REPORT.md</code> na raiz do repositório.</p>
                 </details>
                 <details class="faq-item">
                     <summary>Meus dados são enviados para algum lugar? <i aria-hidden="true" class="ph ph-caret-down"></i></summary>
