@@ -1,14 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { ToastProvider } from "@/components/Toast";
 import "../css/base.css";
 import "../css/site.css";
 import "../css/transitions.css";
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-jetbrains-mono",
+const departureMono = localFont({
+  src: "./fonts/DepartureMono-Regular.woff2",
+  variable: "--font-departure-mono",
   display: "swap",
 });
 
@@ -53,7 +52,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={jetbrainsMono.variable}>
+    <html lang="pt-BR" className={departureMono.variable}>
       <body>
         <ToastProvider>{children}</ToastProvider>
       </body>

@@ -412,13 +412,18 @@ section > p {
     flex-shrink: 0;
 }
 
-/* Icones animados (lucide-animated) — wrappers inline, herdam currentColor */
+/* Icones animados (pixelarticons) — wrappers inline, herdam currentColor */
 .icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     line-height: 0;
+}
+
+.icon svg,
+.ai-host svg {
+    shape-rendering: crispEdges;
 }
 
 /* Wrapper do AnimatedItem: delega o hover do pai (botao/ancora) para a animacao */

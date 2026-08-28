@@ -6,12 +6,8 @@ function Svg({ children }: { children: ReactNode }) {
   return (
     <svg
       aria-hidden="true"
-      fill="none"
+      fill="currentColor"
       height={20}
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.5"
       viewBox="0 0 24 24"
       width={20}
       xmlns="http://www.w3.org/2000/svg"
@@ -26,42 +22,33 @@ export default function ToastIcon({ variant }: { variant: ToastVariant }) {
     case "clipboard":
       return (
         <Svg>
-          <rect x="8" y="2" width="8" height="4" rx="1" />
-          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-          <line x1="8" y1="11" x2="16" y2="11" />
-          <line x1="8" y1="15" x2="14" y2="15" />
+          <path d="M8 6h12v2H8zM4 2h12v2H4zm2 6h2v12H6zM2 4h2v12H2zm6 16h12v2H8zM20 8h2v12h-2zm-4-4h2v2h-2zM4 16h2v2H4z" />
         </Svg>
       );
     case "warning":
       return (
         <Svg>
-          <path d="M12 3 2 20h20L12 3Z" />
-          <line x1="12" y1="10" x2="12" y2="14" />
-          <line x1="12" y1="17" x2="12" y2="17" />
+          <path d="M4 2h16v2H4zm0 18h16v2H4zM20 4h2v16h-2zM2 4h2v16H2zm9 2h2v8h-2zm0 10h2v2h-2z" />
         </Svg>
       );
     case "download":
       return (
         <Svg>
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-          <polyline points="7 10 12 15 17 10" />
-          <line x1="12" y1="15" x2="12" y2="3" />
+          <path d="M21 15v4h-2v-4zm-2 4v2H5v-2zM5 15v4H3v-4zm8-12v14h-2V3z" />
+          <path d="M7 11v2h10v-2zm2 2v2h2v-2zm4 0v2h2v-2zm2-2v2h2v-2z" />
         </Svg>
       );
     case "plus":
       return (
         <Svg>
-          <circle cx="12" cy="12" r="9" />
-          <line x1="12" y1="8" x2="12" y2="16" />
-          <line x1="8" y1="12" x2="16" y2="12" />
+          <path d="M13 11h7v2h-7v7h-2v-7H4v-2h7V4h2v7Z" />
         </Svg>
       );
     case "check":
     default:
       return (
         <Svg>
-          <circle cx="12" cy="12" r="9" />
-          <path d="M8 12.5 10.8 15.3 16 9" />
+          <path d="M10 18H8v-2h2v2Zm-2-2H6v-2h2v2Zm4-2v2h-2v-2h2Zm-6 0H4v-2h2v2Zm8 0h-2v-2h2v2Zm2-2h-2v-2h2v2Zm2-2h-2V8h2v2Zm2-2h-2V6h2v2Z" />
         </Svg>
       );
   }

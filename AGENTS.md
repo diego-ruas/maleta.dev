@@ -34,9 +34,9 @@ on Vercel. It is deployed, not installed.
    (`sync.ps1`, `autosync.ps1`): they would push personal data into a public repo.
 7. **Never commit site build artifacts.** `site/.gitignore` excludes
    `node_modules/`, `.next/`, `out/` and `next-env.d.ts` — keep it that way.
-8. **Animated icons are upstream copies.** `site/components/icons/*.tsx` come
-   from [lucide-animated](https://lucide-animated.com) (MIT), same policy as
-   skills: fetch from upstream, don't hand-edit or personalize them.
+8. **Animated icons are Pixelarticons.** `site/components/icons/*.tsx` come
+   from [Pixelarticons](https://pixelarticons.com) (MIT), animated with step-timing
+   micro-interactions. Keep them pixel-grid aligned and consistent.
 
 ## Common tasks
 
@@ -94,12 +94,10 @@ npm run lint       # ESLint check — must pass with 0 errors
 npm run build      # static export to out/ — must pass before claiming done
 ```
 
-- `app/layout.tsx` — head/metadata, self-hosted JetBrains Mono via `next/font/google`, Phosphor CDN (toasts), global CSS.
+- `app/layout.tsx` — head/metadata, Departure Mono via `next/font/local`, Phosphor CDN (toasts), global CSS.
 - `app/page.tsx` — landing page (server component) rendering data-driven sections from `lib/data.ts`.
 - `lib/data.ts` — structured, typed catalogue of all skills, categories, and plugin manifests.
-- `components/icons/*.tsx` — lucide-animated icons (rule 8). MIT, fetched from
-  `https://lucide-animated.com/r/<name>.json` (`files[0].content` is the file;
-  it imports the `cn` helper from `site/lib/utils.ts`).
+- `components/icons/*.tsx` — Pixelarticons (rule 8). MIT, animated with `motion/react` stepped transitions.
 - `components/AnimatedIcon.tsx` — client wrapper: delegates hover from the
   parent button/link to the icon (`startAnimation`/`stopAnimation`). Use it for
   every icon placed inside an interactive element.

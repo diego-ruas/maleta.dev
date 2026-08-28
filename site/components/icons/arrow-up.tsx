@@ -16,29 +16,19 @@ interface ArrowUpIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
-const PATH_VARIANTS: Variants = {
-  normal: { d: "m5 12 7-7 7 7", translateY: 0 },
+const ARROW_VARIANTS: Variants = {
+  normal: { y: 0 },
   animate: {
-    d: "m5 12 7-7 7 7",
-    translateY: [0, 3, 0],
+    y: [0, -3, -3, 0],
     transition: {
-      duration: 0.4,
-    },
-  },
-};
-
-const SECOND_PATH_VARIANTS: Variants = {
-  normal: { d: "M12 19V5" },
-  animate: {
-    d: ["M12 19V5", "M12 19V10", "M12 19V5"],
-    transition: {
-      duration: 0.4,
+      duration: 0.35,
+      ease: "linear",
     },
   },
 };
 
 const ArrowUpIcon = forwardRef<ArrowUpIconHandle, ArrowUpIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+  ({ onMouseEnter, onMouseLeave, className, size = 20, ...props }, ref) => {
     const controls = useAnimation();
     const isControlledRef = useRef(false);
 
@@ -81,26 +71,15 @@ const ArrowUpIcon = forwardRef<ArrowUpIconHandle, ArrowUpIconProps>(
         {...props}
       >
         <svg
-          fill="none"
+          fill="currentColor"
           height={size}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <motion.path
-            animate={controls}
-            d="m5 12 7-7 7 7"
-            variants={PATH_VARIANTS}
-          />
-          <motion.path
-            animate={controls}
-            d="M12 19V5"
-            variants={SECOND_PATH_VARIANTS}
-          />
+          <motion.g animate={controls} variants={ARROW_VARIANTS}>
+            <path d="M11 20h2V4h-2zm2-12h2V6h-2zm2 2h2V8h-2zm2 2h2v-2h-2zm-6-4H9V6h2zM15 10H7V8h8zm2 2H5v-2h12z" />
+          </motion.g>
         </svg>
       </div>
     );

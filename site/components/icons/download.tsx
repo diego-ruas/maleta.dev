@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
@@ -19,18 +19,16 @@ interface DownloadIconProps extends HTMLAttributes<HTMLDivElement> {
 const ARROW_VARIANTS: Variants = {
   normal: { y: 0 },
   animate: {
-    y: 2,
+    y: [0, 3, 3, 0],
     transition: {
-      type: "spring",
-      stiffness: 200,
-      damping: 10,
-      mass: 1,
+      duration: 0.35,
+      ease: "linear",
     },
   },
 };
 
 const DownloadIcon = forwardRef<DownloadIconHandle, DownloadIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+  ({ onMouseEnter, onMouseLeave, className, size = 20, ...props }, ref) => {
     const controls = useAnimation();
     const isControlledRef = useRef(false);
 
@@ -73,20 +71,15 @@ const DownloadIcon = forwardRef<DownloadIconHandle, DownloadIconProps>(
         {...props}
       >
         <svg
-          fill="none"
+          fill="currentColor"
           height={size}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1.5"
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <path d="M21 15v4h-2v-4zm-2 4v2H5v-2zM5 15v4H3v-4z" />
           <motion.g animate={controls} variants={ARROW_VARIANTS}>
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" x2="12" y1="15" y2="3" />
+            <path d="M13 3v14h-2V3zm-6 8v2h10v-2zm2 2v2h2v-2zm4 0v2h2v-2zm2-2v2h2v-2z" />
           </motion.g>
         </svg>
       </div>
