@@ -8,6 +8,10 @@ A public, install-only collection of AI tooling: skills, plugins and configurati
 for **Claude Code** (`claude/`), **opencode** (`opencode/`) and **Antigravity**
 (`antigravity/`). Clone it and run the installers; nothing is synced back here.
 
+The `site/` folder is the exception: it is the public website (maleta.dev) — a
+Next.js app (App Router, TypeScript, `output: 'export'`) served as static HTML
+on Vercel. It is deployed, not installed.
+
 ## Golden rules (do not violate)
 
 1. **NEVER commit private data.** Excluded by `.gitignore`, but stay vigilant:
@@ -28,6 +32,11 @@ for **Claude Code** (`claude/`), **opencode** (`opencode/`) and **Antigravity**
    their own subfolder.
 6. **This repo is install-only.** Do not reintroduce local→repo backup scripts
    (`sync.ps1`, `autosync.ps1`): they would push personal data into a public repo.
+7. **Never commit site build artifacts.** `site/.gitignore` excludes
+   `node_modules/`, `.next/`, `out/` and `next-env.d.ts` — keep it that way.
+8. **Animated icons are upstream copies.** `site/components/icons/*.tsx` come
+   from [lucide-animated](https://lucide-animated.com) (MIT), same policy as
+   skills: fetch from upstream, don't hand-edit or personalize them.
 
 ## Common tasks
 
@@ -72,9 +81,38 @@ Claude plugins are installed from their marketplaces via
 - opencode: edit `opencode/AGENTS.md`; Claude Code: edit `claude/CLAUDE.md`.
 - Run the respective `install.ps1` locally to apply, then commit.
 
+### Work on the website (`site/`)
+
+Next.js App Router (TypeScript, `output: 'export'`), no CSS framework — plain
+stylesheets in `site/css/`. Deploy is automatic on Vercel.
+
+```powershell
+cd site
+npm install        # once
+npm run dev        # http://localhost:3000
+npm run lint       # ESLint check — must pass with 0 errors
+npm run build      # static export to out/ — must pass before claiming done
+```
+
+- `app/layout.tsx` — head/metadata, self-hosted JetBrains Mono via `next/font/google`, Phosphor CDN (toasts), global CSS.
+- `app/page.tsx` — landing page (server component) rendering data-driven sections from `lib/data.ts`.
+- `lib/data.ts` — structured, typed catalogue of all skills, categories, and plugin manifests.
+- `components/icons/*.tsx` — lucide-animated icons (rule 8). MIT, fetched from
+  `https://lucide-animated.com/r/<name>.json` (`files[0].content` is the file;
+  it imports the `cn` helper from `site/lib/utils.ts`).
+- `components/AnimatedIcon.tsx` — client wrapper: delegates hover from the
+  parent button/link to the icon (`startAnimation`/`stopAnimation`). Use it for
+  every icon placed inside an interactive element.
+- `public/script.js` — vanilla JS: skill filter/selection, copy buttons, repo
+  scan, toasts, scroll reveal. Copy feedback toggles a `.copied` class on the
+  button; CSS swaps `icon-copy` → `icon-check`.
+- `css/` — `base.css` (tokens), `site.css` (components), `transitions.css`.
+- `DESIGN.md` — Axiom design system; keep visual changes compliant.
+
 ## Verification before claiming success
 
 - After any change: `git status` and `git diff --stat` to confirm scope.
+- After changes to `site/`: `npm run lint` and `npm run build` inside `site/` must pass.
 - Confirm no private paths appear in `git ls-files`.
 - Do not claim "done" until the relevant command actually ran and produced output.
 

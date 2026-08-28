@@ -134,7 +134,7 @@ section > p {
 .hero-prompt {
     display: block;
     font-size: var(--text-xs);
-    color: var(--color-steel);
+    color: var(--fg-muted);
     margin-bottom: var(--space-1);
 }
 
@@ -179,20 +179,20 @@ section > p {
 
 .intro h1 {
     font-size: var(--text-4xl);
-    line-height: 1.25;
+    line-height: 1.45;
     font-weight: var(--font-regular);
     color: var(--fg);
     margin-bottom: var(--space-2);
     letter-spacing: normal;
-    max-width: 22ch;
+    max-width: 32ch;
 }
 
 .intro p {
     font-size: var(--text-base);
     color: var(--fg-muted);
     margin-bottom: var(--space-3);
-    line-height: 1.71;
-    max-width: 52ch;
+    line-height: 2;
+    max-width: 64ch;
 }
 
 .intro-highlights {
@@ -272,6 +272,42 @@ section > p {
     display: inline-block;
     vertical-align: -0.125em;
     flex-shrink: 0;
+}
+
+/* Icones animados (lucide-animated) — wrappers inline, herdam currentColor */
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+/* Wrapper do AnimatedItem: delega o hover do pai (botao/ancora) para a animacao */
+.ai-host {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+/* Feedback de copia: alterna Copy -> Check via classe .copied no botao */
+.icon-check {
+    display: none;
+}
+
+.copied .icon-copy {
+    display: none;
+}
+
+.copied .icon-check {
+    display: inline-flex;
+}
+
+.footer-sparkle {
+    vertical-align: -2px;
+    margin-right: 2px;
 }
 
 /* Botoes (components.css) */
@@ -363,7 +399,7 @@ section > p {
 .process-num {
     font-size: var(--text-xs);
     font-weight: var(--font-regular);
-    color: var(--color-steel);
+    color: var(--fg-muted);
     line-height: 1;
     flex-shrink: 0;
     min-width: 2rem;
@@ -521,7 +557,7 @@ section > p {
     justify-content: center;
     gap: var(--space-1);
     cursor: pointer;
-    transition: all var(--transition-normal);
+    transition: background var(--transition-normal), border-color var(--transition-normal);
     font-family: inherit;
 }
 
@@ -628,20 +664,14 @@ section > p {
     padding-bottom: var(--space-1);
 }
 
-/* Estado por simbolo mono, nao por icone colorido */
-.faq-item summary i {
-    display: none;
-}
-
-.faq-item summary::after {
-    content: '+';
-    flex-shrink: 0;
+/* Indicador animado: chevron rotaciona ao abrir */
+.faq-caret {
     color: var(--color-steel);
-    font-weight: var(--font-regular);
+    transition: transform var(--transition-slow), color var(--transition-fast);
 }
 
-.faq-item[open] summary::after {
-    content: '\2212';
+.faq-item[open] .faq-caret {
+    transform: rotate(180deg);
     color: var(--fg);
 }
 
@@ -678,7 +708,7 @@ section > p {
     z-index: 9999;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -700,6 +730,11 @@ footer {
     align-items: center;
     flex-wrap: wrap;
     gap: var(--space-2);
+}
+
+.footer-sep {
+    margin: 0 0.5rem;
+    opacity: 0.5;
 }
 
 .footer-copy {
@@ -777,6 +812,7 @@ footer {
 .skills-grid.selecting .skill-card {
     cursor: pointer;
     padding-right: var(--space-3);
+    padding-left: var(--space-3);
 }
 
 .skills-grid.selecting .skill-card:not(.selected) {
@@ -872,7 +908,7 @@ footer {
     border-radius: var(--radius-sm);
     color: var(--fg);
     font-family: inherit;
-    font-size: var(--text-base);
+    font-size: var(--text-lg);
     padding: var(--space-1) var(--space-2);
     min-height: 40px;
     transition: border-color var(--transition-fast);
@@ -885,6 +921,83 @@ footer {
 .skills-search-wrap input:focus {
     outline: none;
     border-color: var(--fg);
+}
+
+/* Adicionar skills de repos do GitHub */
+.repo-add {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-graphite);
+    border: 1px solid var(--color-iron);
+    border-left: 2px solid var(--color-steel);
+    border-radius: var(--radius-sm);
+}
+
+.repo-add-form {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.repo-status {
+    font-size: var(--text-xs);
+    color: var(--fg-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.repo-status.error {
+    color: var(--color-accent);
+}
+
+.repo-results {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-half);
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.repo-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    background: var(--color-carbon);
+    border: 1px solid var(--color-iron);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+}
+
+.repo-result-name {
+    font-family: var(--font-mono);
+    color: var(--fg);
+    flex-shrink: 0;
+}
+
+.repo-result-repo {
+    font-size: var(--text-xs);
+    color: var(--fg-faint);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: auto;
+}
+
+.repo-result-add {
+    flex-shrink: 0;
+    padding: 4px var(--space-1);
+    min-height: 28px;
+    font-size: var(--text-xs);
 }
 
 .skills-count {
@@ -1027,7 +1140,7 @@ footer {
     visibility: visible;
 }
 
-.skill-card:hover {
+.skill-card:hover:not(.selected) {
     color: var(--fg);
     border-color: var(--color-slate);
 }

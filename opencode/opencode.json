@@ -1,13 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": [
-    "opencode-ponytail",
-    "superpowers@git+https://github.com/obra/superpowers.git",
-    "opencode-notify",
-    "opencode-worktree",
-    "opencode-antigravity-auth",
-    "./plugins/claude-mem.js"
-  ],
   "model": "lmstudio/qwen2.5-coder-7b-instruct",
   "small_model": "lmstudio/google/gemma-4-e4b",
   "provider": {

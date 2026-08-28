@@ -23,9 +23,9 @@ maleta.dev/
 │   ├── opencode.json    # provider local (LM Studio) + modelo padrão
 │   ├── AGENTS.md        # regras globais do opencode
 │   ├── plugins/         # claude-mem.js (adaptador do claude-mem)
-│   ├── package.json     # @opencode-ai/plugin (dev de plugins)
 │   └── install.ps1
 ├── antigravity/         # placeholder (install.ps1 + README.md)
+├── site/                # website público (Next.js, deploy na Vercel)
 ├── scripts/
 │   └── install.ps1      # instala Claude + opencode + Antigravity de uma vez
 ├── docs/TOOL-MATRIX.md  # como cada asset mapeia para cada tool

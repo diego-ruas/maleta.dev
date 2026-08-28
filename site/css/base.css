@@ -31,7 +31,7 @@
     --color-info: #3b82f6;
 
     /* Tipografia — mono universal, sem fallback proporcional */
-    --font-sans: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-sans: var(--font-jetbrains-mono, 'JetBrains Mono'), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     --font-mono: var(--font-sans);
 
     --text-xs: 0.75rem;    /* 12px */

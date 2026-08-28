@@ -34,6 +34,13 @@ if (Test-Path -LiteralPath $selectionFile) {
         ForEach-Object { $_.Trim() })
 }
 if ($selected.Count -gt 0) {
+    # shared/ nao e skill (sem SKILL.md) mas e referencia interna de outras
+    # skills (../shared/methodology.md) — copia sempre, fora da selecao.
+    $sharedSrc = Join-Path $srcSkills 'shared'
+    if (Test-Path -LiteralPath $sharedSrc) {
+        robocopy $sharedSrc (Join-Path $dstSkills 'shared') /E /NFL /NDL /NJH /NJS /NC /NS /NP | Out-Null
+        if ($LASTEXITCODE -gt 7) { throw "robocopy shared failed (exit $LASTEXITCODE)" }
+    }
     foreach ($s in $selected) {
         $src = Join-Path $srcSkills $s
         if (Test-Path -LiteralPath $src) {
@@ -105,6 +112,7 @@ foreach ($mp in $marketplaces.marketplaces) {
     $repo = $mp.source.repo
     Write-Host "[..] adding marketplace '$($mp.id)' from $repo"
     claude plugin marketplace add $repo 2>&1 | Out-Host
+    if ($LASTEXITCODE -ne 0) { throw "claude plugin marketplace add '$($mp.id)' failed (exit $LASTEXITCODE)" }
 }
 
 # --- 4. Plugins ---
@@ -112,6 +120,7 @@ $plugins = Get-Content -LiteralPath (Join-Path $srcClaude 'plugins\plugins.json'
 foreach ($p in $plugins.plugins) {
     Write-Host "[..] installing plugin '$($p.id)'"
     claude plugin install $p.id 2>&1 | Out-Host
+    if ($LASTEXITCODE -ne 0) { throw "claude plugin install '$($p.id)' failed (exit $LASTEXITCODE)" }
 }
 
 # --- 5. MCP servers (user scope; deep-merged into ~/.claude.json, repo wins per server) ---
