@@ -13,7 +13,7 @@ const departureMono = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://maleta.dev"),
-  title: "Maleta.dev — baixe e instale skills, plugins e configs de IA",
+  title: "Maleta.dev — skills e plugins de IA",
   description:
     "Coleção curada e instalável de skills, plugins e configurações de IA para Claude Code e opencode. Clone, rode o instalador e pronto.",
   alternates: {
@@ -44,6 +44,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
   themeColor: "#000000",
   colorScheme: "dark",
 };
