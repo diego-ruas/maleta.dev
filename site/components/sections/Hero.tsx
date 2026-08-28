@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "motion/react";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import CopyButton from "@/components/CopyButton";
+import TypewriterText from "@/components/TypewriterText";
+import DecryptedText from "@/components/DecryptedText";
 import { DownloadIcon } from "@/components/icons/download";
 import { CopyIcon } from "@/components/icons/copy";
 import { CheckIcon } from "@/components/icons/check";
@@ -27,28 +30,70 @@ export default function Hero() {
     <section className="intro">
       <div className="intro-mascot">
         <div className="mascot-backdrop"></div>
-        <Image
-          src="/logo.png"
-          alt="Mascote da Maleta.dev"
-          width={512}
-          height={512}
-          className="mascot-img"
-          priority
-        />
+        <motion.div
+          className="mascot-motion-wrap"
+          animate={{ y: [0, -6, 0] }}
+          transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
+        >
+          <Image
+            src="/logo.png"
+            alt="Mascote da Maleta.dev"
+            width={512}
+            height={512}
+            className="mascot-img"
+            priority
+          />
+        </motion.div>
       </div>
-      <div className="intro-copy">
-        <span className="hero-prompt" aria-hidden="true">
-          ~/maleta.dev
-        </span>
-        <h1>
+      <motion.div
+        className="intro-copy"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+          },
+        }}
+      >
+        <motion.span
+          className="hero-prompt"
+          aria-hidden="true"
+          variants={{
+            hidden: { opacity: 0, y: 6 },
+            visible: { opacity: 1, y: 0 },
+          }}
+        >
+          <TypewriterText text="~/maleta.dev" speed={25} delay={80} />
+        </motion.span>
+        <motion.h1
+          variants={{
+            hidden: { opacity: 0, y: 8 },
+            visible: { opacity: 1, y: 0 },
+          }}
+        >
           Skills, plugins e configs de IA{" "}
-          <span className="highlight-word">prontos para instalar</span>
-        </h1>
-        <p>
+          <span className="highlight-word">
+            <DecryptedText text="prontos para instalar" speed={30} maxIterations={10} />
+          </span>
+        </motion.h1>
+        <motion.p
+          variants={{
+            hidden: { opacity: 0, y: 8 },
+            visible: { opacity: 1, y: 0 },
+          }}
+        >
           Coleção curada para <span className="highlight-word">Claude Code</span> e{" "}
           <span className="highlight-word">opencode</span>. Instale tudo em 1 comando no PowerShell sem precisar clonar repositório, ou customize sua seleção abaixo.
-        </p>
-        <div className="intro-highlights">
+        </motion.p>
+        <motion.div
+          className="intro-highlights"
+          variants={{
+            hidden: { opacity: 0, y: 8 },
+            visible: { opacity: 1, y: 0 },
+          }}
+        >
           <div className="intro-badge-item">
             <svg className="brand-icon" aria-hidden="true" viewBox="0 0 24 24">
               <path d="M21 10.5h3v3h-3v3h-1.5v3H18v-3h-1.5v3H15v-3H9v3H7.5v-3H6v3H4.5v-3H3v-3H0v-3h3v-6h18Zm-15 0h1.5v-3H6Zm10.5 0H18v-3h-1.5z" />
@@ -67,10 +112,16 @@ export default function Hero() {
             </svg>
             <span>NVIDIA SkillSpector — 0 vulns / 100% auditado</span>
           </a>
-        </div>
+        </motion.div>
 
         {/* One-Liner Quick Installer Box */}
-        <div className="hero-oneliner-box">
+        <motion.div
+          className="hero-oneliner-box"
+          variants={{
+            hidden: { opacity: 0, y: 8 },
+            visible: { opacity: 1, y: 0 },
+          }}
+        >
           <div className="oneliner-tabs" role="tablist" aria-label="Selecione a ferramenta para instalar">
             <button
               type="button"
@@ -79,7 +130,14 @@ export default function Hero() {
               className={`oneliner-tab${targetTool === "all" ? " active" : ""}`}
               onClick={() => setTargetTool("all")}
             >
-              Tudo (Claude + opencode)
+              {targetTool === "all" && (
+                <motion.span
+                  layoutId="hero-oneliner-indicator"
+                  className="oneliner-tab-indicator"
+                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                />
+              )}
+              <span className="oneliner-tab-label">Tudo (Claude + opencode)</span>
             </button>
             <button
               type="button"
@@ -88,7 +146,14 @@ export default function Hero() {
               className={`oneliner-tab${targetTool === "claude" ? " active" : ""}`}
               onClick={() => setTargetTool("claude")}
             >
-              Apenas Claude Code
+              {targetTool === "claude" && (
+                <motion.span
+                  layoutId="hero-oneliner-indicator"
+                  className="oneliner-tab-indicator"
+                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                />
+              )}
+              <span className="oneliner-tab-label">Apenas Claude Code</span>
             </button>
             <button
               type="button"
@@ -97,11 +162,28 @@ export default function Hero() {
               className={`oneliner-tab${targetTool === "opencode" ? " active" : ""}`}
               onClick={() => setTargetTool("opencode")}
             >
-              Apenas opencode
+              {targetTool === "opencode" && (
+                <motion.span
+                  layoutId="hero-oneliner-indicator"
+                  className="oneliner-tab-indicator"
+                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                />
+              )}
+              <span className="oneliner-tab-label">Apenas opencode</span>
             </button>
           </div>
           <div className="cmd oneliner-cmd">
-            <code>{installCommand}</code>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.code
+                key={targetTool}
+                initial={{ opacity: 0, y: 3 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -3 }}
+                transition={{ duration: 0.12 }}
+              >
+                <TypewriterText text={installCommand} speed={12} delay={10} cursor={false} />
+              </motion.code>
+            </AnimatePresence>
             <CopyButton
               className="cmd-copy"
               text={installCommand}
@@ -115,9 +197,15 @@ export default function Hero() {
           <p className="oneliner-hint">
             Cole no PowerShell (nativo do Windows) e pressione Enter. Sem necessidade de admin ou git clone prévio.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="intro-links">
+        <motion.div
+          className="intro-links"
+          variants={{
+            hidden: { opacity: 0, y: 8 },
+            visible: { opacity: 1, y: 0 },
+          }}
+        >
           <div className="intro-actions">
             <a href="#skills" className="btn-gh">
               <span>Personalizar skills &darr;</span>
@@ -144,8 +232,8 @@ export default function Hero() {
               </svg>
             </a>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

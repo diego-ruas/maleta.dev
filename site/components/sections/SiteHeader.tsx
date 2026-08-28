@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { motion } from "motion/react";
 
 const NAV_LINKS = [
   { href: "#ferramentas", label: "O que tem" },
@@ -49,7 +50,11 @@ export default function SiteHeader() {
   const close = () => setOpen(false);
 
   return (
-    <header>
+    <motion.header
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+    >
       <Link href="/" className="site-name" aria-current="page" onClick={close}>
         <span>Maleta.dev</span>
       </Link>
@@ -100,6 +105,6 @@ export default function SiteHeader() {
           })}
         </ul>
       </nav>
-    </header>
+    </motion.header>
   );
 }
