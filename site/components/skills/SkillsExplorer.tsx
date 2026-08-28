@@ -10,7 +10,7 @@ import { DownloadIcon } from "@/components/icons/download";
 import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import SkillCard, { type DisplaySkill } from "@/components/skills/SkillCard";
 import RepoScan from "@/components/skills/RepoScan";
-import type { Skill } from "@/lib/data";
+import { type Skill, SKILL_PRESETS } from "@/lib/data";
 
 export interface CustomSkill {
   name: string;
@@ -144,26 +144,51 @@ export default function SkillsExplorer({ skills, categories }: SkillsExplorerPro
     }
   }
 
-  function downloadSelection() {
-    const content =
-      "# Maleta.dev — skills selecionadas\n# Salve como claude/skills-selection.txt no repo clonado e rode claude/install.ps1\n" +
-      [...selected].sort().join("\n");
-    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const [activePreset, setActivePreset] = useState<string | null>(null);
+
+  function applyPreset(presetId: string) {
+    const preset = SKILL_PRESETS.find((p) => p.id === presetId);
+    if (!preset) return;
+    const validNames = new Set(mergedSkills.map((s) => s.name));
+    const next = new Set(preset.skills.filter((name) => validNames.has(name)));
+    setActivePreset(presetId);
+    persistSelected(next);
+    showToast(`Preset "${preset.name}" selecionado (${next.size} skills)`, "check");
+  }
+
+  function downloadScript() {
+    const list = [...selected].sort().map((n) => `'${n.replace(/'/g, "''")}'`).join(",\n    ");
+    const scriptContent = `<#
+  Maleta.dev — Instalador de Skills Customizado
+  Execute no PowerShell (sem necessidade de admin ou git clone previo):
+#>
+$ErrorActionPreference = 'Stop'
+$Skills = @(
+    ${list}
+)
+Write-Host "[maleta.dev] Instalando $($Skills.Count) skills selecionadas..." -ForegroundColor Cyan
+& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills $Skills
+`;
+    const blob = new Blob([scriptContent], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "skills-selection.txt";
+    a.download = "instalar-skills.ps1";
     document.body.appendChild(a);
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
-    showToast("skills-selection.txt baixado", "download");
+    showToast("instalar-skills.ps1 baixado! Basta executar no PowerShell.", "download");
   }
 
   const installCommand = useMemo(() => {
+    if (selected.size === 0) return "# Selecione ao menos uma skill";
+    if (selected.size === mergedSkills.length && customSkills.length === 0) {
+      return "irm https://maleta.dev/install.ps1 | iex";
+    }
     const list = [...selected].sort().map((n) => `'${n.replace(/'/g, "''")}'`).join(", ");
-    return `$s = @(${list}); foreach ($n in $s) { $d = "$env:USERPROFILE\\.claude\\skills\\$n"; New-Item -ItemType Directory $d -Force | Out-Null; Copy-Item ".\\claude\\skills\\$n\\*" $d -Recurse -Force }`;
-  }, [selected]);
+    return `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills @(${list})`;
+  }, [selected, mergedSkills.length, customSkills.length]);
 
   const allChips = useMemo(
     () => (customSkills.length > 0 ? [...categories, { label: "Externas", key: EXTERNAL_CATEGORY }] : categories),
@@ -172,6 +197,24 @@ export default function SkillsExplorer({ skills, categories }: SkillsExplorerPro
 
   return (
     <>
+      <div className="skills-presets-wrap" role="group" aria-label="Presets recomendados">
+        <span className="presets-label">Presets:</span>
+        <div className="presets-list">
+          {SKILL_PRESETS.map((preset) => (
+            <button
+              key={preset.id}
+              type="button"
+              className={`preset-btn${activePreset === preset.id ? " active" : ""}`}
+              onClick={() => applyPreset(preset.id)}
+              title={preset.description}
+            >
+              <span>{preset.name}</span>
+              <span className="preset-count">({preset.skills.length})</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="skills-toolbar">
         <div className="skills-toolbar-row">
           <div className="skills-search-wrap">
@@ -216,20 +259,37 @@ export default function SkillsExplorer({ skills, categories }: SkillsExplorerPro
         <span id="selection-count" className="selection-count" role="status" aria-live="polite">
           {selected.size} de {mergedSkills.length} selecionadas
         </span>
-        <button type="button" id="select-all" className="btn-gh" onClick={selectAll}>
+        <button
+          type="button"
+          id="select-all"
+          className="btn-gh"
+          onClick={() => {
+            setActivePreset(null);
+            selectAll();
+          }}
+        >
           Tudo
         </button>
-        <button type="button" id="select-none" className="btn-gh" onClick={selectNone}>
+        <button
+          type="button"
+          id="select-none"
+          className="btn-gh"
+          onClick={() => {
+            setActivePreset(null);
+            selectNone();
+          }}
+        >
           Nenhum
         </button>
         <button
           type="button"
-          id="download-selection"
+          id="download-script"
           className="btn-gh"
           disabled={selected.size === 0}
-          onClick={downloadSelection}
+          onClick={downloadScript}
+          title="Baixar instalador .ps1 autônomo com sua seleção"
         >
-          <span>Baixar skills-selection.txt</span>
+          <span>Baixar instalar.ps1</span>
           <AnimatedIcon Icon={DownloadIcon} className="icon" size={16} />
         </button>
         <CopyButton
@@ -238,19 +298,15 @@ export default function SkillsExplorer({ skills, categories }: SkillsExplorerPro
           text={installCommand}
           disabled={selected.size === 0}
         >
-          <span>Copiar comando</span>
+          <span>Copiar comando One-Liner</span>
           <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
           <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
         </CopyButton>
         <a href="#instalar" className="btn-gh selection-next-btn">
-          <span>Como instalar com seleção &darr;</span>
+          <span>Ver instruções de instalação &darr;</span>
         </a>
         <p className="selection-help">
-          Baixe o arquivo e salve como <code>claude/skills-selection.txt</code> no repo clonado —
-          tanto <code>claude/install.ps1</code> quanto <code>scripts/install.ps1</code> respeitam
-          esse arquivo e instalam só as marcadas. Apague o arquivo para voltar a instalar as{" "}
-          {skills.length}. Ou cole o comando e copie as selecionadas agora, direto da pasta
-          clonada.
+          Cole o comando One-Liner diretamente no seu PowerShell para instalar sua seleção sem precisar clonar o repositório. Ou clique em <strong>Baixar instalar.ps1</strong> para executar localmente.
         </p>
       </div>
       <RepoScan existing={customSkills} onAdd={addCustomSkill} />

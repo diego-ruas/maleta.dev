@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import CopyButton from "@/components/CopyButton";
@@ -8,9 +9,19 @@ import { CopyIcon } from "@/components/icons/copy";
 import { CheckIcon } from "@/components/icons/check";
 import { SKILLS, PLUGIN_GROUPS } from "@/lib/data";
 
+type ToolTarget = "all" | "claude" | "opencode";
+
 export default function Hero() {
+  const [targetTool, setTargetTool] = useState<ToolTarget>("all");
   const claudeCodePlugins = PLUGIN_GROUPS.find((g) => g.tool === "Claude Code")!.items.length;
   const opencodePlugins = PLUGIN_GROUPS.find((g) => g.tool === "opencode")!.items.length;
+
+  const installCommand =
+    targetTool === "all"
+      ? "irm https://maleta.dev/install.ps1 | iex"
+      : targetTool === "claude"
+      ? "& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude"
+      : "& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools opencode";
 
   return (
     <section className="intro">
@@ -34,11 +45,8 @@ export default function Hero() {
           <span className="highlight-word">prontos para instalar</span>
         </h1>
         <p>
-          Coleção curada e instalável para{" "}
-          <span className="highlight-word">Claude Code</span> e{" "}
-          <span className="highlight-word">opencode</span>. É instalação
-          somente: clona, roda o instalador e o ambiente é reproduzido na
-          sua máquina. Nada do seu ambiente volta para cá.
+          Coleção curada para <span className="highlight-word">Claude Code</span> e{" "}
+          <span className="highlight-word">opencode</span>. Instale tudo em 1 comando no PowerShell sem precisar clonar repositório, ou customize sua seleção abaixo.
         </p>
         <div className="intro-highlights">
           <div className="intro-badge-item">
@@ -60,8 +68,60 @@ export default function Hero() {
             <span>NVIDIA SkillSpector — 0 vulns / 100% auditado</span>
           </a>
         </div>
+
+        {/* One-Liner Quick Installer Box */}
+        <div className="hero-oneliner-box">
+          <div className="oneliner-tabs" role="tablist" aria-label="Selecione a ferramenta para instalar">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={targetTool === "all"}
+              className={`oneliner-tab${targetTool === "all" ? " active" : ""}`}
+              onClick={() => setTargetTool("all")}
+            >
+              Tudo (Claude + opencode)
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={targetTool === "claude"}
+              className={`oneliner-tab${targetTool === "claude" ? " active" : ""}`}
+              onClick={() => setTargetTool("claude")}
+            >
+              Apenas Claude Code
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={targetTool === "opencode"}
+              className={`oneliner-tab${targetTool === "opencode" ? " active" : ""}`}
+              onClick={() => setTargetTool("opencode")}
+            >
+              Apenas opencode
+            </button>
+          </div>
+          <div className="cmd oneliner-cmd">
+            <code>{installCommand}</code>
+            <CopyButton
+              className="cmd-copy"
+              text={installCommand}
+              aria-label="Copiar comando de instalação expressa"
+              title="Copiar comando"
+            >
+              <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
+              <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
+            </CopyButton>
+          </div>
+          <p className="oneliner-hint">
+            Cole no PowerShell (nativo do Windows) e pressione Enter. Sem necessidade de admin ou git clone prévio.
+          </p>
+        </div>
+
         <div className="intro-links">
           <div className="intro-actions">
+            <a href="#skills" className="btn-gh">
+              <span>Personalizar skills &darr;</span>
+            </a>
             <a
               href="https://github.com/diego-ruas/maleta.dev/archive/refs/heads/main.zip"
               className="btn-gh"
@@ -70,14 +130,6 @@ export default function Hero() {
               <span>Baixar ZIP</span>
               <AnimatedIcon Icon={DownloadIcon} className="icon" size={16} />
             </a>
-            <CopyButton
-              className="btn-primary"
-              text="git clone https://github.com/diego-ruas/maleta.dev.git"
-            >
-              <span>Copiar git clone</span>
-              <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
-              <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
-            </CopyButton>
           </div>
           <div className="intro-socials">
             <a
@@ -92,12 +144,6 @@ export default function Hero() {
               </svg>
             </a>
           </div>
-        </div>
-        <div className="hero-custom-track">
-          <span className="hero-track-hint">Prefere escolher o que instalar?</span>
-          <a href="#skills" className="hero-track-link">
-            Personalizar catálogo de skills &darr;
-          </a>
         </div>
       </div>
     </section>
