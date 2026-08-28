@@ -9,6 +9,9 @@ export default function SiteHeader() {
       <nav aria-label="Navegação principal">
         <ul className="nav-links">
           <li>
+            <a href="#seguranca">Segurança</a>
+          </li>
+          <li>
             <a href="#instalar">Instalar</a>
           </li>
           <li>

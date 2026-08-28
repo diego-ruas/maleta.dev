@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import CopyButton from "@/components/CopyButton";
 import { DownloadIcon } from "@/components/icons/download";
+import { CopyIcon } from "@/components/icons/copy";
+import { CheckIcon } from "@/components/icons/check";
 import { SKILLS, PLUGIN_GROUPS } from "@/lib/data";
 
 export default function Hero() {
@@ -49,6 +53,12 @@ export default function Hero() {
             </svg>
             <span>opencode — {opencodePlugins} plugins + MCP</span>
           </div>
+          <div className="intro-badge-item">
+            <svg className="brand-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+            </svg>
+            <span>NVIDIA SkillSpector — 0 vulns / 100% auditado</span>
+          </div>
         </div>
         <div className="intro-links">
           <div className="intro-actions">
@@ -65,7 +75,8 @@ export default function Hero() {
               text="git clone https://github.com/diego-ruas/maleta.dev.git"
             >
               <span>Copiar git clone</span>
-              <span aria-hidden="true">&rarr;</span>
+              <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
+              <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
             </CopyButton>
           </div>
           <div className="intro-socials">

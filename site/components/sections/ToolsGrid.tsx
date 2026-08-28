@@ -1,3 +1,5 @@
+"use client";
+
 import AnimatedIcon from "@/components/AnimatedIcon";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRightIcon } from "@/components/icons/arrow-up-right";

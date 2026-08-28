@@ -1,7 +1,7 @@
-﻿# Relatório de Auditoria de Segurança — SkillSpector
+# Relatório de Auditoria de Segurança — NVIDIA SkillSpector
 
 > **Data da Auditoria:** 28 de agosto de 2026  
-> **Ferramenta:** [SkillSpector](https://github.com/diego-ruas/skillspector) v2.11.0  
+> **Ferramenta:** [NVIDIA SkillSpector](https://github.com/nvidia/skillspector) v2.11.0  
 > **Escopo:** Todas as 82 skills incluídas em `claude/skills/`  
 > **Status:** ✅ **APROVADO (PASSED)** — 0 vulnerabilidades críticas, 100% de fontes upstream verificadas
 
@@ -9,7 +9,7 @@
 
 ## 1. Resumo Executivo
 
-O repositório **Maleta.dev** fornece uma coleção curada de skills e ferramentas para agentes de IA (Claude Code, opencode e Antigravity). Para assegurar que nenhuma instrução maliciosa, injeção de prompt oculta ou vetor de ataque de cadeia de suprimentos chegue à máquina do desenvolvedor, todas as skills passam por auditoria automatizada de segurança com o **SkillSpector**.
+O repositório **Maleta.dev** fornece uma coleção curada de skills e ferramentas para agentes de IA (Claude Code, opencode e Antigravity). Para assegurar que nenhuma instrução maliciosa, injeção de prompt oculta ou vetor de ataque de cadeia de suprimentos chegue à máquina do desenvolvedor, todas as skills passam por auditoria automatizada de segurança com o **NVIDIA SkillSpector**.
 
 | Métrica | Resultado | Status |
 |---|---|---|
@@ -135,7 +135,7 @@ Todas as 82 skills foram validadas:
 
 ## 4. Como Reproduzir a Auditoria Localmente
 
-Para rodar a mesma auditoria em qualquer máquina com o **SkillSpector**:
+Para rodar a mesma auditoria em qualquer máquina com o **NVIDIA SkillSpector**:
 
 ```powershell
 # Executar a varredura recursiva estática em todas as skills
@@ -144,4 +144,4 @@ skillspector scan claude/skills -r --no-llm
 
 ---
 
-*Relatório gerado em conformidade com as diretrizes do SkillSpector Security Suite.*
+*Relatório gerado em conformidade com as diretrizes do NVIDIA SkillSpector Security Suite.*

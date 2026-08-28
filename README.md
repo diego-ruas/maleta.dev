@@ -130,10 +130,10 @@ Instalado por padrão no **Claude Code** (plugin `claude-mem@thedotmack`) e no
 
 > Ao adicionar uma skill de terceiros, mantenha os arquivos de licença originais da skill.
 
-## Segurança (SkillSpector)
+## Segurança (NVIDIA SkillSpector)
 
 Todas as 82 skills passam por auditoria de segurança estática automatizada com o
-[SkillSpector](https://github.com/diego-ruas/skillspector), cobrindo:
+[NVIDIA SkillSpector](https://github.com/nvidia/skillspector), cobrindo:
 - **Injeções de Prompt & Anti-Refusal:** Detecção de caracteres ocultos, tags e instruções maliciosas.
 - **Menor Privilégio & MCP:** Proteção contra tool poisoning e conexões não autorizadas.
 - **AST & Scripts:** Verificação de segurança estrutural de scripts TypeScript/Python.

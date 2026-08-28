@@ -1,3 +1,5 @@
+"use client";
+
 import AnimatedIcon from "@/components/AnimatedIcon";
 import CopyButton from "@/components/CopyButton";
 import Reveal from "@/components/Reveal";
