@@ -8,7 +8,7 @@ html {
 }
 
 body {
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 /* Links em texto corrido — contraste adequado no tema escuro */
@@ -37,13 +37,18 @@ main > * {
 }
 
 header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--space-8);
     flex-wrap: wrap;
     gap: var(--space-3);
-    padding-bottom: var(--space-2);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
     border-bottom: 1px solid var(--color-iron);
 }
 
@@ -147,6 +152,7 @@ nav {
 .mobile-menu.is-open {
     max-height: 480px;
     opacity: 1;
+    border: 1px solid var(--border-light);
 }
 
 .mobile-menu ul {
@@ -175,7 +181,7 @@ nav {
 
 section {
     margin-bottom: var(--space-8);
-    scroll-margin-top: var(--space-4);
+    scroll-margin-top: 5rem;
 }
 
 h2 {
@@ -974,7 +980,7 @@ section > p {
     color: var(--fg-muted);
     cursor: pointer;
     opacity: 0;
-    visibility: hidden;
+    pointer-events: none;
     transform: translateY(8px);
     transition: opacity 0.2s ease, transform 0.2s ease, background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
     z-index: 90;
@@ -983,7 +989,7 @@ section > p {
 
 .back-to-top.visible {
     opacity: 1;
-    visibility: visible;
+    pointer-events: auto;
     transform: translateY(0);
 }
 
@@ -1529,7 +1535,8 @@ footer {
         justify-content: space-between;
         margin-bottom: var(--space-5);
         gap: var(--space-3);
-        position: relative;
+        padding-top: var(--space-2);
+        padding-bottom: var(--space-2);
     }
 
     .nav-desktop {
@@ -1684,7 +1691,7 @@ footer {
     }
 
     body {
-        padding: var(--space-5) var(--space-3);
+        padding: 0 var(--space-3) var(--space-5);
     }
 }
 
