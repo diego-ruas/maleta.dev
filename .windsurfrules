@@ -1,0 +1,12 @@
+# Windsurf Rules — maleta.dev
+
+See [AGENTS.md](./AGENTS.md) for full project architecture, golden rules, and standard workflows.
+
+## Key Instructions
+- **Project Scope**: Curated AI tooling for Claude Code (`claude/`), opencode (`opencode/`), Antigravity (`antigravity/`), and Next.js website (`site/`).
+- **Inviolable Constraints**:
+  - Never commit private data, API keys, credentials, or sessions (`.claude-mem/`, `.env*`).
+  - Never customize third-party skills in `claude/skills/` directly. Keep upstream licenses intact.
+  - Install-only: no backup/autosync scripts pushing local states to git.
+  - Always verify `site/` with `npm run lint` and `npm run build`.
+  - Scripts must be Windows PowerShell 5.1 compatible.

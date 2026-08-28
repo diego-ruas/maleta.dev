@@ -1,0 +1,9 @@
+# robots.txt for maleta.dev
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://maleta.dev/sitemap.xml
+
+# LLM Crawler & Agent Guidance
+# https://maleta.dev/llms.txt

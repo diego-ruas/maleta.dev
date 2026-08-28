@@ -28,7 +28,7 @@ on Vercel. It is deployed, not installed.
    opencode config (`opencode.jsonc`) only lists plugin references — no provider
    credentials — keep it that way.
 5. **Do not add new files to the repo root** unless they belong there
-   (README, LICENSE, AGENTS.md, .gitignore, docs/). Tool-specific assets go in
+   (README, LICENSE, AGENTS.md, CLAUDE.md, .cursorrules, .windsurfrules, .clinerules, .gitignore, docs/, SKILLSPECTOR_REPORT.md). Tool-specific assets go in
    their own subfolder.
 6. **This repo is install-only.** Do not reintroduce local→repo backup scripts
    (`sync.ps1`, `autosync.ps1`): they would push personal data into a public repo.
@@ -38,13 +38,28 @@ on Vercel. It is deployed, not installed.
    from [Pixelarticons](https://pixelarticons.com) (MIT), animated with step-timing
    micro-interactions. Keep them pixel-grid aligned and consistent.
 
+## Multi-Agent Entry Points
+
+This repository provides native entry point configurations so that any LLM/agent instantly loads repository rules:
+- **Codex / opencode / Devin / Antigravity / Gemini / Zed**: Reads [`AGENTS.md`](./AGENTS.md) directly.
+- **Claude Code**: Reads [`CLAUDE.md`](./CLAUDE.md) at root (references `AGENTS.md`).
+- **Cursor IDE**: Reads [`.cursorrules`](./.cursorrules).
+- **Windsurf (Codeium)**: Reads [`.windsurfrules`](./.windsurfrules).
+- **Roo Code / Cline**: Reads [`.clinerules`](./.clinerules).
+- **GitHub Copilot**: Reads [`.github/copilot-instructions.md`](./.github/copilot-instructions.md).
+
 ## Common tasks
 
 ### Install the whole environment on a machine
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/install.ps1
-```
+- **One-liner (remote/web):**
+  ```powershell
+  irm https://maleta.dev/install.ps1 | iex
+  ```
+- **Local clone:**
+  ```powershell
+  powershell -ExecutionPolicy Bypass -File scripts/install.ps1
+  ```
 
 Or per tool: `claude/install.ps1`, `opencode/install.ps1`, `antigravity/install.ps1`.
 Claude plugins are installed from their marketplaces via
@@ -55,20 +70,23 @@ Claude plugins are installed from their marketplaces via
 1. Get the skill from its upstream source (e.g. `anthropics/skills`,
    `cloudflare/skills`, `obra/superpowers`) — the folder must contain a `SKILL.md`.
 2. Copy it into `claude/skills/<name>/`, keeping any `LICENSE*` files.
-3. Commit only the intended changes.
+3. Update `site/lib/data.ts` so the website catalogue reflects the new skill.
+4. Commit only the intended changes.
 
 ### Update a skill to its latest upstream version
 
 1. Clone/fetch the upstream repo (shallow), copy the skill folder over
    `claude/skills/<name>/` (remove stale files first), keep license files.
-2. Commit only the intended changes.
+2. Update metadata in `site/lib/data.ts` if description or author changed.
+3. Commit only the intended changes.
 
 ### Add or remove a Claude plugin
 
 1. Edit `claude/plugins/plugins.json` (and `marketplaces.json` if the marketplace
    is new).
 2. Optionally update `claude/settings.json` `enabledPlugins`.
-3. Commit.
+3. Update `site/lib/data.ts` if featured in the site manifest list.
+4. Commit.
 
 ### Update opencode
 
@@ -94,16 +112,17 @@ npm run lint       # ESLint check — must pass with 0 errors
 npm run build      # static export to out/ — must pass before claiming done
 ```
 
-- `app/layout.tsx` — head/metadata, Departure Mono via `next/font/local`, Phosphor CDN (toasts), global CSS.
-- `app/page.tsx` — landing page (server component) rendering data-driven sections from `lib/data.ts`.
-- `lib/data.ts` — structured, typed catalogue of all skills, categories, and plugin manifests.
+- `app/layout.tsx` — head/metadata, Departure Mono via `next/font/local`, global CSS.
+- `app/page.tsx` — landing page (server component) assembling section components.
+- `components/sections/` — modular page sections (`Hero`, `SkillsSection`, `PluginsSection`, `InstallSteps`, `SecuritySection`, `FaqSection`, `SiteHeader`, `SiteFooter`).
+- `components/skills/` — interactive client components (`SkillsExplorer`, `RepoScan`, `SkillCard`) for filtering, searching, and custom installer generation.
+- `components/CopyButton.tsx` & `components/Toast.tsx` — interactive copy-to-clipboard and toast feedback system.
 - `components/icons/*.tsx` — Pixelarticons (rule 8). MIT, animated with `motion/react` stepped transitions.
 - `components/AnimatedIcon.tsx` — client wrapper: delegates hover from the
   parent button/link to the icon (`startAnimation`/`stopAnimation`). Use it for
   every icon placed inside an interactive element.
-- `public/script.js` — vanilla JS: skill filter/selection, copy buttons, repo
-  scan, toasts, scroll reveal. Copy feedback toggles a `.copied` class on the
-  button; CSS swaps `icon-copy` → `icon-check`.
+- `lib/data.ts` — structured, typed catalogue of all skills, categories, and plugin manifests.
+- `public/install.ps1` — express one-liner installer hosted at `https://maleta.dev/install.ps1`.
 - `css/` — `base.css` (tokens), `site.css` (components), `transitions.css`.
 - `DESIGN.md` — Axiom design system; keep visual changes compliant.
 
