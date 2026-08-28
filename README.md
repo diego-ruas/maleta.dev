@@ -43,7 +43,28 @@ maleta.dev/
 
 ## Como instalar
 
-Clone o repositório e rode o instalador completo:
+### ⚡ Método 1: Instalação Expressa (One-Liner — Recomendado)
+
+Abra o **PowerShell** e execute:
+
+```powershell
+# Instala tudo (Claude Code + opencode)
+irm https://maleta.dev/install.ps1 | iex
+```
+
+Ou instale apenas a ferramenta desejada:
+
+```powershell
+# Apenas Claude Code
+& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude
+
+# Apenas opencode
+& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools opencode
+```
+
+### 📂 Método 2: Instalação Manual (Git Clone)
+
+Se preferir clonar o repositório para inspecionar os arquivos:
 
 ```powershell
 git clone https://github.com/diego-ruas/maleta.dev.git
@@ -51,7 +72,7 @@ cd maleta.dev
 powershell -ExecutionPolicy Bypass -File scripts/install.ps1
 ```
 
-Ou instale apenas uma ferramenta:
+Ou instale apenas uma ferramenta localmente:
 
 ```powershell
 # apenas Claude Code

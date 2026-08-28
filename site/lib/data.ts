@@ -28,6 +28,144 @@ export interface PluginGroup {
   items: PluginItem[];
 }
 
+export interface SkillPreset {
+  id: string;
+  name: string;
+  badge: string;
+  icon: "sparkles" | "palette" | "accessibility" | "zap" | "cloud" | "flask" | "file-text";
+  description: string;
+  skills: string[];
+}
+
+export const SKILL_PRESETS: SkillPreset[] = [
+  {
+    id: "essentials",
+    name: "Essenciais",
+    badge: "Recomendado",
+    icon: "sparkles",
+    description: "TDD, testes, design anti-slop, debugging e coautoria de documentação.",
+    skills: [
+      "design-taste-frontend",
+      "emil-design-eng",
+      "no-ai-slop",
+      "systematic-debugging",
+      "test-driven-development",
+      "verification-before-completion",
+      "webapp-testing",
+      "doc-coauthoring",
+      "ask-sonner",
+    ],
+  },
+  {
+    id: "frontend",
+    name: "Frontend & UI/UX",
+    badge: "UI/UX",
+    icon: "palette",
+    description: "Design anti-slop, micro-interações, tipografia, cores e design systems.",
+    skills: [
+      "design-taste-frontend",
+      "emil-design-eng",
+      "no-ai-slop",
+      "frontend-design",
+      "shadcn",
+      "theme-factory",
+      "better-ui",
+      "better-colors",
+      "better-typography",
+      "better-layout",
+      "ui-ux-pro-max",
+      "high-end-visual-design",
+      "web-artifacts-builder",
+      "web-design-guidelines",
+      "ask-sonner",
+      "animate",
+      "animation-vocabulary",
+      "find-animation-opportunities",
+    ],
+  },
+  {
+    id: "a11y",
+    name: "Acessibilidade",
+    badge: "WCAG 2.2",
+    icon: "accessibility",
+    description: "Auditoria, scan mecânico, diff de regressão e remediação acessível.",
+    skills: [
+      "accessibility-audit",
+      "accessibility-diff",
+      "accessibility-fix",
+      "accessibility-inspect",
+      "accessibility-scan",
+      "better-accessibility",
+    ],
+  },
+  {
+    id: "nextjs",
+    name: "Next.js & Vercel",
+    badge: "Next.js",
+    icon: "zap",
+    description: "Component cache, padrões de composição, performance e sandbox Next.",
+    skills: [
+      "next-cache-components-adoption",
+      "next-cache-components-optimizer",
+      "vercel-composition-patterns",
+      "vercel-react-best-practices",
+      "web-perf",
+      "sandbox-next",
+    ],
+  },
+  {
+    id: "cloudflare",
+    name: "Cloudflare & Edge",
+    badge: "Edge & IA",
+    icon: "cloud",
+    description: "Workers, Durable Objects, Agents SDK, Cloudflare One e Wrangler.",
+    skills: [
+      "cloudflare",
+      "agents-sdk",
+      "durable-objects",
+      "workers-best-practices",
+      "wrangler",
+      "cloudflare-email-service",
+      "cloudflare-one",
+      "turnstile-spin",
+    ],
+  },
+  {
+    id: "testing",
+    name: "Testes & Qualidade",
+    badge: "Testes",
+    icon: "flask",
+    description: "Playwright, TDD rigoroso, debugging sistemático e testes de regressão.",
+    skills: [
+      "test-driven-development",
+      "verification-before-completion",
+      "systematic-debugging",
+      "playwright-best-practices",
+      "playwright-cli",
+      "webapp-testing",
+      "interface-review",
+      "break",
+    ],
+  },
+  {
+    id: "docs",
+    name: "Documentos",
+    badge: "Docs & Mídia",
+    icon: "file-text",
+    description: "Manipulação de DOCX, XLSX, PDF, PPTX e comunicação interna.",
+    skills: [
+      "docx",
+      "xlsx",
+      "pdf",
+      "pptx",
+      "canvas-design",
+      "doc-coauthoring",
+      "better-writing",
+      "internal-comms",
+    ],
+  },
+];
+
 export const SKILLS: Skill[] = [
   {
     name: "accessibility-audit",

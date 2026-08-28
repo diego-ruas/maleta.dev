@@ -443,9 +443,165 @@ section > p {
     display: inline-flex;
 }
 
-.footer-sparkle {
-    vertical-align: -2px;
-    margin-right: 2px;
+/* Hero One-Liner Box */
+.hero-oneliner-box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    background: var(--color-graphite);
+    border: 1px solid var(--color-iron);
+    border-left: 2px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2) var(--space-3);
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-4);
+}
+
+.oneliner-tabs {
+    display: flex;
+    gap: var(--space-half);
+    flex-wrap: wrap;
+}
+
+.oneliner-tab {
+    background: none;
+    border: 1px solid var(--color-iron);
+    border-radius: var(--radius-sm);
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    padding: var(--space-half) var(--space-1);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+}
+
+.oneliner-tab:hover {
+    border-color: var(--color-slate);
+    color: var(--fg);
+}
+
+.oneliner-tab.active {
+    color: var(--color-void);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    font-weight: var(--font-bold);
+}
+
+.oneliner-cmd {
+    margin-top: var(--space-half);
+}
+
+.oneliner-hint {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-xs);
+    color: var(--fg-muted);
+    line-height: 1.5;
+}
+
+.oneliner-hint-icon {
+    color: var(--color-paper);
+    flex-shrink: 0;
+}
+
+/* Presets rápidos de skills */
+.skills-presets-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-2);
+    padding: var(--space-2);
+    background: var(--color-carbon);
+    border: 1px solid var(--color-iron);
+    border-radius: var(--radius-sm);
+}
+
+.presets-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-half);
+    font-size: var(--text-xs);
+    font-family: var(--font-mono);
+    color: var(--fg-muted);
+    font-weight: var(--font-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.presets-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-half);
+}
+
+.preset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-half);
+    background: var(--color-graphite);
+    border: 1px solid var(--color-iron);
+    border-radius: var(--radius-sm);
+    color: var(--fg);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    padding: var(--space-half) var(--space-1);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+
+.preset-btn:hover {
+    border-color: var(--color-slate);
+    background: var(--color-iron);
+}
+
+.preset-btn.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-void);
+    font-weight: var(--font-bold);
+}
+
+.preset-btn .preset-count {
+    font-size: var(--text-xs);
+    opacity: 0.75;
+}
+
+/* Alternador de Modo de Instalacao (Express / Manual) */
+.install-mode-toggle {
+    display: flex;
+    gap: var(--space-1);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.install-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    background: var(--color-graphite);
+    border: 1px solid var(--color-iron);
+    border-radius: var(--radius-sm);
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    padding: var(--space-1) var(--space-2);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+}
+
+.install-tab-btn:hover {
+    border-color: var(--color-slate);
+    color: var(--fg);
+}
+
+.install-tab-btn.active {
+    color: var(--color-void);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    font-weight: var(--font-bold);
 }
 
 /* Botoes (components.css) */
