@@ -7,6 +7,7 @@ import SkillsSection from "@/components/sections/SkillsSection";
 import PluginsSection from "@/components/sections/PluginsSection";
 import FaqSection from "@/components/sections/FaqSection";
 import SiteFooter from "@/components/sections/SiteFooter";
+import BackToTop from "@/components/BackToTop";
 
 export default function Page() {
   return (
@@ -28,6 +29,7 @@ export default function Page() {
       </main>
 
       <SiteFooter />
+      <BackToTop />
     </>
   );
 }
