@@ -12,7 +12,8 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$RepoRoot = (Split-Path -Parent $PSScriptRoot)
+    [string]$RepoRoot = (Split-Path -Parent $PSScriptRoot),
+    [string[]]$Plugins = @()
 )
 
 $ErrorActionPreference = 'Stop'
@@ -31,6 +32,20 @@ foreach ($f in @('opencode.jsonc', 'opencode.json', 'AGENTS.md')) {
         }
         Copy-Item $src $dst -Force
         Write-Host "[ok] written opencode/$f"
+    }
+}
+
+# ponytail: seleçao opcional de plugins — substitui o array "plugin" do jsonc
+# instalado (repo vence, mesmo padrao do claude/skills-selection.txt).
+if ($Plugins.Count -gt 0) {
+    $dstJsonc = Join-Path $opencodeDir 'opencode.jsonc'
+    if (Test-Path -LiteralPath $dstJsonc) {
+        $raw = Get-Content -LiteralPath $dstJsonc -Raw
+        $noComments = ($raw -split "`n" | Where-Object { $_.TrimStart() -notmatch '^//' }) -join "`n"
+        $config = $noComments | ConvertFrom-Json
+        $config.plugin = @($Plugins)
+        $config | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $dstJsonc -Encoding UTF8
+        Write-Host "[ok] opencode.jsonc plugin = $($Plugins -join ', ')"
     }
 }
 

@@ -11,18 +11,21 @@
 # Opcoes:
 #   --tools <all|claude|opencode>[,...]   Padrao: all
 #   --skills <nome1,nome2,...>            Padrao: todas as skills curadas
+#   --plugins <nome1,nome2,...>           Padrao: todos os plugins curados do opencode
 #   --repo-root <path>                    Usa um clone local em vez de baixar
 
 set -uo pipefail
 
 TOOLS="all"
 SKILLS=""
+PLUGINS=""
 REPO_ROOT=""
 
 while [ $# -gt 0 ]; do
     case "$1" in
         --tools) TOOLS="$2"; shift 2 ;;
         --skills) SKILLS="$2"; shift 2 ;;
+        --plugins) PLUGINS="$2"; shift 2 ;;
         --repo-root) REPO_ROOT="$2"; shift 2 ;;
         *) echo "[warn] opcao desconhecida: $1"; shift ;;
     esac
@@ -114,7 +117,11 @@ if echo " $TOOLS_TO_RUN " | grep -q " opencode "; then
     echo "[2] opencode"
     OPENCODE_INSTALL="$REPO_ROOT/opencode/install.sh"
     if [ -f "$OPENCODE_INSTALL" ]; then
-        bash "$OPENCODE_INSTALL" "$REPO_ROOT"
+        if [ -n "$PLUGINS" ]; then
+            bash "$OPENCODE_INSTALL" "$REPO_ROOT" "--plugins=$PLUGINS"
+        else
+            bash "$OPENCODE_INSTALL" "$REPO_ROOT"
+        fi
         echo "[ok]   opencode configurado."
     else
         echo "[warn] Script do opencode nao encontrado em $OPENCODE_INSTALL"

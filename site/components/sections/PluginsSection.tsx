@@ -10,6 +10,7 @@ import { ClaudeIcon } from "@/components/icons/claude";
 import { OpencodeIcon } from "@/components/icons/opencode";
 import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import { useToast } from "@/components/Toast";
+import { useToolkit } from "@/lib/toolkitContext";
 import { PLUGIN_GROUPS, type PluginItem } from "@/lib/data";
 
 interface FlatPlugin extends PluginItem {
@@ -32,6 +33,7 @@ const PLUGINS_SELECTED_KEY = "maleta-selected-plugins";
 
 export default function PluginsSection() {
   const showToast = useToast();
+  const { targetOs } = useToolkit();
   const [search, setSearch] = useState("");
   const [activeTool, setActiveTool] = useState<"all" | "Claude Code" | "opencode">("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -102,13 +104,28 @@ export default function PluginsSection() {
       .map((p) => p.name);
   }, [selected]);
 
+  const opencodeSelected = useMemo(() => {
+    return ALL_PLUGINS
+      .filter((p) => p.tool === "opencode" && selected.has(`${p.tool}:${p.name}`))
+      .map((p) => p.name);
+  }, [selected]);
+
   const pluginInstallCommand = useMemo(() => {
     if (selected.size === 0) return "# Nenhum plugin selecionado";
+    const lines: string[] = [];
     if (claudeSelected.length > 0) {
-      return claudeSelected.map((n) => `claude plugin install ${n}`).join(" ; ");
+      lines.push(claudeSelected.map((n) => `claude plugin install ${n}`).join(" ; "));
     }
-    return "# Plugins do opencode são provisionados via ~/.config/opencode/opencode.jsonc";
-  }, [selected.size, claudeSelected]);
+    if (opencodeSelected.length > 0) {
+      const isUnix = targetOs === "unix";
+      lines.push(
+        isUnix
+          ? `curl -fsSL https://maleta.dev/install.sh | bash -s -- --tools opencode --plugins ${opencodeSelected.join(",")}`
+          : `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools opencode -Plugins ${opencodeSelected.join(",")}`
+      );
+    }
+    return lines.join("\n");
+  }, [selected.size, claudeSelected, opencodeSelected, targetOs]);
 
   return (
     <Reveal id="plugins" className="reveal" ariaLabelledby="plugins-heading">

@@ -6,11 +6,19 @@
 # bundle and the rest are npm/git plugin references resolved by opencode itself.
 #
 # Usage:
-#     bash opencode/install.sh [repo-root]
+#     bash opencode/install.sh [repo-root] [--plugins name1,name2,...]
 
 set -euo pipefail
 
-REPO_ROOT="${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+PLUGINS=""
+REPO_ROOT=""
+for arg in "$@"; do
+    case "$arg" in
+        --plugins=*) PLUGINS="${arg#--plugins=}" ;;
+        *) [ -z "$REPO_ROOT" ] && REPO_ROOT="$arg" ;;
+    esac
+done
+REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 OPENCODE_DIR="$HOME/.config/opencode"
 SRC_OPENCODE="$REPO_ROOT/opencode"
 mkdir -p "$OPENCODE_DIR"
@@ -34,6 +42,26 @@ if [ -d "$SRC_PLUGINS" ]; then
     mkdir -p "$DST_PLUGINS"
     cp -a "$SRC_PLUGINS/." "$DST_PLUGINS/"
     echo "[ok] plugins restored"
+fi
+
+# ponytail: selecao opcional de plugins — substitui o array "plugin" do jsonc
+# instalado (repo vence, mesmo padrao do claude/skills-selection.txt).
+if [ -n "$PLUGINS" ]; then
+    DST_JSONC="$OPENCODE_DIR/opencode.jsonc"
+    if [ -f "$DST_JSONC" ] && command -v node >/dev/null 2>&1; then
+        node -e '
+            const fs = require("fs");
+            const path = process.argv[1];
+            const plugins = process.argv[2].split(",");
+            const raw = fs.readFileSync(path, "utf8").replace(/^\s*\/\/.*$/gm, "");
+            const config = JSON.parse(raw);
+            config.plugin = plugins;
+            fs.writeFileSync(path, JSON.stringify(config, null, 2));
+        ' "$DST_JSONC" "$PLUGINS"
+        echo "[ok] opencode.jsonc plugin = $PLUGINS"
+    else
+        echo "[warn] node nao encontrado ou opencode.jsonc ausente; selecao de plugins ignorada"
+    fi
 fi
 
 echo ""
