@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "motion/react";
 
 const NAV_LINKS = [
@@ -56,7 +57,15 @@ export default function SiteHeader() {
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
     >
       <Link href="/" className="site-name" aria-current="page" onClick={close}>
-        <span>Maleta.dev</span>
+        <Image
+          src="/logo.png"
+          alt="Mascote da Maleta.dev"
+          width={28}
+          height={28}
+          className="site-logo"
+          priority
+        />
+        <span className="site-title">Maleta.dev</span>
       </Link>
 
       <nav aria-label="Navegação principal" className="nav-desktop">
