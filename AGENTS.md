@@ -51,16 +51,24 @@ This repository provides native entry point configurations so that any LLM/agent
 
 ### Install a customized environment on a machine
 
-- **Customized One-Liner (remote/web):**
+- **Customized One-Liner (remote/web, Windows):**
   ```powershell
   & ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills @('design-taste-frontend','test-driven-development')
   ```
-- **Local clone installer:**
+- **Customized One-Liner (remote/web, Linux/macOS):**
+  ```bash
+  curl -fsSL https://maleta.dev/install.sh | bash -s -- --tools claude --skills design-taste-frontend,test-driven-development
+  ```
+- **Local clone installer (Windows):**
   ```powershell
   powershell -ExecutionPolicy Bypass -File scripts/install.ps1
   ```
+- **Local clone installer (Linux/macOS):**
+  ```bash
+  bash scripts/install.sh
+  ```
 
-Or per tool: `claude/install.ps1` or `opencode/install.ps1`.
+Or per tool: `claude/install.ps1` / `claude/install.sh`, `opencode/install.ps1` / `opencode/install.sh`.
 Claude plugins are installed from their marketplaces via
 `claude plugin install <id>` (`claude/plugins/plugins.json` lists them).
 
@@ -134,8 +142,11 @@ npm run build      # static export to out/ — must pass before claiming done
 
 ## Style
 
-- Scripts are PowerShell 5.1 (Windows). Keep them PowerShell 5.1-compatible
+- Windows scripts are PowerShell 5.1. Keep them PowerShell 5.1-compatible
   (no `&&`, no `??`, etc.).
+- Linux/macOS scripts are POSIX-ish bash (`install.sh` counterparts). Keep
+  them working under both `bash` and `zsh`; every `.ps1` installer must have
+  a matching `.sh` doing the same thing.
 - Markdown docs: README in Portuguese (user-facing); AGENTS.md/docs in English.
 - No comments in code unless they clarify a non-obvious decision.
 - Never use emojis anywhere. Use only Pixelarticons (`site/components/icons/*.tsx`) and text prefixes (`//`, `~`, `->`, `*`).

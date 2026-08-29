@@ -12,11 +12,18 @@ export interface CustomSkill {
 }
 
 export type ToolTarget = "all" | "claude" | "opencode";
+export type OsTarget = "windows" | "unix";
 
 const SELECTED_KEY = "aitoolkit-selected-skills";
 const CUSTOM_KEY = "aitoolkit-custom-skills";
 const TOOL_KEY = "aitoolkit-target-tool";
+const OS_KEY = "aitoolkit-target-os";
 const EXTERNAL_CATEGORY = "Externas";
+
+function detectOs(): OsTarget {
+  if (typeof navigator === "undefined") return "windows";
+  return /win/i.test(navigator.platform || navigator.userAgent || "") ? "windows" : "unix";
+}
 
 function loadJSON<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
@@ -32,6 +39,8 @@ function loadJSON<T>(key: string, fallback: T): T {
 interface ToolkitContextType {
   targetTool: ToolTarget;
   setTargetTool: (tool: ToolTarget) => void;
+  targetOs: OsTarget;
+  setTargetOs: (os: OsTarget) => void;
   selectedSkills: Set<string>;
   activePreset: string | null;
   customSkills: CustomSkill[];
@@ -51,6 +60,7 @@ const ToolkitContext = createContext<ToolkitContextType | null>(null);
 export function ToolkitProvider({ children }: { children: React.ReactNode }) {
   const showToast = useToast();
   const [targetTool, setTargetToolState] = useState<ToolTarget>("all");
+  const [targetOs, setTargetOsState] = useState<OsTarget>("windows");
   const [activePreset, setActivePreset] = useState<string | null>("essentials");
   const [customSkills, setCustomSkills] = useState<CustomSkill[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<Set<string>>(() => {
@@ -62,6 +72,13 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
     const savedTool = localStorage.getItem(TOOL_KEY) as ToolTarget | null;
     if (savedTool && (savedTool === "all" || savedTool === "claude" || savedTool === "opencode")) {
       setTargetToolState(savedTool);
+    }
+
+    const savedOs = localStorage.getItem(OS_KEY) as OsTarget | null;
+    if (savedOs === "windows" || savedOs === "unix") {
+      setTargetOsState(savedOs);
+    } else {
+      setTargetOsState(detectOs());
     }
 
     const savedCustom = loadJSON<CustomSkill[]>(CUSTOM_KEY, []);
@@ -86,6 +103,15 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
     setTargetToolState(tool);
     try {
       localStorage.setItem(TOOL_KEY, tool);
+    } catch {
+      // ignore
+    }
+  };
+
+  const setTargetOs = (os: OsTarget) => {
+    setTargetOsState(os);
+    try {
+      localStorage.setItem(OS_KEY, os);
     } catch {
       // ignore
     }
@@ -171,9 +197,24 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
   }
 
   function downloadScript() {
-    const list = [...selectedSkills].sort().map((n) => `'${n.replace(/'/g, "''")}'`).join(",\n    ");
+    const isUnix = targetOs === "unix";
+    const skillsList = [...selectedSkills].sort();
     const toolParam = targetTool !== "all" ? ` -Tools ${targetTool}` : "";
-    const scriptContent = `<#
+    let scriptContent: string;
+    let filename: string;
+    if (isUnix) {
+      const toolFlag = targetTool !== "all" ? ` --tools ${targetTool}` : "";
+      scriptContent = `#!/usr/bin/env bash
+# Maleta.dev — Instalador Customizado Sob Medida
+# Execute no bash/zsh (sem necessidade de git clone previo):
+set -euo pipefail
+echo "[maleta.dev] Instalando ${skillsList.length} skills customizadas..."
+curl -fsSL https://maleta.dev/install.sh | bash -s --${toolFlag} --skills ${skillsList.join(",")}
+`;
+      filename = "instalar-maleta.sh";
+    } else {
+      const list = skillsList.map((n) => `'${n.replace(/'/g, "''")}'`).join(",\n    ");
+      scriptContent = `<#
   Maleta.dev — Instalador Customizado Sob Medida
   Execute no PowerShell (sem necessidade de admin ou git clone prévio):
 #>
@@ -184,30 +225,39 @@ $Skills = @(
 Write-Host "[maleta.dev] Instalando $($Skills.Count) skills customizadas..." -ForegroundColor Cyan
 & ([scriptblock]::Create((irm https://maleta.dev/install.ps1)))${toolParam} -Skills $Skills
 `;
+      filename = "instalar-maleta.ps1";
+    }
     const blob = new Blob([scriptContent], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "instalar-maleta.ps1";
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
-    showToast("instalar-maleta.ps1 baixado com sucesso!", "download");
+    showToast(`${filename} baixado com sucesso!`, "download");
   }
 
   const installCommand = useMemo(() => {
     if (selectedSkills.size === 0) return "# Selecione ao menos uma skill para gerar seu comando";
-    const list = [...selectedSkills].sort().map((n) => `'${n.replace(/'/g, "''")}'`).join(", ");
+    const skillsList = [...selectedSkills].sort();
+    if (targetOs === "unix") {
+      const toolFlag = targetTool !== "all" ? ` --tools ${targetTool}` : "";
+      return `curl -fsSL https://maleta.dev/install.sh | bash -s --${toolFlag} --skills ${skillsList.join(",")}`;
+    }
+    const list = skillsList.map((n) => `'${n.replace(/'/g, "''")}'`).join(", ");
     const toolParam = targetTool !== "all" ? ` -Tools ${targetTool}` : "";
     return `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1)))${toolParam} -Skills @(${list})`;
-  }, [selectedSkills, targetTool]);
+  }, [selectedSkills, targetTool, targetOs]);
 
   return (
     <ToolkitContext.Provider
       value={{
         targetTool,
         setTargetTool,
+        targetOs,
+        setTargetOs,
         selectedSkills,
         activePreset,
         customSkills,

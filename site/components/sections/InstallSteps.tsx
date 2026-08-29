@@ -55,16 +55,22 @@ const PROMPT_EXAMPLES: PromptExample[] = [
 ];
 
 export default function InstallSteps() {
-  const { installCommand, selectedSkills, targetTool, downloadScript } = useToolkit();
+  const { installCommand, selectedSkills, targetTool, targetOs, downloadScript } = useToolkit();
   const [activeTab, setActiveTab] = useState<InstallTab>("oneliner");
+  const isUnix = targetOs === "unix";
 
   const previewCommand = useMemo(() => {
     if (selectedSkills.size === 0) return "# Selecione ao menos uma skill no catálogo acima";
     if (selectedSkills.size <= 2) return installCommand;
-    const sample = [...selectedSkills].slice(0, 2).map((n) => `'${n}'`).join(", ");
+    const sample = [...selectedSkills].slice(0, 2);
+    if (isUnix) {
+      const toolFlag = targetTool !== "all" ? ` --tools ${targetTool}` : "";
+      return `curl -fsSL https://maleta.dev/install.sh | bash -s --${toolFlag} --skills ${sample.join(",")},… +${selectedSkills.size - 2}`;
+    }
     const toolParam = targetTool !== "all" ? ` -Tools ${targetTool}` : "";
-    return `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1)))${toolParam} -Skills @(${sample}, … +${selectedSkills.size - 2})`;
-  }, [selectedSkills, installCommand, targetTool]);
+    const sampleQuoted = sample.map((n) => `'${n}'`).join(", ");
+    return `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1)))${toolParam} -Skills @(${sampleQuoted}, … +${selectedSkills.size - 2})`;
+  }, [selectedSkills, installCommand, targetTool, isUnix]);
 
   return (
     <Reveal id="instalar" className="reveal" ariaLabelledby="instalar-heading">
@@ -123,7 +129,11 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Requisitos Mínimos</h3>
               <p className="process-desc">
-                Windows 10/11 com <strong>PowerShell 5.1+</strong> nativo e <strong>Claude Code</strong> e/ou <strong>opencode</strong> já instalados no terminal.
+                {isUnix ? (
+                  <>Linux ou macOS com <strong>bash</strong> ou <strong>zsh</strong> e <strong>Claude Code</strong> e/ou <strong>opencode</strong> já instalados no terminal.</>
+                ) : (
+                  <>Windows 10/11 com <strong>PowerShell 5.1+</strong> nativo e <strong>Claude Code</strong> e/ou <strong>opencode</strong> já instalados no terminal.</>
+                )}
               </p>
             </div>
           </div>
@@ -138,7 +148,7 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Executar Comando Customizado</h3>
               <p className="process-desc">
-                Cole a linha abaixo no PowerShell. Apenas as <strong>{selectedSkills.size} skills selecionadas</strong> para o alvo <strong>{targetTool.toUpperCase()}</strong> serão provisionadas:
+                Cole a linha abaixo no {isUnix ? "terminal (bash/zsh)" : "PowerShell"}. Apenas as <strong>{selectedSkills.size} skills selecionadas</strong> para o alvo <strong>{targetTool.toUpperCase()}</strong> serão provisionadas:
               </p>
               <div className="cmd">
                 <code title={installCommand}>{previewCommand}</code>
@@ -157,10 +167,10 @@ export default function InstallSteps() {
                   type="button"
                   onClick={downloadScript}
                   className="tutorial-action-btn"
-                  title="Baixar arquivo instalar-maleta.ps1 pronto para rodar offline"
+                  title={`Baixar arquivo instalar-maleta.${isUnix ? "sh" : "ps1"} pronto para rodar offline`}
                 >
                   <AnimatedIcon Icon={DownloadIcon} className="icon" size={14} />
-                  <span>Baixar script .ps1 sob medida</span>
+                  <span>Baixar script .{isUnix ? "sh" : "ps1"} sob medida</span>
                 </button>
               </div>
             </div>
@@ -240,7 +250,7 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Instalar o Claude Code</h3>
               <p className="process-desc">
-                O Claude Code é executado via Node.js (versão 18+). Instale o pacote globalmente via npm no PowerShell:
+                O Claude Code é executado via Node.js (versão 18+). Instale o pacote globalmente via npm no {isUnix ? "terminal" : "PowerShell"}:
               </p>
               <div className="cmd">
                 <code>npm install -g @anthropic-ai/claude-code</code>
@@ -365,11 +375,23 @@ export default function InstallSteps() {
                 Execute o script de instalação do repositório no PowerShell:
               </p>
               <div className="cmd">
-                <code>cd maleta.dev; powershell -ExecutionPolicy Bypass -File scripts/install.ps1</code>
-                <CopyButton className="cmd-copy" text="cd maleta.dev; powershell -ExecutionPolicy Bypass -File scripts/install.ps1" aria-label="Copiar comando de execução local">
-                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
-                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
-                </CopyButton>
+                {isUnix ? (
+                  <>
+                    <code>cd maleta.dev &amp;&amp; bash scripts/install.sh</code>
+                    <CopyButton className="cmd-copy" text="cd maleta.dev && bash scripts/install.sh" aria-label="Copiar comando de execução local">
+                      <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
+                      <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
+                    </CopyButton>
+                  </>
+                ) : (
+                  <>
+                    <code>cd maleta.dev; powershell -ExecutionPolicy Bypass -File scripts/install.ps1</code>
+                    <CopyButton className="cmd-copy" text="cd maleta.dev; powershell -ExecutionPolicy Bypass -File scripts/install.ps1" aria-label="Copiar comando de execução local">
+                      <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
+                      <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
+                    </CopyButton>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -397,8 +419,17 @@ export default function InstallSteps() {
           <div className="tutorial-tip-body">
             <h4 className="tutorial-tip-title">Onde Ficam os Arquivos</h4>
             <p className="tutorial-tip-desc">
-              Skills do Claude Code: <code>%USERPROFILE%\.claude\skills\</code><br />
-              Configurações do opencode: <code>%LOCALAPPDATA%\opencode\</code>
+              {isUnix ? (
+                <>
+                  Skills do Claude Code: <code>~/.claude/skills/</code><br />
+                  Configurações do opencode: <code>~/.config/opencode/</code>
+                </>
+              ) : (
+                <>
+                  Skills do Claude Code: <code>%USERPROFILE%\.claude\skills\</code><br />
+                  Configurações do opencode: <code>%LOCALAPPDATA%\opencode\</code>
+                </>
+              )}
             </p>
           </div>
         </div>
