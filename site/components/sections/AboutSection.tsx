@@ -1,6 +1,7 @@
 "use client";
 
 import AnimatedIcon from "@/components/AnimatedIcon";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRightIcon } from "@/components/icons/arrow-up-right";
 import { BriefcaseIcon } from "@/components/icons/briefcase";
@@ -10,6 +11,7 @@ import { CpuIcon } from "@/components/icons/cpu";
 import { ZapIcon } from "@/components/icons/zap";
 import { TerminalIcon } from "@/components/icons/terminal";
 import { SparklesIcon } from "@/components/icons/sparkles";
+import { SKILLS } from "@/lib/data";
 
 interface PillarItem {
   icon: typeof ShieldIcon;
@@ -46,12 +48,12 @@ const PILLARS: PillarItem[] = [
   },
   {
     icon: ZapIcon,
-    title: "83 Skills Curadas & Hub",
+    title: `${SKILLS.length} Skills Curadas & Hub`,
     tag: "GUARDRAILS TÉCNICOS",
     description:
       "Instruções modulares com TDD rigoroso, acessibilidade WCAG 2.2 e integração contínua com o GitHub.",
     highlights: [
-      "83 skills em 8 especialidades",
+      `${SKILLS.length} skills em 8 especialidades`,
       "Design systems e micro-interações",
       "Cloudflare Workers e AI Agents SDK",
     ],
@@ -71,10 +73,10 @@ const PILLARS: PillarItem[] = [
 ];
 
 const STATS = [
-  { value: "83", label: "Skills Curadas", detail: "8 categorias com guardrails técnicos" },
-  { value: "100%", label: "Local & Seguro", detail: "Zero telemetria ou dados em nuvem" },
-  { value: "8+", label: "Agentes & IDEs", detail: "Governança unificada via AGENTS.md" },
-  { value: "MIT", label: "Código Aberto", detail: "Auditável e extensível no GitHub" },
+  { numeric: SKILLS.length, suffix: "", label: "Skills Curadas", detail: "8 categorias com guardrails técnicos" },
+  { numeric: 100, suffix: "%", label: "Local & Seguro", detail: "Zero telemetria ou dados em nuvem" },
+  { numeric: 8, suffix: "+", label: "Agentes & IDEs", detail: "Governança unificada via AGENTS.md" },
+  { text: "MIT", label: "Código Aberto", detail: "Auditável e extensível no GitHub" },
 ];
 
 export default function AboutSection() {
@@ -147,7 +149,9 @@ export default function AboutSection() {
         <div className="about-stats-grid">
           {STATS.map((stat, idx) => (
             <div key={idx} className="about-stat-item">
-              <span className="about-stat-value">{stat.value}</span>
+              <span className="about-stat-value">
+                {"text" in stat ? stat.text : <><AnimatedCounter value={stat.numeric} />{stat.suffix}</>}
+              </span>
               <span className="about-stat-label">{stat.label}</span>
               <span className="about-stat-detail">{stat.detail}</span>
             </div>

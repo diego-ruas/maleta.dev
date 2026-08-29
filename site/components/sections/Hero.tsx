@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import AnimatedIcon from "@/components/AnimatedIcon";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import CopyButton from "@/components/CopyButton";
 import TypewriterText from "@/components/TypewriterText";
 import DecryptedText from "@/components/DecryptedText";
@@ -15,7 +16,7 @@ import { CpuIcon } from "@/components/icons/cpu";
 import { SearchIcon } from "@/components/icons/search";
 import { ShieldIcon } from "@/components/icons/shield";
 import { useToolkit, ToolTarget } from "@/lib/toolkitContext";
-import { SKILL_PRESETS } from "@/lib/data";
+import { SKILL_PRESETS, SKILLS } from "@/lib/data";
 
 const TOOL_TARGET_META: Record<
   ToolTarget,
@@ -96,7 +97,7 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          Construtor determinístico que injeta <strong>83 skills curadas</strong> (TDD rigoroso, design anti-slop, WCAG 2.2 e Cloudflare Edge) e plugins verificados no <span className="highlight-word">Claude Code</span>, <span className="highlight-word">opencode</span> e <span className="highlight-word">Universal Agents</span> — 100% local, seguro e sem telemetria.
+          Construtor determinístico que injeta um catálogo com <strong>{SKILLS.length} skills curadas</strong> (TDD rigoroso, design anti-slop, WCAG 2.2 e Cloudflare Edge) e plugins verificados no <span className="highlight-word">Claude Code</span>, <span className="highlight-word">opencode</span> e <span className="highlight-word">Universal Agents</span> — 100% local, seguro e sem telemetria.
         </motion.p>
 
         <motion.div
@@ -106,9 +107,9 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          <a href="#skills" className="intro-badge-item intro-badge-link" title="Explorar 83 skills curadas">
+          <a href="#skills" className="intro-badge-item intro-badge-link" title={`Explorar ${SKILLS.length} skills curadas`}>
             <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={15} />
-            <span>83 skills curadas ({selectedSkills.size} ativas)</span>
+            <span>{SKILLS.length} skills curadas (<AnimatedCounter value={selectedSkills.size} /> ativas)</span>
           </a>
           <a href="#sobre" className="intro-badge-item intro-badge-link" title="Saiba como funciona o provisionamento local">
             <AnimatedIcon Icon={ShieldIcon} className="icon" size={15} />
@@ -161,7 +162,7 @@ export default function Hero() {
               </div>
               <span className="terminal-title">{targetOs === "unix" ? "quick-setup.sh" : "quick-setup.ps1"}</span>
             </div>
-            <span className="terminal-badge">{selectedSkills.size} SKILLS</span>
+            <span className="terminal-badge"><AnimatedCounter value={selectedSkills.size} /> SKILLS</span>
           </div>
 
           <div className="hero-terminal-body">
