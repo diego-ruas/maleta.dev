@@ -18,6 +18,10 @@
     Array opcional com nomes das skills para instalar.
     Se omitido, instala todas as skills curadas.
 
+.PARAMETER Plugins
+    Array opcional com nomes dos plugins do opencode para instalar.
+    Se omitido, instala todos os plugins curados do opencode.
+
 .PARAMETER Force
     Sobrescreve configuracoes sem pedir confirmacao.
 #>
@@ -25,6 +29,7 @@
 param(
     [string[]]$Tools = @('all'),
     [string[]]$Skills = @(),
+    [string[]]$Plugins = @(),
     [switch]$Force,
     [string]$RepoRoot = ''
 )
@@ -156,7 +161,11 @@ try {
         Write-Step -Index $stepIndex -Total $totalSteps -Text 'opencode'
         $opencodeInstallScript = Join-Path $RepoRoot 'opencode\install.ps1'
         if (Test-Path $opencodeInstallScript) {
-            & $opencodeInstallScript -RepoRoot $RepoRoot
+            if ($Plugins -and $Plugins.Count -gt 0) {
+                & $opencodeInstallScript -RepoRoot $RepoRoot -Plugins $Plugins
+            } else {
+                & $opencodeInstallScript -RepoRoot $RepoRoot
+            }
             Write-Ok "opencode configurado."
         } else {
             Write-Warn "Script do opencode nao encontrado em $opencodeInstallScript"
