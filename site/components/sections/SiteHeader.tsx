@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 
 const NAV_LINKS = [
-  { href: "#ferramentas", label: "O que tem" },
+  { href: "#ferramentas", label: "Ferramentas" },
   { href: "#skills", label: "Skills" },
   { href: "#plugins", label: "Plugins" },
   { href: "#instalar", label: "Instalar" },

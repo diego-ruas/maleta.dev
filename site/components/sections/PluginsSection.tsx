@@ -106,7 +106,7 @@ export default function PluginsSection() {
       <div className="plugins-header-wrap">
         <div>
           <h2 id="plugins-heading">Plugins</h2>
-          <p>Selecione e gerencie os plugins instalados para Claude Code e opencode.</p>
+          <p>Potencialize seus assistentes com memória persistente, fluxos de engenharia estruturados, design e código limpo.</p>
         </div>
       </div>
 

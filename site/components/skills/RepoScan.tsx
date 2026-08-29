@@ -351,7 +351,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
             className={`repo-tab-btn${mode === "community" ? " active" : ""}`}
             onClick={() => setMode("community")}
           >
-            Comunidade & Anthropic Hub
+            Buscar na Comunidade
           </button>
           <button
             type="button"

@@ -218,8 +218,8 @@ Write-Host "[maleta.dev] Instalando $($Skills.Count) skills selecionadas..." -Fo
       {/* 1. PRESETS RECOMENDADOS (COMPACTO E DIRETO) */}
       <div className="skills-presets-card">
         <div className="presets-header">
-          <span className="presets-label">Presets Prontos:</span>
-          <span className="presets-sublabel">Selecione um pacote recomendado para carregar instantaneamente</span>
+          <span className="presets-label">Presets Recomendados:</span>
+          <span className="presets-sublabel">Selecione um pacote temático para carregar instantaneamente</span>
         </div>
         <div className="presets-list" role="group" aria-label="Presets recomendados">
           {SKILL_PRESETS.map((preset) => (
@@ -325,7 +325,7 @@ Write-Host "[maleta.dev] Instalando $($Skills.Count) skills selecionadas..." -Fo
             className="btn-gh download-installer-btn"
             disabled={selected.size === 0}
             onClick={downloadScript}
-            title="Baixar instalador .ps1 autônomo com sua seleção"
+            title="Baixar instalador .ps1 customizado com sua seleção"
           >
             <span>Baixar .ps1</span>
             <AnimatedIcon Icon={DownloadIcon} className="icon" size={16} />
@@ -351,7 +351,7 @@ Write-Host "[maleta.dev] Instalando $($Skills.Count) skills selecionadas..." -Fo
             <p>
               {search.trim()
                 ? `Nenhuma skill encontrada para "${search.trim()}".`
-                : "Nenhuma skill encontrada nessa categoria."}
+                : "Nenhuma skill encontrada nesta categoria."}
             </p>
             <button
               type="button"
@@ -368,12 +368,12 @@ Write-Host "[maleta.dev] Instalando $($Skills.Count) skills selecionadas..." -Fo
         )}
       </div>
 
-      {/* 5. HUB DA COMUNIDADE ANTHROPIC */}
+      {/* 5. HUB COMUNITÁRIO DE SKILLS */}
       <div className="skills-community-hub-container">
         <div className="community-hub-header">
-          <h3>Hub da Comunidade Anthropic</h3>
+          <h3>Hub Comunitário de Skills</h3>
           <p>
-            Pesquise repositórios da comunidade ou escaneie links do GitHub para importar novas skills sem clonar repositórios.
+            Pesquise repositórios da comunidade ou informe links do GitHub para descobrir e importar novas skills sem clonar repositórios.
           </p>
         </div>
         <RepoScan
