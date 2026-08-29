@@ -1,6 +1,5 @@
 import SiteHeader from "@/components/sections/SiteHeader";
 import Hero from "@/components/sections/Hero";
-import SecuritySection from "@/components/sections/SecuritySection";
 import InstallSteps from "@/components/sections/InstallSteps";
 import ToolsGrid from "@/components/sections/ToolsGrid";
 import SkillsSection from "@/components/sections/SkillsSection";
@@ -24,7 +23,6 @@ export default function Page() {
         <SkillsSection />
         <PluginsSection />
         <InstallSteps />
-        <SecuritySection />
         <FaqSection />
       </main>
 

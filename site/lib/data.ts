@@ -529,6 +529,12 @@ export const SKILLS: Skill[] = [
       "Crie novas skills, modifique e melhore skills existentes e meça a performance delas.",
   },
   {
+    name: "skill-inspector",
+    category: "Ferramentas",
+    description:
+      "Revisa skills de agentes de IA antes da instalação usando NVIDIA SkillSpector e revisão semântica com atenção à fonte.",
+  },
+  {
     name: "slack-gif-creator",
     category: "Animações",
     description:

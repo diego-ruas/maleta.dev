@@ -1,0 +1,49 @@
+# --- Build artifacts / dependencies ---
+node_modules/
+**/node_modules/
+site/.next/
+site/out/
+site/next-env.d.ts
+*.tsbuildinfo
+package-lock.json
+
+# --- Private / sensitive Claude Code data ---
+.claude-mem/
+**/.claude-mem/
+.claude/cache/
+.claude/sessions/
+.claude/file-history/
+.claude/shell-snapshots/
+.claude/paste-cache/
+.claude/downloads/
+.claude/chrome/
+.claude/backups/
+.claude/security/
+.claude/projects/
+.claude/plans/
+.claude/session-env/
+.claude/.credentials.json
+.claude/history.jsonl
+.claude/settings.local.json
+
+# --- Environment / secrets ---
+.env
+.env.*
+*.local
+credentials*.json
+*.key
+*.pem
+
+# --- Binary / generated assets ---
+site/public/*.ico
+site/public/*.png
+site/public/*.woff2
+site/app/fonts/*.woff2
+
+# --- OS / editor noise ---
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log
+.vscode/
+.idea/
