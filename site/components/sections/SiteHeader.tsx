@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 
 const NAV_LINKS = [
+  { href: "#sobre", label: "Sobre" },
   { href: "#ferramentas", label: "Ferramentas" },
   { href: "#skills", label: "Skills" },
   { href: "#plugins", label: "Plugins" },

@@ -15,7 +15,7 @@ export default function ToolsGrid() {
   return (
     <Reveal id="ferramentas" className="reveal" ariaLabelledby="ferramentas-heading">
       <div className="section-header-badge">
-        <span className="section-tag-prefix">{"// 01. ECOSSISTEMA"}</span>
+        <span className="section-tag-prefix">{"// 02. ECOSSISTEMA"}</span>
       </div>
       <h2 id="ferramentas-heading">O que está incluído</h2>
       <p>Tudo organizado e configurado automaticamente nas pastas certas do seu ambiente.</p>

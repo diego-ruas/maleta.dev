@@ -25,7 +25,7 @@ export default function InstallSteps() {
   return (
     <Reveal id="instalar" className="reveal" ariaLabelledby="instalar-heading">
       <div className="section-header-badge">
-        <span className="section-tag-prefix">{"// 04. INSTALAÇÃO"}</span>
+        <span className="section-tag-prefix">{"// 05. INSTALAÇÃO"}</span>
       </div>
       <h2 id="instalar-heading">Como instalar seu toolkit</h2>
       <p>
