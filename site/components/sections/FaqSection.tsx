@@ -58,7 +58,7 @@ export default function FaqSection() {
   return (
     <Reveal id="faq" className="reveal" ariaLabelledby="faq-heading">
       <div className="section-header-badge">
-        <span className="section-tag-prefix">{"// 05. DÚVIDAS FREQUENTES"}</span>
+        <span className="section-tag-prefix">{"// 06. DÚVIDAS FREQUENTES"}</span>
       </div>
       <h2 id="faq-heading">Perguntas frequentes</h2>
       <div className="faq-list">

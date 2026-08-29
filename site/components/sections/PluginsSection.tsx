@@ -107,7 +107,7 @@ export default function PluginsSection() {
   return (
     <Reveal id="plugins" className="reveal" ariaLabelledby="plugins-heading">
       <div className="section-header-badge">
-        <span className="section-tag-prefix">{"// 03. PLUGINS"}</span>
+        <span className="section-tag-prefix">{"// 04. PLUGINS"}</span>
       </div>
       <div className="plugins-header-wrap">
         <div>
