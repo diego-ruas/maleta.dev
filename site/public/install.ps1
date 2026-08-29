@@ -31,6 +31,13 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+function Write-BoxLine {
+    param([string]$Text = '', [string]$Color = 'White', [int]$Width = 58)
+    $pad = $Width - $Text.Length
+    if ($pad -lt 0) { $pad = 0 }
+    Write-Host ("  | " + $Text + (' ' * $pad) + " |") -ForegroundColor $Color
+}
+
 function Write-BrandBanner {
     Write-Host ""
     Write-Host "  __  __       _      _            _             " -ForegroundColor Cyan
@@ -39,10 +46,23 @@ function Write-BrandBanner {
     Write-Host " | |\/| |/ _` | |/ _ \ __/ _` |/ _` |/ _ \ \ / / " -ForegroundColor Cyan
     Write-Host " | |  | | (_| | |  __/ || (_| | (_| |  __/\ V /  " -ForegroundColor Cyan
     Write-Host " |_|  |_|\__,_|_|\___|\__\__,_|\__,_|\___| \_/   " -ForegroundColor Cyan
-    Write-Host "  Skills, plugins e configs de IA prontos para instalar" -ForegroundColor DarkGray
-    Write-Host "  https://maleta.dev" -ForegroundColor DarkCyan
+    $border = '  +' + ('-' * 60) + '+'
+    Write-Host $border -ForegroundColor DarkCyan
+    Write-BoxLine -Text 'Skills, plugins e configs de IA prontos para instalar' -Color DarkGray
+    Write-BoxLine -Text 'https://maleta.dev' -Color DarkCyan
+    Write-Host $border -ForegroundColor DarkCyan
     Write-Host ""
 }
+
+function Write-Step {
+    param([int]$Index, [int]$Total, [string]$Text)
+    Write-Host "[$Index/$Total] $Text" -ForegroundColor Yellow
+}
+
+function Write-Info { param([string]$Text) Write-Host "[info] $Text" -ForegroundColor Cyan }
+function Write-Ok   { param([string]$Text) Write-Host "[ok]   $Text" -ForegroundColor Green }
+function Write-Warn { param([string]$Text) Write-Host "[warn] $Text" -ForegroundColor DarkYellow }
+function Write-Err  { param([string]$Text) Write-Host "[erro] $Text" -ForegroundColor Red }
 
 Write-BrandBanner
 
@@ -63,7 +83,7 @@ try {
     }
 
     if ($isRemote) {
-        Write-Host "[info] Baixando pacote mais recente do maleta.dev..." -ForegroundColor Cyan
+        Write-Info "Baixando pacote mais recente do maleta.dev..."
         $zipUrl = "https://github.com/diego-ruas/maleta.dev/archive/refs/heads/main.zip"
         $randSuffix = [System.IO.Path]::GetRandomFileName()
         $tempDir = Join-Path $env:TEMP "maleta-dev-$randSuffix"
@@ -74,7 +94,7 @@ try {
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
         Invoke-WebRequest -Uri $zipUrl -OutFile $zipFile -UseBasicParsing
 
-        Write-Host "[info] Extraindo arquivos..." -ForegroundColor Cyan
+        Write-Info "Extraindo arquivos..."
         Expand-Archive -Path $zipFile -DestinationPath $tempDir -Force
         Remove-Item -Path $zipFile -Force -ErrorAction SilentlyContinue
 
@@ -93,9 +113,13 @@ try {
         $toolsToRun = $Tools
     }
 
+    $totalSteps = $toolsToRun.Count
+    $stepIndex = 0
+
     # 2. Executar instalacao do Claude Code
     if ($toolsToRun -contains 'claude') {
-        Write-Host "===== Claude Code =====" -ForegroundColor Yellow
+        $stepIndex++
+        Write-Step -Index $stepIndex -Total $totalSteps -Text 'Claude Code'
         $claudeInstallScript = Join-Path $RepoRoot 'claude\install.ps1'
         if (Test-Path $claudeInstallScript) {
             # Se skills foram especificadas, gravar temporariamente o arquivo de selecao
@@ -108,7 +132,7 @@ try {
 
             if ($Skills -and $Skills.Count -gt 0) {
                 $Skills | Set-Content -LiteralPath $selectionFile -Encoding UTF8
-                Write-Host "[info] Instalando $($Skills.Count) skills selecionadas..." -ForegroundColor Cyan
+                Write-Info "Instalando $($Skills.Count) skills selecionadas..."
             }
 
             & $claudeInstallScript -RepoRoot $RepoRoot
@@ -119,27 +143,31 @@ try {
             } elseif ($hadOriginalSelection -and $originalSelectionContent) {
                 $originalSelectionContent | Set-Content -LiteralPath $selectionFile -Encoding UTF8
             }
+            Write-Ok "Claude Code configurado."
         } else {
-            Write-Host "[warn] Script do Claude nao encontrado em $claudeInstallScript" -ForegroundColor DarkYellow
+            Write-Warn "Script do Claude nao encontrado em $claudeInstallScript"
         }
         Write-Host ""
     }
 
     # 3. Executar instalacao do opencode
     if ($toolsToRun -contains 'opencode') {
-        Write-Host "===== opencode =====" -ForegroundColor Yellow
+        $stepIndex++
+        Write-Step -Index $stepIndex -Total $totalSteps -Text 'opencode'
         $opencodeInstallScript = Join-Path $RepoRoot 'opencode\install.ps1'
         if (Test-Path $opencodeInstallScript) {
             & $opencodeInstallScript -RepoRoot $RepoRoot
+            Write-Ok "opencode configurado."
         } else {
-            Write-Host "[warn] Script do opencode nao encontrado em $opencodeInstallScript" -ForegroundColor DarkYellow
+            Write-Warn "Script do opencode nao encontrado em $opencodeInstallScript"
         }
         Write-Host ""
     }
 
-    Write-Host "==========================================================" -ForegroundColor Green
-    Write-Host "  Instalacao concluida com sucesso!" -ForegroundColor Green
-    Write-Host "==========================================================" -ForegroundColor Green
+    $border = '  +' + ('-' * 60) + '+'
+    Write-Host $border -ForegroundColor Green
+    Write-BoxLine -Text 'Instalacao concluida com sucesso!' -Color Green
+    Write-Host $border -ForegroundColor Green
     Write-Host ""
     Write-Host "Proximos passos:" -ForegroundColor Cyan
     if ($toolsToRun -contains 'claude') {
