@@ -1,5 +1,6 @@
 import SiteHeader from "@/components/sections/SiteHeader";
 import Hero from "@/components/sections/Hero";
+import AgentsTicker from "@/components/sections/AgentsTicker";
 import AboutSection from "@/components/sections/AboutSection";
 import ToolsGrid from "@/components/sections/ToolsGrid";
 import SkillsSection from "@/components/sections/SkillsSection";
@@ -21,6 +22,7 @@ export default function Page() {
 
       <main id="main">
         <Hero />
+        <AgentsTicker />
         <AboutSection />
         <ToolsGrid />
         <SkillsSection />

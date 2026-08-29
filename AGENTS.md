@@ -68,7 +68,7 @@ This repository provides native entry point configurations so that any LLM/agent
   bash scripts/install.sh
   ```
 
-Or per tool: `claude/install.ps1` / `claude/install.sh`, `opencode/install.ps1` / `opencode/install.sh`.
+Or per tool: `claude/install.ps1` / `claude/install.sh`, `opencode/install.ps1` / `opencode/install.sh`, `agents/install.ps1` / `agents/install.sh`.
 Claude plugins are installed from their marketplaces via
 `claude plugin install <id>` (`claude/plugins/plugins.json` lists them).
 

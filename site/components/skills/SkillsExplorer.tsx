@@ -33,10 +33,12 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
     setTargetTool,
     selectedSkills,
     activePreset,
+    isPresetActive,
+    activePresets,
     customSkills,
     allMergedSkills,
     installCommand,
-    applyPreset,
+    togglePreset,
     toggleSkill,
     selectAllSkills,
     clearSkills,
@@ -191,16 +193,16 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
           <div className="stage-panel-header">
             <div>
               <span className="section-tag-prefix">{"// ETAPA 01"}</span>
-              <h3 className="stage-panel-title">Escolha uma base de partida</h3>
+              <h3 className="stage-panel-title">Escolha suas bases de partida</h3>
               <p className="stage-panel-desc">
-                Selecione um preset otimizado para o seu perfil. Você poderá refinar ou adicionar skills na próxima etapa.
+                Selecione uma ou mais bases recomendadas para combinar seus perfis. Você poderá refinar qualquer skill na próxima etapa.
               </p>
             </div>
-            {activePreset && (
+            {activePresets.size > 0 && (
               <div className="stage-status-box">
                 <span className="status-dot"></span>
                 <span>
-                  Base ativa: <strong>{selectedPresetObj?.name}</strong> ({selectedSkills.size} skills)
+                  Bases ativas: <strong>{activePresets.size}</strong> ({selectedSkills.size} skills selecionadas)
                 </span>
               </div>
             )}
@@ -208,7 +210,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
 
           <div className="preset-cards-grid" role="group" aria-label="Catálogo de presets">
             {SKILL_PRESETS.map((preset) => {
-              const isActive = activePreset === preset.id;
+              const isActive = isPresetActive(preset.id);
               return (
                 <div
                   key={preset.id}
@@ -216,11 +218,11 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                   role="button"
                   tabIndex={0}
                   aria-pressed={isActive}
-                  onClick={() => applyPreset(preset.id)}
+                  onClick={() => togglePreset(preset.id)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
-                      applyPreset(preset.id);
+                      togglePreset(preset.id);
                     }
                   }}
                 >
@@ -251,16 +253,16 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                       className={`btn-gh-sm preset-apply-btn${isActive ? " active" : ""}`}
                       onClick={(e) => {
                         e.stopPropagation();
-                        applyPreset(preset.id);
+                        togglePreset(preset.id);
                       }}
                     >
                       {isActive ? (
                         <>
                           <AnimatedIcon Icon={CheckIcon} className="icon" size={13} />
-                          <span>Preset Selecionado</span>
+                          <span>Base Selecionada</span>
                         </>
                       ) : (
-                        <span>Carregar este preset</span>
+                        <span>+ Adicionar esta base</span>
                       )}
                     </button>
                   </div>
@@ -526,11 +528,18 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 </button>
                 <button
                   type="button"
+                  className={`summary-tool-btn${targetTool === "agents" ? " active" : ""}`}
+                  onClick={() => setTargetTool("agents")}
+                >
+                  <span>Universal Agents (~/.agents)</span>
+                </button>
+                <button
+                  type="button"
                   className={`summary-tool-btn${targetTool === "all" ? " active" : ""}`}
                   onClick={() => setTargetTool("all")}
                 >
                   <AnimatedIcon Icon={ZapIcon} className="icon" size={14} />
-                  <span>Ambos (Claude + opencode)</span>
+                  <span>Todos (Claude + opencode + Agents)</span>
                 </button>
               </div>
 

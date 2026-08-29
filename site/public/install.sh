@@ -72,7 +72,7 @@ if [ "$IS_REMOTE" = true ]; then
 fi
 
 if [ "$TOOLS" = "all" ]; then
-    TOOLS_TO_RUN="claude opencode"
+    TOOLS_TO_RUN="claude opencode agents"
 else
     TOOLS_TO_RUN="$(echo "$TOOLS" | tr ',' ' ')"
 fi
@@ -122,6 +122,37 @@ if echo " $TOOLS_TO_RUN " | grep -q " opencode "; then
     echo ""
 fi
 
+# 4. Executar instalacao de Universal Agents (~/.agents, Cursor, Windsurf, Cline)
+if echo " $TOOLS_TO_RUN " | grep -q " agents "; then
+    echo "[3] Universal Agents (~/.agents, IDEs)"
+    AGENTS_INSTALL="$REPO_ROOT/agents/install.sh"
+    if [ -f "$AGENTS_INSTALL" ]; then
+        SELECTION_FILE="$REPO_ROOT/claude/skills-selection.txt"
+        HAD_SELECTION=false
+        ORIGINAL_SELECTION=""
+        if [ -f "$SELECTION_FILE" ]; then
+            HAD_SELECTION=true
+            ORIGINAL_SELECTION="$(cat "$SELECTION_FILE")"
+        fi
+
+        if [ -n "$SKILLS" ]; then
+            echo "$SKILLS" | tr ',' '\n' > "$SELECTION_FILE"
+        fi
+
+        bash "$AGENTS_INSTALL" "$REPO_ROOT"
+
+        if [ "$HAD_SELECTION" = false ] && [ -f "$SELECTION_FILE" ]; then
+            rm -f "$SELECTION_FILE"
+        elif [ "$HAD_SELECTION" = true ]; then
+            echo "$ORIGINAL_SELECTION" > "$SELECTION_FILE"
+        fi
+        echo "[ok]   Universal Agents configurado (~/.agents/skills, ~/.agents/AGENTS.md, IDE rules)."
+    else
+        echo "[warn] Script universal de agents nao encontrado em $AGENTS_INSTALL"
+    fi
+    echo ""
+fi
+
 echo "  +------------------------------------------------------------+"
 echo "  | Instalacao concluida com sucesso!                          |"
 echo "  +------------------------------------------------------------+"
@@ -132,5 +163,8 @@ if echo " $TOOLS_TO_RUN " | grep -q " claude "; then
 fi
 if echo " $TOOLS_TO_RUN " | grep -q " opencode "; then
     echo "  * opencode: reinicie o opencode para carregar plugins e o MCP open-websearch."
+fi
+if echo " $TOOLS_TO_RUN " | grep -q " agents "; then
+    echo "  * Universal Agents: skills disponiveis em ~/.agents/skills e regras em ~/.agents/AGENTS.md."
 fi
 echo ""

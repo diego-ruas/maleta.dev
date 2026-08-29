@@ -11,11 +11,11 @@
         & ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills @('design-taste-frontend','emil-design-eng')
 
 .PARAMETER Tools
-    Quais ferramentas instalar: 'all', 'claude', 'opencode'.
-    Padrao: 'all' (Claude Code + opencode).
+    Quais ferramentas instalar: 'all', 'claude', 'opencode', 'agents'.
+    Padrao: 'all' (Claude Code + opencode + Universal Agents).
 
 .PARAMETER Skills
-    Array opcional com nomes das skills do Claude para instalar.
+    Array opcional com nomes das skills para instalar.
     Se omitido, instala todas as skills curadas.
 
 .PARAMETER Force
@@ -108,7 +108,7 @@ try {
 
     $toolsToRun = @()
     if ($Tools -contains 'all') {
-        $toolsToRun = @('claude', 'opencode')
+        $toolsToRun = @('claude', 'opencode', 'agents')
     } else {
         $toolsToRun = $Tools
     }
@@ -164,6 +164,38 @@ try {
         Write-Host ""
     }
 
+    # 4. Executar instalacao de Universal Agents (~/.agents, Cursor, Windsurf, Cline)
+    if ($toolsToRun -contains 'agents') {
+        $stepIndex++
+        Write-Step -Index $stepIndex -Total $totalSteps -Text 'Universal Agents (~/.agents, IDEs)'
+        $agentsInstallScript = Join-Path $RepoRoot 'agents\install.ps1'
+        if (Test-Path $agentsInstallScript) {
+            # Se skills foram especificadas, gravar temporariamente o arquivo de selecao
+            $selectionFile = Join-Path $RepoRoot 'claude\skills-selection.txt'
+            $hadOriginalSelection = Test-Path $selectionFile
+            $originalSelectionContent = $null
+            if ($hadOriginalSelection) {
+                $originalSelectionContent = Get-Content -LiteralPath $selectionFile -Raw
+            }
+
+            if ($Skills -and $Skills.Count -gt 0) {
+                $Skills | Set-Content -LiteralPath $selectionFile -Encoding UTF8
+            }
+
+            & $agentsInstallScript -RepoRoot $RepoRoot
+
+            if (-not $hadOriginalSelection -and (Test-Path $selectionFile)) {
+                Remove-Item -LiteralPath $selectionFile -Force -ErrorAction SilentlyContinue
+            } elseif ($hadOriginalSelection -and $originalSelectionContent) {
+                $originalSelectionContent | Set-Content -LiteralPath $selectionFile -Encoding UTF8
+            }
+            Write-Ok "Universal Agents configurado (~/.agents/skills, ~/.agents/AGENTS.md, IDE rules)."
+        } else {
+            Write-Warn "Script universal de agents nao encontrado em $agentsInstallScript"
+        }
+        Write-Host ""
+    }
+
     $border = '  +' + ('-' * 60) + '+'
     Write-Host $border -ForegroundColor Green
     Write-BoxLine -Text 'Instalacao concluida com sucesso!' -Color Green
@@ -175,6 +207,9 @@ try {
     }
     if ($toolsToRun -contains 'opencode') {
         Write-Host "  * opencode: reinicie o opencode para carregar plugins e o MCP open-websearch." -ForegroundColor White
+    }
+    if ($toolsToRun -contains 'agents') {
+        Write-Host "  * Universal Agents: skills disponiveis em ~/.agents/skills e regras em ~/.agents/AGENTS.md." -ForegroundColor White
     }
     Write-Host ""
 }

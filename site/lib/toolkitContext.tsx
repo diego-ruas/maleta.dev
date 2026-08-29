@@ -11,7 +11,7 @@ export interface CustomSkill {
   desc: string;
 }
 
-export type ToolTarget = "all" | "claude" | "opencode";
+export type ToolTarget = "all" | "claude" | "opencode" | "agents";
 export type OsTarget = "windows" | "unix";
 
 const SELECTED_KEY = "aitoolkit-selected-skills";
@@ -43,10 +43,13 @@ interface ToolkitContextType {
   setTargetOs: (os: OsTarget) => void;
   selectedSkills: Set<string>;
   activePreset: string | null;
+  isPresetActive: (presetId: string) => boolean;
+  activePresets: Set<string>;
   customSkills: CustomSkill[];
   allMergedSkills: Skill[];
   installCommand: string;
   applyPreset: (presetId: string) => void;
+  togglePreset: (presetId: string) => void;
   toggleSkill: (name: string) => void;
   selectAllSkills: () => void;
   clearSkills: () => void;
@@ -62,6 +65,7 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
   const [targetTool, setTargetToolState] = useState<ToolTarget>("all");
   const [targetOs, setTargetOsState] = useState<OsTarget>("windows");
   const [activePreset, setActivePreset] = useState<string | null>("essentials");
+  const [activePresetIds, setActivePresetIds] = useState<Set<string>>(() => new Set(["essentials"]));
   const [customSkills, setCustomSkills] = useState<CustomSkill[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<Set<string>>(() => {
     const defaultPreset = SKILL_PRESETS.find((p) => p.id === "essentials");
@@ -70,7 +74,7 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const savedTool = localStorage.getItem(TOOL_KEY) as ToolTarget | null;
-    if (savedTool && (savedTool === "all" || savedTool === "claude" || savedTool === "opencode")) {
+    if (savedTool && (savedTool === "all" || savedTool === "claude" || savedTool === "opencode" || savedTool === "agents")) {
       setTargetToolState(savedTool);
     }
 
@@ -90,8 +94,19 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
       try {
         const saved = JSON.parse(raw);
         if (Array.isArray(saved) && saved.length > 0) {
-          setSelectedSkills(new Set(saved.filter((n) => validNames.has(n))));
-          setActivePreset(null);
+          const loadedSkills = new Set<string>(saved.filter((n) => validNames.has(n)));
+          setSelectedSkills(loadedSkills);
+          
+          // Reconstruir quais presets estão ativos baseado nas skills carregadas
+          const active = new Set<string>();
+          for (const preset of SKILL_PRESETS) {
+            const validPresetSkills = preset.skills.filter((name) => validNames.has(name));
+            if (validPresetSkills.length > 0 && validPresetSkills.every((name) => loadedSkills.has(name))) {
+              active.add(preset.id);
+            }
+          }
+          setActivePresetIds(active);
+          setActivePreset(active.size === 1 ? [...active][0] : null);
         }
       } catch {
         // mantém padrão
@@ -168,6 +183,12 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
     [customSkills]
   );
 
+  const isPresetActive = (presetId: string): boolean => {
+    return activePresetIds.has(presetId);
+  };
+
+  const activePresets = activePresetIds;
+
   function persistSelected(next: Set<string>) {
     setSelectedSkills(next);
     try {
@@ -177,32 +198,113 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  function applyPreset(presetId: string) {
+  function togglePreset(presetId: string) {
     const preset = SKILL_PRESETS.find((p) => p.id === presetId);
     if (!preset) return;
+
     const validNames = new Set(allMergedSkills.map((s) => s.name));
-    const next = new Set(preset.skills.filter((name) => validNames.has(name)));
-    setActivePreset(presetId);
-    persistSelected(next);
-    showToast(`Preset "${preset.name}" carregado (${next.size} skills)`, "check");
+    const validPresetSkills = preset.skills.filter((name) => validNames.has(name));
+    const isCurrentlyActive = activePresetIds.has(presetId);
+
+    const nextPresetIds = new Set(activePresetIds);
+    const nextSkills = new Set(selectedSkills);
+
+    if (isCurrentlyActive) {
+      nextPresetIds.delete(presetId);
+
+      // Coletar todas as skills que ainda pertencem a OUTROS presets que continuam ativos
+      const skillsKeptByOtherActivePresets = new Set<string>();
+      for (const remainingPresetId of nextPresetIds) {
+        const otherPreset = SKILL_PRESETS.find((p) => p.id === remainingPresetId);
+        if (otherPreset) {
+          for (const s of otherPreset.skills) {
+            skillsKeptByOtherActivePresets.add(s);
+          }
+        }
+      }
+
+      // Remover apenas as skills deste preset que NÃO pertencem a nenhum outro preset ativo
+      let removedCount = 0;
+      for (const skillName of validPresetSkills) {
+        if (!skillsKeptByOtherActivePresets.has(skillName)) {
+          if (nextSkills.has(skillName)) {
+            nextSkills.delete(skillName);
+            removedCount++;
+          }
+        }
+      }
+
+      setActivePresetIds(nextPresetIds);
+      setActivePreset(nextPresetIds.size === 1 ? [...nextPresetIds][0] : null);
+      persistSelected(nextSkills);
+      showToast(`Base "${preset.name}" desativada (-${removedCount} skill${removedCount !== 1 ? "s" : ""})`, "check");
+    } else {
+      nextPresetIds.add(presetId);
+
+      let addedCount = 0;
+      for (const skillName of validPresetSkills) {
+        if (!nextSkills.has(skillName)) {
+          nextSkills.add(skillName);
+          addedCount++;
+        }
+      }
+
+      setActivePresetIds(nextPresetIds);
+      setActivePreset(presetId);
+      persistSelected(nextSkills);
+      showToast(
+        addedCount === 0
+          ? `Base "${preset.name}" ativada`
+          : `Base "${preset.name}" combinada (+${addedCount} skill${addedCount !== 1 ? "s" : ""})`,
+        "check"
+      );
+    }
+  }
+
+  function applyPreset(presetId: string) {
+    togglePreset(presetId);
   }
 
   function toggleSkill(name: string) {
-    setActivePreset(null);
     const next = new Set(selectedSkills);
-    if (next.has(name)) next.delete(name);
-    else next.add(name);
+    const nextPresetIds = new Set(activePresetIds);
+
+    if (next.has(name)) {
+      next.delete(name);
+      // Se removeu uma skill, remover qualquer preset ativo que a continha
+      for (const pId of activePresetIds) {
+        const preset = SKILL_PRESETS.find((p) => p.id === pId);
+        if (preset && preset.skills.includes(name)) {
+          nextPresetIds.delete(pId);
+        }
+      }
+    } else {
+      next.add(name);
+      // Se adicionou uma skill, verificar se completou algum preset
+      for (const preset of SKILL_PRESETS) {
+        const validNames = new Set(allMergedSkills.map((s) => s.name));
+        const validSkills = preset.skills.filter((s) => validNames.has(s));
+        if (validSkills.length > 0 && validSkills.every((s) => next.has(s))) {
+          nextPresetIds.add(preset.id);
+        }
+      }
+    }
+
+    setActivePresetIds(nextPresetIds);
+    setActivePreset(nextPresetIds.size === 1 ? [...nextPresetIds][0] : null);
     persistSelected(next);
   }
 
   function selectAllSkills() {
     setActivePreset(null);
+    setActivePresetIds(new Set(SKILL_PRESETS.map((p) => p.id)));
     persistSelected(new Set(allMergedSkills.map((s) => s.name)));
     showToast(`Todas as ${allMergedSkills.length} skills selecionadas`, "check");
   }
 
   function clearSkills() {
     setActivePreset(null);
+    setActivePresetIds(new Set());
     persistSelected(new Set());
     showToast("Seleção limpa", "check");
   }
@@ -299,10 +401,13 @@ Write-Host "[maleta.dev] Instalando $($Skills.Count) skills customizadas..." -Fo
         setTargetOs,
         selectedSkills,
         activePreset,
+        isPresetActive,
+        activePresets,
         customSkills,
         allMergedSkills,
         installCommand,
         applyPreset,
+        togglePreset,
         toggleSkill,
         selectAllSkills,
         clearSkills,

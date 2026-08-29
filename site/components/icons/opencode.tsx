@@ -77,7 +77,7 @@ const OpencodeIcon = forwardRef<OpencodeIconHandle, OpencodeIconProps>(
           xmlns="http://www.w3.org/2000/svg"
         >
           <motion.g animate={controls} variants={OPENCODE_VARIANTS}>
-            <path d="M22 24H2V0h20zM17 4.8H7v14.4h10z" />
+            <path d="M16 6H8v12h8V6zm4 16H4V2h16v20z" />
           </motion.g>
         </svg>
       </div>
