@@ -21,6 +21,8 @@ export default function Hero() {
     selectedSkills,
     targetTool,
     setTargetTool,
+    targetOs,
+    setTargetOs,
     applyPreset,
     activePreset,
     installCommand,
@@ -131,7 +133,7 @@ export default function Hero() {
                 <span className="terminal-dot"></span>
                 <span className="terminal-dot"></span>
               </div>
-              <span className="terminal-title">quick-setup.ps1</span>
+              <span className="terminal-title">{targetOs === "unix" ? "quick-setup.sh" : "quick-setup.ps1"}</span>
             </div>
             <span className="terminal-badge">{selectedSkills.size} SKILLS</span>
           </div>
@@ -170,6 +172,31 @@ export default function Hero() {
                 >
                   <AnimatedIcon Icon={ZapIcon} className="icon" size={14} />
                   <span>Ambos</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Seletor de sistema operacional */}
+            <div className="hero-terminal-section">
+              <span className="hero-section-label">01B. SISTEMA OPERACIONAL:</span>
+              <div className="hero-tool-group hero-tool-group--2col" role="radiogroup" aria-label="Sistema operacional alvo">
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={targetOs === "windows"}
+                  className={`hero-tool-btn${targetOs === "windows" ? " active" : ""}`}
+                  onClick={() => setTargetOs("windows")}
+                >
+                  <span>Windows</span>
+                </button>
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={targetOs === "unix"}
+                  className={`hero-tool-btn${targetOs === "unix" ? " active" : ""}`}
+                  onClick={() => setTargetOs("unix")}
+                >
+                  <span>Linux / macOS</span>
                 </button>
               </div>
             </div>

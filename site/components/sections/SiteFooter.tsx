@@ -16,6 +16,7 @@ export default function SiteFooter() {
         </a>{" "}
         <span className="footer-sep">|</span>{" "}
         <span
+          className="footer-ai-badge"
           title="Este site foi codificado e otimizado com auxílio de Inteligência Artificial"
           style={{ cursor: "help" }}
         >

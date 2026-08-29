@@ -9,19 +9,27 @@ Monte seu pacote sob medida no site [maleta.dev](https://maleta.dev) ou execute 
 ## Como instalar seu pacote sob medida
 
 ### Pré-requisitos
-- Windows com **PowerShell 5.1** (nativo)
+- Windows com **PowerShell 5.1** (nativo), ou Linux/macOS com **bash**/**zsh**
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) e/ou [opencode](https://opencode.ai) instalados
 
 ### Método 1: One-Liner Customizado (Recomendado)
 
-Gere seu comando personalizado no [maleta.dev](https://maleta.dev) ou monte os parâmetros diretamente no **PowerShell**:
+Gere seu comando personalizado no [maleta.dev](https://maleta.dev) ou monte os parâmetros diretamente no terminal:
 
 ```powershell
-# Exemplo: Instalar Claude Code com skills selecionadas
+# Windows (PowerShell) — instalar Claude Code com skills selecionadas
 & ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills @('design-taste-frontend','test-driven-development','systematic-debugging')
 
-# Exemplo: Instalar apenas opencode
+# Windows (PowerShell) — instalar apenas opencode
 & ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools opencode
+```
+
+```bash
+# Linux/macOS (bash/zsh) — instalar Claude Code com skills selecionadas
+curl -fsSL https://maleta.dev/install.sh | bash -s -- --tools claude --skills design-taste-frontend,test-driven-development,systematic-debugging
+
+# Linux/macOS (bash/zsh) — instalar apenas opencode
+curl -fsSL https://maleta.dev/install.sh | bash -s -- --tools opencode
 ```
 
 ### Método 2: Instalador Local (Git Clone)
@@ -32,6 +40,12 @@ Se preferir clonar o repositório para inspecionar os arquivos:
 git clone https://github.com/diego-ruas/maleta.dev.git
 cd maleta.dev
 powershell -ExecutionPolicy Bypass -File scripts/install.ps1
+```
+
+```bash
+git clone https://github.com/diego-ruas/maleta.dev.git
+cd maleta.dev
+bash scripts/install.sh
 ```
 
 ---
@@ -65,7 +79,7 @@ Consulte a [Matriz de Compatibilidade](docs/TOOL-MATRIX.md) para detalhes de map
 1. Obtenha a pasta da skill upstream contendo seu arquivo `SKILL.md`.
 2. Adicione em `claude/skills/<nome-da-skill>/` mantendo as licenças originais.
 3. Para refletir no catálogo web, atualize `site/lib/data.ts`.
-4. Execute `claude/install.ps1` para aplicar as alterações localmente.
+4. Execute `claude/install.ps1` (Windows) ou `claude/install.sh` (Linux/macOS) para aplicar as alterações localmente.
 
 ---
 

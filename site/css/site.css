@@ -374,8 +374,8 @@ section > p {
     display: flex;
     flex-direction: column;
     height: 100%;
-    min-height: 355px;
-    max-height: 355px;
+    min-height: 424px;
+    max-height: 424px;
     box-sizing: border-box;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
@@ -498,6 +498,10 @@ section > p {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 4px;
+}
+
+.hero-tool-group--2col {
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .hero-tool-btn {
@@ -1770,6 +1774,11 @@ button.copied .icon-check {
         right: 1rem;
         bottom: calc(1rem + env(safe-area-inset-bottom));
     }
+
+    /* Reserva espaço para o back-to-top fixo nao sobrepor o rodape */
+    footer {
+        margin-bottom: calc(3.25rem + env(safe-area-inset-bottom));
+    }
 }
 
 /* Footer */
@@ -1793,6 +1802,18 @@ footer {
     font-size: var(--text-sm);
     color: var(--fg-muted);
     line-height: 1.6;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0 0.5ch;
+}
+
+.footer-ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
 }
 
 .footer-copy a {
@@ -4080,6 +4101,10 @@ footer {
         width: 100%;
     }
 
+    .hero-tool-group--2col {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .hero-tool-btn {
         min-height: 38px;
         padding: 6px 4px;
@@ -4469,6 +4494,27 @@ footer {
         justify-content: center;
         font-size: 13px;
         box-sizing: border-box;
+    }
+
+    /* Plugins Filter Bar Mobile */
+    .plugins-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .plugins-search-input-wrap {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .plugins-tool-tabs {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .plugin-tab-btn {
+        flex-shrink: 0;
     }
 
     /* Tutorial Mode Tabs Mobile */
