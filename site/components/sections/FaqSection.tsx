@@ -61,65 +61,50 @@ export default function FaqSection() {
       <div className="faq-list">
         <FaqItem id="tools" question="Preciso instalar as duas ferramentas?">
           <p>
-            Não. O instalador permite escolher se você quer provisionar o ambiente completo (Claude Code + opencode) ou apenas uma das ferramentas através de <code>-Tools claude</code> ou <code>-Tools opencode</code>.
+            Não. O instalador permite provisionar o ambiente completo (Claude Code + opencode) ou escolher apenas uma das ferramentas através de <code>-Tools claude</code> ou <code>-Tools opencode</code>.
           </p>
         </FaqItem>
 
-        <FaqItem id="privacy" question="Meus dados são enviados para algum lugar?">
+        <FaqItem id="privacy" question="Meus dados ou chaves são enviados para algum lugar?">
           <p>
-            Não. O repositório é instalação somente: os scripts copiam
-            arquivos para a sua máquina e nada do seu ambiente é enviado de
-            volta.
+            Não. O repositório é 100% local e seguro. Os scripts apenas copiam
+            arquivos de configuração para a sua máquina (%USERPROFILE% e %LOCALAPPDATA%). Nenhum dado pessoal, histórico de conversa ou chave de API é coletado ou transmitido.
           </p>
         </FaqItem>
 
-        <FaqItem id="update" question="Como atualizo depois de instalar?">
+        <FaqItem id="update" question="Como atualizo minhas configurações e skills?">
           <p>
-            Rode <code>git pull</code> na pasta clonada e execute o
-            instalador da ferramenta de novo — ele recopia skills e
-            configurações por cima. <code>settings.json</code> e{" "}
-            <code>~/.claude.json</code> são mesclados e ganham um{" "}
-            <code>.pre-install.bak</code> antes; já o{" "}
-            <code>~/.claude/CLAUDE.md</code> é sobrescrito sem backup. Nada é
-            removido: tirar uma skill do repo não a apaga de{" "}
-            <code>~/.claude/skills/</code>.
+            Basta rodar o comando de instalação novamente ou dar <code>git pull</code> no repositório clonado e executar o instalador local. Seus arquivos principais (como <code>settings.json</code> e <code>~/.claude.json</code>) são mesclados com backup prévio (<code>.pre-install.bak</code>), preservando suas preferências existentes.
           </p>
         </FaqItem>
 
-        <FaqItem id="git" question="Sem Git na máquina?">
+        <FaqItem id="git" question="Não tenho Git instalado na minha máquina?">
           <p>
-            Use o botão <strong>Baixar ZIP</strong> no topo da página, extraia
-            a pasta e rode o instalador como no passo 03.
+            Sem problemas! A <strong>Instalação Expressa (One-Liner)</strong> funciona diretamente pelo PowerShell nativo do Windows, sem depender do Git. Caso prefira a instalação manual, use o botão <strong>Baixar ZIP</strong> no topo da página, extraia a pasta e execute o script local.
           </p>
         </FaqItem>
 
-        <FaqItem id="admin" question="Precisa de administrador?">
+        <FaqItem id="admin" question="Preciso de privilégios de administrador?">
           <p>
-            Não. Os scripts só escrevem em <code>%USERPROFILE%</code> e{" "}
-            <code>%LOCALAPPDATA%</code>. O{" "}
-            <code>-ExecutionPolicy Bypass</code> serve apenas para o Windows
-            aceitar rodar um script não assinado — não altera a política da
-            máquina.
+            Não. Os scripts gravam apenas nos diretórios do seu próprio usuário (<code>%USERPROFILE%</code> e <code>%LOCALAPPDATA%</code>). O parâmetro <code>-ExecutionPolicy Bypass</code> serve apenas para que o PowerShell aceite rodar o script na sessão atual, sem alterar as políticas de segurança globais do Windows.
           </p>
         </FaqItem>
 
-        <FaqItem id="hub" question="Como funciona o Hub da Comunidade Anthropic no site?">
+        <FaqItem id="hub" question="Como funciona o Hub Comunitário no site?">
           <p>
-            O Hub se conecta diretamente à API pública do GitHub para escanear repositórios com a tag <code>topic:claude-skills</code> e repositórios oficiais/upstream (como <code>anthropics/skills</code> e <code>cloudflare/skills</code>). Ele localiza arquivos <code>SKILL.md</code>, extrai suas descrições e permite que você adicione qualquer skill à sua seleção com 1 clique, gerando o comando de instalação correspondente.
+            O Hub se conecta diretamente à API pública do GitHub para buscar repositórios com a tag <code>topic:claude-skills</code> e repositórios oficiais/upstream (como <code>anthropics/skills</code> e <code>cloudflare/skills</code>). Ele localiza arquivos <code>SKILL.md</code>, extrai suas instruções e permite adicioná-las à sua seleção personalizada com 1 clique.
           </p>
         </FaqItem>
 
-        <FaqItem id="ratelimit" question="Preciso de token do GitHub para usar a busca?">
+        <FaqItem id="ratelimit" question="Preciso de um token do GitHub para fazer buscas?">
           <p>
-            Não. A busca padrão é 100% anônima e gratuita (limitada a 60 requisições/hora pela API pública do GitHub). Caso queira fazer muitas buscas consecutivas ou escanear repositórios volumosos, você pode clicar em <strong>Configurar GitHub API</strong> no cabeçalho do Hub e inserir um Personal Access Token temporário, que eleva o limite para 5.000 requisições/hora e fica salvo apenas no seu navegador.
+            Não. A busca padrão é 100% anônima e gratuita (limitada a 60 requisições/hora pela API pública do GitHub). Se desejar fazer buscas intensivas ou escanear repositórios com muitos arquivos, você pode clicar em <strong>Configurar GitHub API</strong> no Hub e adicionar um Personal Access Token pessoal, elevando o limite para 5.000 requisições/hora com armazenamento exclusivo no seu navegador.
           </p>
         </FaqItem>
 
-        <FaqItem id="license" question="Qual é a licença?">
+        <FaqItem id="license" question="Qual é a licença do projeto?">
           <p>
-            O wrapper do repositório (scripts, docs, configurações) é MIT. As
-            skills de terceiros dentro de <code>claude/skills/</code>{" "}
-            pertencem aos seus autores e mantêm as próprias licenças.
+            O código deste repositório (scripts, documentação, site e instaladores) é distribuído sob a licença <a href="https://github.com/diego-ruas/maleta.dev/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT</a>. As skills e plugins de terceiros mantêm suas respectivas licenças originais de seus autores.
           </p>
         </FaqItem>
       </div>

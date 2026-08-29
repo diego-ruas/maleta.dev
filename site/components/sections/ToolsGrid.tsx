@@ -11,8 +11,8 @@ export default function ToolsGrid() {
 
   return (
     <Reveal id="ferramentas" className="reveal" ariaLabelledby="ferramentas-heading">
-      <h2 id="ferramentas-heading">O que tem aqui</h2>
-      <p>Cada pasta instala a parte de uma ferramenta no lugar certo.</p>
+      <h2 id="ferramentas-heading">O que está incluído</h2>
+      <p>Tudo organizado e configurado automaticamente nas pastas certas do seu ambiente.</p>
       <div className="contact-grid">
         <div className="contact-card">
           <div className="contact-card-icon">
@@ -23,7 +23,7 @@ export default function ToolsGrid() {
           <div className="contact-card-info">
             <h3>Claude Code</h3>
             <p>
-              Presets de skills prontas, {claudeCodePlugins} plugins, settings, MCP e regras
+              Presets de skills prontas, {claudeCodePlugins} plugins essenciais, configurações, MCP e regras
               globais em <code>~/.claude/</code>.
             </p>
           </div>
@@ -46,7 +46,7 @@ export default function ToolsGrid() {
           <div className="contact-card-info">
             <h3>opencode</h3>
             <p>
-              {opencodePlugins} plugins, MCP open-websearch, provider local LM Studio em{" "}
+              {opencodePlugins} plugins, busca web nativa via MCP (DuckDuckGo), suporte a modelos locais e regras em{" "}
               <code>~/.config/opencode/</code>.
             </p>
           </div>
@@ -67,9 +67,9 @@ export default function ToolsGrid() {
             </svg>
           </div>
           <div className="contact-card-info">
-            <h3>Anthropic Hub</h3>
+            <h3>Hub Comunitário</h3>
             <p>
-              Busca em tempo real de skills comunitárias no GitHub, inspeção de <code>SKILL.md</code> e importação em 1 clique.
+              Busca em tempo real de skills abertas no ecossistema do GitHub, inspeção do <code>SKILL.md</code> e importação em 1 clique.
             </p>
           </div>
           <a

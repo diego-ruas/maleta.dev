@@ -34,7 +34,7 @@ export default function InstallSteps() {
           className={`install-tab-btn${activeTab === "manual" ? " active" : ""}`}
           onClick={() => setActiveTab("manual")}
         >
-          Instalação Manual / Git Clone
+          Instalação Manual (Git Clone)
         </button>
       </div>
 
@@ -45,7 +45,7 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Requisitos</h3>
               <p className="process-desc">
-                Windows com PowerShell 5.1 (nativo) e a ferramenta instalada (Claude Code e/ou opencode).
+                Windows com PowerShell 5.1 (nativo) e Claude Code e/ou opencode instalados.
               </p>
             </div>
           </div>
@@ -77,7 +77,7 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Pronto!</h3>
               <p className="process-desc">
-                Reinicie o Claude Code ou o opencode. No Claude Code, digite <code>/skills</code> para conferir suas novas capacidades.
+                Abra o Claude Code ou o opencode. No Claude Code, digite <code>/skills</code> para conferir suas novas capacidades.
               </p>
             </div>
           </div>
@@ -89,7 +89,7 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Clonar o repositório</h3>
               <p className="process-desc">
-                Clone o repositório completo via Git (ou baixe o ZIP):
+                Clone o repositório via Git para inspecionar os arquivos ou baixe o ZIP:
               </p>
             </div>
             <div className="cmd">
@@ -111,7 +111,7 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Executar Instalador Local</h3>
               <p className="process-desc">
-                Navegue até a pasta clonada e rode o instalador:
+                Navegue até a pasta clonada e execute o instalador:
               </p>
             </div>
             <div className="cmd">
@@ -131,7 +131,7 @@ export default function InstallSteps() {
           <div className="process-card">
             <div className="process-num">03</div>
             <div className="process-content">
-              <h3 className="process-title">Reiniciar</h3>
+              <h3 className="process-title">Concluir e Usar</h3>
               <p className="process-desc">
                 Reinicie suas ferramentas de IA para carregar skills, plugins e servidores MCP.
               </p>
