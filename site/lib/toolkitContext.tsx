@@ -99,6 +99,45 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest("a");
+      if (!target) return;
+      const href = target.getAttribute("href");
+      if (!href || !href.startsWith("#") || href === "#") return;
+
+      e.preventDefault();
+      const id = href.slice(1);
+
+      window.dispatchEvent(new CustomEvent("maleta-navigate", { detail: id }));
+
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const scrollToElement = () => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({
+            behavior: prefersReducedMotion ? "instant" : "smooth",
+            block: "start",
+          });
+        }
+      };
+
+      scrollToElement();
+      setTimeout(scrollToElement, 50);
+
+      if (window.location.hash) {
+        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+    return () => document.removeEventListener("click", handleAnchorClick);
+  }, []);
+
   const setTargetTool = (tool: ToolTarget) => {
     setTargetToolState(tool);
     try {
