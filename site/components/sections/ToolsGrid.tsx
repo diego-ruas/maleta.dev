@@ -3,6 +3,9 @@
 import AnimatedIcon from "@/components/AnimatedIcon";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRightIcon } from "@/components/icons/arrow-up-right";
+import { ClaudeIcon } from "@/components/icons/claude";
+import { OpencodeIcon } from "@/components/icons/opencode";
+import { SearchIcon } from "@/components/icons/search";
 import { PLUGIN_GROUPS } from "@/lib/data";
 
 export default function ToolsGrid() {
@@ -11,14 +14,15 @@ export default function ToolsGrid() {
 
   return (
     <Reveal id="ferramentas" className="reveal" ariaLabelledby="ferramentas-heading">
+      <div className="section-header-badge">
+        <span className="section-tag-prefix">{"// 01. ECOSSISTEMA"}</span>
+      </div>
       <h2 id="ferramentas-heading">O que está incluído</h2>
       <p>Tudo organizado e configurado automaticamente nas pastas certas do seu ambiente.</p>
       <div className="contact-grid">
         <div className="contact-card">
           <div className="contact-card-icon">
-            <svg className="brand-icon" aria-hidden="true" viewBox="0 0 24 24">
-              <path d="M21 10.5h3v3h-3v3h-1.5v3H18v-3h-1.5v3H15v-3H9v3H7.5v-3H6v3H4.5v-3H3v-3H0v-3h3v-6h18Zm-15 0h1.5v-3H6Zm10.5 0H18v-3h-1.5z" />
-            </svg>
+            <AnimatedIcon Icon={ClaudeIcon} className="icon" size={24} />
           </div>
           <div className="contact-card-info">
             <h3>Claude Code</h3>
@@ -39,9 +43,7 @@ export default function ToolsGrid() {
         </div>
         <div className="contact-card">
           <div className="contact-card-icon">
-            <svg className="brand-icon" aria-hidden="true" viewBox="0 0 24 24">
-              <path d="M22 24H2V0h20zM17 4.8H7v14.4h10z" />
-            </svg>
+            <AnimatedIcon Icon={OpencodeIcon} className="icon" size={24} />
           </div>
           <div className="contact-card-info">
             <h3>opencode</h3>
@@ -62,9 +64,7 @@ export default function ToolsGrid() {
         </div>
         <div className="contact-card">
           <div className="contact-card-icon">
-            <svg className="brand-icon" aria-hidden="true" viewBox="0 0 24 24">
-              <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.5h-2v-2h2v2zm0-4h-2V7h2v5.5z" />
-            </svg>
+            <AnimatedIcon Icon={SearchIcon} className="icon" size={24} />
           </div>
           <div className="contact-card-info">
             <h3>Hub Comunitário</h3>

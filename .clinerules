@@ -6,9 +6,8 @@ See [AGENTS.md](./AGENTS.md) for full project architecture, golden rules, and st
 - **Project Structure**:
   - `claude/`: Skills (`claude/skills/`), manifest configs, and installer.
   - `opencode/`: Config, plugins, and installer.
-  - `antigravity/`: Antigravity configs and installer.
-  - `site/`: Next.js 15 static export (`output: 'export'`) deployed on Vercel.
-  - `scripts/install.ps1`: Multi-tool setup.
+  - `site/`: Next.js 15 static export (`output: 'export'`) deployed on Vercel (Custom AI Toolkit Builder).
+  - `public/install.ps1`: Parameterized web installer (`-Tools`, `-Skills`).
 - **Rules & Verification**:
   - Zero private/secret data commits.
   - Upstream skills in `claude/skills/` must remain untouched copies with licenses.

@@ -6,6 +6,9 @@ import AnimatedIcon from "@/components/AnimatedIcon";
 import CopyButton from "@/components/CopyButton";
 import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
+import { ClaudeIcon } from "@/components/icons/claude";
+import { OpencodeIcon } from "@/components/icons/opencode";
+import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import { useToast } from "@/components/Toast";
 import { PLUGIN_GROUPS, type PluginItem } from "@/lib/data";
 
@@ -103,6 +106,9 @@ export default function PluginsSection() {
 
   return (
     <Reveal id="plugins" className="reveal" ariaLabelledby="plugins-heading">
+      <div className="section-header-badge">
+        <span className="section-tag-prefix">{"// 03. PLUGINS"}</span>
+      </div>
       <div className="plugins-header-wrap">
         <div>
           <h2 id="plugins-heading">Plugins</h2>
@@ -130,21 +136,24 @@ export default function PluginsSection() {
               className={`plugin-tab-btn${activeTool === "all" ? " active" : ""}`}
               onClick={() => setActiveTool("all")}
             >
-              Todos ({allPlugins.length})
+              <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={14} />
+              <span>Todos ({allPlugins.length})</span>
             </button>
             <button
               type="button"
               className={`plugin-tab-btn${activeTool === "Claude Code" ? " active" : ""}`}
               onClick={() => setActiveTool("Claude Code")}
             >
-              Claude Code ({allPlugins.filter((p) => p.tool === "Claude Code").length})
+              <AnimatedIcon Icon={ClaudeIcon} className="icon" size={14} />
+              <span>Claude Code ({allPlugins.filter((p) => p.tool === "Claude Code").length})</span>
             </button>
             <button
               type="button"
               className={`plugin-tab-btn${activeTool === "opencode" ? " active" : ""}`}
               onClick={() => setActiveTool("opencode")}
             >
-              opencode ({allPlugins.filter((p) => p.tool === "opencode").length})
+              <AnimatedIcon Icon={OpencodeIcon} className="icon" size={14} />
+              <span>opencode ({allPlugins.filter((p) => p.tool === "opencode").length})</span>
             </button>
           </div>
         </div>
@@ -184,10 +193,14 @@ export default function PluginsSection() {
           {filteredPlugins.map((plugin) => {
             const pluginKey = `${plugin.tool}:${plugin.name}`;
             const isSelected = selected.has(pluginKey);
+            const ToolIcon = plugin.tool === "Claude Code" ? ClaudeIcon : OpencodeIcon;
 
             return (
               <li key={pluginKey} className={`plugin-row-item${isSelected ? " selected" : ""}`}>
                 <div className="plugin-row-main">
+                  <div className="plugin-row-icon-cell">
+                    <AnimatedIcon Icon={ToolIcon} className="plugin-item-icon" size={18} />
+                  </div>
                   <div className="plugin-row-info">
                     <div className="plugin-row-title-row">
                       <span className="plugin-row-name">{plugin.name}</span>

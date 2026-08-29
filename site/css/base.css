@@ -99,6 +99,7 @@ html {
     scrollbar-width: thin;
     scrollbar-color: var(--border-light) var(--bg);
     color-scheme: dark;
+    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -127,6 +128,8 @@ body {
     margin: 0 auto;
     max-width: var(--max-width);
     padding: 0 var(--space-6) var(--space-8);
+    overflow-x: hidden;
+    width: 100%;
 }
 
 .skip-link {

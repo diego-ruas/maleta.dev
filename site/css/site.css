@@ -223,10 +223,13 @@ section > p {
     max-width: 54rem;
 }
 
-/* Hero (intro) — full-width terminal canvas */
+/* Hero (intro) — 2-column layout with mascot */
 .intro {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
     text-align: left;
     padding-top: var(--space-4);
     padding-bottom: var(--space-5);
@@ -234,8 +237,29 @@ section > p {
 }
 
 .intro-copy {
-    width: 100%;
+    flex: 1;
     min-width: 0;
+}
+
+.hero-mascot-wrapper {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2);
+}
+
+.hero-mascot-img {
+    width: 240px;
+    height: 240px;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.6));
+    transition: transform var(--transition-medium);
+}
+
+.hero-mascot-img:hover {
+    transform: scale(1.05) rotate(-2deg);
 }
 
 .hero-prompt {
@@ -666,6 +690,10 @@ section > p {
     border-radius: var(--radius-sm);
     transition: border-color var(--transition-fast);
     position: relative;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .process-card:hover {
@@ -673,16 +701,18 @@ section > p {
     border-left-color: var(--color-accent);
 }
 
-/* Numero do passo: rotulo tipografico, sem fundo nem borda */
+/* Numero do passo: rotulo tipografico */
 .process-num {
+    font-family: var(--font-mono);
     font-size: var(--text-xs);
-    font-weight: var(--font-regular);
+    font-weight: 600;
     color: var(--fg-muted);
     line-height: 1;
     flex-shrink: 0;
-    min-width: 2rem;
-    align-self: flex-start;
-    padding-top: 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .process-title {
@@ -696,21 +726,28 @@ section > p {
     font-size: var(--text-sm);
     color: var(--fg-muted);
     line-height: 1.6;
+    margin-bottom: var(--space-1);
 }
 
 .process-card .process-content {
     flex: 1;
     min-width: 0;
+    max-width: 100%;
 }
 
 .process-card .cmd {
-    margin-top: 0;
-    flex-shrink: 0;
+    margin-top: var(--space-1);
+    width: 100%;
+    min-width: 0;
     max-width: 100%;
+    box-sizing: border-box;
 }
 
 .process-card .cmd code {
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 /* Bloco de comando com copiar */
@@ -768,6 +805,59 @@ section > p {
     background: var(--color-iron);
 }
 
+/* ==========================================================================
+   CopyButton Icon States & High Contrast
+   ========================================================================== */
+.icon-check {
+    display: none !important;
+}
+
+.icon-copy {
+    display: inline-flex !important;
+}
+
+.copied .icon-copy,
+button.copied .icon-copy {
+    display: none !important;
+}
+
+.copied .icon-check,
+button.copied .icon-check {
+    display: inline-flex !important;
+}
+
+/* Contrast in Primary Buttons (Orange background -> crisp black text & check) */
+.btn-primary.copied {
+    background: var(--color-fog);
+    border-color: var(--color-fog);
+    color: var(--color-void) !important;
+}
+
+.btn-primary.copied .icon-check {
+    color: var(--color-void) !important;
+}
+
+/* Contrast in Command copy button (Dark background -> crisp Ember check) */
+.cmd-copy.copied {
+    color: var(--color-accent) !important;
+    background: rgba(218, 92, 44, 0.2);
+    border: 1px solid var(--color-accent);
+}
+
+.cmd-copy.copied .icon-check {
+    color: var(--color-accent) !important;
+}
+
+/* Contrast in Ghost Buttons */
+.btn-gh.copied {
+    border-color: var(--color-accent);
+    color: var(--color-accent) !important;
+}
+
+.btn-gh.copied .icon-check {
+    color: var(--color-accent) !important;
+}
+
 /* Ferramentas (contact-card) */
 .contact-grid {
     display: grid;
@@ -794,16 +884,14 @@ section > p {
 }
 
 .contact-card-icon {
-    width: 56px;
-    height: 56px;
-    background: var(--color-carbon);
-    border: 1px solid var(--color-iron);
-    border-radius: var(--radius-sm);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    background: transparent;
+    border: none;
     font-size: var(--text-3xl);
     color: var(--color-paper);
+    flex-shrink: 0;
 }
 
 .contact-card-info h3 {
@@ -2479,27 +2567,58 @@ footer {
     font-size: var(--text-sm);
 }
 
-.skills-community-hub-container {
+/* ==========================================================================
+   Prominent Community Hub Card
+   ========================================================================== */
+.skills-community-hub-card {
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
     margin-top: var(--space-4);
-    padding-top: var(--space-3);
-    border-top: 1px solid var(--color-iron);
+    padding: var(--space-3);
+    background: var(--color-graphite);
+    border: 1px solid var(--color-iron);
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 }
 
-.community-hub-header h3 {
-    font-size: var(--text-md);
+.community-hub-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-iron);
+}
+
+.community-hub-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.community-hub-title {
+    font-size: var(--text-lg);
     font-family: var(--font-mono);
     color: var(--fg);
-    margin: 0 0 var(--space-half) 0;
+    margin: 0;
+    font-weight: 700;
 }
 
-.community-hub-header p {
-    font-size: var(--text-xs);
+.community-hub-subtitle {
+    font-size: var(--text-sm);
     color: var(--fg-muted);
     margin: 0;
     line-height: 1.5;
+}
+
+.hub-shortcut-btn {
+    text-decoration: none;
+}
+
+.hub-shortcut-btn:hover {
+    color: var(--color-accent);
 }
 
 /* Responsivo */
@@ -2531,10 +2650,25 @@ footer {
         overflow-wrap: anywhere;
     }
 
+    .intro {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: var(--space-4);
+    }
+
+    .hero-mascot-wrapper {
+        align-self: center;
+    }
+
+    .hero-mascot-img {
+        width: 160px;
+        height: 160px;
+    }
+
     .intro-highlights,
     .intro-links,
     .intro-actions {
-        justify-content: center;
+        justify-content: flex-start;
     }
 
     .plugin-groups {
@@ -2546,6 +2680,14 @@ footer {
         flex-direction: column;
         align-items: stretch;
         gap: var(--space-2);
+    }
+
+    .process-card-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        align-self: flex-start;
     }
 
     .process-card .cmd {
@@ -2561,13 +2703,17 @@ footer {
 }
 
 @media (max-width: 768px) {
+    body {
+        padding: 0 var(--space-2) var(--space-4);
+    }
+
     header {
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: var(--space-5);
-        gap: var(--space-3);
+        margin-bottom: var(--space-4);
+        gap: var(--space-2);
         padding-top: var(--space-2);
         padding-bottom: var(--space-2);
     }
@@ -2588,41 +2734,171 @@ footer {
         z-index: 50;
     }
 
-    .nav-links {
-        justify-content: center;
-        column-gap: var(--space-2);
+    /* Hero Section Mobile */
+    .intro {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--space-3);
+        padding-top: var(--space-2);
+        padding-bottom: var(--space-4);
     }
 
-    .nav-links a {
-        min-height: 44px;
-        display: inline-flex;
-        align-items: center;
+    .hero-mascot-wrapper {
+        order: -1;
+        margin-bottom: var(--space-1);
+    }
+
+    .hero-mascot-img {
+        width: 140px;
+        height: 140px;
     }
 
     .intro h1 {
-        font-size: var(--text-3xl);
+        font-size: clamp(1.6rem, 7vw, 2.2rem);
+        line-height: 1.25;
+        text-align: center;
+        margin-bottom: var(--space-2);
     }
 
-    section {
-        margin-bottom: var(--space-6);
+    .intro-desc {
+        font-size: var(--text-sm);
+        text-align: center;
+        margin-bottom: var(--space-3);
     }
 
-    .skills-action-bar {
+    .intro-highlights {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .intro-badge-item {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .intro-actions {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .intro-actions .btn-gh,
+    .intro-actions .btn-primary {
+        width: 100%;
+        justify-content: center;
+        min-height: 44px;
+    }
+
+    /* Skills Search & Filter Controls Mobile */
+    .skills-search-row {
         flex-direction: column;
         align-items: stretch;
-        gap: var(--space-2);
+        gap: 8px;
+    }
+
+    .skills-search-bar {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .skills-scope-toggle {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 4px;
+    }
+
+    .scope-toggle-btn {
+        justify-content: center;
+        padding: 8px 4px;
+        font-size: 11px;
+        min-height: 38px;
+    }
+
+    .presets-quick-pills {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .presets-quick-pills::-webkit-scrollbar {
+        display: none;
+    }
+
+    .preset-pill-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+        min-height: 34px;
+    }
+
+    .skills-category-chips {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .skills-category-chips::-webkit-scrollbar {
+        display: none;
+    }
+
+    .category-chip-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+        min-height: 36px;
+    }
+
+    /* Sticky Action Bar Mobile */
+    .skills-action-bar {
+        position: sticky;
+        bottom: 8px;
+        z-index: 40;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px;
+        background: var(--color-graphite);
+        border: 1px solid var(--color-iron);
+        border-radius: var(--radius-sm);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .skills-selection-summary {
+        width: 100%;
+        justify-content: space-between;
     }
 
     .skills-install-controls {
         width: 100%;
+        display: flex;
+        gap: 8px;
     }
 
-    .copy-installer-btn,
-    .download-installer-btn {
-        flex: 1;
+    .copy-installer-btn {
+        flex: 2;
+        min-height: 44px;
+        font-size: 13px;
         justify-content: center;
     }
 
+    .download-installer-btn {
+        flex: 1;
+        min-height: 44px;
+        font-size: 13px;
+        justify-content: center;
+    }
+
+    /* Skill Card Rows Mobile */
     .skill-row-main {
         flex-direction: column;
         align-items: flex-start;
@@ -2635,91 +2911,253 @@ footer {
 
     .skill-row-select-btn {
         width: 100%;
+        min-height: 38px;
         justify-content: center;
     }
-}
 
-@media (max-width: 600px) {
+    /* Section Spacing */
+    section {
+        margin-bottom: var(--space-5);
+    }
+
     .contact-grid {
         grid-template-columns: 1fr;
     }
 
-    .security-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .security-pillars-grid {
-        grid-template-columns: 1fr;
-    }
-
     .contact-card {
-        padding: 1.5rem;
+        padding: var(--space-2);
     }
 
-    .intro-links {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
+    .skills-community-hub-card {
+        padding: var(--space-2);
     }
+}
 
-    .intro-actions {
-        justify-content: center;
-    }
+/* ==========================================================================
+   Section Tags & Visual Hierarchy
+   ========================================================================== */
+.section-header-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: var(--space-1);
+}
 
-    .selection-controls {
-        justify-content: center;
-    }
+.section-tag-prefix {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+}
 
-    .intro-socials {
-        padding-left: 0;
-        border-left: none;
-        padding-top: 0.5rem;
-        border-top: 1px solid var(--border-light);
-        width: 100%;
-        justify-content: center;
-    }
 
-    .intro-socials a {
-        min-width: 44px;
-        min-height: 44px;
-    }
 
-    /* Alvos de toque maiores + comandos sem scroll horizontal */
-    .btn-primary,
-    .btn-gh {
-        min-height: 44px;
-        touch-action: manipulation;
-    }
+/* ==========================================================================
+   Compact Presets Quick Bar (High UX / Space Saving)
+   ========================================================================== */
+.presets-quick-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--color-carbon);
+    border: 1px solid var(--color-iron);
+    border-left: 2px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+}
 
-    .filter-btn {
-        min-height: 32px;
-        touch-action: manipulation;
-    }
+.presets-quick-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+}
 
-    .cmd-copy {
-        width: 40px;
-        height: 40px;
-        touch-action: manipulation;
-    }
+.presets-quick-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--fg);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
 
-    .security-stats-grid {
-        grid-template-columns: 1fr;
-    }
+.presets-quick-active-indicator {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-muted);
+}
 
-    .security-report-actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
+.presets-quick-active-indicator strong {
+    color: var(--color-accent);
+}
 
-    .security-report-actions .cmd {
-        min-width: 0;
-        width: 100%;
-    }
+.presets-quick-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
 
-    body {
-        padding: 0 var(--space-3) var(--space-5);
-    }
+.preset-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: var(--color-void);
+    border: 1px solid var(--color-iron);
+    border-radius: var(--radius-sm);
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
 
+.preset-pill-btn:hover {
+    color: var(--fg);
+    border-color: var(--color-slate);
+    background: var(--color-graphite);
+    transform: translateY(-1px);
+}
+
+.preset-pill-btn.active {
+    color: var(--fg);
+    background: var(--color-graphite);
+    border-color: var(--color-accent);
+    font-weight: 600;
+}
+
+.preset-pill-name {
+    display: inline-flex;
+    align-items: center;
+}
+
+.preset-pill-count {
+    font-size: 10px;
+    padding: 1px 5px;
+    background: var(--color-carbon);
+    border: 1px solid var(--color-iron);
+    border-radius: 2px;
+    color: var(--fg-faint);
+}
+
+.preset-pill-btn.active .preset-pill-count {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: rgba(218, 92, 44, 0.15);
+}
+
+/* ==========================================================================
+   Skill & Plugin Icon Cells & Search Bar Icon
+   ========================================================================== */
+.skills-search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 240px;
+}
+
+.skills-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--fg-faint);
+    pointer-events: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skills-search-bar input {
+    width: 100%;
+    background: var(--color-carbon);
+    border: 1px solid var(--color-iron);
+    border-radius: var(--radius-sm);
+    color: var(--fg);
+    font-family: inherit;
+    font-size: var(--text-sm);
+    padding: var(--space-1) var(--space-2) var(--space-1) 36px;
+    min-height: 40px;
+    transition: border-color var(--transition-fast);
+}
+
+.skills-search-bar input:focus {
+    outline: none;
+    border-color: var(--color-steel);
+    background: var(--color-void);
+}
+
+.skill-row-icon-cell,
+.plugin-row-icon-cell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--fg-muted);
+    flex-shrink: 0;
+    margin-right: 4px;
+}
+
+.skill-row-item.selected .skill-row-icon-cell,
+.plugin-row-item.selected .plugin-row-icon-cell {
+    color: var(--color-accent);
+}
+
+/* Universal Icon Centering and Alignment */
+.icon,
+.brand-icon,
+.chip-icon,
+.skill-item-icon,
+.plugin-item-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    vertical-align: middle;
+    background: transparent;
+}
+
+.scope-toggle-btn,
+.category-chip-btn,
+.plugin-tab-btn,
+.oneliner-tab,
+.install-tab-btn,
+.contact-card-action,
+.intro-badge-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    vertical-align: middle;
+}
+
+/* ==========================================================================
+   Process Card Headers & Icon Box
+   ========================================================================== */
+.process-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 36px;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+.process-icon-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--color-accent);
+    flex-shrink: 0;
 }
 
 @media (max-width: 340px) {

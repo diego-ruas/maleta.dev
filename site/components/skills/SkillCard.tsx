@@ -2,6 +2,7 @@
 
 import AnimatedIcon from "@/components/AnimatedIcon";
 import { CheckIcon } from "@/components/icons/check";
+import { getCategoryIcon } from "@/lib/iconMap";
 
 export interface DisplaySkill {
   name: string;
@@ -20,13 +21,20 @@ export default function SkillCard({
   selected,
   onToggleSelect,
 }: SkillCardProps) {
+  const CategoryIcon = getCategoryIcon(skill.category);
+
   return (
     <li className={`skill-row-item${selected ? " selected" : ""}`}>
       <div className="skill-row-main">
+        <div className="skill-row-icon-cell">
+          <AnimatedIcon Icon={CategoryIcon} className="skill-item-icon" size={18} />
+        </div>
         <div className="skill-row-info">
           <div className="skill-row-title-row">
             <span className="skill-row-name">{skill.name}</span>
-            <span className="skill-row-category-chip">{skill.category}</span>
+            <span className="skill-row-category-chip">
+              {skill.category}
+            </span>
           </div>
 
           <p className="skill-row-desc">{skill.description}</p>

@@ -4,12 +4,9 @@ Guidance for any AI agent working inside this repository. Read this first.
 
 ## What this repo is
 
-A public, install-only collection of AI tooling: skills, plugins and configuration
-for **Claude Code** (`claude/`) and **opencode** (`opencode/`). Clone it and run the installers; nothing is synced back here.
+A public, install-only collection and custom builder of AI tooling: skills, plugins, presets, and configuration for **Claude Code** (`claude/`) and **opencode** (`opencode/`). Clone it or generate custom installation commands; nothing private is synced back here.
 
-The `site/` folder is the exception: it is the public website (maleta.dev) — a
-Next.js app (App Router, TypeScript, `output: 'export'`) served as static HTML
-on Vercel. It is deployed, not installed.
+The `site/` folder is the public web application ([maleta.dev](https://maleta.dev)) — a Next.js 15 App Router app (TypeScript, `output: 'export'`) served as static HTML on Vercel. It provides a real-time **Custom AI Toolkit Builder**, allowing developers to pick presets, toggle skills, discover community GitHub skills, and copy tailored PowerShell installation one-liners.
 
 ## Golden rules (do not violate)
 
@@ -35,7 +32,7 @@ on Vercel. It is deployed, not installed.
    `node_modules/`, `.next/`, `out/` and `next-env.d.ts` — keep it that way.
 8. **Animated icons are Pixelarticons.** `site/components/icons/*.tsx` come
    from [Pixelarticons](https://pixelarticons.com) (MIT), animated with step-timing
-   micro-interactions. Keep them pixel-grid aligned and consistent.
+   micro-interactions via `motion/react`. Keep them pixel-grid aligned, transparent, and consistent.
 
 ## Multi-Agent Entry Points
 
@@ -49,18 +46,18 @@ This repository provides native entry point configurations so that any LLM/agent
 
 ## Common tasks
 
-### Install the whole environment on a machine
+### Install a customized environment on a machine
 
-- **One-liner (remote/web):**
+- **Customized One-Liner (remote/web):**
   ```powershell
-  irm https://maleta.dev/install.ps1 | iex
+  & ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills @('design-taste-frontend','test-driven-development')
   ```
-- **Local clone:**
+- **Local clone installer:**
   ```powershell
   powershell -ExecutionPolicy Bypass -File scripts/install.ps1
   ```
 
-Or per tool: `claude/install.ps1` ou `opencode/install.ps1`.
+Or per tool: `claude/install.ps1` or `opencode/install.ps1`.
 Claude plugins are installed from their marketplaces via
 `claude plugin install <id>` (`claude/plugins/plugins.json` lists them).
 
@@ -112,16 +109,16 @@ npm run build      # static export to out/ — must pass before claiming done
 ```
 
 - `app/layout.tsx` — head/metadata, Departure Mono via `next/font/local`, global CSS.
-- `app/page.tsx` — landing page (server component) assembling section components.
-- `components/sections/` — modular page sections (`Hero`, `SkillsSection`, `PluginsSection`, `InstallSteps`, `SecuritySection`, `FaqSection`, `SiteHeader`, `SiteFooter`).
-- `components/skills/` — interactive client components (`SkillsExplorer`, `RepoScan`, `SkillCard`) for filtering, searching, and custom installer generation.
-- `components/CopyButton.tsx` & `components/Toast.tsx` — interactive copy-to-clipboard and toast feedback system.
+- `app/page.tsx` — landing page assembling section components inside `ToolkitProvider`.
+- `lib/toolkitContext.tsx` — shared state for active tool target, skill selections, presets, custom GitHub imports, and dynamic PowerShell installer generation.
+- `lib/iconMap.ts` — category-to-Pixelarticon resolver.
+- `lib/data.ts` — structured, typed catalogue of all skills, categories, presets, and plugin manifests.
+- `components/sections/` — modular page sections (`Hero`, `SkillsSection`, `PluginsSection`, `InstallSteps`, `FaqSection`, `SiteHeader`, `SiteFooter`).
+- `components/skills/` — interactive client components (`SkillsExplorer`, `RepoScan`, `SkillCard`) for filtering, searching, and community GitHub imports.
+- `components/CopyButton.tsx` & `components/Toast.tsx` — interactive copy-to-clipboard and toast feedback system with high-contrast states.
 - `components/icons/*.tsx` — Pixelarticons (rule 8). MIT, animated with `motion/react` stepped transitions.
-- `components/AnimatedIcon.tsx` — client wrapper: delegates hover from the
-  parent button/link to the icon (`startAnimation`/`stopAnimation`). Use it for
-  every icon placed inside an interactive element.
-- `lib/data.ts` — structured, typed catalogue of all skills, categories, and plugin manifests.
-- `public/install.ps1` — express one-liner installer hosted at `https://maleta.dev/install.ps1`.
+- `components/AnimatedIcon.tsx` — client wrapper: delegates hover from the parent button/link to the icon.
+- `public/install.ps1` — parameterized one-liner installer hosted at `https://maleta.dev/install.ps1`.
 - `css/` — `base.css` (tokens), `site.css` (components), `transitions.css`.
 - `DESIGN.md` — Axiom design system; keep visual changes compliant.
 
