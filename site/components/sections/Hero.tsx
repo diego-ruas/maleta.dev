@@ -11,10 +11,33 @@ import { CheckIcon } from "@/components/icons/check";
 import { ClaudeIcon } from "@/components/icons/claude";
 import { OpencodeIcon } from "@/components/icons/opencode";
 import { ZapIcon } from "@/components/icons/zap";
+import { CpuIcon } from "@/components/icons/cpu";
 import { SearchIcon } from "@/components/icons/search";
 import { ShieldIcon } from "@/components/icons/shield";
-import { useToolkit } from "@/lib/toolkitContext";
+import { useToolkit, ToolTarget } from "@/lib/toolkitContext";
 import { SKILL_PRESETS } from "@/lib/data";
+
+const TOOL_TARGET_META: Record<
+  ToolTarget,
+  { tag: string; description: string }
+> = {
+  claude: {
+    tag: "Apenas Claude Code",
+    description: "Configura exclusivamente o Claude Code.",
+  },
+  opencode: {
+    tag: "Apenas opencode",
+    description: "Configura exclusivamente o opencode.",
+  },
+  agents: {
+    tag: "Agentes & IDEs",
+    description: "Configura Antigravity, Cursor, Windsurf, Cline, Roo, Gemini e Codex.",
+  },
+  all: {
+    tag: "Ecossistema Completo",
+    description: "Configura Claude Code, opencode e todas as IDEs/Agentes.",
+  },
+};
 
 export default function Hero() {
   const {
@@ -23,13 +46,14 @@ export default function Hero() {
     setTargetTool,
     targetOs,
     setTargetOs,
-    applyPreset,
-    activePreset,
+    togglePreset,
+    isPresetActive,
+    activePresets,
     installCommand,
   } = useToolkit();
 
   return (
-    <section className="intro">
+    <section className="intro" aria-label="Apresentação do Maleta.dev">
       <motion.div
         className="intro-copy"
         initial="hidden"
@@ -72,7 +96,7 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          Construtor determinístico que injeta <strong>83 skills curadas</strong> (TDD rigoroso, design anti-slop, WCAG 2.2 e Cloudflare Edge) e plugins verificados no <span className="highlight-word">Claude Code</span> e <span className="highlight-word">opencode</span> — 100% local, seguro e sem telemetria.
+          Construtor determinístico que injeta <strong>83 skills curadas</strong> (TDD rigoroso, design anti-slop, WCAG 2.2 e Cloudflare Edge) e plugins verificados no <span className="highlight-word">Claude Code</span>, <span className="highlight-word">opencode</span> e <span className="highlight-word">Universal Agents</span> — 100% local, seguro e sem telemetria.
         </motion.p>
 
         <motion.div
@@ -104,15 +128,17 @@ export default function Hero() {
           }}
         >
           <div className="intro-actions">
-            <a href="#skills" className="btn-gh">
+            <a href="#skills" className="btn-primary">
               <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={16} />
-              <span>Personalizar no Catálogo</span>
+              <span>Personalizar no Catálogo &rarr;</span>
             </a>
-            <a href="#plugins" className="btn-gh">
-              <span>Ver plugins & MCP</span>
-            </a>
-            <a href="#instalar" className="btn-gh">
-              <span>Guia de instalação</span>
+            <a
+              href="https://github.com/diego-ruas/maleta.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-gh"
+            >
+              <span>Ver no GitHub &rarr;</span>
             </a>
           </div>
         </motion.div>
@@ -149,6 +175,7 @@ export default function Hero() {
                   aria-checked={targetTool === "claude"}
                   className={`hero-tool-btn${targetTool === "claude" ? " active" : ""}`}
                   onClick={() => setTargetTool("claude")}
+                  title="Instalar apenas para Claude Code (~/.claude/skills/)"
                 >
                   <AnimatedIcon Icon={ClaudeIcon} className="icon" size={14} />
                   <span>Claude Code</span>
@@ -159,6 +186,7 @@ export default function Hero() {
                   aria-checked={targetTool === "opencode"}
                   className={`hero-tool-btn${targetTool === "opencode" ? " active" : ""}`}
                   onClick={() => setTargetTool("opencode")}
+                  title="Instalar apenas para opencode (~/.config/opencode/)"
                 >
                   <AnimatedIcon Icon={OpencodeIcon} className="icon" size={14} />
                   <span>opencode</span>
@@ -166,13 +194,35 @@ export default function Hero() {
                 <button
                   type="button"
                   role="radio"
+                  aria-checked={targetTool === "agents"}
+                  className={`hero-tool-btn${targetTool === "agents" ? " active" : ""}`}
+                  onClick={() => setTargetTool("agents")}
+                  title="Instalar apenas para IDEs & Agentes (~/.agents, Antigravity, Cursor, Windsurf, Cline)"
+                >
+                  <AnimatedIcon Icon={CpuIcon} className="icon" size={14} />
+                  <span>Agentes & IDEs</span>
+                </button>
+                <button
+                  type="button"
+                  role="radio"
                   aria-checked={targetTool === "all"}
                   className={`hero-tool-btn${targetTool === "all" ? " active" : ""}`}
                   onClick={() => setTargetTool("all")}
+                  title="Instalar para todos os ambientes (Claude + opencode + Agentes & IDEs)"
                 >
                   <AnimatedIcon Icon={ZapIcon} className="icon" size={14} />
-                  <span>Ambos</span>
+                  <span>Todos (Completo)</span>
                 </button>
+              </div>
+
+              {/* Detalhes explícitos do alvo selecionado */}
+              <div className="hero-target-info-card">
+                <span className="hero-target-info-badge">
+                  {TOOL_TARGET_META[targetTool].tag}
+                </span>
+                <span className="hero-target-info-desc">
+                  {TOOL_TARGET_META[targetTool].description}
+                </span>
               </div>
             </div>
 
@@ -201,22 +251,29 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Presets Rápidos */}
+            {/* Presets Rápidos / Multi-Seleção de Bases */}
             <div className="hero-terminal-section">
-              <span className="hero-section-label">02. SELECIONE UMA BASE:</span>
+              <div className="hero-terminal-label-row">
+                <span className="hero-section-label">02. SELECIONE AS BASES:</span>
+                <span className="hero-active-preset-badge">
+                  {activePresets.size > 0
+                    ? `${activePresets.size} ativa${activePresets.size > 1 ? "s" : ""}`
+                    : `${selectedSkills.size} skills`}
+                </span>
+              </div>
               <div className="hero-preset-grid">
                 {SKILL_PRESETS.slice(0, 6).map((preset) => {
-                  const isActive = activePreset === preset.id;
+                  const isActive = isPresetActive(preset.id);
                   return (
                     <button
                       key={preset.id}
                       type="button"
                       className={`hero-preset-btn${isActive ? " active" : ""}`}
-                      onClick={() => applyPreset(preset.id)}
-                      title={`${preset.description} (${preset.skills.length} skills)`}
+                      onClick={() => togglePreset(preset.id)}
+                      title={`${preset.description} (${preset.skills.length} skills) — Clique para ${isActive ? "remover base" : "adicionar base"}`}
                     >
                       <span className="hero-preset-name">{preset.name}</span>
-                      <span className="hero-preset-count">{preset.skills.length}</span>
+                      <span className="hero-preset-count">{isActive ? `✓ ${preset.skills.length}` : `+${preset.skills.length}`}</span>
                     </button>
                   );
                 })}
@@ -230,23 +287,25 @@ export default function Hero() {
                 <pre>
                   <code>{installCommand}</code>
                 </pre>
+                <CopyButton
+                  className="hero-code-copy-btn"
+                  text={installCommand}
+                  aria-label="Copiar comando de instalação"
+                  title="Copiar comando completo para a área de transferência"
+                >
+                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={15} />
+                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={15} />
+                </CopyButton>
               </div>
             </div>
 
             {/* Ações do Terminal */}
             <div className="hero-terminal-actions">
-              <CopyButton
-                className="btn-primary hero-copy-action"
-                text={installCommand}
-                aria-label="Copiar comando PowerShell pronto"
-                title="Copiar comando completo para a área de transferência"
-              >
-                <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={15} />
-                <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={15} />
-                <span>Copiar One-Liner</span>
-              </CopyButton>
+              <span className="hero-terminal-actions-hint">
+                {"// Clique no ícone acima para copiar o comando"}
+              </span>
               <a href="#skills" className="hero-terminal-explore-link">
-                Personalizar &rarr;
+                Personalizar no Catálogo &rarr;
               </a>
             </div>
           </div>

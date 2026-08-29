@@ -21,6 +21,9 @@ Write-Host '===== Claude Code ====='
 Write-Host ''
 Write-Host '===== opencode ====='
 & (Join-Path $RepoRoot 'opencode\install.ps1') -RepoRoot $RepoRoot
+Write-Host ''
+Write-Host '===== Universal Agents (~/.agents) ====='
+& (Join-Path $RepoRoot 'agents\install.ps1') -RepoRoot $RepoRoot
 
 Write-Host ''
 Write-Host 'All installers finished. Restart the tools to pick up changes.'
