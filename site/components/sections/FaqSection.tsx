@@ -61,11 +61,7 @@ export default function FaqSection() {
       <div className="faq-list">
         <FaqItem id="tools" question="Preciso instalar as duas ferramentas?">
           <p>
-            Não. O <code>scripts/install.ps1</code> instala tudo, mas cada
-            pasta tem o próprio <code>install.ps1</code> — rode só o da
-            ferramenta que você usa. O repo também tem uma pasta{" "}
-            <code>antigravity/</code>, mas ela é um placeholder: hoje o
-            instalador dela não copia nada.
+            Não. O instalador permite escolher se você quer provisionar o ambiente completo (Claude Code + opencode) ou apenas uma das ferramentas através de <code>-Tools claude</code> ou <code>-Tools opencode</code>.
           </p>
         </FaqItem>
 
@@ -104,6 +100,18 @@ export default function FaqSection() {
             <code>-ExecutionPolicy Bypass</code> serve apenas para o Windows
             aceitar rodar um script não assinado — não altera a política da
             máquina.
+          </p>
+        </FaqItem>
+
+        <FaqItem id="hub" question="Como funciona o Hub da Comunidade Anthropic no site?">
+          <p>
+            O Hub se conecta diretamente à API pública do GitHub para escanear repositórios com a tag <code>topic:claude-skills</code> e repositórios oficiais/upstream (como <code>anthropics/skills</code> e <code>cloudflare/skills</code>). Ele localiza arquivos <code>SKILL.md</code>, extrai suas descrições e permite que você adicione qualquer skill à sua seleção com 1 clique, gerando o comando de instalação correspondente.
+          </p>
+        </FaqItem>
+
+        <FaqItem id="ratelimit" question="Preciso de token do GitHub para usar a busca?">
+          <p>
+            Não. A busca padrão é 100% anônima e gratuita (limitada a 60 requisições/hora pela API pública do GitHub). Caso queira fazer muitas buscas consecutivas ou escanear repositórios volumosos, você pode clicar em <strong>Configurar GitHub API</strong> no cabeçalho do Hub e inserir um Personal Access Token temporário, que eleva o limite para 5.000 requisições/hora e fica salvo apenas no seu navegador.
           </p>
         </FaqItem>
 

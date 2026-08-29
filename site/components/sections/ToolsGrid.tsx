@@ -3,7 +3,7 @@
 import AnimatedIcon from "@/components/AnimatedIcon";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRightIcon } from "@/components/icons/arrow-up-right";
-import { SKILLS, PLUGIN_GROUPS } from "@/lib/data";
+import { PLUGIN_GROUPS } from "@/lib/data";
 
 export default function ToolsGrid() {
   const claudeCodePlugins = PLUGIN_GROUPS.find((g) => g.tool === "Claude Code")!.items.length;
@@ -23,7 +23,7 @@ export default function ToolsGrid() {
           <div className="contact-card-info">
             <h3>Claude Code</h3>
             <p>
-              {SKILLS.length} skills, {claudeCodePlugins} plugins, settings, MCP e regras
+              Presets de skills prontas, {claudeCodePlugins} plugins, settings, MCP e regras
               globais em <code>~/.claude/</code>.
             </p>
           </div>
@@ -57,6 +57,26 @@ export default function ToolsGrid() {
             className="contact-card-action"
           >
             <span>Ver pasta opencode/</span>
+            <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
+          </a>
+        </div>
+        <div className="contact-card">
+          <div className="contact-card-icon">
+            <svg className="brand-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.5h-2v-2h2v2zm0-4h-2V7h2v5.5z" />
+            </svg>
+          </div>
+          <div className="contact-card-info">
+            <h3>Anthropic Hub</h3>
+            <p>
+              Busca em tempo real de skills comunitárias no GitHub, inspeção de <code>SKILL.md</code> e importação em 1 clique.
+            </p>
+          </div>
+          <a
+            href="#repo-add"
+            className="contact-card-action"
+          >
+            <span>Explorar Hub &darr;</span>
             <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
           </a>
         </div>

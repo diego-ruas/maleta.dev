@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Instalador One-Liner do maleta.dev para Claude Code, opencode e Antigravity.
+    Instalador One-Liner do maleta.dev para Claude Code e opencode.
 
 .DESCRIPTION
     Instala skills, plugins, marketplaces e configuracoes de IA.
@@ -11,12 +11,12 @@
         & ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills @('design-taste-frontend','emil-design-eng')
 
 .PARAMETER Tools
-    Quais ferramentas instalar: 'all', 'claude', 'opencode', 'antigravity'.
-    Padrao: 'all' (Claude Code + opencode + Antigravity).
+    Quais ferramentas instalar: 'all', 'claude', 'opencode'.
+    Padrao: 'all' (Claude Code + opencode).
 
 .PARAMETER Skills
     Array opcional com nomes das skills do Claude para instalar.
-    Se omitido, instala todas as 82 skills.
+    Se omitido, instala todas as skills curadas.
 
 .PARAMETER Force
     Sobrescreve configuracoes sem pedir confirmacao.
@@ -88,7 +88,7 @@ try {
 
     $toolsToRun = @()
     if ($Tools -contains 'all') {
-        $toolsToRun = @('claude', 'opencode', 'antigravity')
+        $toolsToRun = @('claude', 'opencode')
     } else {
         $toolsToRun = $Tools
     }
@@ -133,16 +133,6 @@ try {
             & $opencodeInstallScript -RepoRoot $RepoRoot
         } else {
             Write-Host "[warn] Script do opencode nao encontrado em $opencodeInstallScript" -ForegroundColor DarkYellow
-        }
-        Write-Host ""
-    }
-
-    # 4. Executar instalacao do Antigravity
-    if ($toolsToRun -contains 'antigravity') {
-        Write-Host "===== Antigravity =====" -ForegroundColor Yellow
-        $antigravityInstallScript = Join-Path $RepoRoot 'antigravity\install.ps1'
-        if (Test-Path $antigravityInstallScript) {
-            & $antigravityInstallScript -RepoRoot $RepoRoot
         }
         Write-Host ""
     }

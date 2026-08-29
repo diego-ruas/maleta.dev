@@ -2,16 +2,15 @@
 
 How each piece of this repo maps to each AI coding tool.
 
-| Asset                          | Claude Code                  | opencode                 | Antigravity              |
-|--------------------------------|------------------------------|--------------------------|--------------------------|
-| **Skills** (`claude/skills/`)  | `~/.claude/skills/`          | custom skills (via config) | not yet supported      |
-| **Claude settings**            | `~/.claude/settings.json`    | n/a                      | n/a                      |
-| **Claude MCP servers**         | `~/.claude.json` (imported from `claude/mcp.json`) | n/a | n/a |
-| **Claude plugins** (manifest)  | `claude plugin install <id>` | n/a                      | n/a                      |
-| **claude-mem worker**          | plugin `claude-mem@thedotmack` | `plugins/claude-mem.js` | n/a                      |
-| **opencode config**            | n/a                          | `~/.config/opencode/opencode.jsonc` + `opencode.json` | n/a                |
-| **opencode plugins**           | n/a                          | `~/.config/opencode/` (npm refs + `plugins/claude-mem.js`) | n/a |
-| **Antigravity assets**         | n/a                          | n/a                      | `%LOCALAPPDATA%\antigravity` |
+| Asset                          | Claude Code                  | opencode                 |
+|--------------------------------|------------------------------|--------------------------|
+| **Skills** (`claude/skills/`)  | `~/.claude/skills/`          | custom skills (via config) |
+| **Claude settings**            | `~/.claude/settings.json`    | n/a                      |
+| **Claude MCP servers**         | `~/.claude.json` (imported from `claude/mcp.json`) | n/a |
+| **Claude plugins** (manifest)  | `claude plugin install <id>` | n/a                      |
+| **claude-mem worker**          | plugin `claude-mem@thedotmack` | `plugins/claude-mem.js` |
+| **opencode config**            | n/a                          | `~/.config/opencode/opencode.jsonc` + `opencode.json` |
+| **opencode plugins**           | n/a                          | `~/.config/opencode/` (npm refs + `plugins/claude-mem.js`) |
 
 ## Claude Code
 
@@ -23,7 +22,3 @@ How each piece of this repo maps to each AI coding tool.
 
 - **Config** lives in `~/.config/opencode/opencode.jsonc`. It references npm plugins (`opencode-ponytail`, `opencode-notify`, `opencode-worktree`, `opencode-antigravity-auth`), a git plugin (`superpowers`), and the local adapter `./plugins/claude-mem.js`.
 - **claude-mem** for opencode is a thin adapter (`plugins/claude-mem.js`) that talks to the worker started by the Claude Code plugin. The `<claude-mem-context>` block in `AGENTS.md` is injected by the claude-mem installer.
-
-## Antigravity
-
-- Placeholder only. `antigravity/` ships a forward-compatible `install.ps1` that copies content into `%LOCALAPPDATA%\antigravity` once anything is staged.
