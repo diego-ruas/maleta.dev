@@ -353,7 +353,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
   }, [results, resultFilter]);
 
   return (
-    <div className="repo-add" id="repo-add">
+    <div className="repo-add">
       <div className="repo-add-header">
         <div className="repo-mode-tabs" role="tablist" aria-label="Modo de busca">
           <button

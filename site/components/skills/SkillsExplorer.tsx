@@ -51,15 +51,33 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
   const [viewScope, setViewScope] = useState<"all" | "selected">("all");
 
   useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash;
-      if (hash === "#repo-add" || hash === "#hub") {
+    const handleNav = (targetId: string) => {
+      if (targetId === "repo-add" || targetId === "hub") {
         setActiveStep("hub");
       }
     };
+
+    const handleHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash) {
+        handleNav(hash);
+      }
+    };
+
+    const onCustomNav = (e: Event) => {
+      const ce = e as CustomEvent<string>;
+      if (ce.detail) {
+        handleNav(ce.detail);
+      }
+    };
+
     handleHash();
     window.addEventListener("hashchange", handleHash);
-    return () => window.removeEventListener("hashchange", handleHash);
+    window.addEventListener("maleta-navigate", onCustomNav);
+    return () => {
+      window.removeEventListener("hashchange", handleHash);
+      window.removeEventListener("maleta-navigate", onCustomNav);
+    };
   }, []);
 
   const visibleSkills = useMemo(() => {
