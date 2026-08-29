@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/react";
 import { ToastProvider } from "@/components/Toast";
 import "../css/base.css";
 import "../css/site.css";
@@ -57,6 +58,7 @@ export default function RootLayout({
     <html lang="pt-BR" className={departureMono.variable}>
       <body>
         <ToastProvider>{children}</ToastProvider>
+        <Analytics />
       </body>
     </html>
   );
