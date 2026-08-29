@@ -225,6 +225,7 @@ section > p {
 .intro-copy {
     grid-column: 1;
     grid-row: 1;
+    min-width: 0;
 }
 
 .hero-prompt {
@@ -1828,6 +1829,12 @@ footer {
         margin-right: auto;
     }
 
+    .intro-badge-item,
+    .highlight-word {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
     .intro-highlights,
     .intro-links {
         justify-content: center;
@@ -2023,16 +2030,6 @@ footer {
         padding: 0 var(--space-3) var(--space-5);
     }
 
-    .intro-badge-item {
-        white-space: normal;
-        overflow-wrap: anywhere;
-        text-align: center;
-    }
-
-    .highlight-word {
-        white-space: normal;
-        overflow-wrap: anywhere;
-    }
 }
 
 @media (max-width: 340px) {
