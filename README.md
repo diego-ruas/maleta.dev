@@ -71,14 +71,6 @@ Consulte a [Matriz de Compatibilidade](docs/TOOL-MATRIX.md) para detalhes de map
 
 ---
 
-## Segurança
-
-Todas as skills incluídas são auditadas automaticamente com o [NVIDIA SkillSpector](https://github.com/nvidia/skillspector) contra injeções de prompt, scripts maliciosos e vulnerabilidades.
-
-Confira o relatório completo em [SKILLSPECTOR_REPORT.md](SKILLSPECTOR_REPORT.md).
-
----
-
 ## Como personalizar ou adicionar skills
 
 1. Baixe ou crie a pasta da skill contendo seu respectivo arquivo `SKILL.md`.

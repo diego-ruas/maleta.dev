@@ -27,7 +27,7 @@ on Vercel. It is deployed, not installed.
    opencode config (`opencode.jsonc`) only lists plugin references — no provider
    credentials — keep it that way.
 5. **Do not add new files to the repo root** unless they belong there
-   (README, LICENSE, AGENTS.md, CLAUDE.md, .cursorrules, .windsurfrules, .clinerules, .gitignore, docs/, SKILLSPECTOR_REPORT.md). Tool-specific assets go in
+   (README, LICENSE, AGENTS.md, CLAUDE.md, .cursorrules, .windsurfrules, .clinerules, .gitignore, docs/). Tool-specific assets go in
    their own subfolder.
 6. **This repo is install-only.** Do not reintroduce local→repo backup scripts
    (`sync.ps1`, `autosync.ps1`): they would push personal data into a public repo.

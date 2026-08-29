@@ -41,15 +41,11 @@ export default function SkillsExplorer({ skills, categories }: SkillsExplorerPro
   const showToast = useToast();
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [activePreset, setActivePreset] = useState<string | null>("essentials");
-  const [viewScope, setViewScope] = useState<"preset" | "all">("preset");
+  const [activePreset, setActivePreset] = useState<string | null>(null);
+  const [viewScope, setViewScope] = useState<"preset" | "all">("all");
   const [customSkills, setCustomSkills] = useState<CustomSkill[]>([]);
 
-  // Inicializar com preset "essentials"
-  const [selected, setSelected] = useState<Set<string>>(() => {
-    const defaultPreset = SKILL_PRESETS.find((p) => p.id === "essentials");
-    return new Set(defaultPreset ? defaultPreset.skills : skills.map((s) => s.name));
-  });
+  const [selected, setSelected] = useState<Set<string>>(() => new Set());
 
   useEffect(() => {
     const savedCustom = loadJSON<CustomSkill[]>(CUSTOM_KEY, []);

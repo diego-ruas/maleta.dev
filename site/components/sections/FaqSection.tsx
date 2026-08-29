@@ -78,7 +78,7 @@ export default function FaqSection() {
           </p>
         </FaqItem>
 
-        <FaqItem id="git" question="Não tenho Git instalado na minha máquina?">
+        <FaqItem id="git" question="Preciso ter o Git instalado?">
           <p>
             Sem problemas! A <strong>Instalação Expressa (One-Liner)</strong> funciona diretamente pelo PowerShell nativo do Windows, sem depender do Git. Caso prefira a instalação manual, use o botão <strong>Baixar ZIP</strong> no topo da página, extraia a pasta e execute o script local.
           </p>
