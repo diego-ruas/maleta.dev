@@ -1,38 +1,36 @@
 # Maleta.dev
 
-> Curated, install-only collection of AI tooling: skills, presets, plugins, and configurations for Claude Code and opencode. 100% local, safe, and automated.
+> Curated, install-only custom AI toolkit builder: skills, presets, plugins, and configurations for Claude Code and opencode. 100% local, safe, and automated.
 
-Maleta.dev provides ready-to-use AI workflows, instructions, plugins, and configurations for local AI coding assistants.
+Maleta.dev is an interactive custom toolkit builder and catalog for local AI coding assistants (Claude Code and opencode). Instead of forcing a monolithic bundle, developers can choose presets, pick specific skills, import community skills from GitHub, and generate tailored installation commands.
 
-## Express Installation (PowerShell)
+## Custom Installation Commands (PowerShell)
 
-- One-liner (all tools: Claude Code + opencode):
-  `irm https://maleta.dev/install.ps1 | iex`
-- Claude Code only:
-  `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude`
+- Tailored One-Liner (Claude Code + specific skills):
+  `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills @('design-taste-frontend','test-driven-development','systematic-debugging')`
+- All tools (Claude Code + opencode):
+  `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools all -Skills @('design-taste-frontend','emil-design-eng')`
 - opencode only:
   `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools opencode`
-- Specific skills selection:
-  `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills @('design-taste-frontend','emil-design-eng')`
 
-## Repository Structure & Documentation
+## Repository Structure & Multi-Agent Documentation
 
 - [AGENTS.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/AGENTS.md): Universal guidance and golden rules for AI agents and LLMs interacting with this repo.
 - [CLAUDE.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/CLAUDE.md): Claude Code CLI instructions and project guidelines.
 - [TOOL-MATRIX.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/docs/TOOL-MATRIX.md): Detailed tool compatibility matrix (Claude Code and opencode).
 - [README.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/README.md): Project overview and documentation in Portuguese.
 
-## Core Capabilities & Skills
+## Core Capabilities & Skills Catalog
 
 Maleta.dev includes over 80 curated skills organized by category:
 
 - **Accessibility**: Audits, diffs, fixes, DOM inspect, WCAG 2.2 AA compliance (`accessibility-audit`, `accessibility-scan`, `accessibility-fix`).
 - **Animations & Design Engineering**: Framer Motion, micro-interactions, CSS animations, sound design (`framer-motion-2`, `web-animation-design-engineer`, `sound-design-ui`).
 - **Cloudflare**: Workers, Pages, Durable Objects, D1, Queues, Vectorize, KV (`cloudflare-workers`, `cloudflare-d1`, `cloudflare-durable-objects`).
-- **UI & Frontend Design**: Modern UI engineering, anti-slop design taste, typography, Tailwind, React/Next.js patterns (`design-taste-frontend`, `emil-design-eng`, `no-ai-slop`, `frontend-design`, `ui-ux-pro-max`).
+- **UI & Frontend Design**: Modern UI engineering, anti-slop design taste, typography, React/Next.js patterns (`design-taste-frontend`, `emil-design-eng`, `no-ai-slop`, `frontend-design`, `ui-ux-pro-max`).
 - **Testing & Quality**: Test-Driven Development (TDD), Playwright web app testing, systematic debugging, pre-completion verification (`test-driven-development`, `webapp-testing`, `systematic-debugging`, `verification-before-completion`).
 - **Writing & Documentation**: Documentation co-authoring, technical specs, and RFC authoring (`doc-coauthoring`).
-- **Developer Tools**: Git worktrees, MCP integrations, agent SDKs, database migrations, security audits.
+- **Community Hub (GitHub Discovery)**: Real-time search of public GitHub repositories tagged with `topic:claude-skills`, inspection of `SKILL.md` files, and instant 1-click import into custom installers.
 
 ## Featured Plugins & Integrations
 
@@ -43,4 +41,4 @@ Maleta.dev includes over 80 curated skills organized by category:
 
 ## Security & Privacy Guarantee
 
-- **Install-Only**: No local credentials, session histories, or sensitive data are ever synced back or tracked in git.
+- **Install-Only & Zero Slop**: No local credentials, session histories, or sensitive data are ever synced back or tracked in git.

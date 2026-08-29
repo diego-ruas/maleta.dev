@@ -7,10 +7,11 @@ import PluginsSection from "@/components/sections/PluginsSection";
 import FaqSection from "@/components/sections/FaqSection";
 import SiteFooter from "@/components/sections/SiteFooter";
 import BackToTop from "@/components/BackToTop";
+import { ToolkitProvider } from "@/lib/toolkitContext";
 
 export default function Page() {
   return (
-    <>
+    <ToolkitProvider>
       <a href="#main" className="skip-link">
         Ir para o conteúdo
       </a>
@@ -28,6 +29,6 @@ export default function Page() {
 
       <SiteFooter />
       <BackToTop />
-    </>
+    </ToolkitProvider>
   );
 }

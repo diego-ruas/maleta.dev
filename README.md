@@ -1,40 +1,30 @@
 # Maleta.dev
 
-Uma coleção pronta e curada de skills, plugins e configurações para turbinar seus assistentes de IA: [Claude Code](https://docs.anthropic.com/en/docs/claude-code) e [opencode](https://opencode.ai).
+Um construtor e catálogo customizado de skills, plugins e configurações para turbinar seus assistentes de IA: [Claude Code](https://docs.anthropic.com/en/docs/claude-code) e [opencode](https://opencode.ai).
 
-Clone, execute o instalador e pronto: tudo configurado e funcionando no seu ambiente em segundos. 100% local e seguro — nenhum dado pessoal ou chave de API é armazenado ou enviado de volta.
-
-Você também pode explorar o catálogo interativo e gerar comandos sob medida em [maleta.dev](https://maleta.dev).
+Monte seu pacote sob medida no site [maleta.dev](https://maleta.dev) ou execute comandos específicos para instalar apenas o que você precisa. 100% local e seguro — nenhum dado pessoal ou chave de API é armazenado ou enviado de volta.
 
 ---
 
-## Como instalar
+## Como instalar seu pacote sob medida
 
 ### Pré-requisitos
-- Windows com **PowerShell**
-- [Git](https://git-scm.com)
+- Windows com **PowerShell 5.1** (nativo)
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) e/ou [opencode](https://opencode.ai) instalados
 
-### Método 1: Instalação Expressa (One-Liner — Recomendado)
+### Método 1: One-Liner Customizado (Recomendado)
 
-Abra o **PowerShell** e execute:
-
-```powershell
-# Instala tudo (Claude Code + opencode)
-irm https://maleta.dev/install.ps1 | iex
-```
-
-Ou instale apenas para uma ferramenta específica:
+Gere seu comando personalizado no [maleta.dev](https://maleta.dev) ou monte os parâmetros diretamente no **PowerShell**:
 
 ```powershell
-# Apenas Claude Code
-& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude
+# Exemplo: Instalar Claude Code com skills selecionadas
+& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills @('design-taste-frontend','test-driven-development','systematic-debugging')
 
-# Apenas opencode
+# Exemplo: Instalar apenas opencode
 & ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools opencode
 ```
 
-### Método 2: Instalação Manual (Git Clone)
+### Método 2: Instalador Local (Git Clone)
 
 Se preferir clonar o repositório para inspecionar os arquivos:
 
@@ -44,13 +34,12 @@ cd maleta.dev
 powershell -ExecutionPolicy Bypass -File scripts/install.ps1
 ```
 
-> **Dica:** Para instalar apenas uma ferramenta específica a partir do clone local, execute o script individual correspondente: `claude/install.ps1` ou `opencode/install.ps1`.
-
 ---
 
 ## O que está incluído
 
-- **Mais de 80 Skills Prontas:** Instruções especializadas para frontend, backend, testes, refatoração, cloud, segurança, acessibilidade e documentação (`claude/skills/`).
+- **Mais de 80 Skills Curadas:** Instruções especializadas para frontend, backend, testes, refatoração, cloud, acessibilidade e documentação (`claude/skills/`).
+- **Hub Comunitário (GitHub):** Descubra e importe skills de qualquer repositório aberto na comunidade diretamente no instalador.
 - **Plugins Selecionados:**
   - **Memória entre sessões (`claude-mem`):** Mantém o contexto persistente entre conversas.
   - **Workflow Ágil (`superpowers`):** Estrutura de brainstorming, planejamento e TDD antes de codificar.
@@ -61,7 +50,7 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1
 - **Regras Globais e Multi-Agente:** Prompts e configurações refinadas com suporte nativo a múltiplos editores e agentes:
   - Claude Code (`CLAUDE.md`)
   - opencode (`opencode/AGENTS.md`)
-  - Codex / Devin / Gemini (`AGENTS.md`)
+  - Codex / Devin / Antigravity / Gemini (`AGENTS.md`)
   - Cursor (`.cursorrules`)
   - Windsurf (`.windsurfrules`)
   - Roo Code / Cline (`.clinerules`)
@@ -73,10 +62,10 @@ Consulte a [Matriz de Compatibilidade](docs/TOOL-MATRIX.md) para detalhes de map
 
 ## Como personalizar ou adicionar skills
 
-1. Baixe ou crie a pasta da skill contendo seu respectivo arquivo `SKILL.md`.
-2. Adicione em `claude/skills/<nome-da-skill>/`.
-3. Execute `claude/install.ps1` para aplicar as alterações localmente.
-4. Para refletir no catálogo web, atualize `site/lib/data.ts`.
+1. Obtenha a pasta da skill upstream contendo seu arquivo `SKILL.md`.
+2. Adicione em `claude/skills/<nome-da-skill>/` mantendo as licenças originais.
+3. Para refletir no catálogo web, atualize `site/lib/data.ts`.
+4. Execute `claude/install.ps1` para aplicar as alterações localmente.
 
 ---
 

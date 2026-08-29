@@ -14,7 +14,7 @@ export type SkillCategory = Exclude<(typeof CATEGORIES)[number]["key"], "all">;
 
 export interface Skill {
   name: string;
-  category: SkillCategory;
+  category: SkillCategory | string;
   description: string;
 }
 
