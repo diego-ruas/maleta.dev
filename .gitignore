@@ -25,6 +25,7 @@
 .claude/.ponytail-statusline-nudged
 
 # --- opencode ---
+.opencode/
 opencode/node_modules/
 **/node_modules/
 
