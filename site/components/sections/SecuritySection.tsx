@@ -7,17 +7,14 @@ import { CopyIcon } from "@/components/icons/copy";
 import { CheckIcon } from "@/components/icons/check";
 import { ArrowUpRightIcon } from "@/components/icons/arrow-up-right";
 import { ChevronDownIcon } from "@/components/icons/chevron-down";
-import { SKILLS } from "@/lib/data";
 
 export default function SecuritySection() {
-  const totalSkills = SKILLS.length;
-
   return (
     <Reveal id="seguranca" className="reveal" ariaLabelledby="seguranca-heading">
       <h2 id="seguranca-heading">Segurança & Auditoria NVIDIA SkillSpector</h2>
       <p>
         Para assegurar que nenhuma instrução maliciosa, injeção de prompt oculta
-        ou vetor de ataque chegue à sua máquina, todas as {totalSkills} skills passam
+        ou vetor de ataque chegue à sua máquina, todos os presets e skills nativas passam
         por auditoria estática automatizada com o{" "}
         <a
           href="https://github.com/nvidia/skillspector"
@@ -32,9 +29,9 @@ export default function SecuritySection() {
       <div className="security-stats-grid">
         <div className="security-stat-card">
           <div className="security-stat-value highlight-num">
-            {totalSkills} / {totalSkills}
+            100%
           </div>
-          <div className="security-stat-label">Skills Auditadas</div>
+          <div className="security-stat-label">Presets Auditados</div>
           <div className="security-stat-desc">100% do catálogo verificado</div>
         </div>
         <div className="security-stat-card">
@@ -96,12 +93,11 @@ export default function SecuritySection() {
 
             <div className="security-pillar-card">
               <div className="security-pillar-header">
-                <span className="security-pillar-tag">{"// CAMADA 04"}</span>
-                <h3 className="security-pillar-title">Integridade da Supply Chain</h3>
+                <span className="security-pillar-tag">{"// HUB COMUNITÁRIO"}</span>
+                <h3 className="security-pillar-title">Transparência em Skills Externas</h3>
               </div>
               <p className="security-pillar-desc">
-                Validação estática de manifestos e lockfiles, com garantia de ausência
-                de pacotes fantasmas ou dependências vulneráveis não declaradas.
+                Todas as skills descobertas no Hub da Comunidade incluem links diretos para auditoria do código-fonte e repositório original antes de você decidir incluí-las no instalador.
               </p>
             </div>
           </div>

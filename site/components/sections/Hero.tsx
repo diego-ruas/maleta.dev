@@ -10,14 +10,11 @@ import DecryptedText from "@/components/DecryptedText";
 import { DownloadIcon } from "@/components/icons/download";
 import { CopyIcon } from "@/components/icons/copy";
 import { CheckIcon } from "@/components/icons/check";
-import { SKILLS, PLUGIN_GROUPS } from "@/lib/data";
 
 type ToolTarget = "all" | "claude" | "opencode";
 
 export default function Hero() {
   const [targetTool, setTargetTool] = useState<ToolTarget>("all");
-  const claudeCodePlugins = PLUGIN_GROUPS.find((g) => g.tool === "Claude Code")!.items.length;
-  const opencodePlugins = PLUGIN_GROUPS.find((g) => g.tool === "opencode")!.items.length;
 
   const installCommand =
     targetTool === "all"
@@ -84,8 +81,8 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          Coleção curada para <span className="highlight-word">Claude Code</span> e{" "}
-          <span className="highlight-word">opencode</span>. Instale tudo em 1 comando no PowerShell sem precisar clonar repositório, ou customize sua seleção abaixo.
+          Coleção de skills para <span className="highlight-word">Claude Code</span> e{" "}
+          <span className="highlight-word">opencode</span>. Escolha um preset pronto ou use o <span className="highlight-word">Hub Comunitário</span> para buscar qualquer skill do GitHub e instalar em 1 comando no PowerShell.
         </motion.p>
         <motion.div
           className="intro-highlights"
@@ -94,18 +91,18 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          <div className="intro-badge-item">
+          <a href="#skills" className="intro-badge-item intro-badge-link" title="Ver presets de skills recomendados">
             <svg className="brand-icon" aria-hidden="true" viewBox="0 0 24 24">
               <path d="M21 10.5h3v3h-3v3h-1.5v3H18v-3h-1.5v3H15v-3H9v3H7.5v-3H6v3H4.5v-3H3v-3H0v-3h3v-6h18Zm-15 0h1.5v-3H6Zm10.5 0H18v-3h-1.5z" />
             </svg>
-            <span>Claude Code — {SKILLS.length} skills + {claudeCodePlugins} plugins</span>
-          </div>
-          <div className="intro-badge-item">
+            <span>Claude Code — Presets de Skills</span>
+          </a>
+          <a href="#repo-add" className="intro-badge-item intro-badge-link" title="Ir para o buscador de skills comunitárias">
             <svg className="brand-icon" aria-hidden="true" viewBox="0 0 24 24">
-              <path d="M22 24H2V0h20zM17 4.8H7v14.4h10z" />
+              <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.5h-2v-2h2v2zm0-4h-2V7h2v5.5z" />
             </svg>
-            <span>opencode — {opencodePlugins} plugins + MCP</span>
-          </div>
+            <span>Anthropic Hub — Descoberta Comunitária</span>
+          </a>
           <a href="#seguranca" className="intro-badge-item intro-badge-link" title="Ver relatório de auditoria de segurança">
             <svg className="brand-icon" aria-hidden="true" viewBox="0 0 24 24">
               <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />

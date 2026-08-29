@@ -9,7 +9,7 @@
 
 ## 1. Resumo Executivo
 
-O repositório **Maleta.dev** fornece uma coleção curada de skills e ferramentas para agentes de IA (Claude Code, opencode e Antigravity). Para assegurar que nenhuma instrução maliciosa, injeção de prompt oculta ou vetor de ataque de cadeia de suprimentos chegue à máquina do desenvolvedor, todas as skills passam por auditoria automatizada de segurança com o **NVIDIA SkillSpector**.
+O repositório **Maleta.dev** fornece uma coleção curada de skills e ferramentas para agentes de IA (Claude Code e opencode). Para assegurar que nenhuma instrução maliciosa, injeção de prompt oculta ou vetor de ataque de cadeia de suprimentos chegue à máquina do desenvolvedor, todas as skills passam por auditoria automatizada de segurança com o **NVIDIA SkillSpector**.
 
 | Métrica | Resultado | Status |
 |---|---|---|

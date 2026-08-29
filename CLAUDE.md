@@ -24,7 +24,7 @@
 - Faça só o que foi pedido; não antecipe próximos passos.
 
 ## Visão geral
-Repositório público, somente instalação, de tooling de IA: skills, plugins e configuração para **Claude Code** (`claude/`), **opencode** (`opencode/`) e **Antigravity** (`antigravity/`). `site/` é o site estático (Next.js, App Router, `output: 'export'`) publicado na Vercel.
+Repositório público, somente instalação, de tooling de IA: skills, plugins e configuração para **Claude Code** (`claude/`) e **opencode** (`opencode/`). `site/` é o site estático (Next.js, App Router, `output: 'export'`) publicado na Vercel.
 
 ## Regras invioláveis
 1. **Nunca commitar dados privados ou credenciais** (`.claude-mem/`, `.credentials.json`, `.env*`, sessions, tokens).

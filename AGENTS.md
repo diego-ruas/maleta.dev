@@ -5,8 +5,7 @@ Guidance for any AI agent working inside this repository. Read this first.
 ## What this repo is
 
 A public, install-only collection of AI tooling: skills, plugins and configuration
-for **Claude Code** (`claude/`), **opencode** (`opencode/`) and **Antigravity**
-(`antigravity/`). Clone it and run the installers; nothing is synced back here.
+for **Claude Code** (`claude/`) and **opencode** (`opencode/`). Clone it and run the installers; nothing is synced back here.
 
 The `site/` folder is the exception: it is the public website (maleta.dev) — a
 Next.js app (App Router, TypeScript, `output: 'export'`) served as static HTML
@@ -61,7 +60,7 @@ This repository provides native entry point configurations so that any LLM/agent
   powershell -ExecutionPolicy Bypass -File scripts/install.ps1
   ```
 
-Or per tool: `claude/install.ps1`, `opencode/install.ps1`, `antigravity/install.ps1`.
+Or per tool: `claude/install.ps1` ou `opencode/install.ps1`.
 Claude plugins are installed from their marketplaces via
 `claude plugin install <id>` (`claude/plugins/plugins.json` lists them).
 

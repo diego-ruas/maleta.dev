@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-    One-shot installer: restore Claude, opencode and Antigravity configs from this repo.
+    One-shot installer: restore Claude Code and opencode configs from this repo.
 
 .DESCRIPTION
-    Runs claude/install.ps1, opencode/install.ps1 and antigravity/install.ps1.
+    Runs claude/install.ps1 and opencode/install.ps1.
     Use this after cloning the repo to reproduce the full AI toolchain.
 
     Usage:
@@ -21,9 +21,6 @@ Write-Host '===== Claude Code ====='
 Write-Host ''
 Write-Host '===== opencode ====='
 & (Join-Path $RepoRoot 'opencode\install.ps1') -RepoRoot $RepoRoot
-Write-Host ''
-Write-Host '===== Antigravity ====='
-& (Join-Path $RepoRoot 'antigravity\install.ps1') -RepoRoot $RepoRoot
 
 Write-Host ''
 Write-Host 'All installers finished. Restart the tools to pick up changes.'
