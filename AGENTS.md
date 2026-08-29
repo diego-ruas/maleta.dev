@@ -33,6 +33,9 @@ The `site/` folder is the public web application ([maleta.dev](https://maleta.de
 8. **Animated icons are Pixelarticons.** `site/components/icons/*.tsx` come
    from [Pixelarticons](https://pixelarticons.com) (MIT), animated with step-timing
    micro-interactions via `motion/react`. Keep them pixel-grid aligned, transparent, and consistent.
+9. **NEVER use emojis.** Zero emojis in code, documentation, commit messages, or
+   agent responses. Use only project Pixelarticons (`site/components/icons/*.tsx`)
+   and plain-text prefixes (`//`, `~`, `->`, `*`).
 
 ## Multi-Agent Entry Points
 
@@ -135,3 +138,4 @@ npm run build      # static export to out/ — must pass before claiming done
   (no `&&`, no `??`, etc.).
 - Markdown docs: README in Portuguese (user-facing); AGENTS.md/docs in English.
 - No comments in code unless they clarify a non-obvious decision.
+- Never use emojis anywhere. Use only Pixelarticons (`site/components/icons/*.tsx`) and text prefixes (`//`, `~`, `->`, `*`).

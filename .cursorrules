@@ -8,6 +8,7 @@ See [AGENTS.md](./AGENTS.md) for full project architecture, golden rules, and st
   - Never commit private data, API keys, tokens, session caches, or `.env*` files.
   - Never edit upstream skills under `claude/skills/` directly.
   - Never commit build artifacts (`node_modules/`, `.next/`, `out/`).
+  - Never use emojis in code, docs, or responses; use only project Pixelarticons and text prefixes (`//`, `~`, `->`, `*`).
 - **Website Development (`site/`)**:
   - Next.js App Router (TypeScript, `output: 'export'`). Plain CSS tokens in `site/css/`.
   - State management via `site/lib/toolkitContext.tsx`.

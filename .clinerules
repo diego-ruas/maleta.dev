@@ -14,3 +14,4 @@ See [AGENTS.md](./AGENTS.md) for full project architecture, golden rules, and st
   - Keep `site/lib/data.ts` in sync with skills/plugins catalog.
   - Verify changes in `site/` with `npm run lint` and `npm run build`.
   - PowerShell scripts must run on PowerShell 5.1.
+  - Never use emojis; use only project Pixelarticons and text prefixes (`//`, `~`, `->`, `*`).

@@ -15,6 +15,7 @@
 - Verify before claiming completion: run the relevant command, confirm output.
 - Shortest correct change; match existing conventions. No boilerplate.
 - Never commit secrets or private data.
+- Never use emojis anywhere; use only project Pixelarticons and text prefixes (`//`, `~`, `->`, `*`).
 - Before acting, ask for anything you deem necessary: intent, scope, language,
   constraints, or tradeoffs. Never assume; if unclear or ambiguous, you MUST
   ask first — offer concrete options when possible.

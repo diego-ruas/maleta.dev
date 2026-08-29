@@ -3618,6 +3618,197 @@ footer {
     flex-shrink: 0;
 }
 
+/* ==========================================================================
+   Tutorial & Onboarding Enhancements
+   ========================================================================== */
+.tutorial-step-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin-top: var(--space-1);
+}
+
+.tutorial-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-void);
+    border: 1px solid var(--color-iron);
+    border-radius: var(--radius-sm);
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.tutorial-action-btn:hover {
+    color: var(--fg);
+    border-color: var(--color-slate);
+    background: var(--color-carbon);
+}
+
+.prompt-examples-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-1);
+    margin-top: var(--space-1);
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .prompt-examples-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.prompt-example-card {
+    background: var(--color-void);
+    border: 1px solid var(--color-iron);
+    border-radius: var(--radius-sm);
+    padding: var(--space-1);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color var(--transition-fast);
+}
+
+.prompt-example-card:hover {
+    border-color: var(--color-slate);
+}
+
+.prompt-example-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.prompt-example-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.prompt-badge-cat {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    color: var(--color-steel);
+    letter-spacing: 0.05em;
+}
+
+.prompt-badge-skill {
+    font-size: 11px;
+    color: var(--color-accent);
+    background: var(--color-carbon);
+    border: 1px solid var(--color-iron);
+    padding: 1px 4px;
+    border-radius: var(--radius-xs);
+}
+
+.prompt-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--color-iron);
+    color: var(--fg-muted);
+    border-radius: var(--radius-xs);
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.prompt-copy-btn:hover {
+    color: var(--fg);
+    border-color: var(--color-slate);
+}
+
+.prompt-copy-btn.copied {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.prompt-example-title {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0;
+}
+
+.prompt-example-text {
+    font-size: 11px;
+    color: var(--fg-muted);
+    line-height: 1.45;
+    margin: 0;
+    font-style: italic;
+}
+
+.tutorial-tips-panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+}
+
+@media (max-width: 860px) {
+    .tutorial-tips-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tutorial-tip-item {
+    background: var(--color-carbon);
+    border: 1px solid var(--color-iron);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-1);
+}
+
+.tutorial-tip-icon {
+    color: var(--color-accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.tutorial-tip-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tutorial-tip-title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: var(--fg);
+    margin: 0;
+}
+
+.tutorial-tip-desc {
+    font-size: var(--text-xs);
+    color: var(--fg-muted);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.tutorial-tip-desc code {
+    color: var(--color-accent);
+    background: var(--color-void);
+    padding: 1px 4px;
+    border-radius: var(--radius-xs);
+    font-size: 10px;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .reveal {
         opacity: 1 !important;

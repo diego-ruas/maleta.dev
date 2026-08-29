@@ -15,3 +15,4 @@
 - Verify before claiming completion: run the relevant command, confirm output.
 - Shortest correct change; match existing conventions. No boilerplate.
 - Never commit secrets or private data.
+- Never use emojis anywhere; use only project Pixelarticons and text prefixes (`//`, `~`, `->`, `*`).
