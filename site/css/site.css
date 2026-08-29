@@ -53,6 +53,9 @@ header {
 }
 
 .site-name {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
     font-size: var(--text-lg);
     font-weight: var(--font-bold);
     color: var(--fg);
@@ -60,7 +63,17 @@ header {
     letter-spacing: normal;
 }
 
-.site-name::before {
+.site-logo {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-xs, 2px);
+    border: 1px solid var(--color-iron);
+    background: var(--color-carbon);
+    image-rendering: pixelated;
+    flex-shrink: 0;
+}
+
+.site-title::before {
     content: '~/';
     color: var(--color-steel);
     font-weight: var(--font-regular);
@@ -210,21 +223,18 @@ section > p {
     max-width: 54rem;
 }
 
-/* Hero (intro) — bloco de texto a esquerda, mascote + campo de setas a direita */
+/* Hero (intro) — full-width terminal canvas */
 .intro {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    column-gap: var(--space-8);
+    display: flex;
+    flex-direction: column;
     text-align: left;
     padding-top: var(--space-4);
-    padding-bottom: var(--space-8);
+    padding-bottom: var(--space-5);
     border-bottom: 1px solid var(--color-iron);
 }
 
 .intro-copy {
-    grid-column: 1;
-    grid-row: 1;
+    width: 100%;
     min-width: 0;
 }
 
@@ -235,50 +245,6 @@ section > p {
     margin-bottom: var(--space-2);
 }
 
-.intro-mascot {
-    position: relative;
-    grid-column: 2;
-    grid-row: 1;
-    width: 176px;
-    height: 176px;
-    align-self: center;
-}
-
-/* Campo de setas do Axiom — textura de terminal atras do mascote */
-.intro-mascot::before {
-    content: '> > > >\A > > >\A > > > >\A > > >';
-    position: absolute;
-    top: -32px;
-    bottom: -32px;
-    right: calc(100% + var(--space-3));
-    white-space: pre;
-    font-size: var(--text-xs);
-    line-height: 2.2;
-    letter-spacing: 0.4em;
-    color: var(--color-slate);
-    pointer-events: none;
-    z-index: 0;
-}
-
-.mascot-backdrop {
-    display: none;
-}
-
-.mascot-motion-wrap {
-    width: 100%;
-    height: 100%;
-}
-
-.mascot-img {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border: 1px solid var(--color-iron);
-    background: var(--color-carbon);
-    z-index: 1;
-}
-
 .intro h1 {
     font-size: var(--text-4xl);
     line-height: 1.35;
@@ -287,10 +253,10 @@ section > p {
     margin-bottom: var(--space-3);
     letter-spacing: normal;
     text-wrap: balance;
-    max-width: 48ch;
+    max-width: 58ch;
 }
 
-.intro p {
+.intro-desc {
     font-size: var(--text-base);
     color: var(--fg-muted);
     margin-bottom: var(--space-4);
@@ -306,8 +272,8 @@ section > p {
     flex-wrap: wrap;
     column-gap: var(--space-4);
     row-gap: var(--space-2);
-    margin-top: var(--space-3);
-    margin-bottom: var(--space-5);
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
 }
 
 .intro-badge-item {
@@ -458,21 +424,21 @@ section > p {
 .hero-oneliner-box {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    gap: 10px;
     background: var(--color-graphite);
     border: 1px solid var(--color-iron);
     border-left: 2px solid var(--color-accent);
     border-radius: var(--radius-sm);
-    padding: var(--space-2) var(--space-3);
-    margin-top: var(--space-2);
+    padding: 16px;
+    margin-top: var(--space-3);
     margin-bottom: var(--space-4);
 }
 
 .oneliner-tabs {
     display: flex;
-    gap: var(--space-half);
+    gap: 6px;
     flex-wrap: wrap;
-    position: relative;
+    align-items: center;
 }
 
 .oneliner-tab {
@@ -483,7 +449,8 @@ section > p {
     color: var(--fg-muted);
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    padding: var(--space-half) var(--space-1);
+    padding: 4px 10px;
+    line-height: 1.4;
     cursor: pointer;
     transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
 }
@@ -513,13 +480,18 @@ section > p {
 }
 
 .oneliner-cmd {
-    margin-top: var(--space-half);
+    margin-top: 0;
+    padding: 6px 8px 6px 12px;
+    gap: 8px;
 }
 
 .oneliner-hint {
     font-size: var(--text-xs);
     color: var(--fg-muted);
-    line-height: 1.5;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    max-width: none;
 }
 
 /* Presets rápidos de skills */
@@ -2747,32 +2719,17 @@ footer {
         column-gap: 0;
     }
 
-    /* Hero empilha e o campo de setas sai de cena */
     .intro {
-        grid-template-columns: 1fr;
         text-align: center;
         row-gap: var(--space-2);
     }
 
     .intro-copy {
-        grid-column: 1;
-        grid-row: 2;
-    }
-
-    .intro-mascot {
-        grid-column: 1;
-        grid-row: 1;
-        margin: 0 auto;
-        width: 128px;
-        height: 128px;
-    }
-
-    .intro-mascot::before {
-        display: none;
+        width: 100%;
     }
 
     .intro h1,
-    .intro p {
+    .intro-desc {
         max-width: none;
         margin-left: auto;
         margin-right: auto;
@@ -2893,11 +2850,6 @@ footer {
 }
 
 @media (max-width: 600px) {
-    .intro-mascot {
-        width: 112px;
-        height: 112px;
-    }
-
     .contact-grid {
         grid-template-columns: 1fr;
     }

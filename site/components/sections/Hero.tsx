@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import CopyButton from "@/components/CopyButton";
@@ -10,6 +9,7 @@ import DecryptedText from "@/components/DecryptedText";
 import { DownloadIcon } from "@/components/icons/download";
 import { CopyIcon } from "@/components/icons/copy";
 import { CheckIcon } from "@/components/icons/check";
+import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 
 type ToolTarget = "all" | "claude" | "opencode";
 
@@ -25,23 +25,6 @@ export default function Hero() {
 
   return (
     <section className="intro">
-      <div className="intro-mascot">
-        <div className="mascot-backdrop"></div>
-        <motion.div
-          className="mascot-motion-wrap"
-          animate={{ y: [0, -6, 0] }}
-          transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
-        >
-          <Image
-            src="/logo.png"
-            alt="Mascote da Maleta.dev"
-            width={512}
-            height={512}
-            className="mascot-img"
-            priority
-          />
-        </motion.div>
-      </div>
       <motion.div
         className="intro-copy"
         initial="hidden"
@@ -76,6 +59,7 @@ export default function Hero() {
           </span>
         </motion.h1>
         <motion.p
+          className="intro-desc"
           variants={{
             hidden: { opacity: 0, y: 8 },
             visible: { opacity: 1, y: 0 },
@@ -184,7 +168,8 @@ export default function Hero() {
         >
           <div className="intro-actions">
             <a href="#skills" className="btn-gh">
-              <span>Personalizar skills &darr;</span>
+              <span>Personalizar skills</span>
+              <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={16} />
             </a>
             <a
               href="https://github.com/diego-ruas/maleta.dev/archive/refs/heads/main.zip"
