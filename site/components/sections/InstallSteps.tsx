@@ -32,25 +32,25 @@ const PROMPT_EXAMPLES: PromptExample[] = [
     title: "Design de Interface & UI",
     skill: "design-taste-frontend",
     category: "Frontend",
-    prompt: "Construa uma interface moderna, com estetica de terminal limpa e acessibilidade refinada, aplicando as diretrizes da skill design-taste-frontend.",
+    prompt: "Construa uma interface moderna com estética de terminal, contraste preciso e acessibilidade refinada, aplicando a skill design-taste-frontend.",
   },
   {
     title: "Desenvolvimento Guiado por Testes",
     skill: "test-driven-development",
     category: "Qualidade",
-    prompt: "Escreva a suite completa de testes unitarios e de integracao seguindo o ciclo red-green-refactor antes de criar o codigo de producao, com a skill test-driven-development.",
+    prompt: "Escreva a suíte completa de testes unitários seguindo o ciclo red-green-refactor antes de codificar a produção, com a skill test-driven-development.",
   },
   {
-    title: "Investigacao & Causa Raiz",
+    title: "Investigação & Causa Raiz",
     skill: "systematic-debugging",
     category: "Workflow",
-    prompt: "Investigue a falha nesta requisicao de forma sistematica: formule hipoteses, inspecione os logs e teste cada causa raiz com a skill systematic-debugging.",
+    prompt: "Investigue a falha nesta requisição de forma sistemática: formule hipóteses, inspecione os logs e teste cada causa raiz com systematic-debugging.",
   },
   {
-    title: "Codigo Enxuto & Sem Bloat",
+    title: "Código Enxuto & Sem Bloat",
     skill: "ponytail",
-    category: "Refatoracao",
-    prompt: "Revise esta funcao e remova toda complexidade acidental, abstracoes prematuras e dependencias desnecessarias, aplicando a mentalidade da skill ponytail.",
+    category: "Refatoração",
+    prompt: "Revise esta função e remova complexidade acidental, abstrações prematuras e dependências desnecessárias com a filosofia da skill ponytail.",
   },
 ];
 
@@ -59,7 +59,7 @@ export default function InstallSteps() {
   const [activeTab, setActiveTab] = useState<InstallTab>("oneliner");
 
   const previewCommand = useMemo(() => {
-    if (selectedSkills.size === 0) return "# Selecione ao menos uma skill no catalogo acima";
+    if (selectedSkills.size === 0) return "# Selecione ao menos uma skill no catálogo acima";
     if (selectedSkills.size <= 2) return installCommand;
     const sample = [...selectedSkills].slice(0, 2).map((n) => `'${n}'`).join(", ");
     const toolParam = targetTool !== "all" ? ` -Tools ${targetTool}` : "";
@@ -69,15 +69,15 @@ export default function InstallSteps() {
   return (
     <Reveal id="instalar" className="reveal" ariaLabelledby="instalar-heading">
       <div className="section-header-badge">
-        <span className="section-tag-prefix">{"// 05. TUTORIAL & INSTALACAO"}</span>
+        <span className="section-tag-prefix">{"// 05. TUTORIAL & INSTALAÇÃO"}</span>
       </div>
       <h2 id="instalar-heading">Como instalar e usar seu toolkit</h2>
       <p>
-        Guia pratico passo a passo para provisionar seu ambiente sob medida em segundos e comecar a interagir com as skills no Claude Code e opencode.
+        Guia prático passo a passo para provisionar seu ambiente sob medida em segundos e validar as skills no terminal.
       </p>
 
       {/* Seletor de Modo / Abas do Tutorial */}
-      <div className="install-mode-toggle" role="tablist" aria-label="Metodos de instalacao e onboarding">
+      <div className="install-mode-toggle" role="tablist" aria-label="Métodos de instalação e onboarding">
         <button
           type="button"
           role="tab"
@@ -106,11 +106,11 @@ export default function InstallSteps() {
           onClick={() => setActiveTab("local")}
         >
           <AnimatedIcon Icon={TerminalIcon} className="icon" size={16} />
-          <span>3. Instalacao Local (Git / ZIP)</span>
+          <span>3. Instalação Local (Git / ZIP)</span>
         </button>
       </div>
 
-      {/* Conteudo dinamico por aba */}
+      {/* Conteúdo dinâmico por aba */}
       {activeTab === "oneliner" && (
         <div className="process-grid">
           <div className="process-card">
@@ -121,9 +121,9 @@ export default function InstallSteps() {
               <div className="process-num">01</div>
             </div>
             <div className="process-content">
-              <h3 className="process-title">Requisitos Minimos</h3>
+              <h3 className="process-title">Requisitos Mínimos</h3>
               <p className="process-desc">
-                Windows 10/11 com <strong>PowerShell 5.1+</strong> nativo e <strong>Claude Code</strong> e/ou <strong>opencode</strong> ja instalados na sua maquina.
+                Windows 10/11 com <strong>PowerShell 5.1+</strong> nativo e <strong>Claude Code</strong> e/ou <strong>opencode</strong> já instalados no terminal.
               </p>
             </div>
           </div>
@@ -138,14 +138,14 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Executar Comando Customizado</h3>
               <p className="process-desc">
-                Cole a linha abaixo no PowerShell e tecle Enter. Apenas as <strong>{selectedSkills.size} skills selecionadas</strong> para o alvo <strong>{targetTool.toUpperCase()}</strong> serao provisionadas:
+                Cole a linha abaixo no PowerShell. Apenas as <strong>{selectedSkills.size} skills selecionadas</strong> para o alvo <strong>{targetTool.toUpperCase()}</strong> serão provisionadas:
               </p>
               <div className="cmd">
                 <code title={installCommand}>{previewCommand}</code>
                 <CopyButton
                   className="cmd-copy"
                   text={installCommand}
-                  aria-label="Copiar comando de instalacao customizado completo"
+                  aria-label="Copiar comando de instalação customizado completo"
                   title="Copiar comando completo"
                 >
                   <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
@@ -157,7 +157,7 @@ export default function InstallSteps() {
                   type="button"
                   onClick={downloadScript}
                   className="tutorial-action-btn"
-                  title="Baixar arquivo install-custom.ps1 pronto para rodar offline"
+                  title="Baixar arquivo instalar-maleta.ps1 pronto para rodar offline"
                 >
                   <AnimatedIcon Icon={DownloadIcon} className="icon" size={14} />
                   <span>Baixar script .ps1 sob medida</span>
@@ -176,7 +176,7 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Validar no Terminal</h3>
               <p className="process-desc">
-                Abra seu assistente no terminal. Digite o comando abaixo para confirmar que todas as skills foram carregadas com sucesso:
+                Abra seu assistente no terminal e digite o comando abaixo para confirmar o carregamento das skills:
               </p>
               <div className="cmd">
                 <code>/skills</code>
@@ -196,9 +196,9 @@ export default function InstallSteps() {
               <div className="process-num">04</div>
             </div>
             <div className="process-content">
-              <h3 className="process-title">Primeiro Uso — Exemplos Praticos de Prompts</h3>
+              <h3 className="process-title">Primeiro Uso — Prompts Recomendados</h3>
               <p className="process-desc">
-                Para acionar uma skill, basta menciona-la ou descrever a tarefa diretamente no prompt. Clique para copiar exemplos recomendados:
+                Para acionar uma skill, basta mencioná-la ou contextualizar o objetivo diretamente no seu prompt:
               </p>
               <div className="prompt-examples-grid">
                 {PROMPT_EXAMPLES.map((ex, idx) => (
@@ -240,11 +240,11 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Instalar o Claude Code</h3>
               <p className="process-desc">
-                O Claude Code e executado via Node.js (versao 18+). Instale-o globalmente pelo npm no seu PowerShell:
+                O Claude Code é executado via Node.js (versão 18+). Instale o pacote globalmente via npm no PowerShell:
               </p>
               <div className="cmd">
                 <code>npm install -g @anthropic-ai/claude-code</code>
-                <CopyButton className="cmd-copy" text="npm install -g @anthropic-ai/claude-code" aria-label="Copiar comando de instalacao do Claude Code">
+                <CopyButton className="cmd-copy" text="npm install -g @anthropic-ai/claude-code" aria-label="Copiar comando de instalação do Claude Code">
                   <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
                   <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
                 </CopyButton>
@@ -262,11 +262,11 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Instalar o opencode (Opcional)</h3>
               <p className="process-desc">
-                Caso utilize ou queira experimentar o opencode para modelos locais ou open-source:
+                Caso prefira utilizar modelos open-source locais (via Ollama ou LM Studio) ou múltiplos provedores:
               </p>
               <div className="cmd">
                 <code>npm install -g opencode-ai</code>
-                <CopyButton className="cmd-copy" text="npm install -g opencode-ai" aria-label="Copiar comando de instalacao do opencode">
+                <CopyButton className="cmd-copy" text="npm install -g opencode-ai" aria-label="Copiar comando de instalação do opencode">
                   <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
                   <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
                 </CopyButton>
@@ -282,9 +282,9 @@ export default function InstallSteps() {
               <div className="process-num">03</div>
             </div>
             <div className="process-content">
-              <h3 className="process-title">Fazer o Primeiro Login</h3>
+              <h3 className="process-title">Autenticação Inicial</h3>
               <p className="process-desc">
-                Execute <code>claude</code> no seu terminal para autenticar com sua conta Anthropic. Em seguida, feche a sessao digitando <code>/exit</code>.
+                Execute <code>claude</code> no terminal para autenticar com sua conta Anthropic e feche a sessão digitando <code>/exit</code>.
               </p>
             </div>
           </div>
@@ -299,11 +299,11 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Aplicar o Toolkit Maleta.dev</h3>
               <p className="process-desc">
-                Agora que os assistentes estao instalados, rode o instalador customizado para injetar todas as skills e plugins selecionados:
+                Com as ferramentas instaladas, rode o comando gerado no site para injetar todas as skills e plugins selecionados:
               </p>
               <div className="cmd">
                 <code title={installCommand}>{previewCommand}</code>
-                <CopyButton className="cmd-copy" text={installCommand} aria-label="Copiar comando de instalacao">
+                <CopyButton className="cmd-copy" text={installCommand} aria-label="Copiar comando de instalação">
                   <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
                   <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
                 </CopyButton>
@@ -323,9 +323,9 @@ export default function InstallSteps() {
               <div className="process-num">01</div>
             </div>
             <div className="process-content">
-              <h3 className="process-title">Clonar o Repositorio ou Baixar ZIP</h3>
+              <h3 className="process-title">Clonar o Repositório ou Baixar ZIP</h3>
               <p className="process-desc">
-                Faca o download do codigo-fonte para inspecionar todos os scripts, skills e regras localmente:
+                Faça o download do código-fonte para inspecionar todos os scripts, skills e regras localmente:
               </p>
               <div className="cmd">
                 <code>git clone https://github.com/diego-ruas/maleta.dev.git</code>
@@ -345,9 +345,9 @@ export default function InstallSteps() {
               <div className="process-num">02</div>
             </div>
             <div className="process-content">
-              <h3 className="process-title">Inspecionar os Arquivos</h3>
+              <h3 className="process-title">Inspecionar as Skills</h3>
               <p className="process-desc">
-                Navegue pelas pastas <code>claude/skills/</code> e <code>opencode/</code>. Cada skill contem seu respectivo <code>SKILL.md</code> auditavel e sem dependencias ocultas.
+                Navegue pelas pastas <code>claude/skills/</code> e <code>opencode/</code>. Cada skill contém seu arquivo <code>SKILL.md</code> em Markdown auditável.
               </p>
             </div>
           </div>
@@ -362,11 +362,11 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Executar Instalador Local</h3>
               <p className="process-desc">
-                Execute o script de instalacao do repositorio no PowerShell:
+                Execute o script de instalação do repositório no PowerShell:
               </p>
               <div className="cmd">
                 <code>cd maleta.dev; powershell -ExecutionPolicy Bypass -File scripts/install.ps1</code>
-                <CopyButton className="cmd-copy" text="cd maleta.dev; powershell -ExecutionPolicy Bypass -File scripts/install.ps1" aria-label="Copiar comando de execucao local">
+                <CopyButton className="cmd-copy" text="cd maleta.dev; powershell -ExecutionPolicy Bypass -File scripts/install.ps1" aria-label="Copiar comando de execução local">
                   <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
                   <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
                 </CopyButton>
@@ -376,16 +376,16 @@ export default function InstallSteps() {
         </div>
       )}
 
-      {/* Painel de Dicas Rapidas, Manutencao e Localizacao */}
+      {/* Painel de Dicas Rápidas, Manutenção e Localização */}
       <div className="tutorial-tips-panel">
         <div className="tutorial-tip-item">
           <div className="tutorial-tip-icon">
             <AnimatedIcon Icon={ShieldIcon} className="icon" size={18} />
           </div>
           <div className="tutorial-tip-body">
-            <h4 className="tutorial-tip-title">Backup Automatico</h4>
+            <h4 className="tutorial-tip-title">Backup Automático</h4>
             <p className="tutorial-tip-desc">
-              Suas configuracoes existentes nunca sao perdidas. O instalador gera um snapshot <code>.pre-install.bak</code> antes de aplicar qualquer alteracao.
+              Suas configurações nunca são perdidas. O instalador gera um snapshot <code>.pre-install.bak</code> antes de aplicar qualquer alteração.
             </p>
           </div>
         </div>
@@ -397,8 +397,8 @@ export default function InstallSteps() {
           <div className="tutorial-tip-body">
             <h4 className="tutorial-tip-title">Onde Ficam os Arquivos</h4>
             <p className="tutorial-tip-desc">
-              Skills do Claude Code: <code>~/.claude/skills/</code><br />
-              Configuracoes do opencode: <code>~/.config/opencode/</code>
+              Skills do Claude Code: <code>%USERPROFILE%\.claude\skills\</code><br />
+              Configurações do opencode: <code>%LOCALAPPDATA%\opencode\</code>
             </p>
           </div>
         </div>
@@ -410,7 +410,7 @@ export default function InstallSteps() {
           <div className="tutorial-tip-body">
             <h4 className="tutorial-tip-title">Como Atualizar</h4>
             <p className="tutorial-tip-desc">
-              Para atualizar ou alterar seu mix de skills, basta selecionar as novas opcoes no site e rodar o comando novamente.
+              Para atualizar ou alterar seu mix de skills, basta selecionar as novas opções no site e rodar o novo comando no terminal.
             </p>
           </div>
         </div>
@@ -418,4 +418,3 @@ export default function InstallSteps() {
     </Reveal>
   );
 }
-

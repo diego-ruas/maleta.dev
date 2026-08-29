@@ -21,6 +21,7 @@ export interface Skill {
 export interface PluginItem {
   name: string;
   description: string;
+  category?: string;
 }
 
 export interface PluginGroup {
@@ -41,7 +42,8 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "essentials",
     name: "Essenciais",
     badge: "Recomendado",
-    description: "TDD, testes, design anti-slop, debugging e coautoria de documentação.",
+    description:
+      "Ciclo red-green-refactor de TDD, debugging sistemático de causa raiz, design frontend anti-slop e verificação antes do commit.",
     skills: [
       "design-taste-frontend",
       "emil-design-eng",
@@ -58,7 +60,8 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "frontend",
     name: "Frontend & UI/UX",
     badge: "UI/UX",
-    description: "Design anti-slop, micro-interações, tipografia, cores e design systems.",
+    description:
+      "Design systems modernos com shadcn, micro-interações fluidas em CSS/motion, tipografia calibrada e eliminação de AI-slop.",
     skills: [
       "design-taste-frontend",
       "emil-design-eng",
@@ -84,7 +87,8 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "a11y",
     name: "Acessibilidade",
     badge: "WCAG 2.2",
-    description: "Auditoria, scan mecânico, diff de regressão e remediação acessível.",
+    description:
+      "Auditoria estrita de conformidade WCAG 2.2 AA/AAA: inspeção de árvore DOM, ARIA para leitores de tela e testes de contraste.",
     skills: [
       "accessibility-audit",
       "accessibility-diff",
@@ -98,7 +102,8 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "nextjs",
     name: "Next.js & Vercel",
     badge: "Next.js",
-    description: "Component cache, padrões de composição, performance e sandbox Next.",
+    description:
+      "Arquitetura de performance para Next.js 15: padrões de Server Components, Component Cache e renderização no Edge.",
     skills: [
       "next-cache-components-adoption",
       "next-cache-components-optimizer",
@@ -112,7 +117,8 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "cloudflare",
     name: "Cloudflare & Edge",
     badge: "Edge & IA",
-    description: "Workers, Durable Objects, Agents SDK, Cloudflare One e Wrangler.",
+    description:
+      "Aplicações serverless e edge computing na Cloudflare: Workers, Durable Objects, Cloudflare One, Turnstile e AI Agents SDK.",
     skills: [
       "cloudflare",
       "agents-sdk",
@@ -128,7 +134,8 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "testing",
     name: "Testes & Qualidade",
     badge: "Testes",
-    description: "Playwright, TDD rigoroso, debugging sistemático e testes de regressão.",
+    description:
+      "Qualidade e resiliência com testes E2E em Playwright para apps locais, ciclo TDD estrito e validação contra regressões.",
     skills: [
       "test-driven-development",
       "verification-before-completion",
@@ -144,7 +151,8 @@ export const SKILL_PRESETS: SkillPreset[] = [
     id: "docs",
     name: "Documentos",
     badge: "Docs & Mídia",
-    description: "Manipulação de DOCX, XLSX, PDF, PPTX e comunicação interna.",
+    description:
+      "Manipulação profissional de arquivos DOCX, XLSX, PDF e PPTX, diagramação com canvas e documentação técnica estruturada.",
     skills: [
       "docx",
       "xlsx",
@@ -647,47 +655,58 @@ export const PLUGIN_GROUPS: PluginGroup[] = [
     items: [
       {
         name: "superpowers",
-        description: "workflow completo: brainstorm → plan → TDD → review",
+        description: "workflow completo: brainstorm -> plan -> TDD -> review",
+        category: "Workflow",
       },
       {
         name: "frontend-design",
         description: "UI distintiva, sem cara de AI slop",
+        category: "Design UI",
       },
       {
         name: "ponytail",
         description: "respostas de código minimalistas",
+        category: "Código Limpo",
       },
       {
         name: "code-simplifier",
         description: "simplifica código e reduz complexidade",
+        category: "Código Limpo",
       },
       {
         name: "security-guidance",
         description: "revisão de segurança",
+        category: "Segurança",
       },
       {
         name: "code-review",
         description: "revisão multi-agente antes do commit",
+        category: "Qualidade",
       },
       {
         name: "commit-commands",
         description: "commits convencionais",
+        category: "Git",
       },
       {
         name: "claude-mem",
         description: "memória persistente entre sessões",
+        category: "Memória",
       },
       {
         name: "figma",
         description: "trabalhar com designs do Figma",
+        category: "Design UI",
       },
       {
         name: "context7",
         description: "docs atualizadas das libs (MCP)",
+        category: "MCP & Docs",
       },
       {
         name: "planning-with-files",
         description: "planos em markdown que sobrevivem a /clear",
+        category: "Workflow",
       },
     ],
   },
@@ -697,26 +716,32 @@ export const PLUGIN_GROUPS: PluginGroup[] = [
       {
         name: "superpowers",
         description: "workflow completo (git)",
+        category: "Workflow",
       },
       {
         name: "opencode-ponytail",
         description: "princípio minimalista do ponytail",
+        category: "Código Limpo",
       },
       {
         name: "opencode-notify",
         description: "notificações nativas ao fim de tarefas",
+        category: "Produtividade",
       },
       {
         name: "opencode-worktree",
         description: "git worktrees sem fricção",
+        category: "Git",
       },
       {
         name: "opencode-antigravity-auth",
         description: "Gemini/Claude via login Google",
+        category: "Autenticação",
       },
       {
         name: "claude-mem.js",
         description: "adaptador do worker claude-mem",
+        category: "Memória",
       },
     ],
   },
