@@ -16,6 +16,8 @@ export interface RepoResult {
 const COMMUNITY_SOURCES = [
   { repo: "anthropics/skills", label: "anthropics/skills", tag: "Oficial" },
   { repo: "cloudflare/skills", label: "cloudflare/skills", tag: "Cloudflare" },
+  { repo: "mattpocock/skills", label: "mattpocock/skills", tag: "Comunidade" },
+  { repo: "cursor/plugins", label: "cursor/plugins", tag: "Cursor" },
   { repo: "obra/superpowers", label: "obra/superpowers", tag: "Comunidade" },
   { repo: "nanocoai/nanoclaw", label: "nanocoai/nanoclaw", tag: "Comunidade" },
   { repo: "JimLiu/baoyu-skills", label: "baoyu-skills", tag: "Comunidade" },
@@ -55,6 +57,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [ghToken, setGhToken] = useState("");
   const [showTokenInput, setShowTokenInput] = useState(false);
+  const [searchTopic, setSearchTopic] = useState<"skills" | "plugins" | "mcp">("skills");
   const scanningRef = useRef(false);
 
   useEffect(() => {
@@ -168,22 +171,31 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
     }
   }
 
-  async function searchCommunity(overrideQuery?: string) {
+  async function searchCommunity(overrideQuery?: string, overrideTopic?: "skills" | "plugins" | "mcp") {
     const qTerm = typeof overrideQuery === "string" ? overrideQuery : communityQuery;
+    const activeTopic = overrideTopic || searchTopic;
     if (scanningRef.current) return;
     scanningRef.current = true;
     setScanning(true);
     setError(false);
-    setScanStep("Consultando repositórios com o tópico topic:claude-skills...");
-    setStatus("Pesquisando na comunidade do GitHub...");
+
+    const topicLabel =
+      activeTopic === "plugins"
+        ? "topic:claude-plugins"
+        : activeTopic === "mcp"
+        ? "topic:mcp-server"
+        : "topic:claude-skills";
+
+    setScanStep(`Consultando repositórios com o tópico ${topicLabel}...`);
+    setStatus(`Pesquisando ${activeTopic.toUpperCase()} na comunidade do GitHub...`);
     setResults([]);
     setResultFilter("");
     if (qTerm.trim()) saveRecent(qTerm.trim());
 
     try {
       const q = qTerm.trim()
-        ? `topic:claude-skills+${encodeURIComponent(qTerm.trim())}`
-        : "topic:claude-skills+sort:stars";
+        ? `${topicLabel}+${encodeURIComponent(qTerm.trim())}`
+        : `${topicLabel}+sort:stars`;
 
       const searchRes = await fetch(`https://api.github.com/search/repositories?q=${q}&per_page=6`, {
         headers: getHeaders(),
@@ -201,7 +213,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
       const repos: string[] = (searchData.items || []).map((r: { full_name: string }) => r.full_name);
 
       if (!repos.length) {
-        setStatus("Nenhum repositório comunitário encontrado com esse termo.");
+        setStatus(`Nenhum repositório comunitário de ${activeTopic} encontrado com esse termo.`);
         return;
       }
 
@@ -239,11 +251,11 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
       }
 
       if (!allFound.length) {
-        setStatus("Nenhuma skill com SKILL.md encontrada nos repositórios retornados.");
+        setStatus(`Nenhuma skill/plugin com SKILL.md encontrada nos ${repos.length} repositórios retornados.`);
         return;
       }
 
-      setStatus(`${allFound.length} skill(s) descoberta(s) na comunidade.`);
+      setStatus(`${allFound.length} recurso(s) descoberto(s) na comunidade (${activeTopic}).`);
       setResults(allFound);
     } catch (err) {
       setError(true);
@@ -440,13 +452,47 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
             </div>
           </div>
 
+          {/* Seletor de Tipo de Busca no GitHub: Skills / Plugins / MCP */}
+          <div className="repo-topic-selector" role="group" aria-label="Tipo de busca no GitHub">
+            <button
+              type="button"
+              className={`repo-topic-btn${searchTopic === "skills" ? " active" : ""}`}
+              onClick={() => {
+                setSearchTopic("skills");
+                searchCommunity(undefined, "skills");
+              }}
+            >
+              <span>Skills (topic:claude-skills)</span>
+            </button>
+            <button
+              type="button"
+              className={`repo-topic-btn${searchTopic === "plugins" ? " active" : ""}`}
+              onClick={() => {
+                setSearchTopic("plugins");
+                searchCommunity(undefined, "plugins");
+              }}
+            >
+              <span>Plugins (topic:claude-plugins)</span>
+            </button>
+            <button
+              type="button"
+              className={`repo-topic-btn${searchTopic === "mcp" ? " active" : ""}`}
+              onClick={() => {
+                setSearchTopic("mcp");
+                searchCommunity(undefined, "mcp");
+              }}
+            >
+              <span>MCP Servers (topic:mcp-server)</span>
+            </button>
+          </div>
+
           <div className="repo-add-form">
             <div className="skills-search-wrap">
-              <label htmlFor="community-search">Buscar skills na comunidade do GitHub</label>
+              <label htmlFor="community-search">Buscar {searchTopic.toUpperCase()} na comunidade do GitHub</label>
               <input
                 type="search"
                 id="community-search"
-                placeholder="Pesquisar por assunto (ex.: a11y, test, git, web, agent, design…)"
+                placeholder={`Pesquisar ${searchTopic} (ex.: a11y, test, git, web, agent, design, memory, figma…)`}
                 autoComplete="off"
                 value={communityQuery}
                 onChange={(e) => setCommunityQuery(e.target.value)}

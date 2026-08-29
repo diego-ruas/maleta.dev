@@ -68,22 +68,33 @@ export default function FaqSection() {
           </p>
         </FaqItem>
 
-        <FaqItem id="privacy" question="Meus dados ou chaves são enviados para algum lugar?">
+        <FaqItem id="builder" question="Como o site gera o instalador customizado em 1 clique?">
           <p>
-            Não. O repositório é 100% local e seguro. Os scripts apenas copiam
-            arquivos de configuração para a sua máquina (%USERPROFILE% e %LOCALAPPDATA%). Nenhum dado pessoal, histórico de conversa ou chave de API é coletado ou transmitido.
+            O construtor na Hero e na seção de Skills compõe um comando PowerShell determinístico que invoca remotamente o script oficial <code>https://maleta.dev/install.ps1</code>, parametrizando apenas o alvo (<code>-Tools</code>) e a lista exata das skills selecionadas (<code>-Skills @(...)</code>). Nada além do estritamente escolhido é instalado.
           </p>
         </FaqItem>
 
-        <FaqItem id="update" question="Como atualizo minhas configurações e skills?">
+        <FaqItem id="privacy" question="Meus dados ou chaves são enviados para algum lugar?">
           <p>
-            Basta rodar o comando de instalação novamente ou dar <code>git pull</code> no repositório clonado e executar o instalador local. Seus arquivos principais (como <code>settings.json</code> e <code>~/.claude.json</code>) são mesclados com backup prévio (<code>.pre-install.bak</code>), preservando suas preferências existentes.
+            Não. O repositório é 100% local e seguro. Os scripts apenas copiam arquivos de configuração para a sua máquina (<code>%USERPROFILE%</code> e <code>%LOCALAPPDATA%</code>). Nenhum dado pessoal, histórico de conversa ou chave de API é coletado ou transmitido.
+          </p>
+        </FaqItem>
+
+        <FaqItem id="update" question="Como o instalador preserva minhas configurações existentes?">
+          <p>
+            Antes de qualquer alteração, o instalador cria um backup automático dos arquivos existentes (como <code>settings.json.pre-install.bak</code>) e realiza a mescla inteligente de regras e plugins, garantindo que suas preferências pré-existentes nunca sejam sobrescritas de forma destrutiva.
+          </p>
+        </FaqItem>
+
+        <FaqItem id="multi-agent" question="Como funcionam as regras multi-agente (Cursor, Windsurf, Copilot)?">
+          <p>
+            O repositório disponibiliza pontos de entrada universais como <code>AGENTS.md</code>, <code>.cursorrules</code>, <code>.windsurfrules</code> e <code>.clinerules</code>. Qualquer agente ou LLM (Codex, Devin, Gemini, Antigravity, Claude ou Cursor) carrega automaticamente as diretrizes e padrões de engenharia ao abrir o projeto.
           </p>
         </FaqItem>
 
         <FaqItem id="git" question="Preciso ter o Git instalado?">
           <p>
-            Sem problemas! A <strong>Instalação Expressa (One-Liner)</strong> funciona diretamente pelo PowerShell nativo do Windows, sem depender do Git. Caso prefira a instalação manual, use o botão <strong>Baixar ZIP</strong> no topo da página, extraia a pasta e execute o script local.
+            Não. A <strong>Instalação Expressa (One-Liner)</strong> funciona diretamente pelo PowerShell nativo do Windows (PowerShell 5.1+), sem depender de Git instalado. Caso prefira a instalação manual local, você pode clonar o repositório ou baixar o script <code>.ps1</code> gerado pelo site.
           </p>
         </FaqItem>
 
@@ -96,12 +107,6 @@ export default function FaqSection() {
         <FaqItem id="hub" question="Como funciona o Hub Comunitário no site?">
           <p>
             O Hub se conecta diretamente à API pública do GitHub para buscar repositórios com a tag <code>topic:claude-skills</code> e repositórios oficiais/upstream (como <code>anthropics/skills</code> e <code>cloudflare/skills</code>). Ele localiza arquivos <code>SKILL.md</code>, extrai suas instruções e permite adicioná-las à sua seleção personalizada com 1 clique.
-          </p>
-        </FaqItem>
-
-        <FaqItem id="ratelimit" question="Preciso de um token do GitHub para fazer buscas?">
-          <p>
-            Não. A busca padrão é 100% anônima e gratuita (limitada a 60 requisições/hora pela API pública do GitHub). Se desejar fazer buscas intensivas ou escanear repositórios com muitos arquivos, você pode clicar em <strong>Configurar GitHub API</strong> no Hub e adicionar um Personal Access Token pessoal, elevando o limite para 5.000 requisições/hora com armazenamento exclusivo no seu navegador.
           </p>
         </FaqItem>
 

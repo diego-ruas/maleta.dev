@@ -16,24 +16,28 @@ interface FlatPlugin extends PluginItem {
   tool: string;
 }
 
+const ALL_PLUGINS: FlatPlugin[] = PLUGIN_GROUPS.flatMap((group) =>
+  group.items.map((item) => ({
+    ...item,
+    tool: group.tool,
+  }))
+);
+
+const ALL_PLUGIN_CATEGORIES: string[] = [
+  "all",
+  ...Array.from(new Set(ALL_PLUGINS.map((p) => p.category).filter(Boolean) as string[])),
+];
+
 const PLUGINS_SELECTED_KEY = "maleta-selected-plugins";
 
 export default function PluginsSection() {
   const showToast = useToast();
   const [search, setSearch] = useState("");
   const [activeTool, setActiveTool] = useState<"all" | "Claude Code" | "opencode">("all");
-
-  const allPlugins: FlatPlugin[] = useMemo(() => {
-    return PLUGIN_GROUPS.flatMap((group) =>
-      group.items.map((item) => ({
-        ...item,
-        tool: group.tool,
-      }))
-    );
-  }, []);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const [selected, setSelected] = useState<Set<string>>(() => {
-    return new Set(allPlugins.map((p) => `${p.tool}:${p.name}`));
+    return new Set(ALL_PLUGINS.map((p) => `${p.tool}:${p.name}`));
   });
 
   useEffect(() => {
@@ -67,9 +71,9 @@ export default function PluginsSection() {
   }
 
   function selectAll() {
-    const next = new Set(allPlugins.map((p) => `${p.tool}:${p.name}`));
+    const next = new Set(ALL_PLUGINS.map((p) => `${p.tool}:${p.name}`));
     persistSelected(next);
-    showToast(`Todos os ${allPlugins.length} plugins selecionados`, "check");
+    showToast(`Todos os ${ALL_PLUGINS.length} plugins selecionados`, "check");
   }
 
   function selectNone() {
@@ -79,22 +83,24 @@ export default function PluginsSection() {
 
   const filteredPlugins = useMemo(() => {
     const q = search.trim().toLowerCase();
-    return allPlugins.filter((plugin) => {
+    return ALL_PLUGINS.filter((plugin) => {
       const matchTool = activeTool === "all" || plugin.tool === activeTool;
+      const matchCategory = selectedCategory === "all" || plugin.category === selectedCategory;
       const matchQ =
         !q ||
         plugin.name.toLowerCase().includes(q) ||
         plugin.description.toLowerCase().includes(q) ||
-        plugin.tool.toLowerCase().includes(q);
-      return matchTool && matchQ;
+        plugin.tool.toLowerCase().includes(q) ||
+        (plugin.category && plugin.category.toLowerCase().includes(q));
+      return matchTool && matchCategory && matchQ;
     });
-  }, [allPlugins, activeTool, search]);
+  }, [activeTool, selectedCategory, search]);
 
   const claudeSelected = useMemo(() => {
-    return allPlugins
+    return ALL_PLUGINS
       .filter((p) => p.tool === "Claude Code" && selected.has(`${p.tool}:${p.name}`))
       .map((p) => p.name);
-  }, [allPlugins, selected]);
+  }, [selected]);
 
   const pluginInstallCommand = useMemo(() => {
     if (selected.size === 0) return "# Nenhum plugin selecionado";
@@ -123,7 +129,7 @@ export default function PluginsSection() {
             <input
               type="search"
               id="plugins-search"
-              placeholder="Buscar plugin (ex.: superpowers, memory, ponytail, figma, review…)"
+              placeholder="Buscar plugins (ex.: superpowers, memory, ponytail, figma, mcp, git…)"
               autoComplete="off"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -137,7 +143,7 @@ export default function PluginsSection() {
               onClick={() => setActiveTool("all")}
             >
               <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={14} />
-              <span>Todos ({allPlugins.length})</span>
+              <span>Todos ({ALL_PLUGINS.length})</span>
             </button>
             <button
               type="button"
@@ -145,7 +151,7 @@ export default function PluginsSection() {
               onClick={() => setActiveTool("Claude Code")}
             >
               <AnimatedIcon Icon={ClaudeIcon} className="icon" size={14} />
-              <span>Claude Code ({allPlugins.filter((p) => p.tool === "Claude Code").length})</span>
+              <span>Claude Code ({ALL_PLUGINS.filter((p) => p.tool === "Claude Code").length})</span>
             </button>
             <button
               type="button"
@@ -153,16 +159,36 @@ export default function PluginsSection() {
               onClick={() => setActiveTool("opencode")}
             >
               <AnimatedIcon Icon={OpencodeIcon} className="icon" size={14} />
-              <span>opencode ({allPlugins.filter((p) => p.tool === "opencode").length})</span>
+              <span>opencode ({ALL_PLUGINS.filter((p) => p.tool === "opencode").length})</span>
             </button>
           </div>
+        </div>
+
+        {/* Chips de Categoria de Plugins */}
+        <div className="plugins-category-chips" role="group" aria-label="Filtrar plugins por categoria">
+          {ALL_PLUGIN_CATEGORIES.map((cat) => {
+            const isActive = selectedCategory === cat;
+            const count = cat === "all" ? ALL_PLUGINS.length : ALL_PLUGINS.filter((p) => p.category === cat).length;
+            const label = cat === "all" ? "Todas Categorias" : cat;
+            return (
+              <button
+                key={cat}
+                type="button"
+                className={`plugin-category-chip${isActive ? " active" : ""}`}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                <span>{label}</span>
+                <span className="plugin-chip-count">{count}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* 2. BARRA DE AÇÃO / COMANDO */}
         <div className="plugins-action-bar">
           <div className="plugins-selection-status">
             <span className="plugins-status-count">
-              <strong>{selected.size}</strong> de {allPlugins.length} plugins selecionados
+              <strong>{selected.size}</strong> de {ALL_PLUGINS.length} plugins selecionados (<strong>{filteredPlugins.length}</strong> visíveis)
             </span>
             <div className="plugins-quick-actions">
               <button type="button" className="btn-gh-sm" onClick={selectAll}>
@@ -207,6 +233,11 @@ export default function PluginsSection() {
                       <span className={`plugin-row-tool-chip ${plugin.tool === "Claude Code" ? "claude" : "opencode"}`}>
                         {plugin.tool}
                       </span>
+                      {plugin.category && (
+                        <span className="plugin-row-category-chip">
+                          {plugin.category}
+                        </span>
+                      )}
                     </div>
                     <p className="plugin-row-desc">{plugin.description}</p>
                   </div>
@@ -236,13 +267,14 @@ export default function PluginsSection() {
 
         {filteredPlugins.length === 0 && (
           <div className="skills-empty-box">
-            <p>Nenhum plugin encontrado para &quot;{search}&quot;.</p>
+            <p>Nenhum plugin encontrado para os filtros selecionados.</p>
             <button
               type="button"
               className="btn-gh"
               onClick={() => {
                 setSearch("");
                 setActiveTool("all");
+                setSelectedCategory("all");
               }}
             >
               Limpar filtros

@@ -17,8 +17,11 @@ export default function ToolsGrid() {
       <div className="section-header-badge">
         <span className="section-tag-prefix">{"// 02. ECOSSISTEMA"}</span>
       </div>
-      <h2 id="ferramentas-heading">O que está incluído</h2>
-      <p>Tudo organizado e configurado automaticamente nas pastas certas do seu ambiente.</p>
+      <h2 id="ferramentas-heading">O que está incluído no toolkit</h2>
+      <p>
+        Tudo organizado e provisionado deterministicamente nas pastas corretas do seu ambiente local.
+      </p>
+
       <div className="contact-grid">
         <div className="contact-card">
           <div className="contact-card-icon">
@@ -27,8 +30,7 @@ export default function ToolsGrid() {
           <div className="contact-card-info">
             <h3>Claude Code</h3>
             <p>
-              Presets de skills prontas, {claudeCodePlugins} plugins essenciais, configurações, MCP e regras
-              globais em <code>~/.claude/</code>.
+              Skills curadas em <code>~/.claude/skills/</code>, {claudeCodePlugins} plugins verificados (incluindo <code>claude-mem</code> para retenção de contexto) e configurações MCP integradas.
             </p>
           </div>
           <a
@@ -37,10 +39,11 @@ export default function ToolsGrid() {
             rel="noopener noreferrer"
             className="contact-card-action"
           >
-            <span>Ver pasta claude/</span>
+            <span>Inspecionar pasta claude/</span>
             <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
           </a>
         </div>
+
         <div className="contact-card">
           <div className="contact-card-icon">
             <AnimatedIcon Icon={OpencodeIcon} className="icon" size={24} />
@@ -48,8 +51,7 @@ export default function ToolsGrid() {
           <div className="contact-card-info">
             <h3>opencode</h3>
             <p>
-              {opencodePlugins} plugins, busca web nativa via MCP (DuckDuckGo), suporte a modelos locais e regras em{" "}
-              <code>~/.config/opencode/</code>.
+              Configurações em <code>~/.config/opencode/</code>, {opencodePlugins} plugins, busca web nativa via MCP DuckDuckGo e suporte transparente a modelos locais como Ollama e LM Studio.
             </p>
           </div>
           <a
@@ -58,10 +60,11 @@ export default function ToolsGrid() {
             rel="noopener noreferrer"
             className="contact-card-action"
           >
-            <span>Ver pasta opencode/</span>
+            <span>Inspecionar pasta opencode/</span>
             <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
           </a>
         </div>
+
         <div className="contact-card">
           <div className="contact-card-icon">
             <AnimatedIcon Icon={SearchIcon} className="icon" size={24} />
@@ -69,14 +72,11 @@ export default function ToolsGrid() {
           <div className="contact-card-info">
             <h3>Hub Comunitário</h3>
             <p>
-              Busca em tempo real de skills abertas no ecossistema do GitHub, inspeção do <code>SKILL.md</code> e importação em 1 clique.
+              Busca em tempo real de repositórios abertos no GitHub com <code>topic:claude-skills</code>, inspeção do arquivo <code>SKILL.md</code> e injeção personalizada com 1 clique.
             </p>
           </div>
-          <a
-            href="#repo-add"
-            className="contact-card-action"
-          >
-            <span>Explorar Hub &darr;</span>
+          <a href="#repo-add" className="contact-card-action">
+            <span>Explorar Hub Comunitário &darr;</span>
             <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
           </a>
         </div>

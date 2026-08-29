@@ -15,62 +15,66 @@ interface PillarItem {
   icon: typeof ShieldIcon;
   title: string;
   tag: string;
-  target: string;
+  description: string;
   highlights: string[];
 }
 
 const PILLARS: PillarItem[] = [
   {
     icon: ShieldIcon,
-    title: "100% Local & Seguro",
-    tag: "PRIVACIDADE",
-    target: "~/.claude/",
+    title: "100% Local & Determinístico",
+    tag: "PRIVACIDADE & CONTROLE",
+    description:
+      "Arquitetura estritamente local com isolamento de credenciais e backup .pre-install.bak automático.",
     highlights: [
-      "Zero telemetria ou tracking",
-      "Sem chaves em nuvem externa",
-      "Backup automático de configs",
+      "Zero telemetria ou nuvem de terceiros",
+      "Chaves salvas apenas no seu disco",
+      "Backup automático antes de mesclar regras",
     ],
   },
   {
     icon: CpuIcon,
-    title: "Agnóstico & Multi-IDE",
-    tag: "COMPATIBILIDADE",
-    target: "AGENTS.md",
+    title: "Agnóstico & Multi-Agente",
+    tag: "PADRÃO UNIVERSAL",
+    description:
+      "Diretrizes universais de engenharia carregadas automaticamente por qualquer assistente de código.",
     highlights: [
-      "Claude Code e opencode",
-      "Cursor, Windsurf e Roo Code",
-      "Codex, Gemini e Antigravity",
+      "Claude Code e opencode nativos",
+      "Cursor IDE, Windsurf e Roo Code",
+      "Codex, Devin, Gemini e Antigravity",
     ],
   },
   {
     icon: ZapIcon,
-    title: "Skills Curadas & Hub",
-    tag: "ECOSSISTEMA",
-    target: "claude/skills/",
+    title: "83 Skills Curadas & Hub",
+    tag: "GUARDRAILS TÉCNICOS",
+    description:
+      "Instruções modulares com TDD rigoroso, acessibilidade WCAG 2.2 e integração contínua com o GitHub.",
     highlights: [
-      "80+ skills (TDD e frontend)",
-      "Memória persistente claude-mem",
-      "Importação direta do GitHub",
+      "83 skills em 8 especialidades",
+      "Design systems e micro-interações",
+      "Cloudflare Workers e AI Agents SDK",
     ],
   },
   {
     icon: TerminalIcon,
-    title: "Instalação One-Liner",
-    tag: "PROVISIONAMENTO",
-    target: "install.ps1",
+    title: "Instalação Expressa One-Liner",
+    tag: "PROVISIONAMENTO POWERSHELL",
+    description:
+      "Scriptblock parametrizado para PowerShell 5.1+ que injeta seu toolkit sob medida em segundos.",
     highlights: [
-      "PowerShell 5.1 nativo Windows",
-      "Sem privilégios de admin",
-      "Instalação customizada 1-clique",
+      "Windows 10/11 nativo sem admin",
+      "Sem dependência de Git, Python ou pip",
+      "Comando customizado gerado no site",
     ],
   },
 ];
 
 const STATS = [
-  { value: "80+", label: "Skills Curadas", detail: "Frontend, Backend & TDD" },
-  { value: "100%", label: "Local & Seguro", detail: "Zero telemetria externa" },
-  { value: "7+", label: "Agentes & IDEs", detail: "Mapeamento unificado" },
-  { value: "MIT", label: "Código Aberto", detail: "Livre e auditável" },
+  { value: "83", label: "Skills Curadas", detail: "8 categorias com guardrails técnicos" },
+  { value: "100%", label: "Local & Seguro", detail: "Zero telemetria ou dados em nuvem" },
+  { value: "8+", label: "Agentes & IDEs", detail: "Governança unificada via AGENTS.md" },
+  { value: "MIT", label: "Código Aberto", detail: "Auditável e extensível no GitHub" },
 ];
 
 export default function AboutSection() {
@@ -84,7 +88,7 @@ export default function AboutSection() {
         <h2 id="sobre-heading">Engenharia de software padronizada para agentes de IA</h2>
       </div>
 
-      {/* Manifesto / Proposta de Valor com Estética de Terminal */}
+      {/* Manifesto com Estética de Terminal & Alta Escaneabilidade */}
       <div className="about-manifesto-card">
         <div className="about-manifesto-header">
           <div className="about-manifesto-left">
@@ -103,15 +107,15 @@ export default function AboutSection() {
         <div className="about-manifesto-body">
           <div className="about-terminal-prompt">
             <span className="about-prompt-user">dev@local:~$</span>
-            <span className="about-prompt-cmd">maleta init --skills --plugins --deterministic</span>
+            <span className="about-prompt-cmd">maleta init --skills=83 --deterministic --privacy=strict</span>
           </div>
           <p>
-            Catálogo modular e instalador determinístico para transformar assistentes de IA em engenheiros seniores especializados no seu fluxo de desenvolvimento — 100% local, seguro e sob seu controle.
+            Sem regras explícitas, assistentes de IA alucinam testes, inventam abstrações desnecessárias e geram código sem padrão. O <strong>maleta.dev</strong> fornece uma fundação determinística de engenharia de software para <strong>Claude Code</strong>, <strong>opencode</strong> e os principais agentes do mercado: skills auditáveis com TDD rigoroso, design anti-slop e acessibilidade WCAG 2.2 — 100% local e seguro.
           </p>
         </div>
       </div>
 
-      {/* Grid Enriquecido de Pilares */}
+      {/* Grid Nivelado de Pilares com Altura Uniforme */}
       <div className="about-pillars-grid">
         {PILLARS.map((pillar, idx) => (
           <div key={idx} className="about-pillar-card">
@@ -124,10 +128,7 @@ export default function AboutSection() {
 
             <h3 className="about-pillar-title">{pillar.title}</h3>
 
-            <div className="about-pillar-target">
-              <span className="about-target-label">ALVO:</span>
-              <code>{pillar.target}</code>
-            </div>
+            <p className="about-pillar-desc">{pillar.description}</p>
 
             <ul className="about-pillar-highlights">
               {pillar.highlights.map((item, hIdx) => (
@@ -160,7 +161,7 @@ export default function AboutSection() {
             rel="noopener noreferrer"
             className="btn-gh"
           >
-            <span>Ver no GitHub</span>
+            <span>Explorar no GitHub</span>
             <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
           </a>
           <a

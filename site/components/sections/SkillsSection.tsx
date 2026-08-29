@@ -10,7 +10,7 @@ export default function SkillsSection() {
       </div>
       <h2 id="skills-heading">Skills & Presets</h2>
       <p>
-        Escolha um preset de partida, ajuste as skills desejadas para o seu fluxo e importe pacotes da comunidade pelo Hub.
+        Personalização em 4 etapas: escolha uma base recomendada, refine as 83 skills por categoria, importe repositórios abertos do GitHub e copie seu comando PowerShell pronto.
       </p>
       <SkillsExplorer categories={CATEGORIES} />
     </Reveal>
