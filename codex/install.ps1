@@ -33,9 +33,9 @@ if (Test-Path -LiteralPath $dstConfig) {
     Copy-Item $dstConfig "$dstConfig.pre-install.bak" -Force
     Write-Host '[ok] backup config.toml -> config.toml.pre-install.bak'
     $existing = Get-Content -LiteralPath $dstConfig -Raw
-    if ($existing -match [regex]::Escape($beginMarker)) {
-        $pattern = [regex]::Escape($beginMarker) + '[\s\S]*?' + [regex]::Escape($endMarker)
-        $updated = [regex]::Replace($existing, $pattern, $block)
+    $pattern = [regex]::Escape($beginMarker) + '[\s\S]*?' + [regex]::Escape($endMarker)
+    if ($existing -match $pattern) {
+        $updated = [regex]::Replace($existing, $pattern, $block.Replace('$', '$$'))
         Set-Content -LiteralPath $dstConfig -Value $updated -Encoding UTF8
         Write-Host '[ok] bloco MCP do maleta.dev atualizado em config.toml'
     } else {

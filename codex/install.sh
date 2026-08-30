@@ -26,7 +26,11 @@ BLOCK="$(printf '%s\n%s\n%s\n' "$BEGIN_MARKER" "$(cat "$SRC_CONFIG")" "$END_MARK
 if [ -f "$DST_CONFIG" ]; then
     cp -f "$DST_CONFIG" "$DST_CONFIG.pre-install.bak"
     echo "[ok] backup config.toml -> config.toml.pre-install.bak"
-    if grep -qF "$BEGIN_MARKER" "$DST_CONFIG"; then
+    HAS_FULL_BLOCK="$(awk -v begin="$BEGIN_MARKER" -v end="$END_MARKER" '
+        index($0, begin) == 1 { infound = 1 }
+        infound && index($0, end) == 1 { print "yes"; exit }
+    ' "$DST_CONFIG")"
+    if [ "$HAS_FULL_BLOCK" = "yes" ]; then
         awk -v begin="$BEGIN_MARKER" -v end="$END_MARKER" -v block="$BLOCK" '
             index($0, begin) == 1 { print block; skip = 1; next }
             skip && index($0, end) == 1 { skip = 0; next }
