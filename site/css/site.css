@@ -5140,11 +5140,38 @@ footer {
     min-width: 0;
 }
 
-.plugin-highlight-layout {
+.plugin-highlight-session {
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.65fr);
-    gap: var(--space-8);
+    gap: var(--space-2);
+    width: 100%;
+}
+
+.plugin-highlight-line {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: var(--space-2);
     align-items: start;
+    padding: var(--space-1) 0;
+    border-bottom: 1px solid var(--color-iron);
+}
+
+.plugin-highlight-line-intro {
+    padding-top: 0;
+    padding-bottom: var(--space-3);
+}
+
+.plugin-highlight-prompt {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.4;
+}
+
+.plugin-highlight-line-text {
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: var(--text-xs);
+    line-height: 1.45;
 }
 
 .plugin-highlight-label {
@@ -5175,30 +5202,6 @@ footer {
     color: var(--color-paper);
     font-family: var(--font-mono);
     font-size: 0.9em;
-}
-
-.plugin-highlight-details {
-    min-width: 0;
-    padding-left: var(--space-4);
-    border-left: 1px solid var(--color-iron);
-}
-
-.plugin-highlight-details ol {
-    display: grid;
-    gap: var(--space-1);
-    margin: 0;
-    padding-left: 1.25rem;
-    color: var(--fg-muted);
-    font-size: var(--text-xs);
-    line-height: 1.45;
-}
-
-.plugin-highlight-note {
-    display: block;
-    margin-top: var(--space-2);
-    color: var(--color-ash);
-    font-family: var(--font-mono);
-    font-size: 10px;
 }
 
 .plugin-highlight-link {
@@ -5320,16 +5323,9 @@ footer {
         max-width: 14ch;
     }
 
-    .plugin-highlight-layout {
-        grid-template-columns: 1fr;
-        gap: var(--space-4);
-    }
-
-    .plugin-highlight-details {
-        padding-top: var(--space-3);
-        padding-left: 0;
-        border-top: 1px solid var(--color-iron);
-        border-left: 0;
+    .plugin-highlight-line {
+        grid-template-columns: 24px minmax(0, 1fr);
+        gap: var(--space-1);
     }
 
     .agents-ticker-header {

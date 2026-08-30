@@ -14,22 +14,37 @@ export default function PluginHighlight() {
           <span className="terminal-badge">CODEX</span>
         </div>
         <div className="hero-terminal-body">
-          <div className="plugin-highlight-layout">
-            <div className="plugin-highlight-copy">
-              <span className="plugin-highlight-label">{"// PLUGIN PARA CODEX"}</span>
-              <h2 id="plugin-codex-heading">Monte seu kit sem decorar comandos.</h2>
-              <p>
-                O plugin <code>maleta-dev</code> orienta a escolha de presets e skills para o seu contexto e gera um comando de instalação para revisão.
-              </p>
+          <div className="plugin-highlight-session">
+            <div className="plugin-highlight-line plugin-highlight-line-intro">
+              <span className="plugin-highlight-prompt" aria-hidden="true">&gt;</span>
+              <div className="plugin-highlight-copy">
+                <span className="plugin-highlight-label">{"// PLUGIN PARA CODEX"}</span>
+                <h2 id="plugin-codex-heading">Monte seu kit sem decorar comandos.</h2>
+                <p>
+                  O <code>maleta-dev</code> transforma sua ideia em uma seleção revisável de presets, skills e comandos de instalação.
+                </p>
+              </div>
             </div>
-            <div className="plugin-highlight-details">
-              <span className="plugin-highlight-label">{"// COMO FUNCIONA"}</span>
-              <ol>
-                <li>Explique o que você quer montar.</li>
-                <li>Revise as sugestões de skills e presets.</li>
-                <li>Copie o comando final quando estiver pronto.</li>
-              </ol>
-              <span className="plugin-highlight-note">Nada é executado sem sua confirmação.</span>
+            <div className="plugin-highlight-line">
+              <span className="plugin-highlight-prompt" aria-hidden="true">-&gt;</span>
+              <div>
+                <span className="plugin-highlight-label">{"// VOCÊ DESCREVE"}</span>
+                <p className="plugin-highlight-line-text">O tipo de projeto e o fluxo que quer preparar.</p>
+              </div>
+            </div>
+            <div className="plugin-highlight-line">
+              <span className="plugin-highlight-prompt" aria-hidden="true">-&gt;</span>
+              <div>
+                <span className="plugin-highlight-label">{"// O PLUGIN ORGANIZA"}</span>
+                <p className="plugin-highlight-line-text">Presets recomendados e skills compatíveis com o seu contexto.</p>
+              </div>
+            </div>
+            <div className="plugin-highlight-line plugin-highlight-command">
+              <span className="plugin-highlight-prompt" aria-hidden="true">-&gt;</span>
+              <div>
+                <span className="plugin-highlight-label">{"// VOCÊ REVISA"}</span>
+                <p className="plugin-highlight-line-text">O comando final antes de instalar qualquer coisa.</p>
+              </div>
             </div>
           </div>
           <a href="#plugins" className="plugin-highlight-link">
