@@ -714,6 +714,11 @@ export const PLUGIN_GROUPS: PluginGroup[] = [
     tool: "Codex",
     items: [
       {
+        name: "maleta-dev",
+        description: "monta kits personalizados e gera comandos de instalação revisáveis",
+        category: "Produtividade",
+      },
+      {
         name: "open-websearch",
         description: "busca na web sem API key (MCP)",
         category: "MCP",
