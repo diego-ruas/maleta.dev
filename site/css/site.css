@@ -5138,8 +5138,8 @@ footer {
 
 .plugin-highlight-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(180px, 0.38fr);
-    gap: var(--space-8);
+    grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr);
+    gap: var(--space-6);
     align-items: center;
     padding: var(--space-4) 0;
     border-top: 1px solid var(--color-iron);
@@ -5159,11 +5159,11 @@ footer {
 }
 
 .plugin-highlight h2 {
-    max-width: 20ch;
+    max-width: 28ch;
     margin: 0;
-    font-size: clamp(1.25rem, 2.2vw, 1.8rem);
-    line-height: 1;
-    letter-spacing: -0.045em;
+    font-size: var(--text-2xl);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
 }
 
 .plugin-highlight p {
@@ -5184,9 +5184,10 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
     gap: var(--space-1);
     min-width: 0;
-    padding-left: var(--space-4);
+    padding-left: var(--space-6);
     border-left: 1px solid var(--color-iron);
 }
 
