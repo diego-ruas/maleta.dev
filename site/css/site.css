@@ -253,27 +253,6 @@ section > p {
     box-sizing: border-box;
 }
 
-.hero-mascot-wrapper {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-1);
-}
-
-.hero-mascot-img {
-    width: 200px;
-    height: 200px;
-    object-fit: contain;
-    border-radius: var(--radius-md);
-    filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.6));
-    transition: transform var(--transition-medium);
-}
-
-.hero-mascot-img:hover {
-    transform: scale(1.05) rotate(-2deg);
-}
-
 .hero-prompt {
     display: block;
     font-size: var(--text-xs);
@@ -440,18 +419,6 @@ section > p {
     line-height: 1;
 }
 
-.hero-terminal-mascot-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.85;
-}
-
-.hero-terminal-mascot-img {
-    border-radius: var(--radius-sm);
-    object-fit: contain;
-}
-
 .hero-terminal-body {
     padding: 8px 10px;
     display: flex;
@@ -467,12 +434,6 @@ section > p {
     display: flex;
     flex-direction: column;
     gap: 2px;
-}
-
-.hero-terminal-label {
-    font-size: 10px;
-    color: var(--color-fog);
-    font-family: var(--font-mono);
 }
 
 .hero-terminal-label-row {
@@ -854,56 +815,6 @@ section > p {
     flex-wrap: wrap;
 }
 
-.intro-socials {
-    display: flex;
-    align-items: center;
-    gap: var(--space-half);
-    padding-left: var(--space-2);
-    border-left: 1px solid var(--border-light);
-}
-
-.intro-socials a {
-    color: var(--fg-faint);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    text-decoration: none;
-    font-size: var(--text-2xl);
-    transition: color var(--transition-normal), background var(--transition-normal);
-}
-
-.intro-socials a:hover {
-    color: var(--fg);
-    background: var(--bg-hover);
-}
-
-.hero-custom-track {
-    display: flex;
-    align-items: center;
-    gap: var(--space-1);
-    margin-top: var(--space-2);
-    font-size: var(--text-xs);
-    flex-wrap: wrap;
-}
-
-.hero-track-hint {
-    color: var(--fg-muted);
-}
-
-.hero-track-link {
-    color: var(--fg);
-    text-decoration: none;
-    border-bottom: 1px solid var(--color-slate);
-    transition: border-color var(--transition-fast), color var(--transition-fast);
-}
-
-.hero-track-link:hover {
-    border-color: var(--color-accent);
-    color: var(--color-paper);
-}
-
 /* Enfase: sublinhado de 2px, sem preenchimento nem animacao */
 .highlight-word {
     color: var(--fg);
@@ -957,53 +868,6 @@ section > p {
     display: inline-flex;
 }
 
-/* Hero One-Liner Box */
-.hero-oneliner-box {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: var(--color-graphite);
-    border: 1px solid var(--color-iron);
-    border-left: 2px solid var(--color-accent);
-    border-radius: var(--radius-sm);
-    padding: 16px;
-    margin-top: var(--space-3);
-    margin-bottom: var(--space-4);
-}
-
-.oneliner-tabs {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.oneliner-tab {
-    position: relative;
-    background: none;
-    border: 1px solid var(--color-iron);
-    border-radius: var(--radius-sm);
-    color: var(--fg-muted);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    padding: 4px 10px;
-    line-height: 1.4;
-    cursor: pointer;
-    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
-}
-
-.oneliner-tab:hover {
-    border-color: var(--color-slate);
-    color: var(--fg);
-}
-
-.oneliner-tab.active {
-    color: var(--color-void);
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    font-weight: var(--font-bold);
-}
-
 .terminal-cursor {
     display: inline-block;
     color: var(--color-accent);
@@ -1016,82 +880,7 @@ section > p {
     50% { opacity: 0; }
 }
 
-.oneliner-cmd {
-    margin-top: 0;
-    padding: 6px 8px 6px 12px;
-    gap: 8px;
-}
-
-.oneliner-hint {
-    font-size: var(--text-xs);
-    color: var(--fg-muted);
-    line-height: 1.4;
-    margin: 0;
-    padding: 0;
-    max-width: none;
-}
-
 /* Presets rápidos de skills */
-.skills-presets-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    margin-top: var(--space-3);
-    margin-bottom: var(--space-2);
-    padding: var(--space-2);
-    background: var(--color-carbon);
-    border: 1px solid var(--color-iron);
-    border-radius: var(--radius-sm);
-}
-
-.presets-label {
-    font-size: var(--text-xs);
-    font-family: var(--font-mono);
-    color: var(--fg-muted);
-    font-weight: var(--font-bold);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.presets-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-half);
-}
-
-.preset-btn {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-half);
-    background: var(--color-graphite);
-    border: 1px solid var(--color-iron);
-    border-radius: var(--radius-sm);
-    color: var(--fg);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    padding: var(--space-half) var(--space-1);
-    cursor: pointer;
-    transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
-}
-
-.preset-btn:hover {
-    border-color: var(--color-slate);
-    background: var(--color-iron);
-}
-
-.preset-btn.active {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    color: var(--color-void);
-    font-weight: var(--font-bold);
-}
-
-.preset-btn .preset-count {
-    font-size: var(--text-xs);
-    opacity: 0.75;
-}
-
 /* Alternador de Modo de Instalacao (Express / Manual) */
 .install-mode-toggle {
     display: flex;
@@ -1205,6 +994,12 @@ section > p {
 .btn-primary:hover {
     background: var(--color-fog);
     border-color: var(--color-fog);
+}
+
+.copy-installer-btn {
+    min-height: 36px;
+    padding: 6px 14px;
+    font-size: var(--text-sm);
 }
 
 .btn-gh {
@@ -2754,36 +2549,6 @@ footer {
 }
 
 /* 3. Action Bar (Seleção & Instalação) */
-.skills-action-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    background: var(--color-carbon);
-    border: 1px solid var(--color-iron);
-    border-radius: var(--radius-sm);
-    flex-wrap: wrap;
-}
-
-.skills-selection-summary {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-}
-
-.selection-status-badge {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--fg);
-}
-
-.selection-status-badge strong {
-    color: var(--color-accent);
-    font-size: var(--text-md);
-}
-
 .selection-quick-btns {
     display: flex;
     gap: 6px;
@@ -2807,108 +2572,13 @@ footer {
     background: var(--color-graphite);
 }
 
-.skills-install-controls {
-    display: flex;
-    align-items: center;
-    gap: var(--space-1);
-    flex-wrap: wrap;
-}
-
-.copy-installer-btn {
-    min-height: 36px;
-    padding: 6px 14px;
-    font-size: var(--text-sm);
-}
-
-.download-installer-btn {
-    min-height: 36px;
-    padding: 6px 12px;
-    font-size: var(--text-sm);
-}
-
-.skills-grid.selecting .skill-card {
-    cursor: pointer;
-    padding-right: var(--space-3);
-    padding-left: var(--space-3);
-}
-
-.skills-grid.selecting .skill-card:not(.selected) {
-    border-style: dashed;
-    border-color: var(--color-slate);
-}
-
-.skill-check {
-    appearance: none;
-    -webkit-appearance: none;
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 20px;
-    height: 20px;
-    margin: 0;
-    background: transparent;
-    border: none;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.skill-check::before {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 6px;
-    width: 7px;
-    height: 11px;
-    border: solid currentColor;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    opacity: 0;
-    transition: opacity var(--transition-fast);
-}
-
-.skill-check:checked::before {
-    opacity: 1;
-}
-
 /* Card selecionado: chip preenchido no acento — precisa se ler de relance */
-.skill-card.selected,
-.skills-grid.selecting .skill-card.selected:hover {
-    background: var(--color-accent);
-    color: var(--color-void);
-    border-color: var(--color-accent);
-    border-style: solid;
-}
-
-.skill-card.selected .skill-check {
-    color: var(--color-void);
-}
-
-/* Skills */
-.skills-toolbar {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    margin-top: var(--space-3);
-}
-
-.skills-toolbar-row {
-    display: flex;
-    align-items: flex-end;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-}
-
 .skills-search-wrap {
     display: flex;
     flex-direction: column;
     gap: var(--space-half);
     flex: 1;
     min-width: 220px;
-}
-
-.skills-personalize-toggle {
-    flex-shrink: 0;
-    white-space: nowrap;
 }
 
 .skills-search-wrap label {
@@ -3477,92 +3147,6 @@ footer {
     line-height: 1.5;
 }
 
-.skills-count {
-    font-size: var(--text-sm);
-    color: var(--fg-muted);
-    font-variant-numeric: tabular-nums;
-    margin: 0;
-}
-
-.skills-audit-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-half);
-    background: var(--color-carbon);
-    border: 1px solid var(--color-iron);
-    border-radius: var(--radius-full);
-    padding: 0.2rem 0.65rem;
-    font-size: var(--text-xs);
-    color: var(--fg-muted);
-    text-decoration: none;
-    transition: border-color var(--transition-fast), color var(--transition-fast);
-}
-
-.skills-audit-pill i {
-    color: var(--color-paper);
-    font-size: 0.95rem;
-}
-
-.skills-audit-pill:hover {
-    border-color: var(--color-slate);
-    color: var(--fg);
-    text-decoration: none;
-}
-
-.skills-empty {
-    font-size: var(--text-base);
-    color: var(--fg-muted);
-    background: var(--color-graphite);
-    border: 1px solid var(--color-iron);
-    border-radius: var(--radius-sm);
-    padding: var(--space-3);
-    text-align: center;
-}
-
-.articles-filter {
-    display: flex;
-    gap: 0.25rem;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-
-.filter-btn {
-    position: relative;
-    background: none;
-    border: 1px solid var(--color-iron);
-    border-radius: var(--radius-sm);
-    color: var(--fg-muted);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    padding: var(--space-half) var(--space-1);
-    cursor: pointer;
-    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
-    white-space: nowrap;
-}
-
-.filter-btn:hover {
-    border-color: var(--color-slate);
-    color: var(--fg);
-}
-
-.filter-btn.active {
-    color: var(--color-void);
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    font-weight: var(--font-bold);
-}
-
-/* Contagem de-emphasizada dentro dos chips de filtro (menor, sem perder contraste) */
-.filter-count {
-    font-size: var(--text-xs);
-    color: var(--color-ash);
-}
-
-.filter-btn.active .filter-count {
-    color: var(--color-void);
-    opacity: 0.8;
-}
-
 .skills-results-container {
     display: flex;
     flex-direction: column;
@@ -3695,30 +3279,6 @@ footer {
     background: var(--color-accent-hover);
 }
 
-.skills-expand-wrapper {
-    display: flex;
-    justify-content: center;
-    padding: var(--space-2) 0;
-}
-
-.skills-expand-btn {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    padding: 10px 24px;
-    background: var(--color-graphite);
-    border: 1px solid var(--color-slate);
-    border-radius: var(--radius-sm);
-    color: var(--fg);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-}
-
-.skills-expand-btn:hover {
-    border-color: var(--color-accent);
-    background: var(--color-carbon);
-    transform: translateY(-1px);
-}
-
 .skills-empty-box {
     display: flex;
     flex-direction: column;
@@ -3737,57 +3297,6 @@ footer {
 /* ==========================================================================
    Prominent Community Hub Card
    ========================================================================== */
-.skills-community-hub-card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    margin-top: var(--space-4);
-    padding: var(--space-3);
-    background: var(--color-graphite);
-    border: 1px solid var(--color-iron);
-    border-left: 3px solid var(--color-accent);
-    border-radius: var(--radius-sm);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
-}
-
-.community-hub-card-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--space-2);
-    padding-bottom: var(--space-2);
-    border-bottom: 1px solid var(--color-iron);
-}
-
-.community-hub-title-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.community-hub-title {
-    font-size: var(--text-lg);
-    font-family: var(--font-mono);
-    color: var(--fg);
-    margin: 0;
-    font-weight: 700;
-}
-
-.community-hub-subtitle {
-    font-size: var(--text-sm);
-    color: var(--fg-muted);
-    margin: 0;
-    line-height: 1.5;
-}
-
-.hub-shortcut-btn {
-    text-decoration: none;
-}
-
-.hub-shortcut-btn:hover {
-    color: var(--color-accent);
-}
-
 /* ==========================================================================
    Seção Sobre o Projeto (AboutSection) - Base Desktop
    ========================================================================== */
@@ -4192,10 +3701,6 @@ footer {
     .intro-links,
     .intro-actions {
         justify-content: flex-start;
-    }
-
-    .plugin-groups {
-        grid-template-columns: 1fr;
     }
 
     .explorer-pipeline-nav {
@@ -4941,12 +4446,6 @@ footer {
         min-width: 36px;
     }
 
-    .plugin-copy-btn {
-        width: 40px;
-        height: 40px;
-        min-width: 40px;
-    }
-
     /* Hub Actions Mobile */
     .repo-source-chip,
     .repo-topic-btn {
@@ -4960,21 +4459,6 @@ footer {
         min-height: 44px;
         justify-content: center;
         font-size: 13px;
-        box-sizing: border-box;
-    }
-
-    .repo-item-actions {
-        width: 100%;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .repo-inspect-btn,
-    .repo-import-btn {
-        width: 100%;
-        min-height: 40px;
-        justify-content: center;
-        font-size: 12px;
         box-sizing: border-box;
     }
 
@@ -5076,100 +4560,6 @@ footer {
 /* ==========================================================================
    Compact Presets Quick Bar (High UX / Space Saving)
    ========================================================================== */
-.presets-quick-bar {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px 14px;
-    background: var(--color-carbon);
-    border: 1px solid var(--color-iron);
-    border-left: 2px solid var(--color-accent);
-    border-radius: var(--radius-sm);
-}
-
-.presets-quick-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.presets-quick-title {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    color: var(--fg);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.presets-quick-active-indicator {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--fg-muted);
-}
-
-.presets-quick-active-indicator strong {
-    color: var(--color-accent);
-}
-
-.presets-quick-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.preset-pill-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 5px 10px;
-    background: var(--color-void);
-    border: 1px solid var(--color-iron);
-    border-radius: var(--radius-sm);
-    color: var(--fg-muted);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-}
-
-.preset-pill-btn:hover {
-    color: var(--fg);
-    border-color: var(--color-slate);
-    background: var(--color-graphite);
-    transform: translateY(-1px);
-}
-
-.preset-pill-btn.active {
-    color: var(--fg);
-    background: var(--color-graphite);
-    border-color: var(--color-accent);
-    font-weight: 600;
-}
-
-.preset-pill-name {
-    display: inline-flex;
-    align-items: center;
-}
-
-.preset-pill-count {
-    font-size: 10px;
-    padding: 1px 5px;
-    background: var(--color-carbon);
-    border: 1px solid var(--color-iron);
-    border-radius: 2px;
-    color: var(--fg-faint);
-}
-
-.preset-pill-btn.active .preset-pill-count {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    background: rgba(218, 92, 44, 0.15);
-}
-
 /* ==========================================================================
    Skill & Plugin Icon Cells & Search Bar Icon
    ========================================================================== */
@@ -5246,7 +4636,6 @@ footer {
 .scope-toggle-btn,
 .category-chip-btn,
 .plugin-tab-btn,
-.oneliner-tab,
 .install-tab-btn,
 .contact-card-action,
 .intro-badge-link {
@@ -5590,11 +4979,6 @@ footer {
 
     .back-to-top {
         transition: none !important;
-    }
-
-    .skill-card[data-desc]::after,
-    .skill-card[data-desc]::before {
-        transition: none;
     }
 
     .menu-toggle__line,

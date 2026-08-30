@@ -77,6 +77,11 @@ else
     TOOLS_TO_RUN="$(echo "$TOOLS" | tr ',' ' ')"
 fi
 
+RUN_AGENTS_DIRECT=true
+if echo " $TOOLS_TO_RUN " | grep -q " codex "; then
+    RUN_AGENTS_DIRECT=false
+fi
+
 # 2. Executar instalacao do Claude Code
 if echo " $TOOLS_TO_RUN " | grep -q " claude "; then
     echo "[1] Claude Code"
@@ -141,7 +146,7 @@ if echo " $TOOLS_TO_RUN " | grep -q " codex "; then
 fi
 
 # 4. Executar instalacao de Universal Agents (~/.agents, Cursor, Windsurf, Cline)
-if echo " $TOOLS_TO_RUN " | grep -q " agents "; then
+if [ "$RUN_AGENTS_DIRECT" = true ] && echo " $TOOLS_TO_RUN " | grep -q " agents "; then
     echo "[3] Universal Agents (~/.agents, IDEs)"
     AGENTS_INSTALL="$REPO_ROOT/agents/install.sh"
     if [ -f "$AGENTS_INSTALL" ]; then

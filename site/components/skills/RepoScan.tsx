@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useToast } from "@/components/Toast";
-import type { CustomSkill } from "@/components/skills/SkillsExplorer";
+import type { CustomSkill } from "@/lib/toolkitContext";
 
 export interface RepoResult {
   name: string;

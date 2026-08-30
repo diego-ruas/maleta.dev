@@ -48,7 +48,6 @@ interface ToolkitContextType {
   customSkills: CustomSkill[];
   allMergedSkills: Skill[];
   installCommand: string;
-  applyPreset: (presetId: string) => void;
   togglePreset: (presetId: string) => void;
   toggleSkill: (name: string) => void;
   selectAllSkills: () => void;
@@ -261,10 +260,6 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  function applyPreset(presetId: string) {
-    togglePreset(presetId);
-  }
-
   function toggleSkill(name: string) {
     const next = new Set(selectedSkills);
     const nextPresetIds = new Set(activePresetIds);
@@ -406,7 +401,6 @@ Write-Host "[maleta.dev] Instalando $($Skills.Count) skills customizadas..." -Fo
         customSkills,
         allMergedSkills,
         installCommand,
-        applyPreset,
         togglePreset,
         toggleSkill,
         selectAllSkills,

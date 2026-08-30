@@ -16,11 +16,9 @@ import SkillCard from "@/components/skills/SkillCard";
 import RepoScan from "@/components/skills/RepoScan";
 import { SKILL_PRESETS, type SkillPreset } from "@/lib/data";
 import { getCategoryIcon } from "@/lib/iconMap";
-import { useToolkit, type CustomSkill } from "@/lib/toolkitContext";
+import { useToolkit } from "@/lib/toolkitContext";
 
-export type { CustomSkill };
-
-export type ExplorerStep = "presets" | "skills" | "hub" | "summary";
+type ExplorerStep = "presets" | "skills" | "hub" | "summary";
 
 interface SkillsExplorerProps {
   categories: readonly { label: string; key: string }[];

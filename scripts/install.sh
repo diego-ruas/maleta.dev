@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # One-shot installer: restore Claude Code and Codex configs from this repo.
 #
-# Runs claude/install.sh, codex/install.sh and agents/install.sh.
+# Runs claude/install.sh and codex/install.sh. The Codex installer also
+# provisions universal skills through agents/install.sh.
 # Use this after cloning the repo to reproduce the full AI toolchain.
 #
 # Usage:
@@ -16,9 +17,5 @@ bash "$REPO_ROOT/claude/install.sh" "$REPO_ROOT"
 echo ""
 echo "===== Codex ====="
 bash "$REPO_ROOT/codex/install.sh" "$REPO_ROOT"
-echo ""
-echo "===== Universal Agents (~/.agents) ====="
-bash "$REPO_ROOT/agents/install.sh" "$REPO_ROOT"
-
 echo ""
 echo "All installers finished. Restart the tools to pick up changes."

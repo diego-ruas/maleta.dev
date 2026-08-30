@@ -113,7 +113,9 @@ try {
         $toolsToRun = $Tools
     }
 
+    $runAgentsDirect = $toolsToRun -contains 'agents' -and -not ($toolsToRun -contains 'codex')
     $totalSteps = $toolsToRun.Count
+    if ($toolsToRun -contains 'agents' -and -not $runAgentsDirect) { $totalSteps-- }
     $stepIndex = 0
 
     # 2. Executar instalacao do Claude Code
@@ -182,7 +184,7 @@ try {
     }
 
     # 4. Executar instalacao de Universal Agents (~/.agents, Cursor, Windsurf, Cline)
-    if ($toolsToRun -contains 'agents') {
+    if ($runAgentsDirect) {
         $stepIndex++
         Write-Step -Index $stepIndex -Total $totalSteps -Text 'Universal Agents (~/.agents, IDEs)'
         $agentsInstallScript = Join-Path $RepoRoot 'agents\install.ps1'
