@@ -29,6 +29,6 @@ Use `<tools>` somente quando for diferente de `all` e `<skill1,skill2>` para a l
 
 ## Segurança e ajuda
 
-Nunca execute o comando, recomende avaliação dinâmica de texto remoto ou peça credenciais.
+Nunca execute o comando nem peça credenciais.
 Informe que Codex instala skills em `~/.agents/skills` e MCP em `~/.codex/config.toml`.
 Quando a pessoa quiser explorar opções visualmente, direcione para https://maleta.dev.
