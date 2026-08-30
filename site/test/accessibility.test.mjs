@@ -49,6 +49,16 @@ test("keeps supported agent IDs unique", async () => {
   assert.equal(new Set(ids).size, ids.length);
 });
 
+test("introduces the Codex plugin immediately after the agents ticker", async () => {
+  const page = await source("app/page.tsx");
+  const highlight = await source("components/sections/PluginHighlight.tsx");
+
+  assert.match(page, /<AgentsTicker\s*\/>\s*<PluginHighlight\s*\/>\s*<AboutSection\s*\/>/);
+  assert.match(highlight, /<section[^>]*className="plugin-highlight"/);
+  assert.match(highlight, /id="plugin-codex"/);
+  assert.match(highlight, /href="#plugins"/);
+});
+
 test("prioritizes the custom command in the installation workflow", async () => {
   const install = await source("components/sections/InstallSteps.tsx");
   assert.match(install, /className="section-header-badge"/);

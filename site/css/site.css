@@ -5129,6 +5129,77 @@ footer {
     grid-column: 1 / -1;
 }
 
+.plugin-highlight {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--space-4);
+    margin: 0 0 var(--space-8);
+    padding: var(--space-4) 0;
+    border-top: 1px solid var(--color-iron);
+    border-bottom: 1px solid var(--color-iron);
+}
+
+.plugin-highlight-copy {
+    min-width: 0;
+}
+
+.plugin-highlight-label {
+    display: block;
+    margin-bottom: var(--space-2);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+}
+
+.plugin-highlight h2 {
+    max-width: 17ch;
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    line-height: 1;
+    letter-spacing: -0.045em;
+}
+
+.plugin-highlight p {
+    max-width: 58ch;
+    margin: var(--space-2) 0 0;
+    color: var(--fg-muted);
+    font-size: var(--text-sm);
+    line-height: 1.55;
+}
+
+.plugin-highlight p code {
+    color: var(--color-paper);
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+}
+
+.plugin-highlight-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-height: 38px;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--color-iron);
+    color: var(--color-paper);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-decoration: none;
+    transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.plugin-highlight-link:hover,
+.plugin-highlight-link:focus-visible {
+    border-color: var(--color-paper);
+    background: var(--color-paper);
+    color: var(--color-void);
+}
+
+.plugin-highlight-link:active {
+    transform: translateY(1px);
+}
+
 .agents-ticker-header {
     display: flex;
     align-items: center;
@@ -5215,6 +5286,22 @@ footer {
 }
 
 @media (max-width: 640px) {
+    .plugin-highlight {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: var(--space-3);
+        margin-bottom: var(--space-6);
+        padding: var(--space-3) 0;
+    }
+
+    .plugin-highlight h2 {
+        max-width: 14ch;
+    }
+
+    .plugin-highlight-link {
+        width: fit-content;
+    }
+
     .agents-ticker-header {
         flex-direction: column;
         align-items: flex-start;
