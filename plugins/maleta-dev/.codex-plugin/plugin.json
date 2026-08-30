@@ -1,0 +1,19 @@
+{
+  "name": "maleta-dev",
+  "version": "1.0.0",
+  "description": "Monta kits Maleta e gera comandos de instalação para Codex e Claude Code.",
+  "author": {
+    "name": "maleta.dev"
+  },
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Maleta.dev",
+    "shortDescription": "Monte um kit de IA e gere o comando de instalação.",
+    "longDescription": "Orienta a escolha de presets e skills do maleta.dev e retorna um comando revisável para instalar o kit.",
+    "developerName": "maleta.dev",
+    "category": "Productivity",
+    "capabilities": ["Guidance"],
+    "defaultPrompt": "Monte um kit Maleta para meu projeto e gere o comando de instalação."
+  }
+}
