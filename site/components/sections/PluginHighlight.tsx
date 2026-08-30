@@ -23,7 +23,7 @@ export default function PluginHighlight() {
         <div className="plugin-highlight-cta">
           <span className="plugin-highlight-cta-label">{"// PRONTO PARA COMEÇAR?"}</span>
           <p className="plugin-highlight-cta-copy">Instale uma vez e use o plugin sempre que quiser montar um novo kit.</p>
-          <a href="#plugins" className="plugin-highlight-link btn-primary">
+          <a href="#instalar" className="plugin-highlight-link btn-primary">
             Ver como instalar <span aria-hidden="true">&rarr;</span>
           </a>
           <span className="plugin-highlight-note">Nada é executado sem sua confirmação.</span>
