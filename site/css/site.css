@@ -5338,10 +5338,6 @@ footer {
         padding: 0;
     }
 
-    .plugin-highlight h2 {
-        max-width: 14ch;
-    }
-
     .plugin-highlight-layout {
         grid-template-columns: 1fr;
         gap: var(--space-4);
