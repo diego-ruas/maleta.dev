@@ -35,7 +35,7 @@
 - Consumes: `agents/install.ps1 -RepoRoot <path>` e `bash agents/install.sh <repo-root>` (ja existem; provisionam `~/.agents/skills` respeitando `claude/skills-selection.txt`).
 - Produces: `codex/install.ps1 -RepoRoot <path>` e `bash codex/install.sh <repo-root>`, consumidos pela Task 2.
 
-- [ ] **Step 1: Confirmar que o pacote MCP `context7` existe antes de entrar na config**
+- [x] **Step 1: Confirmar que o pacote MCP `context7` existe antes de entrar na config**
 
 Run:
 ```bash
@@ -43,7 +43,7 @@ npm view @upstash/context7-mcp version
 ```
 Expected: imprime uma versao (ex.: `1.0.x`). Se der `404 Not Found`, **remova o bloco `[mcp_servers.context7]`** do arquivo do Step 2 e siga o resto do plano com apenas `open-websearch`; registre a remocao no commit do Step 8.
 
-- [ ] **Step 2: Criar `codex/config.toml`**
+- [x] **Step 2: Criar `codex/config.toml`**
 
 ```toml
 # maleta.dev - MCP servers curados para o Codex CLI.
@@ -65,7 +65,7 @@ args = ["-y", "@upstash/context7-mcp@latest"]
 startup_timeout_sec = 20
 ```
 
-- [ ] **Step 3: Criar `codex/install.ps1`**
+- [x] **Step 3: Criar `codex/install.ps1`**
 
 ```powershell
 <#
@@ -121,7 +121,7 @@ Write-Host ''
 Write-Host 'Codex install complete. Skills em ~/.agents/skills, MCP em ~/.codex/config.toml.'
 ```
 
-- [ ] **Step 4: Criar `codex/install.sh`**
+- [x] **Step 4: Criar `codex/install.sh`**
 
 ```bash
 #!/usr/bin/env bash
@@ -173,7 +173,7 @@ echo ""
 echo "Codex install complete. Skills em ~/.agents/skills, MCP em ~/.codex/config.toml."
 ```
 
-- [ ] **Step 5: Rodar o installer PowerShell num HOME temporario (primeira instalacao)**
+- [x] **Step 5: Rodar o installer PowerShell num HOME temporario (primeira instalacao)**
 
 ```powershell
 $repo = (Get-Location).Path
@@ -189,7 +189,7 @@ Get-Content (Join-Path $fake '.codex\config.toml')
 ```
 Expected: contagem de skills > 0; `config.toml` contendo `# >>> maleta.dev mcp servers` e `[mcp_servers.open-websearch]`.
 
-- [ ] **Step 6: Rodar de novo por cima de uma config de usuario ja existente (idempotencia)**
+- [x] **Step 6: Rodar de novo por cima de uma config de usuario ja existente (idempotencia)**
 
 ```powershell
 $fake = Join-Path $env:TEMP 'codex-test-home'
@@ -205,7 +205,7 @@ Test-Path "$cfg.pre-install.bak"
 ```
 Expected: `model = "gpt-5-codex"` continua presente, o bloco `maleta.dev mcp servers` aparece **uma unica vez** (dois marcadores, inicio e fim), e o `.pre-install.bak` existe.
 
-- [ ] **Step 7: Rodar a versao bash num HOME temporario**
+- [x] **Step 7: Rodar a versao bash num HOME temporario**
 
 ```bash
 repo="$(pwd)"
@@ -220,7 +220,7 @@ ls "$fake/.codex/"
 ```
 Expected: contagem de skills > 0; `grep -c "maleta.dev mcp servers"` retorna `2` (marcador de inicio + de fim, ou seja, um bloco so); `model` preservado (`1`); `config.toml.pre-install.bak` presente.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add codex/
@@ -240,13 +240,13 @@ git commit -m "feat(codex): installer e config MCP para o Codex CLI"
 - Consumes: `codex/install.ps1 -RepoRoot <path>`, `bash codex/install.sh <repo-root>` (Task 1).
 - Produces: `-Tools`/`--tools` aceitando `all|claude|codex|agents`; sem `-Plugins`/`--plugins`. A Task 3 gera comandos com esses valores.
 
-- [ ] **Step 1: Apagar a pasta do opencode**
+- [x] **Step 1: Apagar a pasta do opencode**
 
 ```bash
 git rm -r opencode
 ```
 
-- [ ] **Step 2: Atualizar `scripts/install.ps1`**
+- [x] **Step 2: Atualizar `scripts/install.ps1`**
 
 Cabecalho:
 
@@ -271,7 +271,7 @@ Write-Host '===== Codex ====='
 & (Join-Path $RepoRoot 'codex\install.ps1') -RepoRoot $RepoRoot
 ```
 
-- [ ] **Step 3: Atualizar `scripts/install.sh`**
+- [x] **Step 3: Atualizar `scripts/install.sh`**
 
 Cabecalho:
 
@@ -293,7 +293,7 @@ echo "===== Codex ====="
 bash "$REPO_ROOT/codex/install.sh" "$REPO_ROOT"
 ```
 
-- [ ] **Step 4: Atualizar `site/public/install.ps1`**
+- [x] **Step 4: Atualizar `site/public/install.ps1`**
 
 Trocas exatas:
 
@@ -344,7 +344,7 @@ Trocas exatas:
     }
 ```
 
-- [ ] **Step 5: Atualizar `site/public/install.sh`**
+- [x] **Step 5: Atualizar `site/public/install.sh`**
 
 Trocas exatas:
 
@@ -395,14 +395,14 @@ if echo " $TOOLS_TO_RUN " | grep -q " codex "; then
 fi
 ```
 
-- [ ] **Step 6: Verificar que nenhum instalador cita opencode nem plugins**
+- [x] **Step 6: Verificar que nenhum instalador cita opencode nem plugins**
 
 ```bash
 grep -rn "opencode\|PLUGINS\|-Plugins\|--plugins" scripts/ site/public/install.ps1 site/public/install.sh codex/ agents/
 ```
 Expected: sem saida.
 
-- [ ] **Step 7: Rodar o one-liner local com HOME temporario, alvo codex**
+- [x] **Step 7: Rodar o one-liner local com HOME temporario, alvo codex**
 
 ```bash
 repo="$(pwd)"
@@ -414,7 +414,7 @@ git status --porcelain claude/skills-selection.txt
 ```
 Expected: `~/.agents/skills` contem `test-driven-development` (e `shared`, se existir no repo); imprime `CONFIG_OK`; `git status` vazio para o arquivo de selecao (o script restaura o estado original).
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add -A scripts site/public opencode
@@ -437,7 +437,7 @@ git commit -m "refactor(install): substituir alvo opencode por codex"
 - Consumes: alvos `all|claude|codex|agents` da Task 2.
 - Produces: `ToolTarget = "all" | "claude" | "codex" | "agents"`; `PLUGIN_GROUPS` com `tool: "Codex"`. A Task 4 depende desses nomes.
 
-- [ ] **Step 1: Trocar o tipo em `site/lib/toolkitContext.tsx`**
+- [x] **Step 1: Trocar o tipo em `site/lib/toolkitContext.tsx`**
 
 Linha 14:
 ```ts
@@ -449,7 +449,7 @@ Linha 77 (o valor antigo `"opencode"` no localStorage deixa de ser aceito e cai 
     if (savedTool && (savedTool === "all" || savedTool === "claude" || savedTool === "codex" || savedTool === "agents")) {
 ```
 
-- [ ] **Step 2: Trocar o grupo de plugins em `site/lib/data.ts`**
+- [x] **Step 2: Trocar o grupo de plugins em `site/lib/data.ts`**
 
 Substituir o objeto inteiro `{ tool: "opencode", items: [...] }` (6 itens) por:
 
@@ -473,7 +473,7 @@ Substituir o objeto inteiro `{ tool: "opencode", items: [...] }` (6 itens) por:
 
 Se o Step 1 da Task 1 tiver removido o `context7`, deixar apenas o item `open-websearch`.
 
-- [ ] **Step 3: Trocar o icone**
+- [x] **Step 3: Trocar o icone**
 
 O Codex passa a usar o `TerminalIcon` ja existente — nao ha icone novo. Em cada arquivo que importava `OpencodeIcon`, trocar o import por:
 
@@ -487,7 +487,7 @@ import { TerminalIcon } from "@/components/icons/terminal";
 git rm site/components/icons/opencode.tsx
 ```
 
-- [ ] **Step 4: Hero — alvo e textos**
+- [x] **Step 4: Hero — alvo e textos**
 
 Em `site/components/sections/Hero.tsx`, no `TOOL_TARGET_META`, a chave `opencode` vira:
 
@@ -527,7 +527,7 @@ Botao "Todos (Completo)": `title="Instalar para todos os ambientes (Claude + Cod
 
 No paragrafo `intro-desc`, trocar `<span className="highlight-word">opencode</span>` por `<span className="highlight-word">Codex</span>`.
 
-- [ ] **Step 5: Demais textos**
+- [x] **Step 5: Demais textos**
 
 - `site/app/layout.tsx` (3 ocorrencias): `... para Claude Code e Codex.`
 - `AboutSection.tsx:44`: `"Claude Code e Codex"`; `:119`: `<strong>Claude Code</strong>, <strong>Codex</strong> e outros agentes`.
@@ -540,21 +540,21 @@ No paragrafo `intro-desc`, trocar `<span className="highlight-word">opencode</sp
 
 Se algum CSS usar a classe `.plugin-row-tool-chip.opencode`, renomear para `.codex` em `site/css/site.css`.
 
-- [ ] **Step 6: Verificar que nao sobrou opencode no site**
+- [x] **Step 6: Verificar que nao sobrou opencode no site**
 
 ```bash
 grep -rn "opencode\|Opencode\|OPENCODE" site --include=*.ts --include=*.tsx --include=*.css --include=*.mjs | grep -v node_modules
 ```
 Expected: sem saida.
 
-- [ ] **Step 7: Lint e build**
+- [x] **Step 7: Lint e build**
 
 ```bash
 cd site && npm run lint && npm run build
 ```
 Expected: lint sem erros; build conclui sem erro de tipo.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add -A site
@@ -577,7 +577,7 @@ git commit -m "refactor(site): trocar alvo opencode por codex no catalogo e na U
 - Consumes: `installCommand`, `targetTool`, `targetOs`, `selectedSkills` de `useToolkit()` (assinaturas inalteradas).
 - Produces: nada consumido por tarefas seguintes.
 
-- [ ] **Step 1: Hero — comando pronto no topo do terminal**
+- [x] **Step 1: Hero — comando pronto no topo do terminal**
 
 Dentro de `.hero-terminal-body`, mover o bloco `04. COMANDO PRONTO` (o `div.hero-terminal-section` que contem `.hero-code-box`) para ser o **primeiro** filho, com o label trocado para:
 
@@ -593,7 +593,7 @@ Logo abaixo desse bloco, antes do `<details>` do Step 2, inserir:
             </p>
 ```
 
-- [ ] **Step 2: Hero — seletores dentro de um `<details>`**
+- [x] **Step 2: Hero — seletores dentro de um `<details>`**
 
 Envolver as tres secoes restantes (ferramenta, sistema operacional e base) em:
 
@@ -609,7 +609,7 @@ Envolver as tres secoes restantes (ferramenta, sistema operacional e base) em:
 
 Renumerar os labels internos para `02. ONDE INSTALAR:`, `03. SEU SISTEMA:`, `04. COMECE POR UMA BASE:`. O `<details>` de presets que ja existe dentro da secao de bases permanece como esta (details aninhado e valido).
 
-- [ ] **Step 3: CSS minimo do novo bloco**
+- [x] **Step 3: CSS minimo do novo bloco**
 
 Em `site/css/site.css`, junto das regras `.hero-advanced-details`:
 
@@ -626,7 +626,7 @@ Em `site/css/site.css`, junto das regras `.hero-advanced-details`:
 ```
 Se `--muted` nao existir em `site/css/base.css`, usar a mesma cor aplicada em `.hero-terminal-actions-hint`.
 
-- [ ] **Step 4: InstallSteps — pre-requisito explicito na aba do one-liner**
+- [x] **Step 4: InstallSteps — pre-requisito explicito na aba do one-liner**
 
 O card `01` (`Requisitos Minimos`) vira `Antes de comecar`:
 
@@ -655,7 +655,7 @@ O card `01` (`Requisitos Minimos`) vira `Antes de comecar`:
               </div>
 ```
 
-- [ ] **Step 5: InstallSteps — card do opencode na aba "Setup do Zero" vira Codex**
+- [x] **Step 5: InstallSteps — card do opencode na aba "Setup do Zero" vira Codex**
 
 O card `02` da aba `fresh` (hoje `Instalar o opencode (Opcional)`):
 
@@ -674,7 +674,7 @@ O card `02` da aba `fresh` (hoje `Instalar o opencode (Opcional)`):
 ```
 com `Icon={TerminalIcon}` no `process-icon-box` do card.
 
-- [ ] **Step 6: Glossario de uma linha**
+- [x] **Step 6: Glossario de uma linha**
 
 Logo abaixo do `<h2>` de cada secao:
 
@@ -702,7 +702,7 @@ Em `site/css/site.css`:
 }
 ```
 
-- [ ] **Step 7: FAQ em linguagem de iniciante**
+- [x] **Step 7: FAQ em linguagem de iniciante**
 
 Trocar o texto da pergunta `tools` para `Onde as skills vao parar na minha maquina?` (a lista ja foi atualizada na Task 3) e acrescentar dois itens no fim de `faq-list`:
 
@@ -720,21 +720,21 @@ Trocar o texto da pergunta `tools` para `Onde as skills vao parar na minha maqui
         </FaqItem>
 ```
 
-- [ ] **Step 8: Lint e build**
+- [x] **Step 8: Lint e build**
 
 ```bash
 cd site && npm run lint && npm run build
 ```
 Expected: lint sem erros e build concluido.
 
-- [ ] **Step 9: Conferir a pagina renderizada**
+- [x] **Step 9: Conferir a pagina renderizada**
 
 ```bash
 cd site && npx serve out -l 4321
 ```
 Abrir `http://localhost:4321` e confirmar: o comando aparece no topo do terminal do Hero; `Ajustar pacote` comeca fechado; ao abrir e escolher `Codex`, o comando passa a conter `-Tools codex` (Windows) ou `--tools codex` (Linux/macOS).
 
-- [ ] **Step 10: Commit**
+- [x] **Step 10: Commit**
 
 ```bash
 git add -A site
@@ -756,29 +756,29 @@ git commit -m "feat(site): comando pronto primeiro, pre-requisito explicito e gl
 - Consumes: estrutura final de pastas e alvos das Tasks 1-4.
 - Produces: nada.
 
-- [ ] **Step 1: Listar todas as mencoes restantes**
+- [x] **Step 1: Listar todas as mencoes restantes**
 
 ```bash
 grep -rn "opencode" --include=*.md . | grep -v "^./claude/skills/"
 ```
 Expected: apenas `AGENTS.md`, `CLAUDE.md`, `README.md`, `docs/TOOL-MATRIX.md`, `docs/DISCOVERED_SKILLS.md` (e os arquivos deste plano/spec, que descrevem a migracao e permanecem).
 
-- [ ] **Step 2: Atualizar `AGENTS.md`**
+- [x] **Step 2: Atualizar `AGENTS.md`**
 
 - Descricao do repo: `Claude Code (claude/)` e `Codex (codex/)`.
 - Golden rule 4: `A config do Codex (codex/config.toml) so lista servidores MCP - nenhuma credencial de provedor. Mantenha assim.`
 - Secao "Common tasks": trocar `opencode/install.ps1 / opencode/install.sh` por `codex/install.ps1 / codex/install.sh`; alvos `all|claude|codex|agents`; remover as mencoes a `--plugins`.
 - Acrescentar em "Add a new skill": `O Codex descobre as mesmas skills em ~/.agents/skills; nao ha pasta de skills propria do Codex para manter.`
 
-- [ ] **Step 3: Atualizar `CLAUDE.md`**
+- [x] **Step 3: Atualizar `CLAUDE.md`**
 
 Na "Visao geral": `... para **Claude Code** (claude/) e **Codex** (codex/).` As demais regras permanecem.
 
-- [ ] **Step 4: Atualizar `README.md` (9 mencoes) e `docs/TOOL-MATRIX.md` (7 mencoes)**
+- [x] **Step 4: Atualizar `README.md` (9 mencoes) e `docs/TOOL-MATRIX.md` (7 mencoes)**
 
 Trocar opencode por Codex, com os caminhos corretos: skills em `~/.agents/skills`, MCP em `~/.codex/config.toml`. Remover linhas sobre plugins do opencode e sobre `~/.config/opencode/`.
 
-- [ ] **Step 5: Verificacao final**
+- [x] **Step 5: Verificacao final**
 
 ```bash
 grep -rn "opencode" . --include=*.ts --include=*.tsx --include=*.ps1 --include=*.sh --include=*.json --include=*.jsonc | grep -v "^./claude/skills/" | grep -v node_modules
@@ -790,7 +790,7 @@ cd site && npm run lint && npm run build
 ```
 Expected: sem erros.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add -A AGENTS.md CLAUDE.md README.md docs
