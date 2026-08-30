@@ -1,22 +1,22 @@
 # Maleta.dev
 
-> Curated, install-only custom AI toolkit builder: skills, presets, plugins, and configurations for Claude Code and opencode. 100% local, safe, and automated.
+> Curated, install-only custom AI toolkit builder: skills, presets, plugins, and configurations for Claude Code and Codex. 100% local, safe, and automated.
 
-Maleta.dev is an interactive custom toolkit builder and catalog for local AI coding assistants (Claude Code and opencode). Instead of forcing a monolithic bundle, developers can choose presets, pick specific skills, import community skills from GitHub, and generate tailored installation commands.
+Maleta.dev is an interactive custom toolkit builder and catalog for local AI coding assistants (Claude Code and Codex). Instead of forcing a monolithic bundle, developers can choose presets, pick specific skills, import community skills from GitHub, and generate tailored installation commands.
 
 ## Custom Installation Commands (PowerShell)
 
 - Tailored One-Liner (Claude Code + specific skills):
   `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills @('design-taste-frontend','test-driven-development','systematic-debugging')`
-- All tools (Claude Code + opencode):
+- All tools (Claude Code + Codex):
   `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools all -Skills @('design-taste-frontend','emil-design-eng')`
-- opencode only:
-  `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools opencode`
+- Codex only:
+  `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools codex`
 
 ## Repository Structure & Documentation
 
 - [AGENTS.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/AGENTS.md): Universal guidance and golden rules for AI agents and LLMs interacting with this repo.
-- [TOOL-MATRIX.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/docs/TOOL-MATRIX.md): Detailed tool compatibility matrix (Claude Code and opencode).
+- [TOOL-MATRIX.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/docs/TOOL-MATRIX.md): Detailed tool compatibility matrix (Claude Code and Codex).
 - [README.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/README.md): Project overview and documentation in Portuguese.
 
 ## Core Capabilities & Skills Catalog
@@ -33,7 +33,7 @@ Maleta.dev includes over 80 curated skills organized by category:
 
 ## Featured Plugins & Integrations
 
-- **claude-mem (`claude-mem@thedotmack`)**: Cross-session persistent memory for Claude Code and opencode.
+- **claude-mem (`claude-mem@thedotmack`)**: Cross-session persistent memory for Claude Code.
 - **superpowers**: Structured brainstorming, step-by-step planning, TDD workflows.
 - **ponytail**: Enforces concise, minimal, boilerplate-free solutions.
 - **open-websearch (MCP)**: Native web search capabilities via DuckDuckGo without API keys.

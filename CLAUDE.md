@@ -25,7 +25,7 @@
 - **Nunca use emojis**: zero emojis em respostas, mensagens, docs ou código. Use apenas os Pixelarticons do projeto e prefixos textuais (`//`, `~`, `->`, `*`).
 
 ## Visão geral
-Repositório público, somente instalação e construtor customizado de tooling de IA: skills, presets, plugins e configuração para **Claude Code** (`claude/`) e **opencode** (`opencode/`). `site/` é o aplicativo web e construtor sob medida (Next.js 15, App Router, `output: 'export'`) publicado na Vercel.
+Repositório público, somente instalação e construtor customizado de tooling de IA: skills, presets, plugins e configuração para **Claude Code** (`claude/`) e **Codex** (`codex/`). `site/` é o aplicativo web e construtor sob medida (Next.js 15, App Router, `output: 'export'`) publicado na Vercel.
 
 ## Regras invioláveis
 1. **Nunca commitar dados privados ou credenciais** (`.claude-mem/`, `.credentials.json`, `.env*`, sessions, tokens).

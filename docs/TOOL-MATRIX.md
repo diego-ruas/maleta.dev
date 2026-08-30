@@ -6,13 +6,13 @@ Como cada recurso deste repositório é mapeado para cada assistente e ambiente 
 
 ## Mapeamento por Ferramenta
 
-| Recurso | Claude Code | opencode | Cursor / Windsurf / Cline / Outros |
+| Recurso | Claude Code | Codex | Cursor / Windsurf / Cline / Outros |
 | :--- | :--- | :--- | :--- |
-| **Skills** (`claude/skills/`) | `~/.claude/skills/` | Skills customizadas (via config) | Carregadas como contexto / prompts |
-| **Configurações gerais** | `~/.claude/settings.json` | `~/.config/opencode/opencode.json` | Configuração nativa de cada IDE |
-| **Servidores MCP** | `~/.claude.json` (via `claude/mcp.json`) | `~/.config/opencode/opencode.jsonc` | Configuração de MCP nativa de cada IDE |
-| **Manifesto de Plugins** | `claude plugin install <id>` | Gerenciado no `opencode.jsonc` (npm/git) | n/a |
-| **Worker do claude-mem** | Plugin `claude-mem@thedotmack` | Adaptador `plugins/claude-mem.js` | Conexão HTTP local (`127.0.0.1:37777`) |
+| **Skills** (`claude/skills/`) | `~/.claude/skills/` | `~/.agents/skills/` | Carregadas como contexto / prompts |
+| **Configurações gerais** | `~/.claude/settings.json` | `~/.codex/config.toml` | Configuração nativa de cada IDE |
+| **Servidores MCP** | `~/.claude.json` (via `claude/mcp.json`) | `~/.codex/config.toml` | Configuração de MCP nativa de cada IDE |
+| **Manifesto de Plugins** | `claude plugin install <id>` | n/a (MCP em `config.toml`) | n/a |
+| **Worker do claude-mem** | Plugin `claude-mem@thedotmack` | n/a | Conexão HTTP local (`127.0.0.1:37777`) |
 
 ---
 
@@ -25,11 +25,11 @@ Como cada recurso deste repositório é mapeado para cada assistente e ambiente 
 - **claude-mem**: Mantém memória persistente entre sessões através de um worker em segundo plano (`http://127.0.0.1:37777`). Os dados ficam salvos localmente em `~/.claude-mem/` (nunca versionados ou compartilhados).
 - **Servidores MCP**: Declarados em `claude/mcp.json` e mesclados em `~/.claude.json`, fornecendo capacidades adicionais como busca na web.
 
-### opencode
+### Codex
 
-- **Configurações**: Arquivos `~/.config/opencode/opencode.jsonc` (plugins e MCP) e `opencode.json` (provedor e modelo).
-- **Plugins**: Referências npm (`opencode-ponytail`, `opencode-notify`, `opencode-worktree`, `opencode-antigravity-auth`), plugin git (`superpowers`) e o adaptador local `./plugins/claude-mem.js`.
-- **claude-mem**: Adaptador leve em JavaScript (`plugins/claude-mem.js`) que se comunica com o serviço local iniciado pelo plugin do Claude Code.
-- **Busca Web**: Integração nativa com DuckDuckGo via MCP (`open-websearch`).
+- **Skills**: As mesmas pastas de `claude/skills/` são copiadas para `~/.agents/skills/`, que o Codex descobre automaticamente.
+- **Configurações e MCP**: `codex/config.toml` é mesclado em `~/.codex/config.toml` com os servidores `open-websearch` e `context7`; configurações existentes do usuário são preservadas.
+- **Plugins**: O Codex não possui gerenciador de plugins no instalador; integrações externas entram como servidores MCP no `config.toml`.
+- **claude-mem**: Não há adaptador próprio do Codex. O plugin do Claude Code continua independente.
 
 - **Zero Vazamento**: Nenhum dado confidencial, credencial ou chave de API é compartilhado entre agentes ou sincronizado externamente.

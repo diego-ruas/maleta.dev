@@ -4,7 +4,7 @@
 
 .DESCRIPTION
     Provisions universal skills to ~/.agents/skills (consumed by Antigravity, Codex,
-    OpenCode, Devin, Gemini CLI, Claude Code, and agent standard tools).
+    Devin, Gemini CLI, Claude Code, and agent standard tools).
 
     Usage:
         powershell -ExecutionPolicy Bypass -File agents/install.ps1

@@ -4,7 +4,7 @@ Guidance for any AI agent working inside this repository. Read this first.
 
 ## What this repo is
 
-A public, install-only collection and custom builder of AI tooling: skills, plugins, presets, and configuration for **Claude Code** (`claude/`) and **opencode** (`opencode/`). Clone it or generate custom installation commands; nothing private is synced back here.
+A public, install-only collection and custom builder of AI tooling: skills, plugins, presets, and configuration for **Claude Code** (`claude/`) and **Codex** (`codex/`). Clone it or generate custom installation commands; nothing private is synced back here.
 
 The `site/` folder is the public web application ([maleta.dev](https://maleta.dev)) — a Next.js 15 App Router app (TypeScript, `output: 'export'`) served as static HTML on Vercel. It provides a real-time **Custom AI Toolkit Builder**, allowing developers to pick presets, toggle skills, discover community GitHub skills, and copy tailored PowerShell installation one-liners.
 
@@ -21,7 +21,7 @@ The `site/` folder is the public web application ([maleta.dev](https://maleta.de
    static manifests** (no longer regenerated). Edit them deliberately to change
    the installed plugin set.
 4. **Never store API keys, tokens, or model secrets** in any tracked file. The
-   opencode config (`opencode.jsonc`) only lists plugin references — no provider
+   Codex config (`codex/config.toml`) only lists MCP server references — no provider
    credentials — keep it that way.
 5. **Do not add new files to the repo root** unless they belong there
    (README, LICENSE, AGENTS.md, CLAUDE.md, .cursorrules, .windsurfrules, .clinerules, .gitignore, docs/). Tool-specific assets go in
@@ -40,7 +40,7 @@ The `site/` folder is the public web application ([maleta.dev](https://maleta.de
 ## Multi-Agent Entry Points
 
 This repository provides native entry point configurations so that any LLM/agent instantly loads repository rules:
-- **Codex / opencode / Devin / Antigravity / Gemini / Zed**: Reads [`AGENTS.md`](./AGENTS.md) directly.
+- **Codex / Devin / Antigravity / Gemini / Zed**: Reads [`AGENTS.md`](./AGENTS.md) directly.
 - **Claude Code**: Reads [`CLAUDE.md`](./CLAUDE.md) at root (references `AGENTS.md`).
 - **Cursor IDE**: Reads [`.cursorrules`](./.cursorrules).
 - **Windsurf (Codeium)**: Reads [`.windsurfrules`](./.windsurfrules).
@@ -68,7 +68,7 @@ This repository provides native entry point configurations so that any LLM/agent
   bash scripts/install.sh
   ```
 
-Or per tool: `claude/install.ps1` / `claude/install.sh`, `opencode/install.ps1` / `opencode/install.sh`, `agents/install.ps1` / `agents/install.sh`.
+Or per tool: `claude/install.ps1` / `claude/install.sh`, `codex/install.ps1` / `codex/install.sh`, `agents/install.ps1` / `agents/install.sh`.
 Claude plugins are installed from their marketplaces via
 `claude plugin install <id>` (`claude/plugins/plugins.json` lists them).
 
@@ -79,6 +79,8 @@ Claude plugins are installed from their marketplaces via
 2. Copy it into `claude/skills/<name>/`, keeping any `LICENSE*` files.
 3. Update `site/lib/data.ts` so the website catalogue reflects the new skill.
 4. Commit only the intended changes.
+
+The Codex discovers the same skills in `~/.agents/skills`; there is no separate Codex skills folder to maintain.
 
 ### Update a skill to its latest upstream version
 
@@ -95,11 +97,10 @@ Claude plugins are installed from their marketplaces via
 3. Update `site/lib/data.ts` if featured in the site manifest list.
 4. Commit.
 
-### Update opencode
+### Update Codex
 
-- Config lives in `opencode/opencode.jsonc` (plugins + MCP) and
-  `opencode/opencode.json` (provider/model). Edit and run
-  `opencode/install.ps1` locally to apply.
+- Config lives in `codex/config.toml` (MCP servers). Edit and run
+  `codex/install.ps1` locally to apply.
 
 ### Work on the website (`site/`)
 

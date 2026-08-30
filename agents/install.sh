@@ -2,7 +2,7 @@
 # Install universal AI agent skills from this repo.
 #
 # Provisions universal skills to ~/.agents/skills (consumed by Antigravity, Codex,
-# OpenCode, Devin, Gemini CLI, Claude Code, and agent standard tools).
+# Devin, Gemini CLI, Claude Code, and agent standard tools).
 #
 # Usage:
 #     bash agents/install.sh [repo-root]
