@@ -10,7 +10,7 @@ import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import { CopyIcon } from "@/components/icons/copy";
 import { CheckIcon } from "@/components/icons/check";
 import { ClaudeIcon } from "@/components/icons/claude";
-import { OpencodeIcon } from "@/components/icons/opencode";
+import { TerminalIcon } from "@/components/icons/terminal";
 import { ZapIcon } from "@/components/icons/zap";
 import { CpuIcon } from "@/components/icons/cpu";
 import { ShieldIcon } from "@/components/icons/shield";
@@ -25,9 +25,9 @@ const TOOL_TARGET_META: Record<
     tag: "Apenas Claude Code",
     description: "Configura exclusivamente o Claude Code.",
   },
-  opencode: {
-    tag: "Apenas opencode",
-    description: "Configura exclusivamente o opencode.",
+  codex: {
+    tag: "Apenas Codex",
+    description: "Configura exclusivamente o Codex CLI.",
   },
   agents: {
     tag: "Agentes & IDEs",
@@ -35,7 +35,7 @@ const TOOL_TARGET_META: Record<
   },
   all: {
     tag: "Ecossistema Completo",
-    description: "Configura Claude Code, opencode e todas as IDEs/Agentes.",
+    description: "Configura Claude Code, Codex e todas as IDEs/Agentes.",
   },
 };
 
@@ -99,7 +99,7 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          Escolha uma base, ajuste o pacote e copie um comando pronto para instalar skills no <span className="highlight-word">Claude Code</span>, <span className="highlight-word">opencode</span> ou outras IDEs.
+          Escolha uma base, ajuste o pacote e copie um comando pronto para instalar skills no <span className="highlight-word">Claude Code</span>, <span className="highlight-word">Codex</span> ou outras IDEs.
         </motion.p>
 
         <motion.div
@@ -183,13 +183,13 @@ export default function Hero() {
                 <button
                   type="button"
                   role="radio"
-                  aria-checked={targetTool === "opencode"}
-                  className={`hero-tool-btn${targetTool === "opencode" ? " active" : ""}`}
-                  onClick={() => setTargetTool("opencode")}
-                  title="Instalar apenas para opencode (~/.config/opencode/)"
+                  aria-checked={targetTool === "codex"}
+                  className={`hero-tool-btn${targetTool === "codex" ? " active" : ""}`}
+                  onClick={() => setTargetTool("codex")}
+                  title="Instalar apenas para Codex (~/.agents/skills e ~/.codex/config.toml)"
                 >
-                  <AnimatedIcon Icon={OpencodeIcon} className="icon" size={14} />
-                  <span>opencode</span>
+                  <AnimatedIcon Icon={TerminalIcon} className="icon" size={14} />
+                  <span>Codex</span>
                 </button>
                 <button
                   type="button"
@@ -208,7 +208,7 @@ export default function Hero() {
                   aria-checked={targetTool === "all"}
                   className={`hero-tool-btn${targetTool === "all" ? " active" : ""}`}
                   onClick={() => setTargetTool("all")}
-                  title="Instalar para todos os ambientes (Claude + opencode + Agentes & IDEs)"
+                  title="Instalar para todos os ambientes (Claude + Codex + Agentes & IDEs)"
                 >
                   <AnimatedIcon Icon={ZapIcon} className="icon" size={14} />
                   <span>Todos (Completo)</span>

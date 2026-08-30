@@ -711,37 +711,17 @@ export const PLUGIN_GROUPS: PluginGroup[] = [
     ],
   },
   {
-    tool: "opencode",
+    tool: "Codex",
     items: [
       {
-        name: "superpowers",
-        description: "workflow completo (git)",
-        category: "Workflow",
+        name: "open-websearch",
+        description: "busca na web sem API key (MCP)",
+        category: "MCP",
       },
       {
-        name: "opencode-ponytail",
-        description: "princípio minimalista do ponytail",
-        category: "Código Limpo",
-      },
-      {
-        name: "opencode-notify",
-        description: "notificações nativas ao fim de tarefas",
-        category: "Produtividade",
-      },
-      {
-        name: "opencode-worktree",
-        description: "git worktrees sem fricção",
-        category: "Git",
-      },
-      {
-        name: "opencode-antigravity-auth",
-        description: "Gemini/Claude via login Google",
-        category: "Autenticação",
-      },
-      {
-        name: "claude-mem.js",
-        description: "adaptador do worker claude-mem",
-        category: "Memória",
+        name: "context7",
+        description: "docs atualizadas das libs (MCP)",
+        category: "MCP",
       },
     ],
   },

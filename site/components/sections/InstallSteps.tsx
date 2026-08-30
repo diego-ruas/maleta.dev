@@ -14,7 +14,6 @@ import { DownloadIcon } from "@/components/icons/download";
 import { ZapIcon } from "@/components/icons/zap";
 import { ShieldIcon } from "@/components/icons/shield";
 import { ClaudeIcon } from "@/components/icons/claude";
-import { OpencodeIcon } from "@/components/icons/opencode";
 import { NotesIcon } from "@/components/icons/notes";
 import { useToolkit } from "@/lib/toolkitContext";
 
@@ -149,9 +148,9 @@ export default function InstallSteps() {
               <h3 className="process-title">Requisitos Mínimos</h3>
               <p className="process-desc">
                 {isUnix ? (
-                  <>Linux ou macOS com <strong>bash</strong> ou <strong>zsh</strong> e <strong>Claude Code</strong> e/ou <strong>opencode</strong> já instalados no terminal.</>
+                  <>Linux ou macOS com <strong>bash</strong> ou <strong>zsh</strong> e <strong>Claude Code</strong> e/ou <strong>Codex</strong> já instalados no terminal.</>
                 ) : (
-                  <>Windows 10/11 com <strong>PowerShell 5.1+</strong> nativo e <strong>Claude Code</strong> e/ou <strong>opencode</strong> já instalados no terminal.</>
+                  <>Windows 10/11 com <strong>PowerShell 5.1+</strong> nativo e <strong>Claude Code</strong> e/ou <strong>Codex</strong> já instalados no terminal.</>
                 )}
               </p>
             </div>
@@ -284,18 +283,18 @@ export default function InstallSteps() {
           <div className="process-card">
             <div className="process-card-header">
               <div className="process-icon-box">
-                <AnimatedIcon Icon={OpencodeIcon} className="icon" size={20} />
+                <AnimatedIcon Icon={TerminalIcon} className="icon" size={20} />
               </div>
               <div className="process-num">02</div>
             </div>
             <div className="process-content">
-              <h3 className="process-title">Instalar o opencode (Opcional)</h3>
+              <h3 className="process-title">Instalar o Codex CLI (Opcional)</h3>
               <p className="process-desc">
-                Caso prefira utilizar modelos open-source locais (via Ollama ou LM Studio) ou múltiplos provedores:
+                Caso ainda não tenha o Codex CLI instalado:
               </p>
               <div className="cmd">
-                <code>npm install -g opencode-ai</code>
-                <CopyButton className="cmd-copy" text="npm install -g opencode-ai" aria-label="Copiar comando de instalação do opencode">
+                <code>npm install -g @openai/codex</code>
+                <CopyButton className="cmd-copy" text="npm install -g @openai/codex" aria-label="Copiar comando de instalação do Codex CLI">
                   <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
                   <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
                 </CopyButton>
@@ -376,7 +375,7 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Inspecionar as Skills</h3>
               <p className="process-desc">
-                Navegue pelas pastas <code>claude/skills/</code> e <code>opencode/</code>. Cada skill contém seu arquivo <code>SKILL.md</code> em Markdown auditável.
+                Navegue pela pasta <code>claude/skills/</code>. Cada skill contém seu arquivo <code>SKILL.md</code> em Markdown auditável.
               </p>
             </div>
           </div>
@@ -441,12 +440,12 @@ export default function InstallSteps() {
               {isUnix ? (
                 <>
                   Skills do Claude Code: <code>~/.claude/skills/</code><br />
-                  Configurações do opencode: <code>~/.config/opencode/</code>
+                  Skills do Codex: <code>~/.agents/skills/</code> - MCP: <code>~/.codex/config.toml</code>
                 </>
               ) : (
                 <>
                   Skills do Claude Code: <code>%USERPROFILE%\.claude\skills\</code><br />
-                  Configurações do opencode: <code>%LOCALAPPDATA%\opencode\</code>
+                  Skills do Codex: <code>%USERPROFILE%\.agents\skills\</code> - MCP: <code>%USERPROFILE%\.codex\config.toml</code>
                 </>
               )}
             </p>

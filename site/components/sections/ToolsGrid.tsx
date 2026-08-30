@@ -4,13 +4,13 @@ import AnimatedIcon from "@/components/AnimatedIcon";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRightIcon } from "@/components/icons/arrow-up-right";
 import { ClaudeIcon } from "@/components/icons/claude";
-import { OpencodeIcon } from "@/components/icons/opencode";
+import { TerminalIcon } from "@/components/icons/terminal";
 import { SearchIcon } from "@/components/icons/search";
 import { PLUGIN_GROUPS } from "@/lib/data";
 
 export default function ToolsGrid() {
   const claudeCodePlugins = PLUGIN_GROUPS.find((g) => g.tool === "Claude Code")!.items.length;
-  const opencodePlugins = PLUGIN_GROUPS.find((g) => g.tool === "opencode")!.items.length;
+  const codexMcp = PLUGIN_GROUPS.find((g) => g.tool === "Codex")!.items.length;
 
   return (
     <Reveal id="ferramentas" className="reveal" ariaLabelledby="ferramentas-heading">
@@ -46,21 +46,21 @@ export default function ToolsGrid() {
 
         <div className="contact-card">
           <div className="contact-card-icon">
-            <AnimatedIcon Icon={OpencodeIcon} className="icon" size={24} />
+            <AnimatedIcon Icon={TerminalIcon} className="icon" size={24} />
           </div>
           <div className="contact-card-info">
-            <h3>opencode</h3>
+            <h3>Codex</h3>
             <p>
-              Configurações em <code>~/.config/opencode/</code>, {opencodePlugins} plugins e suporte a modelos locais.
+              Skills em <code>~/.agents/skills/</code>, MCP em <code>~/.codex/config.toml</code>. {codexMcp} servidores MCP curados.
             </p>
           </div>
           <a
-            href="https://github.com/diego-ruas/maleta.dev/tree/main/opencode"
+            href="https://github.com/diego-ruas/maleta.dev/tree/main/codex"
             target="_blank"
             rel="noopener noreferrer"
             className="contact-card-action"
           >
-            <span>Inspecionar pasta opencode/</span>
+            <span>Inspecionar pasta codex/</span>
             <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
           </a>
         </div>

@@ -288,7 +288,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
         : text.slice(0, 200).replace(/---[\s\S]*?---/, "").trim();
       setExpandedDetails((cur) => ({
         ...cur,
-        [key]: descText || "Instruções operacionais para agentes Claude Code e opencode.",
+        [key]: descText || "Instruções operacionais para agentes Claude Code e Codex.",
       }));
     } catch {
       setExpandedDetails((cur) => ({ ...cur, [key]: "Não foi possível carregar a descrição no momento." }));

@@ -7,7 +7,7 @@ import CopyButton from "@/components/CopyButton";
 import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
 import { ClaudeIcon } from "@/components/icons/claude";
-import { OpencodeIcon } from "@/components/icons/opencode";
+import { TerminalIcon } from "@/components/icons/terminal";
 import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import { useToast } from "@/components/Toast";
 import { useToolkit } from "@/lib/toolkitContext";
@@ -35,7 +35,7 @@ export default function PluginsSection() {
   const showToast = useToast();
   const { targetOs } = useToolkit();
   const [search, setSearch] = useState("");
-  const [activeTool, setActiveTool] = useState<"all" | "Claude Code" | "opencode">("all");
+  const [activeTool, setActiveTool] = useState<"all" | "Claude Code" | "Codex">("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const [selected, setSelected] = useState<Set<string>>(() => {
@@ -104,9 +104,9 @@ export default function PluginsSection() {
       .map((p) => p.name);
   }, [selected]);
 
-  const opencodeSelected = useMemo(() => {
+  const codexSelected = useMemo(() => {
     return ALL_PLUGINS
-      .filter((p) => p.tool === "opencode" && selected.has(`${p.tool}:${p.name}`))
+      .filter((p) => p.tool === "Codex" && selected.has(`${p.tool}:${p.name}`))
       .map((p) => p.name);
   }, [selected]);
 
@@ -116,16 +116,16 @@ export default function PluginsSection() {
     if (claudeSelected.length > 0) {
       lines.push(claudeSelected.map((n) => `claude plugin install ${n}`).join(" ; "));
     }
-    if (opencodeSelected.length > 0) {
+    if (codexSelected.length > 0) {
       const isUnix = targetOs === "unix";
       lines.push(
         isUnix
-          ? `curl -fsSL https://maleta.dev/install.sh | bash -s -- --tools opencode --plugins ${opencodeSelected.join(",")}`
-          : `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools opencode -Plugins ${opencodeSelected.join(",")}`
+          ? `curl -fsSL https://maleta.dev/install.sh | bash -s -- --tools codex`
+          : `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools codex`
       );
     }
     return lines.join("\n");
-  }, [selected.size, claudeSelected, opencodeSelected, targetOs]);
+  }, [selected.size, claudeSelected, codexSelected, targetOs]);
 
   return (
     <Reveal id="plugins" className="reveal" ariaLabelledby="plugins-heading">
@@ -177,11 +177,11 @@ export default function PluginsSection() {
             </button>
             <button
               type="button"
-              className={`plugin-tab-btn${activeTool === "opencode" ? " active" : ""}`}
-              onClick={() => setActiveTool("opencode")}
+              className={`plugin-tab-btn${activeTool === "Codex" ? " active" : ""}`}
+              onClick={() => setActiveTool("Codex")}
             >
-              <AnimatedIcon Icon={OpencodeIcon} className="icon" size={14} />
-              <span>opencode ({ALL_PLUGINS.filter((p) => p.tool === "opencode").length})</span>
+              <AnimatedIcon Icon={TerminalIcon} className="icon" size={14} />
+              <span>Codex ({ALL_PLUGINS.filter((p) => p.tool === "Codex").length})</span>
             </button>
           </div>
         </div>
@@ -241,7 +241,7 @@ export default function PluginsSection() {
           {filteredPlugins.map((plugin) => {
             const pluginKey = `${plugin.tool}:${plugin.name}`;
             const isSelected = selected.has(pluginKey);
-            const ToolIcon = plugin.tool === "Claude Code" ? ClaudeIcon : OpencodeIcon;
+            const ToolIcon = plugin.tool === "Claude Code" ? ClaudeIcon : TerminalIcon;
 
             return (
               <li key={pluginKey} className={`plugin-row-item${isSelected ? " selected" : ""}`}>
@@ -252,7 +252,7 @@ export default function PluginsSection() {
                   <div className="plugin-row-info">
                     <div className="plugin-row-title-row">
                       <span className="plugin-row-name">{plugin.name}</span>
-                      <span className={`plugin-row-tool-chip ${plugin.tool === "Claude Code" ? "claude" : "opencode"}`}>
+                      <span className={`plugin-row-tool-chip ${plugin.tool === "Claude Code" ? "claude" : "codex"}`}>
                         {plugin.tool}
                       </span>
                       {plugin.category && (

@@ -41,7 +41,7 @@ const PILLARS: PillarItem[] = [
     description:
       "Instruções modulares que podem ser instaladas em diferentes assistentes de código.",
     highlights: [
-      "Claude Code e opencode",
+      "Claude Code e Codex",
       "Antigravity, Cursor e Windsurf",
       "Codex, Devin, Gemini e Roo Code",
     ],
@@ -116,7 +116,7 @@ export default function AboutSection() {
             <span className="about-prompt-cmd">maleta init --skills={SKILLS.length} --deterministic --privacy=strict</span>
           </div>
           <p>
-            O <strong>maleta.dev</strong> reúne skills auditáveis para <strong>Claude Code</strong>, <strong>opencode</strong> e outros agentes. Escolha uma base, ajuste o pacote e copie um comando pronto para instalar tudo localmente, sem telemetria.
+            O <strong>maleta.dev</strong> reúne skills auditáveis para <strong>Claude Code</strong>, <strong>Codex</strong> e outros agentes. Escolha uma base, ajuste o pacote e copie um comando pronto para instalar tudo localmente, sem telemetria.
           </p>
         </div>
       </div>

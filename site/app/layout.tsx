@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://maleta.dev"),
   title: "Maleta.dev | AI Toolkit",
   description:
-    "Coleção curada e instalável de skills, plugins e configurações de IA para Claude Code e opencode. 100% local, seguro e pronto em 1 comando.",
+    "Coleção curada e instalável de skills, plugins e configurações de IA para Claude Code e Codex. 100% local, seguro e pronto em 1 comando.",
   alternates: {
     canonical: "/",
   },
@@ -30,13 +30,13 @@ export const metadata: Metadata = {
     siteName: "Maleta.dev",
     title: "Maleta.dev | AI Toolkit",
     description:
-      "Coleção curada e instalável de skills, plugins e configurações de IA para Claude Code e opencode. 100% local e configurado em segundos.",
+      "Coleção curada e instalável de skills, plugins e configurações de IA para Claude Code e Codex. 100% local e configurado em segundos.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Maleta.dev | AI Toolkit",
     description:
-      "Coleção curada e instalável de skills, plugins e configurações de IA para Claude Code e opencode. 100% local e configurado em segundos.",
+      "Coleção curada e instalável de skills, plugins e configurações de IA para Claude Code e Codex. 100% local e configurado em segundos.",
   },
   robots: {
     index: true,

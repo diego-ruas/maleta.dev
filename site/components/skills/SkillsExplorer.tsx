@@ -11,7 +11,6 @@ import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import { CodeIcon } from "@/components/icons/code";
 import { TerminalIcon } from "@/components/icons/terminal";
 import { ClaudeIcon } from "@/components/icons/claude";
-import { OpencodeIcon } from "@/components/icons/opencode";
 import { ZapIcon } from "@/components/icons/zap";
 import SkillCard from "@/components/skills/SkillCard";
 import RepoScan from "@/components/skills/RepoScan";
@@ -527,11 +526,11 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 </button>
                 <button
                   type="button"
-                  className={`summary-tool-btn${targetTool === "opencode" ? " active" : ""}`}
-                  onClick={() => setTargetTool("opencode")}
+                  className={`summary-tool-btn${targetTool === "codex" ? " active" : ""}`}
+                  onClick={() => setTargetTool("codex")}
                 >
-                  <AnimatedIcon Icon={OpencodeIcon} className="icon" size={14} />
-                  <span>opencode</span>
+                  <AnimatedIcon Icon={TerminalIcon} className="icon" size={14} />
+                  <span>Codex</span>
                 </button>
                 <button
                   type="button"
@@ -546,7 +545,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                   onClick={() => setTargetTool("all")}
                 >
                   <AnimatedIcon Icon={ZapIcon} className="icon" size={14} />
-                  <span>Todos (Claude + opencode + Agents)</span>
+                  <span>Todos (Claude + Codex + Agents)</span>
                 </button>
               </div>
 

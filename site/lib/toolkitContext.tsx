@@ -11,7 +11,7 @@ export interface CustomSkill {
   desc: string;
 }
 
-export type ToolTarget = "all" | "claude" | "opencode" | "agents";
+export type ToolTarget = "all" | "claude" | "codex" | "agents";
 export type OsTarget = "windows" | "unix";
 
 const SELECTED_KEY = "aitoolkit-selected-skills";
@@ -74,7 +74,7 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const savedTool = localStorage.getItem(TOOL_KEY) as ToolTarget | null;
-    if (savedTool && (savedTool === "all" || savedTool === "claude" || savedTool === "opencode" || savedTool === "agents")) {
+    if (savedTool && (savedTool === "all" || savedTool === "claude" || savedTool === "codex" || savedTool === "agents")) {
       setTargetToolState(savedTool);
     }
 
