@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Instalador One-Liner do maleta.dev para Claude Code e opencode (Linux/macOS).
+# Instalador One-Liner do maleta.dev para Claude Code e Codex (Linux/macOS).
 #
 # Instala skills, plugins, marketplaces e configuracoes de IA.
 # Pode ser executado diretamente da web sem clonar o repositorio antes:
@@ -9,23 +9,20 @@
 #     curl -fsSL https://maleta.dev/install.sh | bash -s -- --tools claude --skills design-taste-frontend,emil-design-eng
 #
 # Opcoes:
-#   --tools <all|claude|opencode>[,...]   Padrao: all
+#   --tools <all|claude|codex|agents>[,...]   Padrao: all
 #   --skills <nome1,nome2,...>            Padrao: todas as skills curadas
-#   --plugins <nome1,nome2,...>           Padrao: todos os plugins curados do opencode
 #   --repo-root <path>                    Usa um clone local em vez de baixar
 
 set -uo pipefail
 
 TOOLS="all"
 SKILLS=""
-PLUGINS=""
 REPO_ROOT=""
 
 while [ $# -gt 0 ]; do
     case "$1" in
         --tools) TOOLS="$2"; shift 2 ;;
         --skills) SKILLS="$2"; shift 2 ;;
-        --plugins) PLUGINS="$2"; shift 2 ;;
         --repo-root) REPO_ROOT="$2"; shift 2 ;;
         *) echo "[warn] opcao desconhecida: $1"; shift ;;
     esac
@@ -75,7 +72,7 @@ if [ "$IS_REMOTE" = true ]; then
 fi
 
 if [ "$TOOLS" = "all" ]; then
-    TOOLS_TO_RUN="claude opencode agents"
+    TOOLS_TO_RUN="claude codex agents"
 else
     TOOLS_TO_RUN="$(echo "$TOOLS" | tr ',' ' ')"
 fi
@@ -112,19 +109,33 @@ if echo " $TOOLS_TO_RUN " | grep -q " claude "; then
     echo ""
 fi
 
-# 3. Executar instalacao do opencode
-if echo " $TOOLS_TO_RUN " | grep -q " opencode "; then
-    echo "[2] opencode"
-    OPENCODE_INSTALL="$REPO_ROOT/opencode/install.sh"
-    if [ -f "$OPENCODE_INSTALL" ]; then
-        if [ -n "$PLUGINS" ]; then
-            bash "$OPENCODE_INSTALL" "$REPO_ROOT" "--plugins=$PLUGINS"
-        else
-            bash "$OPENCODE_INSTALL" "$REPO_ROOT"
+# 3. Executar instalacao do Codex
+if echo " $TOOLS_TO_RUN " | grep -q " codex "; then
+    echo "[2] Codex"
+    CODEX_INSTALL="$REPO_ROOT/codex/install.sh"
+    if [ -f "$CODEX_INSTALL" ]; then
+        SELECTION_FILE="$REPO_ROOT/claude/skills-selection.txt"
+        HAD_SELECTION=false
+        ORIGINAL_SELECTION=""
+        if [ -f "$SELECTION_FILE" ]; then
+            HAD_SELECTION=true
+            ORIGINAL_SELECTION="$(cat "$SELECTION_FILE")"
         fi
-        echo "[ok]   opencode configurado."
+
+        if [ -n "$SKILLS" ]; then
+            echo "$SKILLS" | tr ',' '\n' > "$SELECTION_FILE"
+        fi
+
+        bash "$CODEX_INSTALL" "$REPO_ROOT"
+
+        if [ "$HAD_SELECTION" = false ] && [ -f "$SELECTION_FILE" ]; then
+            rm -f "$SELECTION_FILE"
+        elif [ "$HAD_SELECTION" = true ]; then
+            echo "$ORIGINAL_SELECTION" > "$SELECTION_FILE"
+        fi
+        echo "[ok]   Codex configurado."
     else
-        echo "[warn] Script do opencode nao encontrado em $OPENCODE_INSTALL"
+        echo "[warn] Script do Codex nao encontrado em $CODEX_INSTALL"
     fi
     echo ""
 fi
@@ -168,8 +179,8 @@ echo "Proximos passos:"
 if echo " $TOOLS_TO_RUN " | grep -q " claude "; then
     echo "  * Claude Code: reinicie sua sessao e digite '/skills' ou '/plugins' para conferir."
 fi
-if echo " $TOOLS_TO_RUN " | grep -q " opencode "; then
-    echo "  * opencode: reinicie o opencode para carregar plugins e o MCP open-websearch."
+if echo " $TOOLS_TO_RUN " | grep -q " codex "; then
+    echo "  * Codex: reinicie o codex e digite '/skills' para conferir; MCP em ~/.codex/config.toml."
 fi
 if echo " $TOOLS_TO_RUN " | grep -q " agents "; then
     echo "  * Universal Agents: skills disponiveis em ~/.agents/skills."

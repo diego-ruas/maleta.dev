@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Instalador One-Liner do maleta.dev para Claude Code e opencode.
+    Instalador One-Liner do maleta.dev para Claude Code e Codex.
 
 .DESCRIPTION
     Instala skills, plugins, marketplaces e configuracoes de IA.
@@ -11,16 +11,12 @@
         & ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools claude -Skills @('design-taste-frontend','emil-design-eng')
 
 .PARAMETER Tools
-    Quais ferramentas instalar: 'all', 'claude', 'opencode', 'agents'.
-    Padrao: 'all' (Claude Code + opencode + Universal Agents).
+    Quais ferramentas instalar: 'all', 'claude', 'codex', 'agents'.
+    Padrao: 'all' (Claude Code + Codex + Universal Agents).
 
 .PARAMETER Skills
     Array opcional com nomes das skills para instalar.
     Se omitido, instala todas as skills curadas.
-
-.PARAMETER Plugins
-    Array opcional com nomes dos plugins do opencode para instalar.
-    Se omitido, instala todos os plugins curados do opencode.
 
 .PARAMETER Force
     Sobrescreve configuracoes sem pedir confirmacao.
@@ -29,7 +25,6 @@
 param(
     [string[]]$Tools = @('all'),
     [string[]]$Skills = @(),
-    [string[]]$Plugins = @(),
     [switch]$Force,
     [string]$RepoRoot = ''
 )
@@ -113,7 +108,7 @@ try {
 
     $toolsToRun = @()
     if ($Tools -contains 'all') {
-        $toolsToRun = @('claude', 'opencode', 'agents')
+        $toolsToRun = @('claude', 'codex', 'agents')
     } else {
         $toolsToRun = $Tools
     }
@@ -155,20 +150,33 @@ try {
         Write-Host ""
     }
 
-    # 3. Executar instalacao do opencode
-    if ($toolsToRun -contains 'opencode') {
+    # 3. Executar instalacao do Codex
+    if ($toolsToRun -contains 'codex') {
         $stepIndex++
-        Write-Step -Index $stepIndex -Total $totalSteps -Text 'opencode'
-        $opencodeInstallScript = Join-Path $RepoRoot 'opencode\install.ps1'
-        if (Test-Path $opencodeInstallScript) {
-            if ($Plugins -and $Plugins.Count -gt 0) {
-                & $opencodeInstallScript -RepoRoot $RepoRoot -Plugins $Plugins
-            } else {
-                & $opencodeInstallScript -RepoRoot $RepoRoot
+        Write-Step -Index $stepIndex -Total $totalSteps -Text 'Codex'
+        $codexInstallScript = Join-Path $RepoRoot 'codex\install.ps1'
+        if (Test-Path $codexInstallScript) {
+            $selectionFile = Join-Path $RepoRoot 'claude\skills-selection.txt'
+            $hadOriginalSelection = Test-Path $selectionFile
+            $originalSelectionContent = $null
+            if ($hadOriginalSelection) {
+                $originalSelectionContent = Get-Content -LiteralPath $selectionFile -Raw
             }
-            Write-Ok "opencode configurado."
+
+            if ($Skills -and $Skills.Count -gt 0) {
+                $Skills | Set-Content -LiteralPath $selectionFile -Encoding UTF8
+            }
+
+            & $codexInstallScript -RepoRoot $RepoRoot
+
+            if (-not $hadOriginalSelection -and (Test-Path $selectionFile)) {
+                Remove-Item -LiteralPath $selectionFile -Force -ErrorAction SilentlyContinue
+            } elseif ($hadOriginalSelection -and $originalSelectionContent) {
+                $originalSelectionContent | Set-Content -LiteralPath $selectionFile -Encoding UTF8
+            }
+            Write-Ok "Codex configurado."
         } else {
-            Write-Warn "Script do opencode nao encontrado em $opencodeInstallScript"
+            Write-Warn "Script do Codex nao encontrado em $codexInstallScript"
         }
         Write-Host ""
     }
@@ -214,8 +222,8 @@ try {
     if ($toolsToRun -contains 'claude') {
         Write-Host "  * Claude Code: reinicie sua sessao e digite '/skills' ou '/plugins' para conferir." -ForegroundColor White
     }
-    if ($toolsToRun -contains 'opencode') {
-        Write-Host "  * opencode: reinicie o opencode para carregar plugins e o MCP open-websearch." -ForegroundColor White
+    if ($toolsToRun -contains 'codex') {
+        Write-Host "  * Codex: reinicie o codex e digite '/skills' para conferir; MCP em ~/.codex/config.toml." -ForegroundColor White
     }
     if ($toolsToRun -contains 'agents') {
         Write-Host "  * Universal Agents: skills disponiveis em ~/.agents/skills." -ForegroundColor White
