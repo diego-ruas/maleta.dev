@@ -5131,47 +5131,23 @@ footer {
 
 .plugin-highlight {
     grid-column: 1 / -1;
-    display: block;
+    display: grid;
     margin: 0 0 var(--space-8);
     padding: 0;
 }
 
-.plugin-highlight-copy {
-    min-width: 0;
-}
-
-.plugin-highlight-session {
+.plugin-highlight-layout {
     display: grid;
-    gap: var(--space-2);
-    width: 100%;
-}
-
-.plugin-highlight-line {
-    display: grid;
-    grid-template-columns: 32px minmax(0, 1fr);
-    gap: var(--space-2);
-    align-items: start;
-    padding: var(--space-1) 0;
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 0.38fr);
+    gap: var(--space-8);
+    align-items: center;
+    padding: var(--space-4) 0;
+    border-top: 1px solid var(--color-iron);
     border-bottom: 1px solid var(--color-iron);
 }
 
-.plugin-highlight-line-intro {
-    padding-top: 0;
-    padding-bottom: var(--space-3);
-}
-
-.plugin-highlight-prompt {
-    color: var(--color-accent);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    line-height: 1.4;
-}
-
-.plugin-highlight-line-text {
-    margin: 0;
-    color: var(--fg-muted);
-    font-size: var(--text-xs);
-    line-height: 1.45;
+.plugin-highlight-copy {
+    min-width: 0;
 }
 
 .plugin-highlight-label {
@@ -5185,7 +5161,7 @@ footer {
 .plugin-highlight h2 {
     max-width: 20ch;
     margin: 0;
-    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-size: clamp(1.25rem, 2.2vw, 1.8rem);
     line-height: 1;
     letter-spacing: -0.045em;
 }
@@ -5204,6 +5180,22 @@ footer {
     font-size: 0.9em;
 }
 
+.plugin-highlight-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    min-width: 0;
+    padding-left: var(--space-4);
+    border-left: 1px solid var(--color-iron);
+}
+
+.plugin-highlight-cta-label {
+    color: var(--color-steel);
+    font-family: var(--font-mono);
+    font-size: 10px;
+}
+
 .plugin-highlight-link {
     display: inline-flex;
     align-items: center;
@@ -5216,6 +5208,13 @@ footer {
     text-decoration: none;
     border-bottom: 1px dashed var(--color-slate);
     transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.plugin-highlight-note {
+    color: var(--color-ash);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1.4;
 }
 
 .plugin-highlight-link:hover,
@@ -5323,9 +5322,16 @@ footer {
         max-width: 14ch;
     }
 
-    .plugin-highlight-line {
-        grid-template-columns: 24px minmax(0, 1fr);
-        gap: var(--space-1);
+    .plugin-highlight-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+
+    .plugin-highlight-cta {
+        padding-top: var(--space-3);
+        padding-left: 0;
+        border-top: 1px solid var(--color-iron);
+        border-left: 0;
     }
 
     .agents-ticker-header {

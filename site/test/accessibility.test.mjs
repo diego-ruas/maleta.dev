@@ -56,15 +56,14 @@ test("introduces the Codex plugin immediately after the agents ticker", async ()
 
   assert.match(page, /<AgentsTicker\s*\/>\s*<PluginHighlight\s*\/>\s*<AboutSection\s*\/>/);
   assert.match(highlight, /<section[^>]*className="plugin-highlight"/);
-  assert.match(highlight, /className="hero-terminal plugin-highlight-terminal"/);
-  assert.match(highlight, /className="hero-terminal-header"/);
-  assert.match(highlight, /className="plugin-highlight-session"/);
-  assert.match(highlight, /className="plugin-highlight-line"/);
-  assert.match(highlight, /className="[^"]*plugin-highlight-command/);
+  assert.doesNotMatch(highlight, /hero-terminal/);
+  assert.match(highlight, /className="plugin-highlight-layout"/);
+  assert.match(highlight, /className="plugin-highlight-cta"/);
   assert.match(highlight, /id="plugin-codex"/);
   assert.match(highlight, /href="#plugins"/);
-  assert.match(css, /\.plugin-highlight\s*\{[^}]*display: block/);
-  assert.match(css, /\.plugin-highlight-session\s*\{[^}]*display: grid/);
+  assert.match(css, /\.plugin-highlight\s*\{[^}]*display: grid/);
+  assert.match(css, /\.plugin-highlight-layout\s*\{[^}]*grid-template-columns/);
+  assert.match(css, /\.plugin-highlight h2\s*\{[^}]*font-size: clamp\(1\.25rem, 2\.2vw, 1\.8rem\)/);
   assert.match(css, /\.plugin-highlight-link\s*\{[^}]*padding: 0/);
 });
 
