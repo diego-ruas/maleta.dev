@@ -73,6 +73,23 @@ test("introduces the Codex plugin immediately after the agents ticker", async ()
   assert.match(css, /\.plugin-highlight-link\s*\{[^}]*padding: 10px/);
 });
 
+test("uses the Codex brand icon in Codex-specific controls", async () => {
+  const codexIcon = await source("components/icons/codex.tsx");
+  const tools = await source("components/sections/ToolsGrid.tsx");
+  const plugins = await source("components/sections/PluginsSection.tsx");
+  const explorer = await source("components/skills/SkillsExplorer.tsx");
+  const install = await source("components/sections/InstallSteps.tsx");
+  const ticker = await source("components/sections/AgentsTicker.tsx");
+
+  assert.match(codexIcon, /CODEX_ICON_PATH/);
+  assert.match(tools, /CodexIcon/);
+  assert.match(plugins, /CodexIcon/);
+  assert.match(explorer, /CodexIcon/);
+  assert.match(install, /CodexIcon/);
+  assert.match(install, /<div className="process-card">\s*<div className="process-card-header">\s*<div className="process-icon-box">\s*<AnimatedIcon Icon=\{CodexIcon\}[\s\S]*?<div className="process-num">02<\/div>[\s\S]*?Instalar o Codex/);
+  assert.match(ticker, /CODEX_ICON_PATH/);
+});
+
 test("prioritizes the custom command in the installation workflow", async () => {
   const install = await source("components/sections/InstallSteps.tsx");
   assert.match(install, /className="section-header-badge"/);

@@ -14,6 +14,7 @@ import { DownloadIcon } from "@/components/icons/download";
 import { ZapIcon } from "@/components/icons/zap";
 import { ShieldIcon } from "@/components/icons/shield";
 import { ClaudeIcon } from "@/components/icons/claude";
+import { CodexIcon } from "@/components/icons/codex";
 import { NotesIcon } from "@/components/icons/notes";
 import { useToolkit } from "@/lib/toolkitContext";
 
@@ -287,7 +288,7 @@ export default function InstallSteps() {
           <div className="process-card">
             <div className="process-card-header">
               <div className="process-icon-box">
-                <AnimatedIcon Icon={TerminalIcon} className="icon" size={20} />
+                <AnimatedIcon Icon={CodexIcon} className="icon" size={20} />
               </div>
               <div className="process-num">02</div>
             </div>

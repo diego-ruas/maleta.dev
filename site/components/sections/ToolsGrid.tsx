@@ -4,7 +4,7 @@ import AnimatedIcon from "@/components/AnimatedIcon";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRightIcon } from "@/components/icons/arrow-up-right";
 import { ClaudeIcon } from "@/components/icons/claude";
-import { TerminalIcon } from "@/components/icons/terminal";
+import { CodexIcon } from "@/components/icons/codex";
 import { SearchIcon } from "@/components/icons/search";
 import { PLUGIN_GROUPS } from "@/lib/data";
 
@@ -43,7 +43,7 @@ export default function ToolsGrid() {
 
         <div className="contact-card">
           <div className="contact-card-icon">
-            <AnimatedIcon Icon={TerminalIcon} className="icon" size={24} />
+            <AnimatedIcon Icon={CodexIcon} className="icon" size={24} />
           </div>
           <div className="contact-card-info">
             <h3>Codex</h3>

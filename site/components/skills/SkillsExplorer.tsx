@@ -11,6 +11,7 @@ import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import { CodeIcon } from "@/components/icons/code";
 import { TerminalIcon } from "@/components/icons/terminal";
 import { ClaudeIcon } from "@/components/icons/claude";
+import { CodexIcon } from "@/components/icons/codex";
 import { ZapIcon } from "@/components/icons/zap";
 import SkillCard from "@/components/skills/SkillCard";
 import RepoScan from "@/components/skills/RepoScan";
@@ -518,7 +519,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                   aria-pressed={targetTool === "codex"}
                   onClick={() => setTargetTool("codex")}
                 >
-                  <AnimatedIcon Icon={TerminalIcon} className="icon" size={14} />
+                  <AnimatedIcon Icon={CodexIcon} className="icon" size={14} />
                   <span>Codex</span>
                 </button>
                 <button

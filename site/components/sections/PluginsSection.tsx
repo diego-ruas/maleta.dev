@@ -7,7 +7,7 @@ import CopyButton from "@/components/CopyButton";
 import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
 import { ClaudeIcon } from "@/components/icons/claude";
-import { TerminalIcon } from "@/components/icons/terminal";
+import { CodexIcon } from "@/components/icons/codex";
 import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import { useToast } from "@/components/Toast";
 import { useToolkit } from "@/lib/toolkitContext";
@@ -184,7 +184,7 @@ export default function PluginsSection() {
               aria-pressed={activeTool === "Codex"}
               onClick={() => setActiveTool("Codex")}
             >
-              <AnimatedIcon Icon={TerminalIcon} className="icon" size={14} />
+              <AnimatedIcon Icon={CodexIcon} className="icon" size={14} />
               <span>Codex ({ALL_PLUGINS.filter((p) => p.tool === "Codex").length})</span>
             </button>
           </div>
@@ -246,7 +246,7 @@ export default function PluginsSection() {
           {filteredPlugins.map((plugin) => {
             const pluginKey = `${plugin.tool}:${plugin.name}`;
             const isSelected = selected.has(pluginKey);
-            const ToolIcon = plugin.tool === "Claude Code" ? ClaudeIcon : TerminalIcon;
+            const ToolIcon = plugin.tool === "Claude Code" ? ClaudeIcon : CodexIcon;
 
             return (
               <li key={pluginKey} className={`plugin-row-item${isSelected ? " selected" : ""}`}>
