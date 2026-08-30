@@ -58,9 +58,12 @@ test("introduces the Codex plugin immediately after the agents ticker", async ()
   assert.match(highlight, /<section[^>]*className="plugin-highlight"/);
   assert.match(highlight, /className="hero-terminal plugin-highlight-terminal"/);
   assert.match(highlight, /className="hero-terminal-header"/);
+  assert.match(highlight, /className="plugin-highlight-layout"/);
+  assert.match(highlight, /className="plugin-highlight-details"/);
   assert.match(highlight, /id="plugin-codex"/);
   assert.match(highlight, /href="#plugins"/);
   assert.match(css, /\.plugin-highlight\s*\{[^}]*display: block/);
+  assert.match(css, /\.plugin-highlight-layout\s*\{[^}]*grid-template-columns/);
   assert.match(css, /\.plugin-highlight-link\s*\{[^}]*padding: 0/);
 });
 

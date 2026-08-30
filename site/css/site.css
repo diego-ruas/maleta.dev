@@ -5140,6 +5140,13 @@ footer {
     min-width: 0;
 }
 
+.plugin-highlight-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.65fr);
+    gap: var(--space-8);
+    align-items: start;
+}
+
 .plugin-highlight-label {
     display: block;
     margin-bottom: var(--space-2);
@@ -5149,7 +5156,7 @@ footer {
 }
 
 .plugin-highlight h2 {
-    max-width: 17ch;
+    max-width: 20ch;
     margin: 0;
     font-size: clamp(1.5rem, 3vw, 2.4rem);
     line-height: 1;
@@ -5168,6 +5175,30 @@ footer {
     color: var(--color-paper);
     font-family: var(--font-mono);
     font-size: 0.9em;
+}
+
+.plugin-highlight-details {
+    min-width: 0;
+    padding-left: var(--space-4);
+    border-left: 1px solid var(--color-iron);
+}
+
+.plugin-highlight-details ol {
+    display: grid;
+    gap: var(--space-1);
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--fg-muted);
+    font-size: var(--text-xs);
+    line-height: 1.45;
+}
+
+.plugin-highlight-note {
+    display: block;
+    margin-top: var(--space-2);
+    color: var(--color-ash);
+    font-family: var(--font-mono);
+    font-size: 10px;
 }
 
 .plugin-highlight-link {
@@ -5287,6 +5318,18 @@ footer {
 
     .plugin-highlight h2 {
         max-width: 14ch;
+    }
+
+    .plugin-highlight-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+
+    .plugin-highlight-details {
+        padding-top: var(--space-3);
+        padding-left: 0;
+        border-top: 1px solid var(--color-iron);
+        border-left: 0;
     }
 
     .agents-ticker-header {
