@@ -165,9 +165,36 @@ export default function Hero() {
           </div>
 
           <div className="hero-terminal-body">
+            <div className="hero-terminal-section">
+              <span className="hero-section-label">01. COMANDO PRONTO:</span>
+              <div className="hero-code-box">
+                <pre>
+                  <code>{installCommand}</code>
+                </pre>
+                <CopyButton
+                  className="hero-code-copy-btn"
+                  text={installCommand}
+                  aria-label="Copiar comando de instalação"
+                  title="Copiar comando completo para a área de transferência"
+                >
+                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={15} />
+                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={15} />
+                </CopyButton>
+              </div>
+            </div>
+
+            <p className="hero-command-hint">
+              {"// Ja funciona assim: instala a base recomendada no Claude Code, no Codex e nas IDEs."}
+            </p>
+
+            <details className="hero-advanced-details hero-setup-details">
+              <summary>
+                <span>Ajustar pacote</span>
+                <span className="hero-advanced-count">ferramenta - sistema - base</span>
+              </summary>
             {/* Seletor rápido de ferramenta */}
             <div className="hero-terminal-section">
-              <span className="hero-section-label">01. ONDE INSTALAR:</span>
+              <span className="hero-section-label">02. ONDE INSTALAR:</span>
               <div className="hero-tool-group" role="radiogroup" aria-label="Ferramenta alvo">
                 <button
                   type="button"
@@ -228,7 +255,7 @@ export default function Hero() {
 
             {/* Seletor de sistema operacional */}
             <div className="hero-terminal-section">
-              <span className="hero-section-label">02. SEU SISTEMA:</span>
+              <span className="hero-section-label">03. SEU SISTEMA:</span>
               <div className="hero-tool-group hero-tool-group--2col" role="radiogroup" aria-label="Sistema operacional alvo">
                 <button
                   type="button"
@@ -253,7 +280,7 @@ export default function Hero() {
 
             <div className="hero-terminal-section">
               <div className="hero-terminal-label-row">
-                <span className="hero-section-label">03. COMECE POR UMA BASE:</span>
+                <span className="hero-section-label">04. COMECE POR UMA BASE:</span>
                 <span className="hero-active-preset-badge">
                   {activePresets.size > 0
                     ? `${activePresets.size} ativa${activePresets.size > 1 ? "s" : ""}`
@@ -296,24 +323,7 @@ export default function Hero() {
               </details>
             </div>
 
-            {/* Comando Gerado em Tempo Real */}
-            <div className="hero-terminal-section">
-              <span className="hero-section-label">04. COMANDO PRONTO:</span>
-              <div className="hero-code-box">
-                <pre>
-                  <code>{installCommand}</code>
-                </pre>
-                <CopyButton
-                  className="hero-code-copy-btn"
-                  text={installCommand}
-                  aria-label="Copiar comando de instalação"
-                  title="Copiar comando completo para a área de transferência"
-                >
-                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={15} />
-                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={15} />
-                </CopyButton>
-              </div>
-            </div>
+            </details>
 
             {/* Ações do Terminal */}
             <div className="hero-terminal-actions">

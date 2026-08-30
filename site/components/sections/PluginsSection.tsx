@@ -135,6 +135,9 @@ export default function PluginsSection() {
       <div className="plugins-header-wrap">
         <div>
           <h2 id="plugins-heading">Plugins</h2>
+          <p className="section-glossary">
+            {"// Plugin = pacote que adiciona comandos ao Claude Code. MCP = servidor externo que dá novas ferramentas ao agente (busca, docs)."}
+          </p>
           <p>Potencialize seus assistentes com memória persistente, fluxos de engenharia estruturados, design e código limpo.</p>
         </div>
       </div>

@@ -145,14 +145,28 @@ export default function InstallSteps() {
               <div className="process-num">01</div>
             </div>
             <div className="process-content">
-              <h3 className="process-title">Requisitos Mínimos</h3>
+              <h3 className="process-title">Antes de começar</h3>
               <p className="process-desc">
                 {isUnix ? (
-                  <>Linux ou macOS com <strong>bash</strong> ou <strong>zsh</strong> e <strong>Claude Code</strong> e/ou <strong>Codex</strong> já instalados no terminal.</>
+                  <>Linux ou macOS com <strong>bash</strong> ou <strong>zsh</strong>. Você precisa de pelo menos um agente instalado:</>
                 ) : (
-                  <>Windows 10/11 com <strong>PowerShell 5.1+</strong> nativo e <strong>Claude Code</strong> e/ou <strong>Codex</strong> já instalados no terminal.</>
+                  <>Windows 10/11 com <strong>PowerShell 5.1+</strong> nativo. Você precisa de pelo menos um agente instalado:</>
                 )}
               </p>
+              <div className="cmd">
+                <code>npm install -g @anthropic-ai/claude-code</code>
+                <CopyButton className="cmd-copy" text="npm install -g @anthropic-ai/claude-code" aria-label="Copiar comando de instalação do Claude Code">
+                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
+                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
+                </CopyButton>
+              </div>
+              <div className="cmd">
+                <code>npm install -g @openai/codex</code>
+                <CopyButton className="cmd-copy" text="npm install -g @openai/codex" aria-label="Copiar comando de instalação do Codex">
+                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
+                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
+                </CopyButton>
+              </div>
             </div>
           </div>
 
@@ -288,13 +302,13 @@ export default function InstallSteps() {
               <div className="process-num">02</div>
             </div>
             <div className="process-content">
-              <h3 className="process-title">Instalar o Codex CLI (Opcional)</h3>
+              <h3 className="process-title">Instalar o Codex (Opcional)</h3>
               <p className="process-desc">
-                Caso ainda não tenha o Codex CLI instalado:
+                Caso prefira o agente da OpenAI, ou queira usar os dois lado a lado:
               </p>
               <div className="cmd">
                 <code>npm install -g @openai/codex</code>
-                <CopyButton className="cmd-copy" text="npm install -g @openai/codex" aria-label="Copiar comando de instalação do Codex CLI">
+                <CopyButton className="cmd-copy" text="npm install -g @openai/codex" aria-label="Copiar comando de instalação do Codex">
                   <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
                   <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
                 </CopyButton>

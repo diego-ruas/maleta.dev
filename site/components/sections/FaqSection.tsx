@@ -62,7 +62,7 @@ export default function FaqSection() {
       </div>
       <h2 id="faq-heading">Perguntas frequentes</h2>
       <div className="faq-list">
-        <FaqItem id="tools" question="Qual a diferença entre cada alvo de instalação (-Tools)?">
+        <FaqItem id="tools" question="Onde as skills vão parar na minha máquina?">
           <p>
             O parâmetro <code>-Tools</code> define exatamente quais diretórios da sua máquina receberão as skills:
           </p>
@@ -113,6 +113,18 @@ export default function FaqSection() {
         <FaqItem id="license" question="Qual é a licença do projeto?">
           <p>
             O código deste repositório (scripts, documentação, site e instaladores) é distribuído sob a licença <a href="https://github.com/diego-ruas/maleta.dev/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT</a>. As skills e plugins de terceiros mantêm suas respectivas licenças originais de seus autores.
+          </p>
+        </FaqItem>
+
+        <FaqItem id="agentes" question="Qual a diferença entre Claude Code e Codex?">
+          <p>
+            São dois agentes de terminal diferentes: o <strong>Claude Code</strong> é da Anthropic, o <strong>Codex</strong> é da OpenAI. Você pode usar os dois na mesma máquina. As skills deste site funcionam nos dois, porque ambos leem arquivos <code>SKILL.md</code>; o instalador só muda a pasta de destino.
+          </p>
+        </FaqItem>
+
+        <FaqItem id="iniciante" question="Nunca usei nenhum dos dois. Por onde começo?">
+          <p>
+            Instale um agente com <code>npm install -g @anthropic-ai/claude-code</code> (ou <code>npm install -g @openai/codex</code>), cole o comando pronto que aparece no topo desta página e reabra o terminal. Depois digite <code>/skills</code> dentro do agente para ver o que foi instalado.
           </p>
         </FaqItem>
       </div>

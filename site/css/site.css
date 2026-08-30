@@ -610,6 +610,16 @@ section > p {
     border-top: 1px solid var(--color-iron);
 }
 
+.hero-setup-details {
+    margin-top: 0.75rem;
+}
+
+.hero-command-hint {
+    margin: 0.4rem 0 0;
+    font-size: 0.75rem;
+    color: var(--color-ash);
+}
+
 .hero-advanced-details summary {
     display: flex;
     align-items: center;
@@ -652,6 +662,13 @@ section > p {
 
 .hero-advanced-details .hero-preset-grid {
     margin-top: 2px;
+}
+
+.section-glossary {
+    margin: 0.25rem 0 1rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--color-ash);
 }
 
 .hero-preset-btn {
