@@ -35,8 +35,10 @@ Novo `codex/install.ps1` e `codex/install.sh`:
 
 - Chamam `agents/install.*` (mesmo `-RepoRoot` / selecao em `claude/skills-selection.txt`)
   para provisionar `~/.agents/skills`. Sem duplicar a logica de copia.
-- Escrevem `~/.codex/config.toml` com os MCP servers curados, fazendo backup
-  `config.toml.pre-install.bak` quando ja existir (mesmo padrao do installer do opencode).
+- Acrescentam os MCP servers curados a `~/.codex/config.toml` de forma nao destrutiva:
+  bloco delimitado por `# >>> maleta.dev mcp servers` / `# <<< maleta.dev mcp servers`,
+  substituido no lugar quando ja existe, com backup `config.toml.pre-install.bak`.
+  O `config.toml` do usuario (modelo, aprovacao, auth) nunca e sobrescrito.
 - Fonte da config: novo `codex/config.toml` versionado no repo, com
   `open-websearch` (migrado do `opencode.jsonc`) e `context7`.
 - PowerShell 5.1 compativel (sem `&&`, sem `??`).
@@ -63,8 +65,7 @@ esta fora de escopo, apenas o conteudo e mantido em sincronia.
 - `lib/data.ts`: o grupo `PLUGIN_GROUPS` com `tool: "opencode"` (6 itens) e substituido
   por `tool: "Codex"` listando os MCP servers instalados (`open-websearch`, `context7`),
   com `category: "MCP"`.
-- `components/icons/codex.tsx`: novo icone Pixelarticons animado no mesmo padrao dos
-  demais (`forwardRef`, `Variants`, step timing, fundo transparente).
+- O Codex reusa o `TerminalIcon` ja existente; nao ha icone novo.
   `components/icons/opencode.tsx` e removido.
 
 ### 3. Substituicao de texto e UI
