@@ -5133,7 +5133,7 @@ footer {
     grid-column: 1 / -1;
     display: block;
     margin: 0 0 var(--space-8);
-    padding: 0 var(--space-1);
+    padding: 0;
 }
 
 .plugin-highlight-copy {
@@ -5175,7 +5175,7 @@ footer {
     align-items: center;
     gap: var(--space-1);
     padding: 0;
-    margin-top: var(--space-2);
+    margin-top: var(--space-1);
     color: var(--fg-muted);
     font-family: var(--font-mono);
     font-size: var(--text-xs);
