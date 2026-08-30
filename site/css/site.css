@@ -5159,11 +5159,12 @@ footer {
 }
 
 .plugin-highlight h2 {
-    max-width: 28ch;
+    max-width: none;
     margin: 0;
     font-size: var(--text-2xl);
     line-height: 1.2;
     letter-spacing: -0.03em;
+    text-wrap: pretty;
 }
 
 .plugin-highlight p {
@@ -5180,6 +5181,26 @@ footer {
     font-size: 0.9em;
 }
 
+.plugin-highlight-usage {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-iron);
+}
+
+.plugin-highlight-usage .plugin-highlight-label {
+    margin-bottom: var(--space-1);
+}
+
+.plugin-highlight-usage ol {
+    display: grid;
+    gap: 4px;
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--fg-muted);
+    font-size: var(--text-xs);
+    line-height: 1.45;
+}
+
 .plugin-highlight-cta {
     display: flex;
     flex-direction: column;
@@ -5187,6 +5208,7 @@ footer {
     justify-content: center;
     gap: var(--space-1);
     min-width: 0;
+    align-self: stretch;
     padding-left: var(--space-6);
     border-left: 1px solid var(--color-iron);
 }
@@ -5201,14 +5223,17 @@ footer {
     display: inline-flex;
     align-items: center;
     gap: var(--space-1);
-    padding: 0;
+    padding: 10px var(--space-2);
     margin-top: var(--space-1);
+    font-size: var(--text-sm);
+}
+
+.plugin-highlight-cta-copy {
+    max-width: 30ch;
+    margin: 0;
     color: var(--fg-muted);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    text-decoration: none;
-    border-bottom: 1px dashed var(--color-slate);
-    transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    font-size: var(--text-sm);
+    line-height: 1.5;
 }
 
 .plugin-highlight-note {
@@ -5216,12 +5241,6 @@ footer {
     font-family: var(--font-mono);
     font-size: 10px;
     line-height: 1.4;
-}
-
-.plugin-highlight-link:hover,
-.plugin-highlight-link:focus-visible {
-    border-color: var(--color-accent);
-    color: var(--fg);
 }
 
 .plugin-highlight-link:active {
