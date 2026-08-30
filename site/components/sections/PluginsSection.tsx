@@ -139,7 +139,12 @@ export default function PluginsSection() {
         </div>
       </div>
 
-      <div className="plugins-explorer-wrap">
+      <details className="plugins-disclosure">
+        <summary>
+          <span>Configurar plugins opcionais</span>
+          <span className="plugins-disclosure-count">{ALL_PLUGINS.length} disponíveis</span>
+        </summary>
+        <div className="plugins-explorer-wrap">
         {/* 1. BARRA DE BUSCA E FILTROS */}
         <div className="plugins-filter-bar">
           <div className="plugins-search-input-wrap">
@@ -298,7 +303,8 @@ export default function PluginsSection() {
             </button>
           </div>
         )}
-      </div>
+        </div>
+      </details>
     </Reveal>
   );
 }
