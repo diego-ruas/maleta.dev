@@ -62,7 +62,7 @@ test("introduces the Codex plugin immediately after the agents ticker", async ()
   assert.match(highlight, /id="plugin-codex"/);
   assert.match(highlight, /href="#plugins"/);
   assert.match(css, /\.plugin-highlight\s*\{[^}]*display: grid/);
-  assert.match(css, /\.plugin-highlight-layout\s*\{[^}]*grid-template-columns: minmax\(0, 2fr\) minmax\(220px, 1fr\)/);
+  assert.match(css, /\.plugin-highlight-layout\s*\{[^}]*grid-template-columns: minmax\(0, 0\.95fr\) minmax\(0, 1\.05fr\)/);
   assert.match(css, /\.plugin-highlight h2\s*\{[^}]*font-size: var\(--text-2xl\)/);
   assert.match(css, /\.plugin-highlight-link\s*\{[^}]*padding: 0/);
 });
