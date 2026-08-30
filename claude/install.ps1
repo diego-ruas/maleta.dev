@@ -98,13 +98,6 @@ if (Test-Path -LiteralPath $srcSettings) {
     }
 }
 
-# --- 2b. Global rules (CLAUDE.md) ---
-$srcRules = Join-Path $srcClaude 'CLAUDE.md'
-if (Test-Path -LiteralPath $srcRules) {
-    Copy-Item $srcRules (Join-Path $claudeDir 'CLAUDE.md') -Force
-    Write-Host '[ok] CLAUDE.md written'
-}
-
 # --- 3. Marketplaces ---
 $marketplaces = Get-Content -LiteralPath (Join-Path $srcClaude 'plugins\marketplaces.json') -Raw | ConvertFrom-Json
 foreach ($mp in $marketplaces.marketplaces) {

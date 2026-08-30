@@ -64,12 +64,12 @@ export default function FaqSection() {
       <div className="faq-list">
         <FaqItem id="tools" question="Qual a diferença entre cada alvo de instalação (-Tools)?">
           <p>
-            O parâmetro <code>-Tools</code> define exatamente quais diretórios da sua máquina receberão as skills e regras:
+            O parâmetro <code>-Tools</code> define exatamente quais diretórios da sua máquina receberão as skills:
           </p>
           <ul style={{ paddingLeft: "1.2rem", marginTop: "0.5rem", display: "flex", flexDirection: "column", gap: "0.35rem" }}>
             <li><strong>Claude Code (<code>-Tools claude</code>)</strong>: Injeta apenas em <code>~/.claude/skills/</code> e <code>settings.json</code>.</li>
             <li><strong>opencode (<code>-Tools opencode</code>)</strong>: Injeta apenas em <code>~/.config/opencode/</code> (skills, MCP e plugins).</li>
-            <li><strong>Agentes & IDEs (<code>-Tools agents</code>)</strong>: Injeta em <code>~/.agents/skills/</code> e nos arquivos de regras globais de IDE (<code>~/.cursorrules</code>, <code>~/.windsurfrules</code>, <code>~/.clinerules</code>) para Antigravity, Cursor, Windsurf, Cline, Roo Code, Gemini e Codex.</li>
+            <li><strong>Agentes & IDEs (<code>-Tools agents</code>)</strong>: Injeta as skills em <code>~/.agents/skills/</code> para Antigravity, Cursor, Windsurf, Cline, Roo Code, Gemini e Codex.</li>
             <li><strong>Todos / Completo (<code>-Tools all</code>)</strong>: Instalação total que sincroniza simultaneamente o Claude Code, opencode e todas as IDEs/Agentes.</li>
           </ul>
         </FaqItem>
@@ -88,13 +88,7 @@ export default function FaqSection() {
 
         <FaqItem id="update" question="Como o instalador preserva minhas configurações existentes?">
           <p>
-            Antes de qualquer alteração, o instalador cria um backup automático dos arquivos existentes (como <code>settings.json.pre-install.bak</code>) e realiza a mescla inteligente de regras e plugins, garantindo que suas preferências pré-existentes nunca sejam sobrescritas de forma destrutiva.
-          </p>
-        </FaqItem>
-
-        <FaqItem id="multi-agent" question="Como funcionam as regras multi-agente (Cursor, Windsurf, Copilot)?">
-          <p>
-            O repositório disponibiliza pontos de entrada universais como <code>AGENTS.md</code>, <code>.cursorrules</code>, <code>.windsurfrules</code> e <code>.clinerules</code>. Qualquer agente ou LLM (Codex, Devin, Gemini, Antigravity, Claude ou Cursor) carrega automaticamente as diretrizes e padrões de engenharia ao abrir o projeto.
+            Antes de qualquer alteração, o instalador cria um backup automático dos arquivos existentes (como <code>settings.json.pre-install.bak</code>) e realiza a mescla inteligente de configurações e plugins, garantindo que suas preferências pré-existentes nunca sejam sobrescritas de forma destrutiva.
           </p>
         </FaqItem>
 

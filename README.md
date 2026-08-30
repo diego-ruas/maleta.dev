@@ -85,15 +85,6 @@ bash scripts/install.sh
   - **Código Limpo (`ponytail`, `code-simplifier`):** Respostas diretas ao ponto, sem complexidade desnecessária.
   - **Planejamento (`planning-with-files`):** Gestão de contexto e execução estruturada em arquivos.
 - **Busca na Web (MCP):** Suporte nativo a pesquisas via DuckDuckGo (`open-websearch`).
-- **Regras Globais e Multi-Agente:** Prompts e configurações refinadas com suporte nativo a múltiplos editores e agentes:
-  - Claude Code (`CLAUDE.md`)
-  - opencode (`opencode/AGENTS.md`)
-  - Codex / Devin / Antigravity / Gemini (`AGENTS.md`)
-  - Cursor (`.cursorrules`)
-  - Windsurf (`.windsurfrules`)
-  - Roo Code / Cline (`.clinerules`)
-  - GitHub Copilot (`.github/copilot-instructions.md`)
-
 Consulte a [Matriz de Compatibilidade](docs/TOOL-MATRIX.md) para detalhes de mapeamento por ferramenta.
 
 ---

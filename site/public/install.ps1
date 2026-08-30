@@ -198,7 +198,7 @@ try {
             } elseif ($hadOriginalSelection -and $originalSelectionContent) {
                 $originalSelectionContent | Set-Content -LiteralPath $selectionFile -Encoding UTF8
             }
-            Write-Ok "Universal Agents configurado (~/.agents/skills, ~/.agents/AGENTS.md, IDE rules)."
+            Write-Ok "Universal Agents configurado (~/.agents/skills)."
         } else {
             Write-Warn "Script universal de agents nao encontrado em $agentsInstallScript"
         }
@@ -218,7 +218,7 @@ try {
         Write-Host "  * opencode: reinicie o opencode para carregar plugins e o MCP open-websearch." -ForegroundColor White
     }
     if ($toolsToRun -contains 'agents') {
-        Write-Host "  * Universal Agents: skills disponiveis em ~/.agents/skills e regras em ~/.agents/AGENTS.md." -ForegroundColor White
+        Write-Host "  * Universal Agents: skills disponiveis em ~/.agents/skills." -ForegroundColor White
     }
     Write-Host ""
 }

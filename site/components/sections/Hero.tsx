@@ -99,7 +99,7 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          Escolha uma base, ajuste o pacote e copie um comando pronto para instalar regras no <span className="highlight-word">Claude Code</span>, <span className="highlight-word">opencode</span> ou outras IDEs.
+          Escolha uma base, ajuste o pacote e copie um comando pronto para instalar skills no <span className="highlight-word">Claude Code</span>, <span className="highlight-word">opencode</span> ou outras IDEs.
         </motion.p>
 
         <motion.div

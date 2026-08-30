@@ -9,11 +9,10 @@ Como cada recurso deste repositório é mapeado para cada assistente e ambiente 
 | Recurso | Claude Code | opencode | Cursor / Windsurf / Cline / Outros |
 | :--- | :--- | :--- | :--- |
 | **Skills** (`claude/skills/`) | `~/.claude/skills/` | Skills customizadas (via config) | Carregadas como contexto / prompts |
-| **Configurações gerais** | `~/.claude/settings.json` | `~/.config/opencode/opencode.json` | `.cursorrules`, `.windsurfrules`, `.clinerules` |
+| **Configurações gerais** | `~/.claude/settings.json` | `~/.config/opencode/opencode.json` | Configuração nativa de cada IDE |
 | **Servidores MCP** | `~/.claude.json` (via `claude/mcp.json`) | `~/.config/opencode/opencode.jsonc` | Configuração de MCP nativa de cada IDE |
 | **Manifesto de Plugins** | `claude plugin install <id>` | Gerenciado no `opencode.jsonc` (npm/git) | n/a |
 | **Worker do claude-mem** | Plugin `claude-mem@thedotmack` | Adaptador `plugins/claude-mem.js` | Conexão HTTP local (`127.0.0.1:37777`) |
-| **Regras de Conduta** | `CLAUDE.md` | `opencode/AGENTS.md` | `AGENTS.md` / regras da IDE |
 
 ---
 
@@ -30,15 +29,7 @@ Como cada recurso deste repositório é mapeado para cada assistente e ambiente 
 
 - **Configurações**: Arquivos `~/.config/opencode/opencode.jsonc` (plugins e MCP) e `opencode.json` (provedor e modelo).
 - **Plugins**: Referências npm (`opencode-ponytail`, `opencode-notify`, `opencode-worktree`, `opencode-antigravity-auth`), plugin git (`superpowers`) e o adaptador local `./plugins/claude-mem.js`.
-- **claude-mem**: Adaptador leve em JavaScript (`plugins/claude-mem.js`) que se comunica com o serviço local iniciado pelo plugin do Claude Code. O bloco `<claude-mem-context>` em `AGENTS.md` é injetado automaticamente durante a instalação.
+- **claude-mem**: Adaptador leve em JavaScript (`plugins/claude-mem.js`) que se comunica com o serviço local iniciado pelo plugin do Claude Code.
 - **Busca Web**: Integração nativa com DuckDuckGo via MCP (`open-websearch`).
 
-### Multi-Agente & Editores (Cursor, Windsurf, Roo Code / Cline, Codex, Devin, Gemini, Antigravity)
-
-- **Entrada Direta**: Leitura direta do arquivo [`AGENTS.md`](../AGENTS.md) ou de seus respectivos arquivos de regras na raiz:
-  - Cursor: [`.cursorrules`](../.cursorrules)
-  - Windsurf: [`.windsurfrules`](../.windsurfrules)
-  - Roo Code / Cline: [`.clinerules`](../.clinerules)
-  - GitHub Copilot: [`.github/copilot-instructions.md`](../.github/copilot-instructions.md)
-  - Claude Code: [`CLAUDE.md`](../CLAUDE.md)
 - **Zero Vazamento**: Nenhum dado confidencial, credencial ou chave de API é compartilhado entre agentes ou sincronizado externamente.

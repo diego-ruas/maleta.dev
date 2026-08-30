@@ -354,7 +354,7 @@ export default function InstallSteps() {
             <div className="process-content">
               <h3 className="process-title">Clonar o Repositório ou Baixar ZIP</h3>
               <p className="process-desc">
-                Faça o download do código-fonte para inspecionar todos os scripts, skills e regras localmente:
+                Faça o download do código-fonte para inspecionar todos os scripts e skills localmente:
               </p>
               <div className="cmd">
                 <code>git clone https://github.com/diego-ruas/maleta.dev.git</code>

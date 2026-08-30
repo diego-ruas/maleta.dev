@@ -99,7 +99,7 @@ export default function AgentsTicker() {
     <section className="agents-ticker-section" aria-label="Agentes Suportados">
       <div className="agents-ticker-header">
         <span className="agents-ticker-label">{"// AGENTES & ECOSSISTEMAS COMPATÍVEIS"}</span>
-        <span className="agents-ticker-sub">Provisionamento determinístico e injeção de regras nativa</span>
+        <span className="agents-ticker-sub">Provisionamento determinístico e instalação de skills</span>
       </div>
 
       <div className="agents-ticker-track-wrapper">

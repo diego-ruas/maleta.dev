@@ -13,10 +13,9 @@ Maleta.dev is an interactive custom toolkit builder and catalog for local AI cod
 - opencode only:
   `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools opencode`
 
-## Repository Structure & Multi-Agent Documentation
+## Repository Structure & Documentation
 
 - [AGENTS.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/AGENTS.md): Universal guidance and golden rules for AI agents and LLMs interacting with this repo.
-- [CLAUDE.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/CLAUDE.md): Claude Code CLI instructions and project guidelines.
 - [TOOL-MATRIX.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/docs/TOOL-MATRIX.md): Detailed tool compatibility matrix (Claude Code and opencode).
 - [README.md](https://raw.githubusercontent.com/diego-ruas/maleta.dev/main/README.md): Project overview and documentation in Portuguese.
 

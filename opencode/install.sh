@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Install opencode config + plugins from this repo.
 #
-# Copies opencode.jsonc, opencode.json, AGENTS.md and the plugins/ folder into
+# Copies opencode.jsonc, opencode.json and the plugins/ folder into
 # ~/.config/opencode. No npm install needed: claude-mem.js ships as a standalone
 # bundle and the rest are npm/git plugin references resolved by opencode itself.
 #
@@ -23,7 +23,7 @@ OPENCODE_DIR="$HOME/.config/opencode"
 SRC_OPENCODE="$REPO_ROOT/opencode"
 mkdir -p "$OPENCODE_DIR"
 
-for f in opencode.jsonc opencode.json AGENTS.md; do
+for f in opencode.jsonc opencode.json; do
     src="$SRC_OPENCODE/$f"
     if [ -f "$src" ]; then
         dst="$OPENCODE_DIR/$f"

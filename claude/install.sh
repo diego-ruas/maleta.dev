@@ -85,13 +85,6 @@ if [ -f "$SRC_SETTINGS" ]; then
     fi
 fi
 
-# --- 2b. Global rules (CLAUDE.md) ---
-SRC_RULES="$SRC_CLAUDE/CLAUDE.md"
-if [ -f "$SRC_RULES" ]; then
-    cp -f "$SRC_RULES" "$CLAUDE_DIR/CLAUDE.md"
-    echo "[ok] CLAUDE.md written"
-fi
-
 # --- 3. Marketplaces ---
 MARKETPLACES=$(node -e '
     const m = require(process.argv[1]);

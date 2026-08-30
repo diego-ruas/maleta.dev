@@ -101,11 +101,6 @@ Claude plugins are installed from their marketplaces via
   `opencode/opencode.json` (provider/model). Edit and run
   `opencode/install.ps1` locally to apply.
 
-### Update global rules
-
-- opencode: edit `opencode/AGENTS.md`; Claude Code: edit `claude/CLAUDE.md`.
-- Run the respective `install.ps1` locally to apply, then commit.
-
 ### Work on the website (`site/`)
 
 Next.js App Router (TypeScript, `output: 'export'`), no CSS framework — plain

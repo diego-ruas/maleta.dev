@@ -31,19 +31,19 @@ const PILLARS: PillarItem[] = [
     highlights: [
       "Zero telemetria ou nuvem de terceiros",
       "Chaves salvas apenas no seu disco",
-      "Backup automático antes de mesclar regras",
+      "Backup automático antes de atualizar configurações",
     ],
   },
   {
     icon: CpuIcon,
-    title: "Agnóstico & Multi-Agente",
-    tag: "PADRÃO UNIVERSAL",
+    title: "Skills Universais",
+    tag: "PADRÃO MODULAR",
     description:
-      "Diretrizes universais de engenharia carregadas automaticamente por qualquer assistente de código.",
+      "Instruções modulares que podem ser instaladas em diferentes assistentes de código.",
     highlights: [
-      "Claude Code e opencode nativos",
-      "Cursor IDE, Windsurf e Roo Code",
-      "Codex, Devin, Gemini e Antigravity",
+      "Claude Code e opencode",
+      "Antigravity, Cursor e Windsurf",
+      "Codex, Devin, Gemini e Roo Code",
     ],
   },
   {
@@ -75,7 +75,7 @@ const PILLARS: PillarItem[] = [
 const STATS = [
   { numeric: SKILLS.length, suffix: "", label: "Skills Curadas", detail: "8 categorias com guardrails técnicos" },
   { numeric: 100, suffix: "%", label: "Local & Seguro", detail: "Zero telemetria ou dados em nuvem" },
-  { numeric: 8, suffix: "+", label: "Agentes & IDEs", detail: "Governança unificada via AGENTS.md" },
+  { numeric: 8, suffix: "+", label: "Agentes & IDEs", detail: "Skills compatíveis com vários ambientes" },
   { text: "MIT", label: "Código Aberto", detail: "Auditável e extensível no GitHub" },
 ];
 

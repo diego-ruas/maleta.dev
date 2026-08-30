@@ -153,7 +153,7 @@ if echo " $TOOLS_TO_RUN " | grep -q " agents "; then
         elif [ "$HAD_SELECTION" = true ]; then
             echo "$ORIGINAL_SELECTION" > "$SELECTION_FILE"
         fi
-        echo "[ok]   Universal Agents configurado (~/.agents/skills, ~/.agents/AGENTS.md, IDE rules)."
+        echo "[ok]   Universal Agents configurado (~/.agents/skills)."
     else
         echo "[warn] Script universal de agents nao encontrado em $AGENTS_INSTALL"
     fi
@@ -172,6 +172,6 @@ if echo " $TOOLS_TO_RUN " | grep -q " opencode "; then
     echo "  * opencode: reinicie o opencode para carregar plugins e o MCP open-websearch."
 fi
 if echo " $TOOLS_TO_RUN " | grep -q " agents "; then
-    echo "  * Universal Agents: skills disponiveis em ~/.agents/skills e regras em ~/.agents/AGENTS.md."
+    echo "  * Universal Agents: skills disponiveis em ~/.agents/skills."
 fi
 echo ""
