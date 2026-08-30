@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 
 const NAV_LINKS = [
   { href: "#sobre", label: "Sobre" },
@@ -17,32 +17,36 @@ const NAV_LINKS = [
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const ids = NAV_LINKS.map((link) => link.href.replace("#", ""));
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 140;
-      for (let i = ids.length - 1; i >= 0; i--) {
-        const el = document.getElementById(ids[i]);
-        if (el && el.offsetTop <= scrollPosition) {
-          setActiveSection(ids[i]);
-          return;
-        }
-      }
-      if (window.scrollY < 200) {
-        setActiveSection("");
-      }
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-96px 0px -55% 0px", threshold: [0, 0.25, 0.5, 1] }
+    );
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    ids.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        menuToggleRef.current?.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -52,8 +56,8 @@ export default function SiteHeader() {
 
   return (
     <motion.header
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={reduceMotion ? false : { opacity: 0, y: -10 }}
+      animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
     >
       <Link href="/" className="site-name" aria-current="page" onClick={close}>
@@ -74,7 +78,7 @@ export default function SiteHeader() {
             const isActive = activeSection === href.replace("#", "");
             return (
               <li key={href}>
-                <a href={href} className={isActive ? "active" : ""}>
+                <a href={href} className={isActive ? "active" : ""} aria-current={isActive ? "location" : undefined}>
                   {label}
                 </a>
               </li>
@@ -86,6 +90,7 @@ export default function SiteHeader() {
       <button
         type="button"
         className="menu-toggle"
+        ref={menuToggleRef}
         aria-label={open ? "Fechar menu" : "Abrir menu"}
         aria-expanded={open}
         aria-controls="mobile-menu"
@@ -100,13 +105,14 @@ export default function SiteHeader() {
         id="mobile-menu"
         aria-label="Navegação mobile"
         className={`mobile-menu${open ? " is-open" : ""}`}
+        hidden={!open}
       >
         <ul>
           {NAV_LINKS.map(({ href, label }) => {
             const isActive = activeSection === href.replace("#", "");
             return (
               <li key={href}>
-                <a href={href} className={isActive ? "active" : ""} onClick={close}>
+                <a href={href} className={isActive ? "active" : ""} aria-current={isActive ? "location" : undefined} onClick={close}>
                   {label}
                 </a>
               </li>

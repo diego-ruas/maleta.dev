@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useToast } from "@/components/Toast";
 import type { CustomSkill } from "@/lib/toolkitContext";
 
@@ -43,6 +43,7 @@ interface RepoScanProps {
 
 export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove }: RepoScanProps) {
   const showToast = useToast();
+  const reduceMotion = useReducedMotion();
   const [mode, setMode] = useState<"community" | "custom">("community");
   const [repoInput, setRepoInput] = useState("");
   const [communityQuery, setCommunityQuery] = useState("");
@@ -355,11 +356,10 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
   return (
     <div className="repo-add">
       <div className="repo-add-header">
-        <div className="repo-mode-tabs" role="tablist" aria-label="Modo de busca">
+        <div className="repo-mode-tabs" role="group" aria-label="Modo de busca">
           <button
             type="button"
-            role="tab"
-            aria-selected={mode === "community"}
+            aria-pressed={mode === "community"}
             className={`repo-tab-btn${mode === "community" ? " active" : ""}`}
             onClick={() => setMode("community")}
           >
@@ -367,8 +367,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
           </button>
           <button
             type="button"
-            role="tab"
-            aria-selected={mode === "custom"}
+            aria-pressed={mode === "custom"}
             className={`repo-tab-btn${mode === "custom" ? " active" : ""}`}
             onClick={() => setMode("custom")}
           >
@@ -379,6 +378,8 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
         <button
           type="button"
           className="repo-token-toggle-btn"
+          aria-expanded={showTokenInput}
+          aria-controls="repo-token-panel"
           onClick={() => setShowTokenInput((s) => !s)}
           title="Configurar GitHub Token para aumentar limite da API (opcional)"
         >
@@ -386,13 +387,14 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
         </button>
       </div>
 
-      <AnimatePresence>
+      <AnimatePresence initial={!reduceMotion}>
         {showTokenInput && (
           <motion.div
+            id="repo-token-panel"
             className="repo-token-panel"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={reduceMotion ? false : { opacity: 0, height: 0 }}
+            animate={reduceMotion ? undefined : { opacity: 1, height: "auto" }}
+            exit={reduceMotion ? undefined : { opacity: 0, height: 0 }}
           >
             <div className="repo-token-inputs">
               <label htmlFor="gh-token-input">GitHub Personal Access Token (PAT) — opcional:</label>
@@ -457,6 +459,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
             <button
               type="button"
               className={`repo-topic-btn${searchTopic === "skills" ? " active" : ""}`}
+              aria-pressed={searchTopic === "skills"}
               onClick={() => {
                 setSearchTopic("skills");
                 searchCommunity(undefined, "skills");
@@ -467,6 +470,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
             <button
               type="button"
               className={`repo-topic-btn${searchTopic === "plugins" ? " active" : ""}`}
+              aria-pressed={searchTopic === "plugins"}
               onClick={() => {
                 setSearchTopic("plugins");
                 searchCommunity(undefined, "plugins");
@@ -477,6 +481,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
             <button
               type="button"
               className={`repo-topic-btn${searchTopic === "mcp" ? " active" : ""}`}
+              aria-pressed={searchTopic === "mcp"}
               onClick={() => {
                 setSearchTopic("mcp");
                 searchCommunity(undefined, "mcp");
@@ -578,7 +583,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
       )}
 
       {scanning && scanStep && (
-        <div className="repo-scanning-banner">
+        <div className="repo-scanning-banner" role="status" aria-live="polite">
           <div className="repo-scanning-bar">
             <div className="repo-scanning-progress" />
           </div>
@@ -592,7 +597,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
         </p>
       )}
 
-      <AnimatePresence>
+      <AnimatePresence initial={!reduceMotion}>
         {results.length > 0 && (
           <div className="repo-results-container">
             <div className="repo-results-topbar">
@@ -601,13 +606,17 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
                   Encontradas: <strong>{results.length}</strong> skills
                 </span>
                 {results.length > 5 && (
+                  <>
+                  <label htmlFor="repo-results-filter" className="sr-only">Filtrar resultados encontrados</label>
                   <input
                     type="search"
+                    id="repo-results-filter"
                     className="repo-results-filter-input"
                     placeholder="Filtrar nesta lista…"
                     value={resultFilter}
                     onChange={(e) => setResultFilter(e.target.value)}
                   />
+                  </>
                 )}
               </div>
               <div className="repo-results-actions">
@@ -632,9 +641,9 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
             <motion.ul
               id="repo-results"
               className="repo-results"
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
+              initial={reduceMotion ? false : "hidden"}
+              animate={reduceMotion ? undefined : "visible"}
+              exit={reduceMotion ? undefined : "hidden"}
               variants={{
                 hidden: { opacity: 0, height: 0 },
                 visible: {
@@ -709,13 +718,13 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
                       </div>
                     </div>
 
-                    <AnimatePresence>
+                    <AnimatePresence initial={!reduceMotion}>
                       {isExpanded && (
                         <motion.div
                           className="repo-result-details-panel"
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
+                          initial={reduceMotion ? false : { opacity: 0, height: 0 }}
+                          animate={reduceMotion ? undefined : { opacity: 1, height: "auto" }}
+                          exit={reduceMotion ? undefined : { opacity: 0, height: 0 }}
                         >
                           <p className="repo-details-desc">{expandedDetails[key]}</p>
                         </motion.div>

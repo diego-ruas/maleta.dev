@@ -129,9 +129,6 @@ export default function PluginsSection() {
 
   return (
     <Reveal id="plugins" className="reveal" ariaLabelledby="plugins-heading">
-      <div className="section-header-badge">
-        <span className="section-tag-prefix">{"// 04. PLUGINS"}</span>
-      </div>
       <div className="plugins-header-wrap">
         <div>
           <h2 id="plugins-heading">Plugins</h2>
@@ -151,6 +148,7 @@ export default function PluginsSection() {
         {/* 1. BARRA DE BUSCA E FILTROS */}
         <div className="plugins-filter-bar">
           <div className="plugins-search-input-wrap">
+            <label htmlFor="plugins-search" className="sr-only">Buscar plugins</label>
             <input
               type="search"
               id="plugins-search"
@@ -165,6 +163,7 @@ export default function PluginsSection() {
             <button
               type="button"
               className={`plugin-tab-btn${activeTool === "all" ? " active" : ""}`}
+              aria-pressed={activeTool === "all"}
               onClick={() => setActiveTool("all")}
             >
               <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={14} />
@@ -173,6 +172,7 @@ export default function PluginsSection() {
             <button
               type="button"
               className={`plugin-tab-btn${activeTool === "Claude Code" ? " active" : ""}`}
+              aria-pressed={activeTool === "Claude Code"}
               onClick={() => setActiveTool("Claude Code")}
             >
               <AnimatedIcon Icon={ClaudeIcon} className="icon" size={14} />
@@ -181,6 +181,7 @@ export default function PluginsSection() {
             <button
               type="button"
               className={`plugin-tab-btn${activeTool === "Codex" ? " active" : ""}`}
+              aria-pressed={activeTool === "Codex"}
               onClick={() => setActiveTool("Codex")}
             >
               <AnimatedIcon Icon={TerminalIcon} className="icon" size={14} />
@@ -200,6 +201,7 @@ export default function PluginsSection() {
                 key={cat}
                 type="button"
                 className={`plugin-category-chip${isActive ? " active" : ""}`}
+                aria-pressed={isActive}
                 onClick={() => setSelectedCategory(cat)}
               >
                 <span>{label}</span>
@@ -212,7 +214,7 @@ export default function PluginsSection() {
         {/* 2. BARRA DE AÇÃO / COMANDO */}
         <div className="plugins-action-bar">
           <div className="plugins-selection-status">
-            <span className="plugins-status-count">
+            <span className="plugins-status-count" aria-live="polite">
               <strong>{selected.size}</strong> de {ALL_PLUGINS.length} plugins selecionados (<strong>{filteredPlugins.length}</strong> visíveis)
             </span>
             <div className="plugins-quick-actions">
@@ -240,7 +242,7 @@ export default function PluginsSection() {
         </div>
 
         {/* 3. LISTA DE PLUGINS */}
-        <ul className="plugins-list" role="group" aria-labelledby="plugins-heading">
+        <ul className="plugins-list">
           {filteredPlugins.map((plugin) => {
             const pluginKey = `${plugin.tool}:${plugin.name}`;
             const isSelected = selected.has(pluginKey);

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import CopyButton from "@/components/CopyButton";
@@ -9,58 +9,20 @@ import DecryptedText from "@/components/DecryptedText";
 import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import { CopyIcon } from "@/components/icons/copy";
 import { CheckIcon } from "@/components/icons/check";
-import { ClaudeIcon } from "@/components/icons/claude";
-import { TerminalIcon } from "@/components/icons/terminal";
-import { ZapIcon } from "@/components/icons/zap";
-import { CpuIcon } from "@/components/icons/cpu";
 import { ShieldIcon } from "@/components/icons/shield";
-import { useToolkit, ToolTarget } from "@/lib/toolkitContext";
-import { SKILL_PRESETS, SKILLS } from "@/lib/data";
-
-const TOOL_TARGET_META: Record<
-  ToolTarget,
-  { tag: string; description: string }
-> = {
-  claude: {
-    tag: "Apenas Claude Code",
-    description: "Configura exclusivamente o Claude Code.",
-  },
-  codex: {
-    tag: "Apenas Codex",
-    description: "Configura exclusivamente o Codex CLI.",
-  },
-  agents: {
-    tag: "Agentes & IDEs",
-    description: "Configura Antigravity, Cursor, Windsurf, Cline, Roo, Gemini e Codex.",
-  },
-  all: {
-    tag: "Ecossistema Completo",
-    description: "Configura Claude Code, Codex e todas as IDEs/Agentes.",
-  },
-};
+import { useToolkit } from "@/lib/toolkitContext";
+import { SKILLS } from "@/lib/data";
 
 export default function Hero() {
-  const {
-    selectedSkills,
-    targetTool,
-    setTargetTool,
-    targetOs,
-    setTargetOs,
-    togglePreset,
-    isPresetActive,
-    activePresets,
-    installCommand,
-  } = useToolkit();
-
-  const recommendedPreset = SKILL_PRESETS[0];
-  const additionalPresets = SKILL_PRESETS.slice(1, 6);
+  const { selectedSkills, targetOs, installCommand } = useToolkit();
+  const reduceMotion = useReducedMotion();
 
   return (
     <section className="intro" aria-label="Apresentação do Maleta.dev">
       <motion.div
         className="intro-copy"
-        initial="hidden"
-        animate="visible"
+        initial={reduceMotion ? false : "hidden"}
+        animate={reduceMotion ? undefined : "visible"}
         variants={{
           hidden: { opacity: 0 },
           visible: {
@@ -77,7 +39,7 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          <TypewriterText text="~/maleta.dev — Custom AI Toolkit Builder" speed={22} delay={60} />
+          <TypewriterText text="~/maleta.dev - Custom AI Toolkit Builder" speed={22} delay={60} />
         </motion.span>
 
         <motion.h1
@@ -115,7 +77,7 @@ export default function Hero() {
           </a>
           <a href="#sobre" className="intro-badge-item intro-badge-link" title="Saiba como funciona o provisionamento local">
             <AnimatedIcon Icon={ShieldIcon} className="icon" size={15} />
-            <span>100% local · sem telemetria</span>
+            <span>Instalação local - configuração sob seu controle</span>
           </a>
         </motion.div>
 
@@ -143,21 +105,20 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Terminal Quick-Launcher Console */}
       <motion.div
         className="hero-console-wrapper"
         id="configurador"
-        initial={{ opacity: 0, scale: 0.97, y: 10 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
+        initial={reduceMotion ? false : { opacity: 0, scale: 0.97, y: 10 }}
+        animate={reduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.15 }}
       >
         <div className="hero-terminal">
           <div className="hero-terminal-header">
             <div className="hero-terminal-header-left">
               <div className="terminal-dots" aria-hidden="true">
-                <span className="terminal-dot"></span>
-                <span className="terminal-dot"></span>
-                <span className="terminal-dot"></span>
+                <span className="terminal-dot" />
+                <span className="terminal-dot" />
+                <span className="terminal-dot" />
               </div>
               <span className="terminal-title">{targetOs === "unix" ? "quick-setup.sh" : "quick-setup.ps1"}</span>
             </div>
@@ -166,7 +127,7 @@ export default function Hero() {
 
           <div className="hero-terminal-body">
             <div className="hero-terminal-section">
-              <span className="hero-section-label">01. COMANDO PRONTO:</span>
+              <span className="hero-section-label">COMANDO PRONTO:</span>
               <div className="hero-code-box">
                 <pre>
                   <code>{installCommand}</code>
@@ -184,151 +145,12 @@ export default function Hero() {
             </div>
 
             <p className="hero-command-hint">
-              {"// Ja funciona assim: instala a base recomendada no Claude Code, no Codex e nas IDEs."}
+              {`// O comando inicial instala a base recomendada. Personalize o alvo e as skills no catálogo.`}
             </p>
 
-            <details className="hero-advanced-details hero-setup-details">
-              <summary>
-                <span>Ajustar pacote</span>
-                <span className="hero-advanced-count">ferramenta - sistema - base</span>
-              </summary>
-            {/* Seletor rápido de ferramenta */}
-            <div className="hero-terminal-section">
-              <span className="hero-section-label">02. ONDE INSTALAR:</span>
-              <div className="hero-tool-group" role="radiogroup" aria-label="Ferramenta alvo">
-                <button
-                  type="button"
-                  role="radio"
-                  aria-checked={targetTool === "claude"}
-                  className={`hero-tool-btn${targetTool === "claude" ? " active" : ""}`}
-                  onClick={() => setTargetTool("claude")}
-                  title="Instalar apenas para Claude Code (~/.claude/skills/)"
-                >
-                  <AnimatedIcon Icon={ClaudeIcon} className="icon" size={14} />
-                  <span>Claude Code</span>
-                </button>
-                <button
-                  type="button"
-                  role="radio"
-                  aria-checked={targetTool === "codex"}
-                  className={`hero-tool-btn${targetTool === "codex" ? " active" : ""}`}
-                  onClick={() => setTargetTool("codex")}
-                  title="Instalar apenas para Codex (~/.agents/skills e ~/.codex/config.toml)"
-                >
-                  <AnimatedIcon Icon={TerminalIcon} className="icon" size={14} />
-                  <span>Codex</span>
-                </button>
-                <button
-                  type="button"
-                  role="radio"
-                  aria-checked={targetTool === "agents"}
-                  className={`hero-tool-btn${targetTool === "agents" ? " active" : ""}`}
-                  onClick={() => setTargetTool("agents")}
-                  title="Instalar apenas para IDEs & Agentes (~/.agents, Antigravity, Cursor, Windsurf, Cline)"
-                >
-                  <AnimatedIcon Icon={CpuIcon} className="icon" size={14} />
-                  <span>Agentes & IDEs</span>
-                </button>
-                <button
-                  type="button"
-                  role="radio"
-                  aria-checked={targetTool === "all"}
-                  className={`hero-tool-btn${targetTool === "all" ? " active" : ""}`}
-                  onClick={() => setTargetTool("all")}
-                  title="Instalar para todos os ambientes (Claude + Codex + Agentes & IDEs)"
-                >
-                  <AnimatedIcon Icon={ZapIcon} className="icon" size={14} />
-                  <span>Todos (Completo)</span>
-                </button>
-              </div>
-
-              {/* Detalhes explícitos do alvo selecionado */}
-              <div className="hero-target-info-card">
-                <span className="hero-target-info-badge">
-                  {TOOL_TARGET_META[targetTool].tag}
-                </span>
-                <span className="hero-target-info-desc">
-                  {TOOL_TARGET_META[targetTool].description}
-                </span>
-              </div>
-            </div>
-
-            {/* Seletor de sistema operacional */}
-            <div className="hero-terminal-section">
-              <span className="hero-section-label">03. SEU SISTEMA:</span>
-              <div className="hero-tool-group hero-tool-group--2col" role="radiogroup" aria-label="Sistema operacional alvo">
-                <button
-                  type="button"
-                  role="radio"
-                  aria-checked={targetOs === "windows"}
-                  className={`hero-tool-btn${targetOs === "windows" ? " active" : ""}`}
-                  onClick={() => setTargetOs("windows")}
-                >
-                  <span>Windows</span>
-                </button>
-                <button
-                  type="button"
-                  role="radio"
-                  aria-checked={targetOs === "unix"}
-                  className={`hero-tool-btn${targetOs === "unix" ? " active" : ""}`}
-                  onClick={() => setTargetOs("unix")}
-                >
-                  <span>Linux / macOS</span>
-                </button>
-              </div>
-            </div>
-
-            <div className="hero-terminal-section">
-              <div className="hero-terminal-label-row">
-                <span className="hero-section-label">04. COMECE POR UMA BASE:</span>
-                <span className="hero-active-preset-badge">
-                  {activePresets.size > 0
-                    ? `${activePresets.size} ativa${activePresets.size > 1 ? "s" : ""}`
-                    : `${selectedSkills.size} skills`}
-                </span>
-              </div>
-              <div className="hero-preset-grid hero-preset-grid--recommended">
-                <button
-                  type="button"
-                  className={`hero-preset-btn${isPresetActive(recommendedPreset.id) ? " active" : ""}`}
-                  onClick={() => togglePreset(recommendedPreset.id)}
-                  title={`${recommendedPreset.description} (${recommendedPreset.skills.length} skills) — Clique para ${isPresetActive(recommendedPreset.id) ? "remover base" : "adicionar base"}`}
-                >
-                  <span className="hero-preset-name">{recommendedPreset.name} <span className="hero-preset-recommended">recomendado</span></span>
-                  <span className="hero-preset-count">{isPresetActive(recommendedPreset.id) ? `OK ${recommendedPreset.skills.length}` : `+${recommendedPreset.skills.length}`}</span>
-                </button>
-              </div>
-              <details className="hero-advanced-details">
-                <summary>
-                  <span>Mais opções de personalização</span>
-                  <span className="hero-advanced-count">+{additionalPresets.length} bases</span>
-                </summary>
-                <div className="hero-preset-grid">
-                  {additionalPresets.map((preset) => {
-                    const isActive = isPresetActive(preset.id);
-                    return (
-                      <button
-                        key={preset.id}
-                        type="button"
-                        className={`hero-preset-btn${isActive ? " active" : ""}`}
-                        onClick={() => togglePreset(preset.id)}
-                        title={`${preset.description} (${preset.skills.length} skills) — Clique para ${isActive ? "remover base" : "adicionar base"}`}
-                      >
-                        <span className="hero-preset-name">{preset.name}</span>
-                        <span className="hero-preset-count">{isActive ? `OK ${preset.skills.length}` : `+${preset.skills.length}`}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </details>
-            </div>
-
-            </details>
-
-            {/* Ações do Terminal */}
             <div className="hero-terminal-actions">
               <span className="hero-terminal-actions-hint">
-                {"// Clique no ícone acima para copiar o comando"}
+                {`// Clique no ícone acima para copiar o comando`}
               </span>
               <a href="#skills" className="hero-terminal-explore-link">
                 Personalizar no Catálogo &rarr;

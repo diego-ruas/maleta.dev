@@ -53,6 +53,11 @@ const PROMPT_EXAMPLES: PromptExample[] = [
   },
 ];
 
+const AGENT_INSTALL_COMMANDS = [
+  { target: "claude", label: "Claude Code", command: "npm install -g @anthropic-ai/claude-code" },
+  { target: "codex", label: "Codex", command: "npm install -g @openai/codex" },
+] as const;
+
 export default function InstallSteps() {
   const { installCommand, selectedSkills, targetTool, targetOs, downloadScript } = useToolkit();
   const [activeTab, setActiveTab] = useState<InstallTab>("oneliner");
@@ -83,11 +88,10 @@ export default function InstallSteps() {
       </p>
 
       {/* Recommended path first; alternative setup modes stay opt-in. */}
-      <div className="install-mode-toggle" role="tablist" aria-label="Métodos de instalação e onboarding">
+      <div className="install-mode-toggle" role="group" aria-label="Métodos de instalação e onboarding">
         <button
           type="button"
-          role="tab"
-          aria-selected={activeTab === "oneliner"}
+          aria-pressed={activeTab === "oneliner"}
           className={`install-tab-btn${activeTab === "oneliner" ? " active" : ""}`}
           onClick={() => {
             setActiveTab("oneliner");
@@ -103,18 +107,20 @@ export default function InstallSteps() {
         type="button"
         className="install-advanced-toggle"
         aria-expanded={showAdvancedModes}
-        onClick={() => setShowAdvancedModes((current) => !current)}
+        onClick={() => {
+          if (showAdvancedModes) setActiveTab("oneliner");
+          setShowAdvancedModes((current) => !current);
+        }}
       >
         <span>Outras formas de instalar</span>
         <span className="install-advanced-count">2 opções</span>
       </button>
 
       {showAdvancedModes && (
-        <div className="install-advanced-tabs" role="tablist" aria-label="Métodos alternativos de instalação">
+        <div className="install-advanced-tabs" role="group" aria-label="Métodos alternativos de instalação">
         <button
           type="button"
-          role="tab"
-          aria-selected={activeTab === "fresh"}
+          aria-pressed={activeTab === "fresh"}
           className={`install-tab-btn${activeTab === "fresh" ? " active" : ""}`}
           onClick={() => setActiveTab("fresh")}
         >
@@ -123,8 +129,7 @@ export default function InstallSteps() {
         </button>
         <button
           type="button"
-          role="tab"
-          aria-selected={activeTab === "local"}
+          aria-pressed={activeTab === "local"}
           className={`install-tab-btn${activeTab === "local" ? " active" : ""}`}
           onClick={() => setActiveTab("local")}
         >
@@ -136,51 +141,18 @@ export default function InstallSteps() {
 
       {/* Conteúdo dinâmico por aba */}
       {activeTab === "oneliner" && (
-        <div className="process-grid">
-          <div className="process-card">
-            <div className="process-card-header">
-              <div className="process-icon-box">
-                <AnimatedIcon Icon={CpuIcon} className="icon" size={20} />
-              </div>
-              <div className="process-num">01</div>
-            </div>
-            <div className="process-content">
-              <h3 className="process-title">Antes de começar</h3>
-              <p className="process-desc">
-                {isUnix ? (
-                  <>Linux ou macOS com <strong>bash</strong> ou <strong>zsh</strong>. Você precisa de pelo menos um agente instalado:</>
-                ) : (
-                  <>Windows 10/11 com <strong>PowerShell 5.1+</strong> nativo. Você precisa de pelo menos um agente instalado:</>
-                )}
-              </p>
-              <div className="cmd">
-                <code>npm install -g @anthropic-ai/claude-code</code>
-                <CopyButton className="cmd-copy" text="npm install -g @anthropic-ai/claude-code" aria-label="Copiar comando de instalação do Claude Code">
-                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
-                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
-                </CopyButton>
-              </div>
-              <div className="cmd">
-                <code>npm install -g @openai/codex</code>
-                <CopyButton className="cmd-copy" text="npm install -g @openai/codex" aria-label="Copiar comando de instalação do Codex">
-                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
-                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
-                </CopyButton>
-              </div>
-            </div>
-          </div>
-
-          <div className="process-card">
-            <div className="process-card-header">
-              <div className="process-icon-box">
+        <div className="install-workflow process-grid">
+          <div className="install-workflow-content">
+            <section className="install-command-stage" aria-labelledby="install-command-heading">
+              <div className="install-command-stage-header">
+                <div>
+                  <span className="install-stage-number">02</span>
+                  <h3 id="install-command-heading">Executar Comando Customizado</h3>
+                </div>
                 <AnimatedIcon Icon={TerminalIcon} className="icon" size={20} />
               </div>
-              <div className="process-num">02</div>
-            </div>
-            <div className="process-content">
-              <h3 className="process-title">Executar Comando Customizado</h3>
-              <p className="process-desc">
-                Cole a linha abaixo no {isUnix ? "terminal (bash/zsh)" : "PowerShell"}. Apenas as <strong>{selectedSkills.size} skills selecionadas</strong> para o alvo <strong>{targetTool.toUpperCase()}</strong> serão provisionadas:
+              <p>
+                Cole no {isUnix ? "terminal (bash/zsh)" : "PowerShell"}. O comando aplica as <strong>{selectedSkills.size} skills selecionadas</strong> para <strong>{targetTool === "all" ? "todos os agentes" : targetTool.toUpperCase()}</strong>.
               </p>
               <div className="cmd">
                 <code title={installCommand}>{previewCommand}</code>
@@ -194,77 +166,95 @@ export default function InstallSteps() {
                   <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
                 </CopyButton>
               </div>
-              <div className="tutorial-step-actions">
-                <button
-                  type="button"
-                  onClick={downloadScript}
-                  className="tutorial-action-btn"
-                  title={`Baixar arquivo instalar-maleta.${isUnix ? "sh" : "ps1"} pronto para rodar offline`}
-                >
-                  <AnimatedIcon Icon={DownloadIcon} className="icon" size={14} />
-                  <span>Baixar script .{isUnix ? "sh" : "ps1"} sob medida</span>
-                </button>
-              </div>
-            </div>
-          </div>
+              <button
+                type="button"
+                onClick={downloadScript}
+                className="tutorial-action-btn"
+                title={`Baixar arquivo instalar-maleta.${isUnix ? "sh" : "ps1"} pronto para rodar offline`}
+              >
+                <AnimatedIcon Icon={DownloadIcon} className="icon" size={14} />
+                <span>Baixar script .{isUnix ? "sh" : "ps1"} sob medida</span>
+              </button>
+            </section>
 
-          <div className="process-card">
-            <div className="process-card-header">
-              <div className="process-icon-box">
-                <AnimatedIcon Icon={SparklesIcon} className="icon" size={20} />
-              </div>
-              <div className="process-num">03</div>
-            </div>
-            <div className="process-content">
-              <h3 className="process-title">Validar no Terminal</h3>
-              <p className="process-desc">
-                Abra seu assistente no terminal e digite o comando abaixo para confirmar o carregamento das skills:
+            <details className="install-prerequisites">
+              <summary><span>01</span> Antes de começar</summary>
+              <p>
+                {isUnix ? "Use Linux ou macOS com bash ou zsh." : "Use Windows 10/11 com PowerShell 5.1+."} Instale pelo menos um agente antes de rodar o comando.
               </p>
-              <div className="cmd">
-                <code>/skills</code>
-                <CopyButton className="cmd-copy" text="/skills" aria-label="Copiar comando /skills">
-                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
-                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
-                </CopyButton>
-              </div>
-            </div>
-          </div>
-
-          <div className="process-card">
-            <div className="process-card-header">
-              <div className="process-icon-box">
-                <AnimatedIcon Icon={CodeIcon} className="icon" size={20} />
-              </div>
-              <div className="process-num">04</div>
-            </div>
-            <div className="process-content">
-              <h3 className="process-title">Primeiro Uso — Prompts Recomendados</h3>
-              <p className="process-desc">
-                Para acionar uma skill, basta mencioná-la ou contextualizar o objetivo diretamente no seu prompt:
-              </p>
-              <div className="prompt-examples-grid">
-                {PROMPT_EXAMPLES.map((ex, idx) => (
-                  <div key={idx} className="prompt-example-card">
-                    <div className="prompt-example-header">
-                      <div className="prompt-example-meta">
-                        <span className="prompt-badge-cat">{ex.category}</span>
-                        <code className="prompt-badge-skill">{ex.skill}</code>
-                      </div>
-                      <CopyButton
-                        className="prompt-copy-btn"
-                        text={ex.prompt}
-                        aria-label={`Copiar prompt de exemplo para ${ex.skill}`}
-                        title="Copiar prompt"
-                      >
-                        <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={14} />
-                        <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={14} />
-                      </CopyButton>
-                    </div>
-                    <p className="prompt-example-title">{ex.title}</p>
-                    <p className="prompt-example-text">&ldquo;{ex.prompt}&rdquo;</p>
+              {AGENT_INSTALL_COMMANDS
+                .filter(({ target }) => targetTool === "all" || targetTool === "agents" || targetTool === target)
+                .map(({ label, command }) => (
+                  <div className="cmd" key={command}>
+                    <code>{command}</code>
+                    <CopyButton className="cmd-copy" text={command} aria-label={`Copiar comando de instalação do ${label}`}>
+                      <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
+                      <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
+                    </CopyButton>
                   </div>
                 ))}
-              </div>
+            </details>
+
+            <div className="install-follow-up-grid">
+              <section className="install-follow-up-card">
+                <div className="install-follow-up-header">
+                  <div className="install-follow-up-icon">
+                    <AnimatedIcon Icon={SparklesIcon} className="icon" size={20} />
+                  </div>
+                  <div>
+                    <span className="install-stage-number">03</span>
+                    <h3>Validar no Terminal</h3>
+                  </div>
+                </div>
+                <div className="install-follow-up-content">
+                  <p className="install-follow-up-desc">Abra seu assistente e confirme que as skills foram carregadas.</p>
+                  <div className="cmd">
+                    <code>/skills</code>
+                    <CopyButton className="cmd-copy" text="/skills" aria-label="Copiar comando /skills">
+                      <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
+                      <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
+                    </CopyButton>
+                  </div>
+                </div>
+              </section>
+
+              <section className="install-follow-up-card">
+                <div className="install-follow-up-header">
+                  <div className="install-follow-up-icon">
+                    <AnimatedIcon Icon={CodeIcon} className="icon" size={20} />
+                  </div>
+                  <div>
+                    <span className="install-stage-number">04</span>
+                    <h3>Primeiro Uso — Prompts Recomendados</h3>
+                  </div>
+                </div>
+                <div className="install-follow-up-content">
+                  <p className="install-follow-up-desc">Mencione uma skill ou descreva o objetivo direto no prompt.</p>
+                  <div className="prompt-examples-grid">
+                    {PROMPT_EXAMPLES.map((ex) => (
+                      <div key={ex.skill} className="prompt-example-card">
+                        <div className="prompt-example-header">
+                          <div className="prompt-example-meta">
+                            <span className="prompt-badge-cat">{ex.category}</span>
+                            <code className="prompt-badge-skill">{ex.skill}</code>
+                          </div>
+                          <CopyButton
+                            className="prompt-copy-btn"
+                            text={ex.prompt}
+                            aria-label={`Copiar prompt de exemplo para ${ex.skill}`}
+                            title="Copiar prompt"
+                          >
+                            <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={14} />
+                            <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={14} />
+                          </CopyButton>
+                        </div>
+                        <p className="prompt-example-title">{ex.title}</p>
+                        <p className="prompt-example-text">&ldquo;{ex.prompt}&rdquo;</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         </div>

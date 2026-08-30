@@ -82,10 +82,6 @@ const STATS = [
 export default function AboutSection() {
   return (
     <Reveal id="sobre" className="reveal" ariaLabelledby="sobre-heading">
-      <div className="section-header-badge">
-        <span className="section-tag-prefix">{"// 01. SOBRE O PROJETO"}</span>
-      </div>
-
       <div className="about-header-wrap">
         <h2 id="sobre-heading">Faça a IA escrever código no seu padrão</h2>
       </div>

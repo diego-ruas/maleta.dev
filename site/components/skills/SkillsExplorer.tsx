@@ -212,16 +212,6 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 <div
                   key={preset.id}
                   className={`preset-showcase-card${isActive ? " active" : ""}`}
-                  role="button"
-                  tabIndex={0}
-                  aria-pressed={isActive}
-                  onClick={() => togglePreset(preset.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      togglePreset(preset.id);
-                    }
-                  }}
                 >
                   <div className="preset-card-top">
                     <div className="preset-card-title-wrap">
@@ -235,8 +225,6 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
 
                   <details
                     className="preset-card-details"
-                    onClick={(e) => e.stopPropagation()}
-                    onKeyDown={(e) => e.stopPropagation()}
                   >
                     <summary>Ver skills incluídas</summary>
                     <div className="preset-card-preview-tags">
@@ -255,10 +243,8 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                     <button
                       type="button"
                       className={`btn-gh-sm preset-apply-btn${isActive ? " active" : ""}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        togglePreset(preset.id);
-                      }}
+                      aria-pressed={isActive}
+                      onClick={() => togglePreset(preset.id)}
                     >
                       {isActive ? (
                         <>
@@ -321,6 +307,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
             <div className="skills-search-row">
               <div className="skills-search-bar">
                 <AnimatedIcon Icon={SearchIcon} className="skills-search-icon" size={16} />
+                <label htmlFor="skills-search" className="sr-only">Buscar skill no catálogo</label>
                 <input
                   type="search"
                   id="skills-search"
@@ -335,6 +322,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 <button
                   type="button"
                   className={`scope-toggle-btn${viewScope === "all" ? " active" : ""}`}
+                  aria-pressed={viewScope === "all"}
                   onClick={() => setViewScope("all")}
                 >
                   <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={14} />
@@ -343,6 +331,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 <button
                   type="button"
                   className={`scope-toggle-btn${viewScope === "selected" ? " active" : ""}`}
+                  aria-pressed={viewScope === "selected"}
                   onClick={() => setViewScope("selected")}
                 >
                   <AnimatedIcon Icon={CheckIcon} className="icon" size={14} />
@@ -381,14 +370,14 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 Desmarcar Todas
               </button>
             </div>
-            <span className="skills-viewing-count">
+            <span className="skills-viewing-count" aria-live="polite">
               Exibindo <strong>{visibleSkills.length}</strong> de {allMergedSkills.length} skills
             </span>
           </div>
 
           {/* Grid de Skills */}
           <div className="skills-results-container">
-            <ul className="skills-list" id="skills-list" role="group" aria-labelledby="skills-heading">
+            <ul className="skills-list" id="skills-list">
               {visibleSkills.map((skill) => (
                 <SkillCard
                   key={skill.name}
@@ -517,6 +506,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 <button
                   type="button"
                   className={`summary-tool-btn${targetTool === "claude" ? " active" : ""}`}
+                  aria-pressed={targetTool === "claude"}
                   onClick={() => setTargetTool("claude")}
                 >
                   <AnimatedIcon Icon={ClaudeIcon} className="icon" size={14} />
@@ -525,6 +515,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 <button
                   type="button"
                   className={`summary-tool-btn${targetTool === "codex" ? " active" : ""}`}
+                  aria-pressed={targetTool === "codex"}
                   onClick={() => setTargetTool("codex")}
                 >
                   <AnimatedIcon Icon={TerminalIcon} className="icon" size={14} />
@@ -533,6 +524,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 <button
                   type="button"
                   className={`summary-tool-btn${targetTool === "agents" ? " active" : ""}`}
+                  aria-pressed={targetTool === "agents"}
                   onClick={() => setTargetTool("agents")}
                 >
                   <span>Universal Agents (~/.agents)</span>
@@ -540,6 +532,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 <button
                   type="button"
                   className={`summary-tool-btn${targetTool === "all" ? " active" : ""}`}
+                  aria-pressed={targetTool === "all"}
                   onClick={() => setTargetTool("all")}
                 >
                   <AnimatedIcon Icon={ZapIcon} className="icon" size={14} />
@@ -560,6 +553,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                         type="button"
                         className="summary-chip-remove"
                         onClick={() => toggleSkill(name)}
+                        aria-label={`Remover "${name}" do pacote`}
                         title={`Remover "${name}" do pacote`}
                       >
                         &times;

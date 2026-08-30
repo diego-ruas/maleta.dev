@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import Reveal from "@/components/Reveal";
 import { ChevronDownIcon } from "@/components/icons/chevron-down";
@@ -14,6 +14,7 @@ interface FaqItemProps {
 
 function FaqItem({ id, question, children }: FaqItemProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   return (
     <div className={`faq-item${isOpen ? " open" : ""}`}>
@@ -28,8 +29,8 @@ function FaqItem({ id, question, children }: FaqItemProps) {
         <span>{question}</span>
         <motion.span
           className="faq-caret-wrap"
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          animate={reduceMotion ? undefined : { rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.25, ease: [0.16, 1, 0.3, 1] }}
         >
           <AnimatedIcon Icon={ChevronDownIcon} className="icon faq-caret" size={16} />
         </motion.span>
@@ -40,10 +41,10 @@ function FaqItem({ id, question, children }: FaqItemProps) {
             id={`faq-content-${id}`}
             role="region"
             aria-labelledby={`faq-btn-${id}`}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            initial={reduceMotion ? false : { height: 0, opacity: 0 }}
+            animate={reduceMotion ? undefined : { height: "auto", opacity: 1 }}
+            exit={reduceMotion ? undefined : { height: 0, opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="faq-content"
           >
             <div className="faq-body">{children}</div>
@@ -57,9 +58,6 @@ function FaqItem({ id, question, children }: FaqItemProps) {
 export default function FaqSection() {
   return (
     <Reveal id="faq" className="reveal" ariaLabelledby="faq-heading">
-      <div className="section-header-badge">
-        <span className="section-tag-prefix">{"// 06. DÚVIDAS FREQUENTES"}</span>
-      </div>
       <h2 id="faq-heading">Perguntas frequentes</h2>
       <div className="faq-list">
         <FaqItem id="tools" question="Onde as skills vão parar na minha máquina?">

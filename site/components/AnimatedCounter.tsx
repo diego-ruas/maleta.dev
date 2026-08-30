@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { animate, useInView, useMotionValue } from "motion/react";
+import { animate, useInView, useMotionValue, useReducedMotion } from "motion/react";
 
 interface AnimatedCounterProps {
   value: number;
@@ -12,9 +12,14 @@ export default function AnimatedCounter({ value, className }: AnimatedCounterPro
   const ref = useRef<HTMLSpanElement>(null);
   const motionValue = useMotionValue(0);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!isInView) return;
+    if (reduceMotion) {
+      if (ref.current) ref.current.textContent = String(value);
+      return;
+    }
     const controls = animate(motionValue, value, {
       duration: 0.6,
       ease: [0.16, 1, 0.3, 1],
@@ -23,11 +28,11 @@ export default function AnimatedCounter({ value, className }: AnimatedCounterPro
       },
     });
     return () => controls.stop();
-  }, [value, isInView, motionValue]);
+  }, [value, isInView, motionValue, reduceMotion]);
 
   return (
     <span ref={ref} className={className}>
-      0
+      {reduceMotion ? value : 0}
     </span>
   );
 }
