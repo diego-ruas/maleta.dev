@@ -13,7 +13,6 @@ import { ClaudeIcon } from "@/components/icons/claude";
 import { OpencodeIcon } from "@/components/icons/opencode";
 import { ZapIcon } from "@/components/icons/zap";
 import { CpuIcon } from "@/components/icons/cpu";
-import { SearchIcon } from "@/components/icons/search";
 import { ShieldIcon } from "@/components/icons/shield";
 import { useToolkit, ToolTarget } from "@/lib/toolkitContext";
 import { SKILL_PRESETS, SKILLS } from "@/lib/data";
@@ -52,6 +51,9 @@ export default function Hero() {
     activePresets,
     installCommand,
   } = useToolkit();
+
+  const recommendedPreset = SKILL_PRESETS[0];
+  const additionalPresets = SKILL_PRESETS.slice(1, 6);
 
   return (
     <section className="intro" aria-label="Apresentação do Maleta.dev">
@@ -97,7 +99,7 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          Construtor determinístico que injeta um catálogo com <strong>{SKILLS.length} skills curadas</strong> (TDD rigoroso, design anti-slop, WCAG 2.2 e Cloudflare Edge) e plugins verificados no <span className="highlight-word">Claude Code</span>, <span className="highlight-word">opencode</span> e <span className="highlight-word">Universal Agents</span> — 100% local, seguro e sem telemetria.
+          Escolha uma base, ajuste o pacote e copie um comando pronto para instalar regras no <span className="highlight-word">Claude Code</span>, <span className="highlight-word">opencode</span> ou outras IDEs.
         </motion.p>
 
         <motion.div
@@ -109,15 +111,11 @@ export default function Hero() {
         >
           <a href="#skills" className="intro-badge-item intro-badge-link" title={`Explorar ${SKILLS.length} skills curadas`}>
             <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={15} />
-            <span>{SKILLS.length} skills curadas (<AnimatedCounter value={selectedSkills.size} /> ativas)</span>
+            <span>{SKILLS.length} skills curadas</span>
           </a>
           <a href="#sobre" className="intro-badge-item intro-badge-link" title="Saiba como funciona o provisionamento local">
             <AnimatedIcon Icon={ShieldIcon} className="icon" size={15} />
-            <span>100% Local & Seguro</span>
-          </a>
-          <a href="#repo-add" className="intro-badge-item intro-badge-link" title="Buscador de skills comunitárias do GitHub">
-            <AnimatedIcon Icon={SearchIcon} className="icon" size={15} />
-            <span>Hub GitHub</span>
+            <span>100% local · sem telemetria</span>
           </a>
         </motion.div>
 
@@ -129,9 +127,9 @@ export default function Hero() {
           }}
         >
           <div className="intro-actions">
-            <a href="#skills" className="btn-primary">
+            <a href="#configurador" className="btn-primary">
               <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={16} />
-              <span>Personalizar no Catálogo &rarr;</span>
+              <span>Começar a montar &rarr;</span>
             </a>
             <a
               href="https://github.com/diego-ruas/maleta.dev"
@@ -148,6 +146,7 @@ export default function Hero() {
       {/* Terminal Quick-Launcher Console */}
       <motion.div
         className="hero-console-wrapper"
+        id="configurador"
         initial={{ opacity: 0, scale: 0.97, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.15 }}
@@ -168,7 +167,7 @@ export default function Hero() {
           <div className="hero-terminal-body">
             {/* Seletor rápido de ferramenta */}
             <div className="hero-terminal-section">
-              <span className="hero-section-label">01. ALVO DE INSTALAÇÃO:</span>
+              <span className="hero-section-label">01. ONDE INSTALAR:</span>
               <div className="hero-tool-group" role="radiogroup" aria-label="Ferramenta alvo">
                 <button
                   type="button"
@@ -229,7 +228,7 @@ export default function Hero() {
 
             {/* Seletor de sistema operacional */}
             <div className="hero-terminal-section">
-              <span className="hero-section-label">01B. SISTEMA OPERACIONAL:</span>
+              <span className="hero-section-label">02. SEU SISTEMA:</span>
               <div className="hero-tool-group hero-tool-group--2col" role="radiogroup" aria-label="Sistema operacional alvo">
                 <button
                   type="button"
@@ -252,38 +251,54 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Presets Rápidos / Multi-Seleção de Bases */}
             <div className="hero-terminal-section">
               <div className="hero-terminal-label-row">
-                <span className="hero-section-label">02. SELECIONE AS BASES:</span>
+                <span className="hero-section-label">03. COMECE POR UMA BASE:</span>
                 <span className="hero-active-preset-badge">
                   {activePresets.size > 0
                     ? `${activePresets.size} ativa${activePresets.size > 1 ? "s" : ""}`
                     : `${selectedSkills.size} skills`}
                 </span>
               </div>
-              <div className="hero-preset-grid">
-                {SKILL_PRESETS.slice(0, 6).map((preset) => {
-                  const isActive = isPresetActive(preset.id);
-                  return (
-                    <button
-                      key={preset.id}
-                      type="button"
-                      className={`hero-preset-btn${isActive ? " active" : ""}`}
-                      onClick={() => togglePreset(preset.id)}
-                      title={`${preset.description} (${preset.skills.length} skills) — Clique para ${isActive ? "remover base" : "adicionar base"}`}
-                    >
-                      <span className="hero-preset-name">{preset.name}</span>
-                      <span className="hero-preset-count">{isActive ? `✓ ${preset.skills.length}` : `+${preset.skills.length}`}</span>
-                    </button>
-                  );
-                })}
+              <div className="hero-preset-grid hero-preset-grid--recommended">
+                <button
+                  type="button"
+                  className={`hero-preset-btn${isPresetActive(recommendedPreset.id) ? " active" : ""}`}
+                  onClick={() => togglePreset(recommendedPreset.id)}
+                  title={`${recommendedPreset.description} (${recommendedPreset.skills.length} skills) — Clique para ${isPresetActive(recommendedPreset.id) ? "remover base" : "adicionar base"}`}
+                >
+                  <span className="hero-preset-name">{recommendedPreset.name} <span className="hero-preset-recommended">recomendado</span></span>
+                  <span className="hero-preset-count">{isPresetActive(recommendedPreset.id) ? `OK ${recommendedPreset.skills.length}` : `+${recommendedPreset.skills.length}`}</span>
+                </button>
               </div>
+              <details className="hero-advanced-details">
+                <summary>
+                  <span>Mais opções de personalização</span>
+                  <span className="hero-advanced-count">+{additionalPresets.length} bases</span>
+                </summary>
+                <div className="hero-preset-grid">
+                  {additionalPresets.map((preset) => {
+                    const isActive = isPresetActive(preset.id);
+                    return (
+                      <button
+                        key={preset.id}
+                        type="button"
+                        className={`hero-preset-btn${isActive ? " active" : ""}`}
+                        onClick={() => togglePreset(preset.id)}
+                        title={`${preset.description} (${preset.skills.length} skills) — Clique para ${isActive ? "remover base" : "adicionar base"}`}
+                      >
+                        <span className="hero-preset-name">{preset.name}</span>
+                        <span className="hero-preset-count">{isActive ? `OK ${preset.skills.length}` : `+${preset.skills.length}`}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </details>
             </div>
 
             {/* Comando Gerado em Tempo Real */}
             <div className="hero-terminal-section">
-              <span className="hero-section-label">03. COMANDO PRONTO:</span>
+              <span className="hero-section-label">04. COMANDO PRONTO:</span>
               <div className="hero-code-box">
                 <pre>
                   <code>{installCommand}</code>

@@ -193,9 +193,9 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
           <div className="stage-panel-header">
             <div>
               <span className="section-tag-prefix">{"// ETAPA 01"}</span>
-              <h3 className="stage-panel-title">Escolha suas bases de partida</h3>
+              <h3 className="stage-panel-title">Comece por uma base</h3>
               <p className="stage-panel-desc">
-                Selecione uma ou mais bases recomendadas para combinar seus perfis. Você poderá refinar qualquer skill na próxima etapa.
+                Escolha uma ou mais bases; você pode ajustar as skills depois.
               </p>
             </div>
             {activePresets.size > 0 && (
@@ -236,16 +236,23 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
 
                   <p className="preset-card-desc">{preset.description}</p>
 
-                  <div className="preset-card-preview-tags">
-                    {preset.skills.slice(0, 4).map((skillName) => (
-                      <span key={skillName} className="preset-skill-tag">
-                        {skillName}
-                      </span>
-                    ))}
-                    {preset.skills.length > 4 && (
-                      <span className="preset-skill-tag-more">+{preset.skills.length - 4} mais</span>
-                    )}
-                  </div>
+                  <details
+                    className="preset-card-details"
+                    onClick={(e) => e.stopPropagation()}
+                    onKeyDown={(e) => e.stopPropagation()}
+                  >
+                    <summary>Ver skills incluídas</summary>
+                    <div className="preset-card-preview-tags">
+                      {preset.skills.slice(0, 4).map((skillName) => (
+                        <span key={skillName} className="preset-skill-tag">
+                          {skillName}
+                        </span>
+                      ))}
+                      {preset.skills.length > 4 && (
+                        <span className="preset-skill-tag-more">+{preset.skills.length - 4} mais</span>
+                      )}
+                    </div>
+                  </details>
 
                   <div className="preset-card-footer">
                     <button

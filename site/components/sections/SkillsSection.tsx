@@ -10,7 +10,7 @@ export default function SkillsSection() {
       </div>
       <h2 id="skills-heading">Skills & Presets</h2>
       <p>
-        Personalização em 4 etapas: escolha uma base recomendada, refine as {SKILLS.length} skills por categoria, importe repositórios abertos do GitHub e copie seu comando PowerShell pronto.
+        Monte seu pacote, ajuste as {SKILLS.length} skills quando quiser e copie o comando pronto.
       </p>
       <SkillsExplorer categories={CATEGORIES} />
     </Reveal>

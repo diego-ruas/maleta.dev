@@ -57,6 +57,7 @@ const PROMPT_EXAMPLES: PromptExample[] = [
 export default function InstallSteps() {
   const { installCommand, selectedSkills, targetTool, targetOs, downloadScript } = useToolkit();
   const [activeTab, setActiveTab] = useState<InstallTab>("oneliner");
+  const [showAdvancedModes, setShowAdvancedModes] = useState(false);
   const isUnix = targetOs === "unix";
 
   const previewCommand = useMemo(() => {
@@ -79,21 +80,38 @@ export default function InstallSteps() {
       </div>
       <h2 id="instalar-heading">Como instalar e usar seu toolkit</h2>
       <p>
-        Guia prático passo a passo para provisionar seu ambiente sob medida em segundos e validar as skills no terminal.
+        Comece com o comando pronto. Abra os outros caminhos se precisar instalar as ferramentas ou trabalhar localmente.
       </p>
 
-      {/* Seletor de Modo / Abas do Tutorial */}
+      {/* Recommended path first; alternative setup modes stay opt-in. */}
       <div className="install-mode-toggle" role="tablist" aria-label="Métodos de instalação e onboarding">
         <button
           type="button"
           role="tab"
           aria-selected={activeTab === "oneliner"}
           className={`install-tab-btn${activeTab === "oneliner" ? " active" : ""}`}
-          onClick={() => setActiveTab("oneliner")}
+          onClick={() => {
+            setActiveTab("oneliner");
+            setShowAdvancedModes(false);
+          }}
         >
           <AnimatedIcon Icon={ZapIcon} className="icon" size={16} />
-          <span>1. One-Liner Express (Recomendado)</span>
+          <span>One-Liner Express (Recomendado)</span>
         </button>
+      </div>
+
+      <button
+        type="button"
+        className="install-advanced-toggle"
+        aria-expanded={showAdvancedModes}
+        onClick={() => setShowAdvancedModes((current) => !current)}
+      >
+        <span>Outras formas de instalar</span>
+        <span className="install-advanced-count">2 opções</span>
+      </button>
+
+      {showAdvancedModes && (
+        <div className="install-advanced-tabs" role="tablist" aria-label="Métodos alternativos de instalação">
         <button
           type="button"
           role="tab"
@@ -102,7 +120,7 @@ export default function InstallSteps() {
           onClick={() => setActiveTab("fresh")}
         >
           <AnimatedIcon Icon={CpuIcon} className="icon" size={16} />
-          <span>2. Setup do Zero (Instalar Ferramentas)</span>
+          <span>Setup do Zero (instalar ferramentas)</span>
         </button>
         <button
           type="button"
@@ -112,9 +130,10 @@ export default function InstallSteps() {
           onClick={() => setActiveTab("local")}
         >
           <AnimatedIcon Icon={TerminalIcon} className="icon" size={16} />
-          <span>3. Instalação Local (Git / ZIP)</span>
+          <span>Instalação Local (Git / ZIP)</span>
         </button>
-      </div>
+        </div>
+      )}
 
       {/* Conteúdo dinâmico por aba */}
       {activeTab === "oneliner" && (

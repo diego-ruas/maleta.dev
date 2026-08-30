@@ -30,7 +30,7 @@ export default function ToolsGrid() {
           <div className="contact-card-info">
             <h3>Claude Code</h3>
             <p>
-              Skills curadas em <code>~/.claude/skills/</code>, {claudeCodePlugins} plugins verificados (incluindo <code>claude-mem</code> para retenção de contexto) e configurações MCP integradas.
+              Skills em <code>~/.claude/skills/</code>, {claudeCodePlugins} plugins verificados e configurações MCP integradas.
             </p>
           </div>
           <a
@@ -51,7 +51,7 @@ export default function ToolsGrid() {
           <div className="contact-card-info">
             <h3>opencode</h3>
             <p>
-              Configurações em <code>~/.config/opencode/</code>, {opencodePlugins} plugins, busca web nativa via MCP DuckDuckGo e suporte transparente a modelos locais como Ollama e LM Studio.
+              Configurações em <code>~/.config/opencode/</code>, {opencodePlugins} plugins e suporte a modelos locais.
             </p>
           </div>
           <a
@@ -72,7 +72,7 @@ export default function ToolsGrid() {
           <div className="contact-card-info">
             <h3>Hub Comunitário</h3>
             <p>
-              Busca em tempo real de repositórios abertos no GitHub com <code>topic:claude-skills</code>, inspeção do arquivo <code>SKILL.md</code> e injeção personalizada com 1 clique.
+              Descubra skills abertas no GitHub, inspecione o <code>SKILL.md</code> e adicione o que quiser ao seu pacote.
             </p>
           </div>
           <a href="#repo-add" className="contact-card-action">
