@@ -1,0 +1,10 @@
+{
+  "name": "maleta-dev",
+  "version": "1.0.0",
+  "description": "Monta kits Maleta e gera comandos de instalação para Codex e Claude Code.",
+  "author": {
+    "name": "maleta.dev"
+  },
+  "license": "MIT",
+  "skills": "./skills/"
+}

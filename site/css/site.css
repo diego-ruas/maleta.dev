@@ -2079,6 +2079,58 @@ button.copied .icon-check {
     }
 }
 
+/* Barra sticky com contador de skills selecionadas */
+.sticky-progress {
+    position: fixed;
+    left: 2rem;
+    bottom: calc(2rem + env(safe-area-inset-bottom));
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.9rem;
+    background: var(--color-carbon);
+    border: 1px solid var(--color-iron);
+    border-radius: var(--radius-sm);
+    color: var(--fg-muted);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    z-index: 90;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.sticky-progress:hover {
+    background: var(--color-graphite);
+    border-color: var(--color-slate);
+    color: var(--fg);
+}
+
+.sticky-progress:focus-visible {
+    outline: 2px solid var(--color-paper);
+    outline-offset: 2px;
+}
+
+.sticky-progress-count strong {
+    color: var(--fg);
+}
+
+.sticky-progress-cta {
+    color: var(--color-accent, var(--fg));
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .sticky-progress {
+        left: 1rem;
+        bottom: calc(1rem + env(safe-area-inset-bottom));
+        font-size: var(--text-xs, 0.8rem);
+    }
+
+    .sticky-progress-cta {
+        display: none;
+    }
+}
+
 /* Footer */
 footer {
     margin-top: var(--space-10);

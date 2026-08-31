@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "maleta-dev",
+  "description": "Monta kits maleta.dev e gera comandos de instalação revisáveis.",
+  "owner": {
+    "name": "maleta.dev"
+  },
+  "plugins": [
+    {
+      "name": "maleta-dev",
+      "description": "Monte um kit de IA e gere o comando de instalação.",
+      "source": "./plugins/maleta-dev",
+      "category": "productivity"
+    }
+  ]
+}

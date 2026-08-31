@@ -89,7 +89,7 @@ export default function Hero() {
           }}
         >
           <div className="intro-actions">
-            <a href="#configurador" className="btn-primary">
+            <a href="#skills" className="btn-primary">
               <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={16} />
               <span>Começar a montar &rarr;</span>
             </a>

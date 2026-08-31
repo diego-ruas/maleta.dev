@@ -85,6 +85,17 @@ Se o CLI exigir o caminho absoluto, use `codex plugin marketplace add <caminho-a
 
 O plugin gera comandos para você revisar antes de executar. Ele não envia dados pessoais, não instala nada automaticamente e usa o catálogo deste repositório como fonte de verdade.
 
+### Plugin do Claude Code
+
+O mesmo plugin também roda no Claude Code, a partir do clone:
+
+```bash
+claude plugin marketplace add .
+claude plugin install maleta-dev@maleta-dev
+```
+
+Se o CLI exigir o caminho absoluto, use `claude plugin marketplace add <caminho-absoluto-do-clone>`.
+
 ---
 
 ## O que está incluído

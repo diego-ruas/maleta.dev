@@ -10,6 +10,7 @@ import InstallSteps from "@/components/sections/InstallSteps";
 import FaqSection from "@/components/sections/FaqSection";
 import SiteFooter from "@/components/sections/SiteFooter";
 import BackToTop from "@/components/BackToTop";
+import StickyProgress from "@/components/StickyProgress";
 import { ToolkitProvider } from "@/lib/toolkitContext";
 
 export default function Page() {
@@ -35,6 +36,7 @@ export default function Page() {
 
       <SiteFooter />
       <BackToTop />
+      <StickyProgress />
     </ToolkitProvider>
   );
 }
