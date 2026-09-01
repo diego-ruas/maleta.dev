@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import { useInView } from "motion/react";
 import { CODEX_ICON_PATH } from "@/lib/codexIconPath";
 
 interface AgentItem {
@@ -89,6 +90,9 @@ const SUPPORTED_AGENTS: AgentItem[] = [
 ];
 
 export default function AgentsTicker() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(wrapperRef, { margin: "0px 0px 200px 0px" });
+
   return (
     <section className="agents-ticker-section" aria-label="Agentes Suportados">
       <div className="agents-ticker-header">
@@ -96,12 +100,12 @@ export default function AgentsTicker() {
         <span className="agents-ticker-sub">Provisionamento determinístico e instalação de skills</span>
       </div>
 
-      <div className="agents-ticker-track-wrapper">
-        <div className="agents-ticker-track">
+      <div className="agents-ticker-track-wrapper" ref={wrapperRef}>
+        <div className={`agents-ticker-track${isInView ? "" : " paused"}`}>
           {/* Trilha 1 */}
-          <div className="agents-ticker-group">
+          <div className="agents-ticker-group" role="list" aria-label="Agentes e ecossistemas compatíveis">
             {SUPPORTED_AGENTS.map((agent) => (
-              <div key={`track-1-${agent.id}`} className="agents-ticker-item">
+              <div key={`track-1-${agent.id}`} className="agents-ticker-item" role="listitem">
                 <svg
                   viewBox={agent.viewBox || "0 0 24 24"}
                   fill="currentColor"

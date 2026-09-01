@@ -132,6 +132,8 @@ export default function AboutSection() {
 
             <p className="about-pillar-desc">{pillar.description}</p>
 
+            {/* <details> nativo por ser conteudo secundario e leve — sem JS de animacao,
+                ao contrario do FaqSection (interacao central da secao, justifica motion). */}
             <details className="about-card-details">
               <summary>Ver detalhes</summary>
               <ul className="about-pillar-highlights">
@@ -149,7 +151,7 @@ export default function AboutSection() {
 
       <details className="about-advanced-details">
         <summary>
-          <span>Ver detalhes técnicos e links</span>
+          <span>Mais detalhes e métricas do projeto</span>
           <span className="about-advanced-count">+1 pilar · 4 métricas</span>
         </summary>
         <div className="about-advanced-body">

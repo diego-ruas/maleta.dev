@@ -12,6 +12,8 @@
     --color-ash: #7e7e7e;
     --color-fog: #b4b4b4;
     --color-paper: #eeeeee;
+    /* Decisao intencional: sem cor de destaque propria (sistema monocromatico).
+       Hierarquia do CTA primario vem do fill invertido (--color-void sobre --color-accent) + peso 700, nao de cor. */
     --color-accent: #eeeeee;
 
     /* Aliases usados pelo site.css */

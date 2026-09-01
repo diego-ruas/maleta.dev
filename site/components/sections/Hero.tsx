@@ -39,18 +39,21 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          <TypewriterText text="~/maleta.dev - Custom AI Toolkit Builder" speed={22} delay={60} />
+          <TypewriterText text="~/maleta.dev - Custom AI Toolkit Builder" speed={16} delay={40} />
         </motion.span>
 
         <motion.h1
+          aria-label="Monte seu toolkit de IA sob medida"
           variants={{
             hidden: { opacity: 0, y: 8 },
             visible: { opacity: 1, y: 0 },
           }}
         >
-          Monte seu toolkit de IA{" "}
-          <span className="highlight-word">
-            <DecryptedText text="sob medida" speed={30} maxIterations={10} />
+          <span aria-hidden="true">
+            Monte seu toolkit de IA{" "}
+            <span className="highlight-word">
+              <DecryptedText text="sob medida" speed={22} maxIterations={6} />
+            </span>
           </span>
         </motion.h1>
 

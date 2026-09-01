@@ -973,7 +973,7 @@ section > p {
 }
 
 .install-stage-number {
-    color: var(--color-steel);
+    color: var(--color-fog);
 }
 
 .install-workflow-content {
@@ -1751,6 +1751,12 @@ button.copied .icon-check {
     color: var(--color-accent);
 }
 
+.plugins-persist-note {
+    font-size: var(--text-xs);
+    color: var(--color-ash);
+    margin-top: var(--space-1);
+}
+
 .plugins-quick-actions {
     display: flex;
     gap: 6px;
@@ -1978,7 +1984,7 @@ button.copied .icon-check {
 }
 
 .faq-caret {
-    color: var(--color-steel);
+    color: var(--color-fog);
     transition: color var(--transition-fast);
 }
 
@@ -2004,6 +2010,14 @@ button.copied .icon-check {
 }
 
 .faq-body code,
+.faq-list-detail {
+    padding-left: 1.2rem;
+    margin-top: var(--space-1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
 .faq-item code {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
@@ -2041,8 +2055,8 @@ button.copied .icon-check {
     position: fixed;
     bottom: calc(2rem + env(safe-area-inset-bottom));
     right: 2rem;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2073,9 +2087,11 @@ button.copied .icon-check {
         bottom: calc(1rem + env(safe-area-inset-bottom));
     }
 
-    /* Reserva espaço para o back-to-top fixo nao sobrepor o rodape */
+    /* Reserva espaço para os elementos fixos (back-to-top a direita, sticky-progress
+       a esquerda) nao sobreporem o rodape. Ambos ficam a 1rem do fundo; a maior
+       altura entre os dois (back-to-top, 44px) define a margem. */
     footer {
-        margin-bottom: calc(3.25rem + env(safe-area-inset-bottom));
+        margin-bottom: calc(3.75rem + env(safe-area-inset-bottom));
     }
 }
 
@@ -2159,11 +2175,29 @@ footer {
     gap: 0 0.5ch;
 }
 
+.not-found {
+    padding: var(--space-12) var(--space-4);
+    text-align: center;
+    font-family: var(--font-mono);
+}
+
+.not-found-title {
+    font-size: var(--text-3xl);
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+}
+
+.not-found-desc {
+    color: var(--fg-muted);
+    margin-bottom: var(--space-4);
+}
+
 .footer-ai-badge {
     display: inline-flex;
     align-items: center;
     gap: 4px;
     white-space: nowrap;
+    cursor: help;
 }
 
 .footer-copy a {
@@ -5050,35 +5084,6 @@ footer {
     background: var(--color-carbon);
 }
 
-.prompt-example-meta {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-    min-width: 0;
-}
-
-.prompt-badge-cat {
-    font-size: 10px;
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    color: var(--color-ash);
-    letter-spacing: 0.05em;
-}
-
-.prompt-badge-skill {
-    font-size: 11px;
-    color: var(--color-accent);
-    background: var(--color-carbon);
-    border: 1px solid var(--color-iron);
-    padding: 1px 4px;
-    border-radius: var(--radius-xs);
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 .prompt-copy-btn {
     display: inline-flex;
     align-items: center;
@@ -5266,7 +5271,7 @@ footer {
 }
 
 .plugin-highlight-cta-label {
-    color: var(--color-steel);
+    color: var(--color-fog);
     font-family: var(--font-mono);
     font-size: 10px;
 }
@@ -5335,6 +5340,10 @@ footer {
     display: flex;
     width: max-content;
     animation: agentsTickerScroll 55s linear infinite;
+}
+
+.agents-ticker-track.paused {
+    animation-play-state: paused;
 }
 
 .agents-ticker-group {

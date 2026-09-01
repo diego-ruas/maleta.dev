@@ -18,10 +18,14 @@ export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const menuToggleRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const ids = NAV_LINKS.map((link) => link.href.replace("#", ""));
+    // Margem superior = altura real do header sticky, para nao considerar
+    // "ativa" uma secao ainda coberta por ele.
+    const headerHeight = headerRef.current?.offsetHeight ?? 96;
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -29,7 +33,7 @@ export default function SiteHeader() {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (visible) setActiveSection(visible.target.id);
       },
-      { rootMargin: "-96px 0px -55% 0px", threshold: [0, 0.25, 0.5, 1] }
+      { rootMargin: `-${headerHeight}px 0px -55% 0px`, threshold: [0, 0.25, 0.5, 1] }
     );
 
     ids.forEach((id) => {
@@ -56,6 +60,7 @@ export default function SiteHeader() {
 
   return (
     <motion.header
+      ref={headerRef}
       initial={reduceMotion ? false : { opacity: 0, y: -10 }}
       animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}

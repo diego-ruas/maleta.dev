@@ -64,7 +64,7 @@ export default function FaqSection() {
           <p>
             O parâmetro <code>-Tools</code> define exatamente quais diretórios da sua máquina receberão as skills:
           </p>
-          <ul style={{ paddingLeft: "1.2rem", marginTop: "0.5rem", display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+          <ul className="faq-list-detail">
             <li><strong>Claude Code (<code>-Tools claude</code>)</strong>: Injeta apenas em <code>~/.claude/skills/</code> e <code>settings.json</code>.</li>
             <li><strong>Codex (<code>-Tools codex</code>)</strong>: Injeta as skills em <code>~/.agents/skills/</code> e os servidores MCP em <code>~/.codex/config.toml</code>.</li>
             <li><strong>Agentes & IDEs (<code>-Tools agents</code>)</strong>: Injeta as skills em <code>~/.agents/skills/</code> para Antigravity, Cursor, Windsurf, Cline, Roo Code, Gemini e Codex.</li>

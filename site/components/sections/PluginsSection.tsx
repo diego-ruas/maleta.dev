@@ -38,9 +38,7 @@ export default function PluginsSection() {
   const [activeTool, setActiveTool] = useState<"all" | "Claude Code" | "Codex">("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  const [selected, setSelected] = useState<Set<string>>(() => {
-    return new Set(ALL_PLUGINS.map((p) => `${p.tool}:${p.name}`));
-  });
+  const [selected, setSelected] = useState<Set<string>>(() => new Set());
 
   useEffect(() => {
     try {
@@ -226,6 +224,7 @@ export default function PluginsSection() {
               </button>
             </div>
           </div>
+          <p className="plugins-persist-note">Sua seleção fica salva neste navegador.</p>
 
           <div className="plugins-command-action">
             <CopyButton

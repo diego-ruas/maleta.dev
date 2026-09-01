@@ -19,17 +19,10 @@ function fallbackCopy(text: string) {
 interface CopyButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "children"> {
   text: string;
-  toastMessage?: string;
   children: ReactNode;
 }
 
-export default function CopyButton({
-  text,
-  toastMessage = "Comando copiado!",
-  className,
-  children,
-  ...rest
-}: CopyButtonProps) {
+export default function CopyButton({ text, className, children, ...rest }: CopyButtonProps) {
   const showToast = useToast();
   const [copied, setCopied] = useState(false);
 
@@ -44,7 +37,8 @@ export default function CopyButton({
       showToast("Não foi possível copiar", "warning");
       return;
     }
-    showToast(toastMessage, "clipboard");
+    // Feedback local (icone + classe .copied) ja cobre o caso de sucesso —
+    // toast reservado para o caso de erro acima.
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   }
