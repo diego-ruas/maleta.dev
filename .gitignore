@@ -47,6 +47,9 @@ claude/skills-selection.txt
 # --- Gerado por scripts/crawl-anthropic-skills.ps1 (ruido para CodeGraph) ---
 docs/DISCOVERED_SKILLS.md
 
+# --- graphify (grafo local gerado, nao versionado) ---
+graphify-out/
+
 # --- OS / editor noise ---
 Thumbs.db
 Desktop.ini
