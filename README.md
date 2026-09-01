@@ -72,30 +72,6 @@ cd maleta.dev
 bash scripts/install.sh
 ```
 
-### Plugin do Codex
-
-Se você usa o Codex e quer ajuda para escolher um preset ou montar uma seleção de skills, instale o plugin local a partir do clone:
-
-```powershell
-codex plugin marketplace add .
-codex plugin add maleta-dev@maleta-dev
-```
-
-Se o CLI exigir o caminho absoluto, use `codex plugin marketplace add <caminho-absoluto-do-clone>`.
-
-O plugin gera comandos para você revisar antes de executar. Ele não envia dados pessoais, não instala nada automaticamente e usa o catálogo deste repositório como fonte de verdade.
-
-### Plugin do Claude Code
-
-O mesmo plugin também roda no Claude Code, a partir do clone:
-
-```bash
-claude plugin marketplace add .
-claude plugin install maleta-dev@maleta-dev
-```
-
-Se o CLI exigir o caminho absoluto, use `claude plugin marketplace add <caminho-absoluto-do-clone>`.
-
 ---
 
 ## O que está incluído

@@ -49,30 +49,6 @@ test("keeps supported agent IDs unique", async () => {
   assert.equal(new Set(ids).size, ids.length);
 });
 
-test("introduces the Codex plugin immediately after the agents ticker", async () => {
-  const page = await source("app/page.tsx");
-  const highlight = await source("components/sections/PluginHighlight.tsx");
-  const css = await source("css/site.css");
-
-  assert.match(page, /<AgentsTicker\s*\/>\s*<PluginHighlight\s*\/>\s*<AboutSection\s*\/>/);
-  assert.match(highlight, /<section[^>]*className="plugin-highlight"/);
-  assert.doesNotMatch(highlight, /hero-terminal/);
-  assert.match(highlight, /className="plugin-highlight-layout"/);
-  assert.match(highlight, /className="plugin-highlight-usage"/);
-  assert.match(highlight, /className="plugin-highlight-cta"/);
-  assert.match(highlight, /className="plugin-highlight-cta-copy"/);
-  assert.match(highlight, /className="plugin-highlight-link btn-primary"/);
-  assert.match(highlight, /id="plugin-codex"/);
-  assert.match(highlight, /href="#instalar"/);
-  assert.match(css, /\.plugin-highlight\s*\{[^}]*display: grid/);
-  assert.match(css, /\.plugin-highlight-layout\s*\{[^}]*grid-template-columns: minmax\(0, 0\.95fr\) minmax\(0, 1\.05fr\)/);
-  assert.match(css, /\.plugin-highlight h2\s*\{[^}]*max-width: none/);
-  assert.doesNotMatch(css, /max-width: 14ch/);
-  assert.match(css, /\.plugin-highlight h2\s*\{[^}]*font-size: var\(--text-2xl\)/);
-  assert.match(css, /\.plugin-highlight-cta\s*\{[^}]*align-self: stretch/);
-  assert.match(css, /\.plugin-highlight-link\s*\{[^}]*padding: 10px/);
-});
-
 test("uses the Codex brand icon in Codex-specific controls", async () => {
   const codexIcon = await source("components/icons/codex.tsx");
   const tools = await source("components/sections/ToolsGrid.tsx");
