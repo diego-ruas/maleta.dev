@@ -62,7 +62,6 @@ const AGENT_INSTALL_COMMANDS = [
 export default function InstallSteps() {
   const { installCommand, selectedSkills, targetTool, targetOs, downloadScript } = useToolkit();
   const [activeTab, setActiveTab] = useState<InstallTab>("oneliner");
-  const [showAdvancedModes, setShowAdvancedModes] = useState(false);
   const isUnix = targetOs === "unix";
 
   const previewCommand = useMemo(() => {
@@ -88,8 +87,7 @@ export default function InstallSteps() {
         Comece com o comando pronto. Abra os outros caminhos se precisar instalar as ferramentas ou trabalhar localmente.
       </p>
 
-      {/* Recommended path first; alternative setup modes stay opt-in. */}
-      <div className="install-mode-toggle" role="tablist" aria-label="Métodos de instalação e onboarding">
+      <div className="install-mode-toggle" role="tablist" aria-label="Métodos de instalação">
         <button
           type="button"
           role="tab"
@@ -97,31 +95,11 @@ export default function InstallSteps() {
           aria-selected={activeTab === "oneliner"}
           aria-controls="install-panel-oneliner"
           className={`install-tab-btn${activeTab === "oneliner" ? " active" : ""}`}
-          onClick={() => {
-            setActiveTab("oneliner");
-            setShowAdvancedModes(false);
-          }}
+          onClick={() => setActiveTab("oneliner")}
         >
           <AnimatedIcon Icon={ZapIcon} className="icon" size={16} />
           <span>One-Liner Express (Recomendado)</span>
         </button>
-      </div>
-
-      <button
-        type="button"
-        className="install-advanced-toggle"
-        aria-expanded={showAdvancedModes}
-        onClick={() => {
-          if (showAdvancedModes) setActiveTab("oneliner");
-          setShowAdvancedModes((current) => !current);
-        }}
-      >
-        <span>Outras formas de instalar</span>
-        <span className="install-advanced-count">2 opções</span>
-      </button>
-
-      {showAdvancedModes && (
-        <div className="install-advanced-tabs" role="tablist" aria-label="Métodos alternativos de instalação">
         <button
           type="button"
           role="tab"
@@ -132,7 +110,7 @@ export default function InstallSteps() {
           onClick={() => setActiveTab("fresh")}
         >
           <AnimatedIcon Icon={CpuIcon} className="icon" size={16} />
-          <span>Setup do Zero (instalar ferramentas)</span>
+          <span>Setup do Zero</span>
         </button>
         <button
           type="button"
@@ -146,8 +124,7 @@ export default function InstallSteps() {
           <AnimatedIcon Icon={TerminalIcon} className="icon" size={16} />
           <span>Instalação Local (Git / ZIP)</span>
         </button>
-        </div>
-      )}
+      </div>
 
       {/* Conteúdo dinâmico por aba */}
       {activeTab === "oneliner" && (
@@ -322,7 +299,7 @@ export default function InstallSteps() {
           <div className="process-card">
             <div className="process-card-header">
               <div className="process-icon-box">
-                <AnimatedIcon Icon={ZapIcon} className="icon" size={20} />
+                <AnimatedIcon Icon={TerminalIcon} className="icon" size={20} />
               </div>
               <div className="process-num">03</div>
             </div>
@@ -449,12 +426,24 @@ export default function InstallSteps() {
 
         <div className="tutorial-tip-item">
           <div className="tutorial-tip-icon">
-            <AnimatedIcon Icon={ZapIcon} className="icon" size={20} />
+            <AnimatedIcon Icon={DownloadIcon} className="icon" size={20} />
           </div>
           <div className="tutorial-tip-body">
             <h4 className="tutorial-tip-title">Como Atualizar</h4>
             <p className="tutorial-tip-desc">
               Para atualizar ou alterar seu mix de skills, basta selecionar as novas opções no site e rodar o novo comando no terminal.
+            </p>
+          </div>
+        </div>
+
+        <div className="tutorial-tip-item">
+          <div className="tutorial-tip-icon">
+            <AnimatedIcon Icon={CpuIcon} className="icon" size={20} />
+          </div>
+          <div className="tutorial-tip-body">
+            <h4 className="tutorial-tip-title">Funciona em Vários Agentes</h4>
+            <p className="tutorial-tip-desc">
+              As mesmas skills rodam no Claude Code, Codex e qualquer agente que leia arquivos <code>SKILL.md</code> — sem duplicar nada.
             </p>
           </div>
         </div>

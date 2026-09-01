@@ -92,12 +92,12 @@ export default function PluginsSection() {
   const claudeSelected = useMemo(() => {
     return ALL_PLUGINS
       .filter((p) => selected.has(`${p.tool}:${p.name}`))
-      .map((p) => p.name);
+      .map((p) => p.id);
   }, [selected]);
 
   const pluginInstallCommand = useMemo(() => {
     if (claudeSelected.length === 0) return "# Nenhum plugin selecionado";
-    return claudeSelected.map((n) => `claude plugin install ${n}`).join(" ; ");
+    return claudeSelected.map((id) => `claude plugin install ${id}`).join(" ; ");
   }, [claudeSelected]);
 
   return (

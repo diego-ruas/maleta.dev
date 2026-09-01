@@ -24,8 +24,8 @@ Maleta.dev is an interactive custom toolkit builder and catalog for local AI cod
 Maleta.dev includes over 80 curated skills organized by category:
 
 - **Accessibility**: Audits, diffs, fixes, DOM inspect, WCAG 2.2 AA compliance (`accessibility-audit`, `accessibility-scan`, `accessibility-fix`).
-- **Animations & Design Engineering**: Framer Motion, micro-interactions, CSS animations, sound design (`framer-motion-2`, `web-animation-design-engineer`, `sound-design-ui`).
-- **Cloudflare**: Workers, Pages, Durable Objects, D1, Queues, Vectorize, KV (`cloudflare-workers`, `cloudflare-d1`, `cloudflare-durable-objects`).
+- **Animations & Design Engineering**: micro-interactions, animation vocabulary, review and discovery of animation opportunities (`animate`, `animation-vocabulary`, `improve-animations`, `review-animations`, `find-animation-opportunities`).
+- **Cloudflare**: Workers, Durable Objects, Email Service, Cloudflare One (`cloudflare`, `workers-best-practices`, `durable-objects`, `cloudflare-email-service`, `cloudflare-one`).
 - **UI & Frontend Design**: Modern UI engineering, anti-slop design taste, typography, React/Next.js patterns (`design-taste-frontend`, `emil-design-eng`, `no-ai-slop`, `frontend-design`, `ui-ux-pro-max`).
 - **Testing & Quality**: Test-Driven Development (TDD), Playwright web app testing, systematic debugging, pre-completion verification (`test-driven-development`, `webapp-testing`, `systematic-debugging`, `verification-before-completion`).
 - **Writing & Documentation**: Documentation co-authoring, technical specs, and RFC authoring (`doc-coauthoring`).

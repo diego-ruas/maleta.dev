@@ -883,73 +883,27 @@ section > p {
 /* Presets rápidos de skills */
 /* Alternador de Modo de Instalacao (Express / Manual) */
 .install-mode-toggle {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-1);
     margin-top: var(--space-3);
     margin-bottom: var(--space-2);
-    flex-wrap: wrap;
-}
-
-.install-advanced-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2);
-    width: 100%;
-    min-height: 44px;
-    margin: 0 0 var(--space-2);
-    padding: 8px 12px;
-    background: var(--color-carbon);
-    border: 1px solid var(--color-iron);
-    border-radius: var(--radius-sm);
-    color: var(--fg-muted);
-    cursor: pointer;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    text-align: left;
-    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
-}
-
-.install-advanced-toggle::before {
-    content: "+";
-    color: var(--color-accent);
-    font-size: 16px;
-    line-height: 1;
-    margin-right: 2px;
-}
-
-.install-advanced-toggle[aria-expanded="true"]::before {
-    content: "-";
-}
-
-.install-advanced-toggle:hover,
-.install-advanced-toggle:focus-visible {
-    background: var(--color-graphite);
-    border-color: var(--color-slate);
-    color: var(--fg);
-}
-
-.install-advanced-count {
-    color: var(--color-ash);
-    flex-shrink: 0;
-}
-
-.install-advanced-tabs {
-    display: flex;
-    gap: var(--space-1);
-    flex-wrap: wrap;
-    margin: calc(var(--space-1) * -1) 0 var(--space-2);
 }
 
 .install-tab-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
     background: var(--color-graphite);
     border: 1px solid var(--color-iron);
     border-radius: var(--radius-sm);
     color: var(--fg-muted);
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    padding: var(--space-1) var(--space-2);
+    padding: var(--space-2);
     cursor: pointer;
+    text-align: center;
     transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
 }
 
@@ -1800,13 +1754,13 @@ button.copied .icon-check {
 }
 
 .plugin-row-item.selected {
-    background: rgba(218, 92, 44, 0.05);
+    background: var(--color-graphite);
     border-color: var(--color-accent);
     border-left: 2px solid var(--color-accent);
 }
 
 .plugin-row-item.selected:hover {
-    background: rgba(218, 92, 44, 0.09);
+    background: var(--color-graphite);
     border-color: var(--color-accent);
 }
 
@@ -1815,6 +1769,14 @@ button.copied .icon-check {
     align-items: center;
     justify-content: space-between;
     gap: var(--space-2);
+    width: 100%;
+    appearance: none;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
 }
 
 .plugin-row-info {
@@ -1842,6 +1804,7 @@ button.copied .icon-check {
 
 .plugin-row-item.selected .plugin-row-name {
     color: var(--color-accent);
+    font-weight: 700;
 }
 
 .plugin-row-tool-chip {
@@ -1902,7 +1865,7 @@ button.copied .icon-check {
 }
 
 .plugin-row-select-btn.active:hover {
-    background: var(--color-accent-hover);
+    background: var(--color-fog);
 }
 
 /* FAQ */
@@ -2106,7 +2069,7 @@ button.copied .icon-check {
 /* Barra sticky com contador de skills selecionadas */
 .sticky-progress {
     position: fixed;
-    left: 2rem;
+    left: 50%;
     bottom: calc(2rem + env(safe-area-inset-bottom));
     display: flex;
     align-items: center;
@@ -2148,7 +2111,7 @@ button.copied .icon-check {
 
 @media (max-width: 600px) {
     .sticky-progress {
-        left: 1rem;
+        left: 50%;
         bottom: calc(1rem + env(safe-area-inset-bottom));
         font-size: var(--text-xs, 0.8rem);
     }
@@ -3592,13 +3555,13 @@ footer {
 }
 
 .skill-row-item.selected {
-    background: rgba(218, 92, 44, 0.05);
+    background: var(--color-graphite);
     border-color: var(--color-accent);
     border-left: 2px solid var(--color-accent);
 }
 
 .skill-row-item.selected:hover {
-    background: rgba(218, 92, 44, 0.09);
+    background: var(--color-graphite);
     border-color: var(--color-accent);
 }
 
@@ -3607,6 +3570,14 @@ footer {
     align-items: center;
     justify-content: space-between;
     gap: var(--space-2);
+    width: 100%;
+    appearance: none;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
 }
 
 .skill-row-info {
@@ -3634,6 +3605,7 @@ footer {
 
 .skill-row-item.selected .skill-row-name {
     color: var(--color-accent);
+    font-weight: 700;
 }
 
 .skill-row-category-chip {
@@ -3684,7 +3656,7 @@ footer {
 }
 
 .skill-row-select-btn.active:hover {
-    background: var(--color-accent-hover);
+    background: var(--color-fog);
 }
 
 .skills-empty-box {
@@ -3911,9 +3883,14 @@ footer {
     padding-top: 6px;
 }
 
-.about-card-details .about-pillar-highlights {
+.about-card-details .about-pillar-highlights,
+.about-trust-summary {
     border-top: 0;
     padding-top: 6px;
+}
+
+.about-trust-summary {
+    margin-bottom: var(--space-2);
 }
 
 .about-highlight-item {

@@ -58,7 +58,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [ghToken, setGhToken] = useState("");
   const [showTokenInput, setShowTokenInput] = useState(false);
-  const [searchTopic, setSearchTopic] = useState<"skills" | "plugins" | "mcp">("skills");
+  const [searchTopic, setSearchTopic] = useState<"skills" | "plugins">("skills");
   const scanningRef = useRef(false);
   const abortRef = useRef<AbortController | null>(null);
 
@@ -184,7 +184,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
     }
   }
 
-  async function searchCommunity(overrideQuery?: string, overrideTopic?: "skills" | "plugins" | "mcp") {
+  async function searchCommunity(overrideQuery?: string, overrideTopic?: "skills" | "plugins") {
     const qTerm = typeof overrideQuery === "string" ? overrideQuery : communityQuery;
     const activeTopic = overrideTopic || searchTopic;
     if (scanningRef.current) return;
@@ -195,8 +195,6 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
     const topicLabel =
       activeTopic === "plugins"
         ? "topic:claude-plugins"
-        : activeTopic === "mcp"
-        ? "topic:mcp-server"
         : "topic:claude-skills";
 
     setScanStep(`Consultando repositórios com o tópico ${topicLabel}...`);
@@ -482,7 +480,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
             </div>
           </div>
 
-          {/* Seletor de Tipo de Busca no GitHub: Skills / Plugins / MCP */}
+          {/* Seletor de Tipo de Busca no GitHub: Skills / Plugins */}
           <div className="repo-topic-selector" role="group" aria-label="Tipo de busca no GitHub">
             <button
               type="button"
@@ -509,19 +507,6 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
               }}
             >
               <span>Plugins (topic:claude-plugins)</span>
-            </button>
-            <button
-              type="button"
-              className={`repo-topic-btn${searchTopic === "mcp" ? " active" : ""}`}
-              aria-pressed={searchTopic === "mcp"}
-              disabled={scanning}
-              title={scanning ? "Aguarde a busca atual terminar" : undefined}
-              onClick={() => {
-                setSearchTopic("mcp");
-                searchCommunity(undefined, "mcp");
-              }}
-            >
-              <span>MCP Servers (topic:mcp-server)</span>
             </button>
           </div>
 

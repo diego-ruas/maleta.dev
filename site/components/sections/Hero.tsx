@@ -66,7 +66,7 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          Escolha uma base, ajuste o pacote e copie um comando pronto para instalar skills no <span className="highlight-word">Claude Code</span>, <span className="highlight-word">Codex</span> ou outras IDEs.
+          O Maleta.dev não instala nada sozinho: é um construtor que gera um comando de instalação a partir das skills, plugins e presets de IA que você escolher no catálogo abaixo. Você vê o comando completo, copia e roda quando quiser, no seu terminal, para <span className="highlight-word">Claude Code</span>, <span className="highlight-word">Codex</span> ou outras IDEs.
         </motion.p>
 
         <motion.div
@@ -82,7 +82,7 @@ export default function Hero() {
           </a>
           <a href="#sobre" className="intro-badge-item intro-badge-link" title="Saiba como funciona o provisionamento local">
             <AnimatedIcon Icon={ShieldIcon} className="icon" size={16} />
-            <span>Instalação local - configuração sob seu controle</span>
+            <span>100% local - sem telemetria, sem enviar nada pra fora</span>
           </a>
         </motion.div>
 
@@ -125,7 +125,7 @@ export default function Hero() {
                 <span className="terminal-dot" />
                 <span className="terminal-dot" />
               </div>
-              <span className="terminal-title">{targetOs === "unix" ? "quick-setup.sh" : "quick-setup.ps1"}</span>
+              <span className="terminal-title">{targetOs === "unix" ? "install.sh" : "install.ps1"}</span>
             </div>
             <span className="terminal-badge"><AnimatedCounter value={selectedSkills.size} /> SKILLS</span>
           </div>

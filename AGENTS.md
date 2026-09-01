@@ -123,12 +123,12 @@ npm run build      # static export to out/ — must pass before claiming done
 - `lib/toolkitContext.tsx` — shared state for active tool target, target OS (Windows/Unix), skill selections, presets, custom GitHub imports, and dynamic installer command generation.
 - `lib/iconMap.ts` — category-to-Pixelarticon resolver.
 - `lib/data.ts` — structured, typed catalogue of all skills, categories, presets, and plugin manifests.
-- `components/sections/` — modular page sections (`Hero`, `AboutSection`, `ToolsGrid`, `SkillsSection`, `PluginsSection`, `InstallSteps`, `FaqSection`, `SiteHeader`, `SiteFooter`).
+- `components/sections/` — modular page sections (`Hero`, `AboutSection`, `ToolsGrid`, `SkillsSection`, `PluginsSection`, `InstallSteps`, `AgentsTicker`, `FaqSection`, `SiteHeader`, `SiteFooter`).
 - `components/skills/` — interactive client components (`SkillsExplorer`, `RepoScan`, `SkillCard`) for filtering, searching, and community GitHub imports.
 - `components/CopyButton.tsx` & `components/Toast.tsx` — interactive copy-to-clipboard and queued toast feedback system (`aria-live`, high-contrast states).
 - `components/icons/*.tsx` — Pixelarticons (rule 8). MIT, animated with `motion/react` stepped transitions.
 - `components/AnimatedIcon.tsx` — client wrapper: delegates hover from the parent button/link to the icon.
-- `public/install.ps1` — parameterized one-liner installer hosted at `https://maleta.dev/install.ps1`.
+- `public/install.ps1` / `public/install.sh` — parameterized one-liner installers hosted at `https://maleta.dev/install.ps1` and `https://maleta.dev/install.sh`.
 - `css/` — `base.css` (tokens), `site.css` (components), `transitions.css`.
 - `DESIGN.md` — Axiom design system; keep visual changes compliant.
 

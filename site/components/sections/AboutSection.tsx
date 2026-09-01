@@ -40,9 +40,9 @@ const PILLARS: PillarItem[] = [
     description:
       "Instruções modulares que podem ser instaladas em diferentes assistentes de código.",
     highlights: [
-      "Claude Code e Codex",
-      "Antigravity, Cursor e Windsurf",
-      "Codex, Devin, Gemini e Roo Code",
+      "Claude Code, Codex e Antigravity",
+      "Cursor, Windsurf, Cline e Roo Code",
+      "Devin, Gemini CLI, GitHub Copilot e Zed",
     ],
   },
   {
@@ -60,21 +60,19 @@ const PILLARS: PillarItem[] = [
   {
     icon: TerminalIcon,
     title: "Instalação Expressa One-Liner",
-    tag: "PROVISIONAMENTO POWERSHELL",
+    tag: "PROVISIONAMENTO ONE-LINER",
     description:
-      "Scriptblock parametrizado para PowerShell 5.1+ que injeta seu toolkit sob medida em segundos.",
+      "Script parametrizado (PowerShell ou bash) que injeta seu toolkit sob medida em segundos.",
     highlights: [
-      "Windows 10/11 nativo sem admin",
-      "Sem dependência de Git, Python ou pip",
+      "Windows (PowerShell 5.1+), Linux e macOS (bash/zsh)",
+      "Sem dependência de Git nem privilégios de admin",
       "Comando customizado gerado no site",
     ],
   },
 ];
 
 const STATS = [
-  { numeric: SKILLS.length, suffix: "", label: "Skills Curadas", detail: "8 categorias com guardrails técnicos" },
-  { numeric: 100, suffix: "%", label: "Local & Seguro", detail: "Zero telemetria ou dados em nuvem" },
-  { numeric: 8, suffix: "+", label: "Agentes & IDEs", detail: "Skills compatíveis com vários ambientes" },
+  { numeric: 11, suffix: "", label: "Agentes & IDEs", detail: "Skills compatíveis com vários ambientes" },
   { text: "MIT", label: "Código Aberto", detail: "Auditável e extensível no GitHub" },
 ];
 
@@ -88,6 +86,15 @@ export default function AboutSection() {
       <p className="about-lead">
         Agentes de código são assistentes que escrevem e editam seu projeto. As <strong>skills</strong> são instruções prontas que ajudam esses agentes a seguir seu jeito de trabalhar, sem você repetir as mesmas regras em cada pedido.
       </p>
+
+      <ul className="about-pillar-highlights about-trust-summary">
+        {PILLARS[0].highlights.map((item, idx) => (
+          <li key={idx} className="about-highlight-item">
+            <AnimatedIcon Icon={CheckIcon} className="icon about-highlight-icon" size={14} />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
 
       <details className="about-advanced-details">
         <summary>
@@ -117,7 +124,7 @@ export default function AboutSection() {
                 <span className="about-prompt-cmd">maleta init --skills={SKILLS.length} --deterministic --privacy=strict</span>
               </div>
               <p>
-                O <strong>maleta.dev</strong> reúne skills auditáveis para <strong>Claude Code</strong>, <strong>Codex</strong> e outros agentes. Escolha uma base, ajuste o pacote e copie um comando pronto para instalar tudo localmente, sem telemetria.
+                O <strong>maleta.dev</strong> reúne skills auditáveis para <strong>Claude Code</strong>, <strong>Codex</strong> e outros agentes. Escolha uma base, ajuste o pacote e copie um comando pronto para instalar tudo.
               </p>
             </div>
           </div>
@@ -136,17 +143,19 @@ export default function AboutSection() {
                 <h3 className="about-pillar-title">{pillar.title}</h3>
                 <p className="about-pillar-desc">{pillar.description}</p>
 
-                <details className="about-card-details">
-                  <summary>Ver detalhes</summary>
-                  <ul className="about-pillar-highlights">
-                    {pillar.highlights.map((item, hIdx) => (
-                      <li key={hIdx} className="about-highlight-item">
-                        <AnimatedIcon Icon={CheckIcon} className="icon about-highlight-icon" size={14} />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
+                {idx !== 0 && (
+                  <details className="about-card-details">
+                    <summary>Ver detalhes</summary>
+                    <ul className="about-pillar-highlights">
+                      {pillar.highlights.map((item, hIdx) => (
+                        <li key={hIdx} className="about-highlight-item">
+                          <AnimatedIcon Icon={CheckIcon} className="icon about-highlight-icon" size={14} />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
               </div>
             ))}
           </div>

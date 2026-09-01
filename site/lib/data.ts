@@ -19,6 +19,7 @@ export interface Skill {
 }
 
 export interface PluginItem {
+  id: string;
   name: string;
   description: string;
   category?: string;
@@ -269,7 +270,7 @@ export const SKILLS: Skill[] = [
   },
   {
     name: "better-interface",
-    category: "Testes",
+    category: "Design UI",
     description: "Revisão de interface interdisciplinar.",
   },
   {
@@ -654,51 +655,67 @@ export const PLUGIN_GROUPS: PluginGroup[] = [
     tool: "Claude Code",
     items: [
       {
+        id: "superpowers@claude-plugins-official",
         name: "superpowers",
         description: "workflow completo: brainstorm -> plan -> TDD -> review",
         category: "Workflow",
       },
       {
+        id: "frontend-design@claude-plugins-official",
         name: "frontend-design",
         description: "UI distintiva, sem cara de AI slop",
         category: "Design UI",
       },
       {
+        id: "ponytail@ponytail",
         name: "ponytail",
         description: "respostas de código minimalistas",
         category: "Código Limpo",
       },
       {
+        id: "code-simplifier@claude-plugins-official",
         name: "code-simplifier",
         description: "simplifica código e reduz complexidade",
         category: "Código Limpo",
       },
       {
+        id: "security-guidance@claude-plugins-official",
         name: "security-guidance",
         description: "revisão de segurança",
         category: "Segurança",
       },
       {
+        id: "code-review@claude-plugins-official",
         name: "code-review",
         description: "revisão multi-agente antes do commit",
         category: "Qualidade",
       },
       {
+        id: "commit-commands@claude-plugins-official",
         name: "commit-commands",
         description: "commits convencionais",
         category: "Git",
       },
       {
+        id: "claude-mem@thedotmack",
         name: "claude-mem",
         description: "memória persistente entre sessões",
         category: "Memória",
       },
       {
+        id: "figma@claude-plugins-official",
         name: "figma",
         description: "trabalhar com designs do Figma",
         category: "Design UI",
       },
       {
+        id: "context7@claude-plugins-official",
+        name: "context7",
+        description: "documentação atualizada de libs direto no contexto",
+        category: "Workflow",
+      },
+      {
+        id: "planning-with-files@planning-with-files",
         name: "planning-with-files",
         description: "planos em markdown que sobrevivem a /clear",
         category: "Workflow",

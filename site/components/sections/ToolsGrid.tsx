@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import { ArrowUpRightIcon } from "@/components/icons/arrow-up-right";
 import { ChevronDownIcon } from "@/components/icons/chevron-down";
 import { ClaudeIcon } from "@/components/icons/claude";
+import { CodexIcon } from "@/components/icons/codex";
 import { SearchIcon } from "@/components/icons/search";
 import { PLUGIN_GROUPS } from "@/lib/data";
 
@@ -36,6 +37,27 @@ export default function ToolsGrid() {
             className="contact-card-action"
           >
             <span>Inspecionar pasta claude/</span>
+            <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
+          </a>
+        </div>
+
+        <div className="contact-card">
+          <div className="contact-card-icon">
+            <AnimatedIcon Icon={CodexIcon} className="icon" size={24} />
+          </div>
+          <div className="contact-card-info">
+            <h3>Codex</h3>
+            <p>
+              Skills em <code>~/.agents/skills/</code>, lidas nativamente pelo Codex.
+            </p>
+          </div>
+          <a
+            href="https://github.com/diego-ruas/maleta.dev/tree/main/codex"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-card-action"
+          >
+            <span>Inspecionar pasta codex/</span>
             <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
           </a>
         </div>

@@ -36,9 +36,9 @@ export default function StickyProgress() {
         <motion.a
           href="#skills"
           className="sticky-progress"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 12, x: "-50%" }}
+          animate={{ opacity: 1, y: 0, x: "-50%" }}
+          exit={{ opacity: 0, y: 12, x: "-50%" }}
           transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
           <AnimatedIcon Icon={SlidersHorizontalIcon} size={16} />
