@@ -1,7 +1,7 @@
 "use client";
 
-import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
+import type React from "react";
 import type { HTMLAttributes } from "react";
 import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
 
@@ -16,18 +16,6 @@ interface NotesIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
-const NOTES_VARIANTS: Variants = {
-  normal: { scale: 1, y: 0 },
-  animate: {
-    scale: [1, 1.08, 1],
-    y: [0, -1, 0],
-    transition: {
-      duration: 0.3,
-      ease: "linear",
-    },
-  },
-};
-
 const NotesIcon = forwardRef<NotesIconHandle, NotesIconProps>(
   ({ onMouseEnter, onMouseLeave, className, size = 20, ...props }, ref) => {
     const controls = useAnimation();
@@ -35,6 +23,7 @@ const NotesIcon = forwardRef<NotesIconHandle, NotesIconProps>(
 
     useImperativeHandle(ref, () => {
       isControlledRef.current = true;
+
       return {
         startAnimation: () => controls.start("animate"),
         stopAnimation: () => controls.start("normal"),
@@ -70,18 +59,96 @@ const NotesIcon = forwardRef<NotesIconHandle, NotesIconProps>(
         onMouseLeave={handleMouseLeave}
         {...props}
       >
-        <svg
-          fill="currentColor"
+        <motion.svg
+          animate={controls}
+          fill="none"
           height={size}
+          initial="normal"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          variants={{
+            normal: { scale: 1 },
+            animate: {
+              scale: 1.05,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+          }}
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <motion.g animate={controls} variants={NOTES_VARIANTS}>
-            <path d="M6 8h2v12H6zM2 4h2v12H2zm18 4h2v8h-2zM8 6h12v2H8zM4 2h12v2H4zm14 14h2v2h-2zm-2 2h2v2h-2zm-8 2h8v2H8zm6-6h6v2h-6z" />
-            <path d="M14 14h2v6h-2zm2-10h2v2h-2zM4 16h2v2H4z" />
-          </motion.g>
-        </svg>
+          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+          <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+
+          <motion.path
+            d="M10 9H8"
+            stroke="currentColor"
+            strokeWidth="2"
+            variants={{
+              normal: {
+                pathLength: 1,
+                x1: 8,
+                x2: 10,
+              },
+              animate: {
+                pathLength: [1, 0, 1],
+                x1: [8, 10, 8],
+                x2: [10, 10, 10],
+                transition: {
+                  duration: 0.7,
+                  delay: 0.3,
+                },
+              },
+            }}
+          />
+          <motion.path
+            d="M16 13H8"
+            stroke="currentColor"
+            strokeWidth="2"
+            variants={{
+              normal: {
+                pathLength: 1,
+                x1: 8,
+                x2: 16,
+              },
+              animate: {
+                pathLength: [1, 0, 1],
+                x1: [8, 16, 8],
+                x2: [16, 16, 16],
+                transition: {
+                  duration: 0.7,
+                  delay: 0.5,
+                },
+              },
+            }}
+          />
+          <motion.path
+            d="M16 17H8"
+            stroke="currentColor"
+            strokeWidth="2"
+            variants={{
+              normal: {
+                pathLength: 1,
+                x1: 8,
+                x2: 16,
+              },
+              animate: {
+                pathLength: [1, 0, 1],
+                x1: [8, 16, 8],
+                x2: [16, 16, 16],
+                transition: {
+                  duration: 0.7,
+                  delay: 0.7,
+                },
+              },
+            }}
+          />
+        </motion.svg>
       </div>
     );
   }

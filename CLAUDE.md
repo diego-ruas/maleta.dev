@@ -22,7 +22,7 @@
 - Menor diff funcional; sem abstração especulativa.
 - Não adicione tratamento de erro/validação/logs não pedidos.
 - Faça só o que foi pedido; não antecipe próximos passos.
-- **Nunca use emojis**: zero emojis em respostas, mensagens, docs ou código. Use apenas os Pixelarticons do projeto e prefixos textuais (`//`, `~`, `->`, `*`).
+- **Nunca use emojis**: zero emojis em respostas, mensagens, docs ou código. Use apenas os ícones animados do projeto (`site/components/icons/`) e prefixos textuais (`//`, `~`, `->`, `*`).
 
 ## Visão geral
 Repositório público, somente instalação e construtor customizado de tooling de IA: skills, presets, plugins e configuração para **Claude Code** (`claude/`) e **Codex** (`codex/`). `site/` é o aplicativo web e construtor sob medida (Next.js 15, App Router, `output: 'export'`) publicado na Vercel.
@@ -31,8 +31,8 @@ Repositório público, somente instalação e construtor customizado de tooling 
 1. **Nunca commitar dados privados ou credenciais** (`.claude-mem/`, `.credentials.json`, `.env*`, sessions, tokens).
 2. **Nunca editar arquivos em `claude/skills/` para personalizá-los** — são cópias de artefatos upstream mantendo licenças intactas.
 3. **Repositório somente instalação** — nunca reintroduzir scripts de backup/auto-sync que enviem dados locais ao git.
-4. **Mudanças no site (`site/`)**: CSS plano em `site/css/`, Pixelarticons animados sem fundo preto em `components/icons/`, estado compartilhado em `lib/toolkitContext.tsx`, catálogo em `lib/data.ts`. Validar sempre com `npm run lint` e `npm run build`.
+4. **Mudanças no site (`site/`)**: CSS plano em `site/css/`, ícones animados (padrão pqoqubbw/icons: SVG stroke + `motion/react`, sem fundo preto) em `components/icons/`, estado compartilhado em `lib/toolkitContext.tsx`, catálogo em `lib/data.ts`. Validar sempre com `npm run lint` e `npm run build`.
 5. **Scripts PowerShell**: manter compatíveis com PowerShell 5.1 (sem `&&`, sem `??`).
-6. **Nunca usar emojis**: use estritamente os Pixelarticons do projeto e marcadores textuais.
+6. **Nunca usar emojis**: use estritamente os ícones do projeto e marcadores textuais.
 
 Para procedimentos operacionais detalhados (adicionar skills, atualizar plugins, workflows do site), consulte [AGENTS.md](./AGENTS.md).

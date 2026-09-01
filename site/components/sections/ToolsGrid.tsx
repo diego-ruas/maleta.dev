@@ -3,6 +3,7 @@
 import AnimatedIcon from "@/components/AnimatedIcon";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRightIcon } from "@/components/icons/arrow-up-right";
+import { ChevronDownIcon } from "@/components/icons/chevron-down";
 import { ClaudeIcon } from "@/components/icons/claude";
 import { CodexIcon } from "@/components/icons/codex";
 import { SearchIcon } from "@/components/icons/search";
@@ -73,8 +74,8 @@ export default function ToolsGrid() {
             </p>
           </div>
           <a href="#repo-add" className="contact-card-action">
-            <span>Explorar Hub Comunitário &darr;</span>
-            <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
+            <span>Explorar Hub Comunitário</span>
+            <AnimatedIcon Icon={ChevronDownIcon} className="icon" size={16} />
           </a>
         </div>
       </div>

@@ -16,13 +16,13 @@ interface TerminalIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
-const TERMINAL_VARIANTS: Variants = {
-  normal: { scale: 1, x: 0 },
+const LINE_VARIANTS: Variants = {
+  normal: { opacity: 1 },
   animate: {
-    scale: [1, 1.1, 1],
-    x: [0, 2, 0],
+    opacity: [1, 0, 1],
     transition: {
-      duration: 0.3,
+      duration: 0.8,
+      repeat: Number.POSITIVE_INFINITY,
       ease: "linear",
     },
   },
@@ -35,6 +35,7 @@ const TerminalIcon = forwardRef<TerminalIconHandle, TerminalIconProps>(
 
     useImperativeHandle(ref, () => {
       isControlledRef.current = true;
+
       return {
         startAnimation: () => controls.start("animate"),
         stopAnimation: () => controls.start("normal"),
@@ -71,15 +72,26 @@ const TerminalIcon = forwardRef<TerminalIconHandle, TerminalIconProps>(
         {...props}
       >
         <svg
-          fill="currentColor"
+          fill="none"
           height={size}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <motion.g animate={controls} variants={TERMINAL_VARIANTS}>
-            <path d="M4 2h16v2H4zm0 18h16v2H4zM2 4h2v16H2zm18 0h2v16h-2zM6 16h2v2H6zm2-2h2v2H8zm-2-2h2v2H6z" />
-          </motion.g>
+          <polyline points="4 17 10 11 4 5" />
+          <motion.line
+            animate={controls}
+            initial="normal"
+            variants={LINE_VARIANTS}
+            x1="12"
+            x2="20"
+            y1="19"
+            y2="19"
+          />
         </svg>
       </div>
     );

@@ -251,7 +251,7 @@ export default function PluginsSection() {
               <li key={pluginKey} className={`plugin-row-item${isSelected ? " selected" : ""}`}>
                 <div className="plugin-row-main">
                   <div className="plugin-row-icon-cell">
-                    <AnimatedIcon Icon={ToolIcon} className="plugin-item-icon" size={18} />
+                    <AnimatedIcon Icon={ToolIcon} className="plugin-item-icon" size={20} />
                   </div>
                   <div className="plugin-row-info">
                     <div className="plugin-row-title-row">

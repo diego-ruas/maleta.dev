@@ -1,19 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
-import { Roboto } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { ToastProvider } from "@/components/Toast";
 import "../css/base.css";
 import "../css/site.css";
 import "../css/transitions.css";
 
-const departureMono = localFont({
-  src: "./fonts/DepartureMono-Regular.woff2",
-  variable: "--font-departure-mono",
-  display: "swap",
-});
-
-const roboto = Roboto({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-body",
@@ -63,7 +56,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${departureMono.variable} ${roboto.variable}`}>
+    <html lang="pt-BR" className={jetbrainsMono.variable}>
       <body>
         <ToastProvider>{children}</ToastProvider>
         <Analytics />

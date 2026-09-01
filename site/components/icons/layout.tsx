@@ -16,14 +16,39 @@ interface LayoutIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
-const LAYOUT_VARIANTS: Variants = {
-  normal: { scale: 1 },
+const RECT_1_VARIANTS: Variants = {
+  normal: { translateX: 0, translateY: 0 },
   animate: {
-    scale: [1, 1.1, 1],
-    transition: {
-      duration: 0.3,
-      ease: "linear",
-    },
+    translateX: [0, 11, 11, 0],
+    translateY: [0, 0, 0, 0],
+    transition: { duration: 0.8, ease: "easeInOut", times: [0, 0.4, 0.6, 1] },
+  },
+};
+
+const RECT_2_VARIANTS: Variants = {
+  normal: { translateX: 0, translateY: 0 },
+  animate: {
+    translateX: [0, 0, 0, 0],
+    translateY: [0, 11, 11, 0],
+    transition: { duration: 0.8, ease: "easeInOut", times: [0, 0.4, 0.6, 1] },
+  },
+};
+
+const RECT_3_VARIANTS: Variants = {
+  normal: { translateX: 0, translateY: 0 },
+  animate: {
+    translateX: [0, -11, -11, 0],
+    translateY: [0, 0, 0, 0],
+    transition: { duration: 0.8, ease: "easeInOut", times: [0, 0.4, 0.6, 1] },
+  },
+};
+
+const RECT_4_VARIANTS: Variants = {
+  normal: { translateX: 0, translateY: 0 },
+  animate: {
+    translateX: [0, 0, 0, 0],
+    translateY: [0, -11, -11, 0],
+    transition: { duration: 0.8, ease: "easeInOut", times: [0, 0.4, 0.6, 1] },
   },
 };
 
@@ -34,6 +59,7 @@ const LayoutIcon = forwardRef<LayoutIconHandle, LayoutIconProps>(
 
     useImperativeHandle(ref, () => {
       isControlledRef.current = true;
+
       return {
         startAnimation: () => controls.start("animate"),
         stopAnimation: () => controls.start("normal"),
@@ -70,15 +96,56 @@ const LayoutIcon = forwardRef<LayoutIconHandle, LayoutIconProps>(
         {...props}
       >
         <svg
-          fill="currentColor"
+          fill="none"
           height={size}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <motion.g animate={controls} variants={LAYOUT_VARIANTS}>
-            <path d="M20 20H4v-2h4v-8H4v8H2V6h2v2h16V6h2v12h-2v-8H10v8h10v2Zm0-14H4V4h16v2Z" />
-          </motion.g>
+          <motion.rect
+            animate={controls}
+            height="7"
+            initial="normal"
+            rx="1"
+            variants={RECT_1_VARIANTS}
+            width="7"
+            x="3"
+            y="3"
+          />
+          <motion.rect
+            animate={controls}
+            height="7"
+            initial="normal"
+            rx="1"
+            variants={RECT_2_VARIANTS}
+            width="7"
+            x="14"
+            y="3"
+          />
+          <motion.rect
+            animate={controls}
+            height="7"
+            initial="normal"
+            rx="1"
+            variants={RECT_3_VARIANTS}
+            width="7"
+            x="14"
+            y="14"
+          />
+          <motion.rect
+            animate={controls}
+            height="7"
+            initial="normal"
+            rx="1"
+            variants={RECT_4_VARIANTS}
+            width="7"
+            x="3"
+            y="14"
+          />
         </svg>
       </div>
     );

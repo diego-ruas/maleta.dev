@@ -3,7 +3,7 @@ import { SparklesIcon } from "@/components/icons/sparkles";
 import { CloudIcon } from "@/components/icons/cloud";
 import { LayoutIcon } from "@/components/icons/layout";
 import { NotesIcon } from "@/components/icons/notes";
-import { ShieldIcon } from "@/components/icons/shield";
+import { CheckIcon } from "@/components/icons/check";
 import { TerminalIcon } from "@/components/icons/terminal";
 import { CodeIcon } from "@/components/icons/code";
 import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
@@ -22,7 +22,7 @@ export function getCategoryIcon(category: string) {
     case "Escrita":
       return NotesIcon;
     case "Testes":
-      return ShieldIcon;
+      return CheckIcon;
     case "Ferramentas":
       return TerminalIcon;
     case "all":

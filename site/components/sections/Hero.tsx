@@ -7,6 +7,8 @@ import CopyButton from "@/components/CopyButton";
 import TypewriterText from "@/components/TypewriterText";
 import DecryptedText from "@/components/DecryptedText";
 import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
+import { ArrowUpRightIcon } from "@/components/icons/arrow-up-right";
+import { ChevronRightIcon } from "@/components/icons/chevron-right";
 import { CopyIcon } from "@/components/icons/copy";
 import { CheckIcon } from "@/components/icons/check";
 import { ShieldIcon } from "@/components/icons/shield";
@@ -75,11 +77,11 @@ export default function Hero() {
           }}
         >
           <a href="#skills" className="intro-badge-item intro-badge-link" title={`Explorar ${SKILLS.length} skills curadas`}>
-            <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={15} />
+            <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={16} />
             <span>{SKILLS.length} skills curadas</span>
           </a>
           <a href="#sobre" className="intro-badge-item intro-badge-link" title="Saiba como funciona o provisionamento local">
-            <AnimatedIcon Icon={ShieldIcon} className="icon" size={15} />
+            <AnimatedIcon Icon={ShieldIcon} className="icon" size={16} />
             <span>Instalação local - configuração sob seu controle</span>
           </a>
         </motion.div>
@@ -94,7 +96,7 @@ export default function Hero() {
           <div className="intro-actions">
             <a href="#skills" className="btn-primary">
               <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={16} />
-              <span>Começar a montar &rarr;</span>
+              <span>Começar a montar</span>
             </a>
             <a
               href="https://github.com/diego-ruas/maleta.dev"
@@ -102,7 +104,8 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="btn-gh"
             >
-              <span>Ver no GitHub &rarr;</span>
+              <span>Ver no GitHub</span>
+              <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
             </a>
           </div>
         </motion.div>
@@ -141,8 +144,8 @@ export default function Hero() {
                   aria-label="Copiar comando de instalação"
                   title="Copiar comando completo para a área de transferência"
                 >
-                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={15} />
-                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={15} />
+                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
+                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
                 </CopyButton>
               </div>
             </div>
@@ -156,7 +159,8 @@ export default function Hero() {
                 {`// Clique no ícone acima para copiar o comando`}
               </span>
               <a href="#skills" className="hero-terminal-explore-link">
-                Personalizar no Catálogo &rarr;
+                <span>Personalizar no Catálogo</span>
+                <AnimatedIcon Icon={ChevronRightIcon} className="icon" size={14} />
               </a>
             </div>
           </div>

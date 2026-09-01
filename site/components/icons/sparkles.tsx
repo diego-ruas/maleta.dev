@@ -17,31 +17,56 @@ interface SparklesIconProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const SPARKLE_VARIANTS: Variants = {
-  normal: {
-    scale: 1,
-    rotate: 0,
+  initial: {
+    y: 0,
+    fill: "none",
   },
-  animate: {
-    scale: [1, 1.25, 1.25, 1],
-    rotate: [0, -15, 15, 0],
+  hover: {
+    y: [0, -1, 0, 0],
+    fill: "currentColor",
     transition: {
-      duration: 0.4,
-      ease: "linear",
+      duration: 1,
+      bounce: 0.3,
     },
   },
 };
 
+const STAR_VARIANTS: Variants = {
+  initial: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+  },
+  blink: () => ({
+    opacity: [0, 1, 0, 0, 0, 0, 1],
+    transition: {
+      duration: 2,
+      type: "spring",
+      stiffness: 70,
+      damping: 10,
+      mass: 0.4,
+    },
+  }),
+};
+
 const SparklesIcon = forwardRef<SparklesIconHandle, SparklesIconProps>(
   ({ onMouseEnter, onMouseLeave, className, size = 20, ...props }, ref) => {
-    const controls = useAnimation();
+    const starControls = useAnimation();
+    const sparkleControls = useAnimation();
     const isControlledRef = useRef(false);
 
     useImperativeHandle(ref, () => {
       isControlledRef.current = true;
 
       return {
-        startAnimation: () => controls.start("animate"),
-        stopAnimation: () => controls.start("normal"),
+        startAnimation: () => {
+          sparkleControls.start("hover");
+          starControls.start("blink", { delay: 1 });
+        },
+        stopAnimation: () => {
+          sparkleControls.start("initial");
+          starControls.start("initial");
+        },
       };
     });
 
@@ -50,10 +75,11 @@ const SparklesIcon = forwardRef<SparklesIconHandle, SparklesIconProps>(
         if (isControlledRef.current) {
           onMouseEnter?.(e);
         } else {
-          controls.start("animate");
+          sparkleControls.start("hover");
+          starControls.start("blink", { delay: 1 });
         }
       },
-      [controls, onMouseEnter]
+      [onMouseEnter, sparkleControls, starControls]
     );
 
     const handleMouseLeave = useCallback(
@@ -61,10 +87,11 @@ const SparklesIcon = forwardRef<SparklesIconHandle, SparklesIconProps>(
         if (isControlledRef.current) {
           onMouseLeave?.(e);
         } else {
-          controls.start("normal");
+          sparkleControls.start("initial");
+          starControls.start("initial");
         }
       },
-      [controls, onMouseLeave]
+      [sparkleControls, starControls, onMouseLeave]
     );
 
     return (
@@ -75,15 +102,41 @@ const SparklesIcon = forwardRef<SparklesIconHandle, SparklesIconProps>(
         {...props}
       >
         <svg
-          fill="currentColor"
+          fill="none"
           height={size}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <motion.g animate={controls} variants={SPARKLE_VARIANTS}>
-            <path d="M4 13h8v6h2v2h-2v2h-2v-8H2v-4h2v2Zm12 6h-2v-2h2v2Zm2-2h-2v-2h2v2Zm2-2h-2v-2h2v2Zm-6-6h8v4h-2v-2h-8V5h-2V3h2V1h2v8Zm-8 2H4V9h2v2Zm2-2H6V7h2v2Zm2-2H8V5h2v2Z" />
-          </motion.g>
+          <motion.path
+            animate={sparkleControls}
+            d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+            variants={SPARKLE_VARIANTS}
+          />
+          <motion.path
+            animate={starControls}
+            d="M20 3v4"
+            variants={STAR_VARIANTS}
+          />
+          <motion.path
+            animate={starControls}
+            d="M22 5h-4"
+            variants={STAR_VARIANTS}
+          />
+          <motion.path
+            animate={starControls}
+            d="M4 17v2"
+            variants={STAR_VARIANTS}
+          />
+          <motion.path
+            animate={starControls}
+            d="M5 18H3"
+            variants={STAR_VARIANTS}
+          />
         </svg>
       </div>
     );

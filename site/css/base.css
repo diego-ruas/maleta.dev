@@ -32,10 +32,10 @@
     --color-warning: #f59e0b;
     --color-info: #3b82f6;
 
-    /* Tipografia — mono universal, sem fallback proporcional */
-    --font-sans: var(--font-departure-mono, 'Departure Mono'), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    --font-mono: var(--font-sans);
-    --font-body: var(--font-body, 'Roboto'), system-ui, -apple-system, Segoe UI, sans-serif;
+    /* Tipografia — fonte unica (JetBrains Mono) em todo o site, sem par de display */
+    --font-body: var(--font-body, 'JetBrains Mono'), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-sans: var(--font-body);
+    --font-mono: var(--font-body);
 
     --text-xs: 0.75rem;    /* 12px */
     --text-sm: 0.8125rem;  /* 13px */
@@ -47,7 +47,7 @@
     --text-4xl: 2rem;      /* 32px */
 
     --font-regular: 400;
-    --font-medium: 400;
+    --font-medium: 500;
     --font-bold: 700;
 
     /* Spacing (8px system) */
@@ -105,6 +105,11 @@ html {
     overflow-x: hidden;
 }
 
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -123,7 +128,7 @@ html {
 }
 
 body {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-size: var(--text-base);
     background: var(--bg);
     color: var(--fg);
@@ -177,7 +182,7 @@ body {
 }
 
 p {
-    font-family: var(--font-body);
+    font-size: 1.0625rem; /* 17px, ajuste fino de leitura do corpo */
 }
 
 h2 {

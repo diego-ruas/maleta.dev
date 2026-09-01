@@ -199,7 +199,7 @@ nav {
 }
 
 section {
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-10);
     scroll-margin-top: 4rem;
 }
 
@@ -264,14 +264,14 @@ section > p {
 .intro h1 {
     font-size: var(--text-3xl);
     font-weight: var(--font-bold);
-    letter-spacing: -0.04em;
+    letter-spacing: -0.01em;
     line-height: 1.1;
     color: var(--fg);
     margin: 0;
 }
 
 .intro-desc {
-    font-size: var(--text-base);
+    font-size: var(--text-xl);
     color: var(--fg-muted);
     line-height: var(--leading-relaxed);
     margin: 0;
@@ -1031,7 +1031,7 @@ section > p {
 .install-prerequisites > p {
     margin: var(--space-1) 0 0;
     color: var(--fg-muted);
-    font-size: var(--text-sm);
+    font-size: var(--text-lg);
     line-height: 1.6;
 }
 
@@ -1126,7 +1126,7 @@ section > p {
 .install-follow-up-desc {
     margin: var(--space-1) 0 0;
     color: var(--fg-muted);
-    font-size: var(--text-sm);
+    font-size: var(--text-lg);
     line-height: 1.5;
 }
 
@@ -1363,7 +1363,7 @@ section > p {
 }
 
 .process-desc {
-    font-size: var(--text-sm);
+    font-size: var(--text-lg);
     color: var(--fg-muted);
     line-height: 1.6;
     margin-bottom: var(--space-1);
@@ -1548,7 +1548,7 @@ button.copied .icon-check {
 }
 
 .contact-card-info p {
-    font-size: var(--text-base);
+    font-size: var(--text-xl);
     color: var(--fg-muted);
     margin: 0 !important;
 }
@@ -2004,7 +2004,7 @@ button.copied .icon-check {
 .faq-body p,
 .faq-item p {
     margin: 0;
-    font-size: var(--text-base);
+    font-size: var(--text-xl);
     color: var(--fg-muted);
     line-height: 1.6;
 }
@@ -2131,6 +2131,9 @@ button.copied .icon-check {
 }
 
 .sticky-progress-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     color: var(--color-accent, var(--fg));
     white-space: nowrap;
 }
@@ -3457,7 +3460,7 @@ footer {
 .repo-result-name {
     font-family: var(--font-mono);
     color: var(--fg);
-    font-weight: 500;
+    font-weight: var(--font-medium);
 }
 
 .repo-result-meta-row {
@@ -3683,7 +3686,7 @@ footer {
 }
 
 .about-lead {
-    font-size: var(--text-sm);
+    font-size: var(--text-lg);
     color: var(--fg-muted);
     line-height: 1.55;
     margin-top: 2px;
@@ -3773,7 +3776,7 @@ footer {
 }
 
 .about-manifesto-body p {
-    font-size: var(--text-sm);
+    font-size: var(--text-lg);
     color: var(--color-fog);
     line-height: 1.55;
     margin: 0 0 var(--space-1) 0;
@@ -4227,7 +4230,7 @@ footer {
     }
 
     .intro-desc {
-        font-size: var(--text-sm);
+        font-size: var(--text-lg);
         text-align: center;
         line-height: 1.55;
         margin-left: auto;

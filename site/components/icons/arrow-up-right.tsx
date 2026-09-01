@@ -18,15 +18,19 @@ interface ArrowUpRightIconProps extends HTMLAttributes<HTMLDivElement> {
 
 const ARROW_VARIANTS: Variants = {
   normal: {
-    x: 0,
-    y: 0,
+    scale: 1,
+    translateX: 0,
+    translateY: 0,
   },
   animate: {
-    x: [0, 2, 2, 0],
-    y: [0, -2, -2, 0],
+    scale: [1, 0.85, 1],
+    translateX: [0, -4, 0],
+    translateY: [0, 4, 0],
+    originX: 1,
+    originY: 0,
     transition: {
-      duration: 0.35,
-      ease: "linear",
+      duration: 0.5,
+      ease: "easeInOut",
     },
   },
 };
@@ -70,14 +74,20 @@ const ArrowUpRightIcon = forwardRef<
       {...props}
     >
       <svg
-        fill="currentColor"
+        fill="none"
         height={size}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
         viewBox="0 0 24 24"
         width={size}
         xmlns="http://www.w3.org/2000/svg"
       >
         <motion.g animate={controls} variants={ARROW_VARIANTS}>
-          <path d="M11 5H5v2h6V5ZM5 7H3v12h2V7Zm12 12H5v2h12v-2Zm2-6h-2v6h2v-6Zm-8 0H9v2h2v-2Zm2-2h-2v2h2v-2Zm2-2h-2v2h2V9Zm2-2h-2v2h2V7Zm2-2h-2v2h2V5Zm2-2h-2v8h2V3ZM21 3h-8v2h8V3Z" />
+          <path d="M7 7H17" />
+          <path d="M17 7V17" />
+          <path d="M7 17L17 7" />
         </motion.g>
       </svg>
     </div>

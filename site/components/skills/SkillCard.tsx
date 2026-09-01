@@ -27,7 +27,7 @@ export default function SkillCard({
     <li className={`skill-row-item${selected ? " selected" : ""}`}>
       <div className="skill-row-main">
         <div className="skill-row-icon-cell">
-          <AnimatedIcon Icon={CategoryIcon} className="skill-item-icon" size={18} />
+          <AnimatedIcon Icon={CategoryIcon} className="skill-item-icon" size={20} />
         </div>
         <div className="skill-row-info">
           <div className="skill-row-title-row">

@@ -13,6 +13,9 @@ import { TerminalIcon } from "@/components/icons/terminal";
 import { ClaudeIcon } from "@/components/icons/claude";
 import { CodexIcon } from "@/components/icons/codex";
 import { ZapIcon } from "@/components/icons/zap";
+import { ChevronRightIcon } from "@/components/icons/chevron-right";
+import { ChevronLeftIcon } from "@/components/icons/chevron-left";
+import { ChevronDownIcon } from "@/components/icons/chevron-down";
 import SkillCard from "@/components/skills/SkillCard";
 import RepoScan from "@/components/skills/RepoScan";
 import { SKILL_PRESETS, type SkillPreset } from "@/lib/data";
@@ -175,7 +178,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
               </div>
               <div className="pipeline-step-info">
                 <span className="pipeline-step-title">
-                  <AnimatedIcon Icon={step.Icon} className="icon" size={13} />
+                  <AnimatedIcon Icon={step.Icon} className="icon" size={14} />
                   <span>{step.title}</span>
                 </span>
                 <span className="pipeline-step-sub">{step.subtitle}</span>
@@ -249,7 +252,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                     >
                       {isActive ? (
                         <>
-                          <AnimatedIcon Icon={CheckIcon} className="icon" size={13} />
+                          <AnimatedIcon Icon={CheckIcon} className="icon" size={14} />
                           <span>Base Selecionada</span>
                         </>
                       ) : (
@@ -272,14 +275,16 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 className="btn-gh"
                 onClick={() => setActiveStep("summary")}
               >
-                <span>Ir direto para instalação &rarr;</span>
+                <span>Ir direto para instalação</span>
+                <AnimatedIcon Icon={ChevronRightIcon} className="icon" size={16} />
               </button>
               <button
                 type="button"
                 className="btn-primary"
                 onClick={() => setActiveStep("skills")}
               >
-                <span>Ajustar skills individualmente &rarr;</span>
+                <span>Ajustar skills individualmente</span>
+                <AnimatedIcon Icon={ChevronRightIcon} className="icon" size={16} />
               </button>
             </div>
           </div>
@@ -419,7 +424,8 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
               className="btn-gh"
               onClick={() => setActiveStep("presets")}
             >
-              <span>&larr; Voltar para Presets</span>
+              <AnimatedIcon Icon={ChevronLeftIcon} className="icon" size={16} />
+              <span>Voltar para Presets</span>
             </button>
             <div className="stage-nav-buttons">
               <button
@@ -427,14 +433,16 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 className="btn-gh"
                 onClick={() => setActiveStep("hub")}
               >
-                <span>Importar do GitHub (Etapa 03) &rarr;</span>
+                <span>Importar do GitHub (Etapa 03)</span>
+                <AnimatedIcon Icon={ChevronRightIcon} className="icon" size={16} />
               </button>
               <button
                 type="button"
                 className="btn-primary"
                 onClick={() => setActiveStep("summary")}
               >
-                <span>Finalizar pacote (Etapa 04) &rarr;</span>
+                <span>Finalizar pacote (Etapa 04)</span>
+                <AnimatedIcon Icon={ChevronRightIcon} className="icon" size={16} />
               </button>
             </div>
           </div>
@@ -471,14 +479,16 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
               className="btn-gh"
               onClick={() => setActiveStep("skills")}
             >
-              <span>&larr; Voltar para Catálogo</span>
+              <AnimatedIcon Icon={ChevronLeftIcon} className="icon" size={16} />
+              <span>Voltar para Catálogo</span>
             </button>
             <button
               type="button"
               className="btn-primary"
               onClick={() => setActiveStep("summary")}
             >
-              <span>Concluir e Gerar Comando (Etapa 04) &rarr;</span>
+              <span>Concluir e Gerar Comando (Etapa 04)</span>
+              <AnimatedIcon Icon={ChevronRightIcon} className="icon" size={16} />
             </button>
           </div>
         </section>
@@ -624,10 +634,12 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
               className="btn-gh"
               onClick={() => setActiveStep("skills")}
             >
-              <span>&larr; Voltar e Ajustar Skills</span>
+              <AnimatedIcon Icon={ChevronLeftIcon} className="icon" size={16} />
+              <span>Voltar e Ajustar Skills</span>
             </button>
             <a href="#instalar" className="btn-gh">
-              <span>Ver Tutorial de Instalação Completo &darr;</span>
+              <span>Ver Tutorial de Instalação Completo</span>
+              <AnimatedIcon Icon={ChevronDownIcon} className="icon" size={16} />
             </a>
           </div>
         </section>

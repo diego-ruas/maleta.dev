@@ -1,6 +1,6 @@
 "use client";
 
-import type { Variants } from "motion/react";
+import type { Transition } from "motion/react";
 import { motion, useAnimation } from "motion/react";
 import type { HTMLAttributes } from "react";
 import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
@@ -16,15 +16,9 @@ interface ChevronDownIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
-const CHEVRON_VARIANTS: Variants = {
-  normal: { y: 0 },
-  animate: {
-    y: [0, 3, 3, 0],
-    transition: {
-      duration: 0.3,
-      ease: "linear",
-    },
-  },
+const DEFAULT_TRANSITION: Transition = {
+  times: [0, 0.4, 1],
+  duration: 0.5,
 };
 
 const ChevronDownIcon = forwardRef<ChevronDownIconHandle, ChevronDownIconProps>(
@@ -70,16 +64,24 @@ const ChevronDownIcon = forwardRef<ChevronDownIconHandle, ChevronDownIconProps>(
         {...props}
       >
         <svg
-          fill="currentColor"
+          fill="none"
           height={size}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
         >
           <motion.path
             animate={controls}
-            d="M13 16h-2v-2h2v2Zm-2-2H9v-2h2v2Zm4 0h-2v-2h2v2Zm-6-2H7v-2h2v2Zm8 0h-2v-2h2v2ZM7 10H5V8h2v2Zm12 0h-2V8h2v2Z"
-            variants={CHEVRON_VARIANTS}
+            d="m6 9 6 6 6-6"
+            transition={DEFAULT_TRANSITION}
+            variants={{
+              normal: { y: 0 },
+              animate: { y: [0, 2, 0] },
+            }}
           />
         </svg>
       </div>

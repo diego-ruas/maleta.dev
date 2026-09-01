@@ -19,10 +19,12 @@ interface DownloadIconProps extends HTMLAttributes<HTMLDivElement> {
 const ARROW_VARIANTS: Variants = {
   normal: { y: 0 },
   animate: {
-    y: [0, 3, 3, 0],
+    y: 2,
     transition: {
-      duration: 0.35,
-      ease: "linear",
+      type: "spring",
+      stiffness: 200,
+      damping: 10,
+      mass: 1,
     },
   },
 };
@@ -71,15 +73,20 @@ const DownloadIcon = forwardRef<DownloadIconHandle, DownloadIconProps>(
         {...props}
       >
         <svg
-          fill="currentColor"
+          fill="none"
           height={size}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M21 15v4h-2v-4zm-2 4v2H5v-2zM5 15v4H3v-4z" />
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
           <motion.g animate={controls} variants={ARROW_VARIANTS}>
-            <path d="M13 3v14h-2V3zm-6 8v2h10v-2zm2 2v2h2v-2zm4 0v2h2v-2zm2-2v2h2v-2z" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" x2="12" y1="15" y2="3" />
           </motion.g>
         </svg>
       </div>

@@ -46,7 +46,7 @@ export default function BackToTop() {
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          <AnimatedIcon Icon={ArrowUpIcon} size={18} />
+          <AnimatedIcon Icon={ArrowUpIcon} size={20} />
         </motion.button>
       )}
     </AnimatePresence>

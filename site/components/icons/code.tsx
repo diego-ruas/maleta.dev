@@ -17,14 +17,16 @@ interface CodeIconProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const CODE_VARIANTS: Variants = {
-  normal: { scale: 1 },
-  animate: {
-    scale: [1, 1.15, 1],
+  normal: { x: 0, rotate: 0, opacity: 1 },
+  animate: (direction: number) => ({
+    x: [0, direction * 2, 0],
+    rotate: [0, direction * -8, 0],
+    opacity: 1,
     transition: {
-      duration: 0.3,
-      ease: "linear",
+      duration: 0.5,
+      ease: "easeInOut",
     },
-  },
+  }),
 };
 
 const CodeIcon = forwardRef<CodeIconHandle, CodeIconProps>(
@@ -70,15 +72,31 @@ const CodeIcon = forwardRef<CodeIconHandle, CodeIconProps>(
         {...props}
       >
         <svg
-          fill="currentColor"
+          fill="none"
           height={size}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <motion.g animate={controls} variants={CODE_VARIANTS}>
-            <path d="M11 18H9v-4h2v4Zm-4-1H5v-2h2v2Zm12-2v2h-2v-2h2ZM5 15H3v-2h2v2Zm16 0h-2v-2h2v2Zm-8-1h-2v-4h2v4ZM3 13H1v-2h2v2Zm20 0h-2v-2h2v2ZM5 11H3V9h2v2Zm16 0h-2V9h2v2Zm-6-1h-2V6h2v4ZM7 9H5V7h2v2Zm12 0h-2V7h2v2Z" />
-          </motion.g>
+          <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z" />
+          <motion.path
+            animate={controls}
+            custom={-1}
+            d="M10 10.5 8 13l2 2.5"
+            initial="normal"
+            variants={CODE_VARIANTS}
+          />
+          <motion.path
+            animate={controls}
+            custom={1}
+            d="m14 10.5 2 2.5-2 2.5"
+            initial="normal"
+            variants={CODE_VARIANTS}
+          />
         </svg>
       </div>
     );

@@ -1,10 +1,13 @@
 "use client";
 
-import type { Variants } from "motion/react";
-import { motion, useAnimation } from "motion/react";
+import {
+  motion,
+  type Transition,
+  useAnimation,
+  type Variants,
+} from "motion/react";
 import type { HTMLAttributes } from "react";
 import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
-
 import { cn } from "@/lib/utils";
 
 export interface CloudIconHandle {
@@ -16,16 +19,16 @@ interface CloudIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
-const CLOUD_VARIANTS: Variants = {
-  normal: { scale: 1, y: 0 },
+const SYNC_VARIANTS: Variants = {
+  normal: { rotate: 0 },
   animate: {
-    scale: [1, 1.08, 1],
-    y: [0, -2, 0],
-    transition: {
-      duration: 0.3,
-      ease: "linear",
-    },
+    rotate: -360,
   },
+};
+
+const SYNC_TRANSITION: Transition = {
+  duration: 1.2,
+  ease: "easeInOut",
 };
 
 const CloudIcon = forwardRef<CloudIconHandle, CloudIconProps>(
@@ -71,15 +74,27 @@ const CloudIcon = forwardRef<CloudIconHandle, CloudIconProps>(
         {...props}
       >
         <svg
-          fill="currentColor"
+          fill="none"
           height={size}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <motion.g animate={controls} variants={CLOUD_VARIANTS}>
-            <path d="M22 10h-4v2h4v-2Zm2 2h-2v6h2v-6Zm-2 6H2v2h20v-2ZM2 12H0v6h2v-6Zm2-2H2v2h2v-2Zm4-2H4v2h4V8Zm8-4h-6v2h6V4Zm-6 2H8v2h2V6Zm0 4H8v2h2v-2Zm8-4h-2v2h2V6Z" />
-            <path d="M20 8h-2v4h2V8Zm-2 4h-2v2h2v-2Z" />
+          <path d="M20.996 15.251A4.5 4.5 0 0 0 17.495 8h-1.79a7 7 0 1 0-12.709 5.607" />
+          <motion.g
+            animate={controls}
+            initial="normal"
+            transition={SYNC_TRANSITION}
+            variants={SYNC_VARIANTS}
+          >
+            <path d="m17 18-1.535 1.605a5 5 0 0 1-8-1.5" />
+            <path d="M17 22v-4h-4" />
+            <path d="M7 10v4h4" />
+            <path d="m7 14 1.535-1.605a5 5 0 0 1 8 1.5" />
           </motion.g>
         </svg>
       </div>

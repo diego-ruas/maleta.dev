@@ -231,29 +231,32 @@ export default function InstallSteps() {
                 </div>
                 <div className="install-follow-up-content">
                   <p className="install-follow-up-desc">Mencione uma skill ou descreva o objetivo direto no prompt.</p>
-                  <div className="prompt-examples-grid">
-                    {PROMPT_EXAMPLES.map((ex) => (
-                      <div key={ex.skill} className="prompt-example-card">
-                        <div className="prompt-example-header">
-                          <div className="prompt-example-meta">
-                            <span className="prompt-badge-cat">{ex.category}</span>
-                            <code className="prompt-badge-skill">{ex.skill}</code>
+                  <details className="about-card-details">
+                    <summary>Ver exemplos de prompts</summary>
+                    <div className="prompt-examples-grid">
+                      {PROMPT_EXAMPLES.map((ex) => (
+                        <div key={ex.skill} className="prompt-example-card">
+                          <div className="prompt-example-header">
+                            <div className="prompt-example-meta">
+                              <span className="prompt-badge-cat">{ex.category}</span>
+                              <code className="prompt-badge-skill">{ex.skill}</code>
+                            </div>
+                            <CopyButton
+                              className="prompt-copy-btn"
+                              text={ex.prompt}
+                              aria-label={`Copiar prompt de exemplo para ${ex.skill}`}
+                              title="Copiar prompt"
+                            >
+                              <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={14} />
+                              <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={14} />
+                            </CopyButton>
                           </div>
-                          <CopyButton
-                            className="prompt-copy-btn"
-                            text={ex.prompt}
-                            aria-label={`Copiar prompt de exemplo para ${ex.skill}`}
-                            title="Copiar prompt"
-                          >
-                            <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={14} />
-                            <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={14} />
-                          </CopyButton>
+                          <p className="prompt-example-title">{ex.title}</p>
+                          <p className="prompt-example-text">&ldquo;{ex.prompt}&rdquo;</p>
                         </div>
-                        <p className="prompt-example-title">{ex.title}</p>
-                        <p className="prompt-example-text">&ldquo;{ex.prompt}&rdquo;</p>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  </details>
                 </div>
               </section>
             </div>
@@ -425,7 +428,7 @@ export default function InstallSteps() {
       <div className="tutorial-tips-panel">
         <div className="tutorial-tip-item">
           <div className="tutorial-tip-icon">
-            <AnimatedIcon Icon={ShieldIcon} className="icon" size={18} />
+            <AnimatedIcon Icon={ShieldIcon} className="icon" size={20} />
           </div>
           <div className="tutorial-tip-body">
             <h4 className="tutorial-tip-title">Backup Automático</h4>
@@ -437,29 +440,7 @@ export default function InstallSteps() {
 
         <div className="tutorial-tip-item">
           <div className="tutorial-tip-icon">
-            <AnimatedIcon Icon={NotesIcon} className="icon" size={18} />
-          </div>
-          <div className="tutorial-tip-body">
-            <h4 className="tutorial-tip-title">Onde Ficam os Arquivos</h4>
-            <p className="tutorial-tip-desc">
-              {isUnix ? (
-                <>
-                  Skills do Claude Code: <code>~/.claude/skills/</code><br />
-                  Skills do Codex: <code>~/.agents/skills/</code> - MCP: <code>~/.codex/config.toml</code>
-                </>
-              ) : (
-                <>
-                  Skills do Claude Code: <code>%USERPROFILE%\.claude\skills\</code><br />
-                  Skills do Codex: <code>%USERPROFILE%\.agents\skills\</code> - MCP: <code>%USERPROFILE%\.codex\config.toml</code>
-                </>
-              )}
-            </p>
-          </div>
-        </div>
-
-        <div className="tutorial-tip-item">
-          <div className="tutorial-tip-icon">
-            <AnimatedIcon Icon={ZapIcon} className="icon" size={18} />
+            <AnimatedIcon Icon={ZapIcon} className="icon" size={20} />
           </div>
           <div className="tutorial-tip-body">
             <h4 className="tutorial-tip-title">Como Atualizar</h4>

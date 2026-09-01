@@ -10,7 +10,6 @@ import { ShieldIcon } from "@/components/icons/shield";
 import { CpuIcon } from "@/components/icons/cpu";
 import { ZapIcon } from "@/components/icons/zap";
 import { TerminalIcon } from "@/components/icons/terminal";
-import { SparklesIcon } from "@/components/icons/sparkles";
 import { SKILLS } from "@/lib/data";
 
 interface PillarItem {
@@ -167,15 +166,6 @@ export default function AboutSection() {
 
             <div className="about-actions-row">
               <a
-                href="https://github.com/diego-ruas/maleta.dev"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-gh"
-              >
-                <span>Explorar no GitHub</span>
-                <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
-              </a>
-              <a
                 href="https://github.com/diego-ruas/maleta.dev/blob/main/docs/TOOL-MATRIX.md"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -183,15 +173,6 @@ export default function AboutSection() {
               >
                 <span>Matriz de Compatibilidade</span>
                 <AnimatedIcon Icon={ArrowUpRightIcon} className="icon" size={16} />
-              </a>
-              <a
-                href="https://github.com/diego-ruas/maleta.dev/blob/main/LICENSE"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-gh"
-              >
-                <span>Licença MIT</span>
-                <AnimatedIcon Icon={SparklesIcon} className="icon" size={16} />
               </a>
             </div>
           </div>

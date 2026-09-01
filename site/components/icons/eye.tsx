@@ -1,6 +1,5 @@
 "use client";
 
-import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
 import type { HTMLAttributes } from "react";
 import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
@@ -15,17 +14,6 @@ export interface EyeIconHandle {
 interface EyeIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
-
-const EYE_VARIANTS: Variants = {
-  normal: { scale: 1 },
-  animate: {
-    scale: [1, 1.15, 0.95, 1],
-    transition: {
-      duration: 0.35,
-      ease: "linear",
-    },
-  },
-};
 
 const EyeIcon = forwardRef<EyeIconHandle, EyeIconProps>(
   ({ onMouseEnter, onMouseLeave, className, size = 20, ...props }, ref) => {
@@ -70,15 +58,37 @@ const EyeIcon = forwardRef<EyeIconHandle, EyeIconProps>(
         {...props}
       >
         <svg
-          fill="currentColor"
+          fill="none"
           height={size}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
           viewBox="0 0 24 24"
           width={size}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <motion.g animate={controls} variants={EYE_VARIANTS}>
-            <path d="M16 20H8v-2h8v2Zm-8-2H4v-2h4v2Zm12 0h-4v-2h4v2ZM4 16H2v-2h2v2Zm10-6h-2v2h2v-2h2v4h-2v2h-4v-2H8v-4h2V8h4v2Zm8 6h-2v-2h2v2ZM2 14H0v-4h2v4Zm22 0h-2v-4h2v4ZM4 10H2V8h2v2Zm18 0h-2V8h2v2ZM8 8H4V6h4v2Zm12 0h-4V6h4v2Zm-4-2H8V4h8v2Z" />
-          </motion.g>
+          <motion.path
+            animate={controls}
+            d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
+            style={{ originY: "50%" }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            variants={{
+              normal: { scaleY: 1, opacity: 1 },
+              animate: { scaleY: [1, 0.1, 1], opacity: [1, 0.3, 1] },
+            }}
+          />
+          <motion.circle
+            animate={controls}
+            cx="12"
+            cy="12"
+            r="3"
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            variants={{
+              normal: { scale: 1, opacity: 1 },
+              animate: { scale: [1, 0.3, 1], opacity: [1, 0.3, 1] },
+            }}
+          />
         </svg>
       </div>
     );
