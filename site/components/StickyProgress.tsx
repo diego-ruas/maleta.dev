@@ -9,15 +9,25 @@ import { useToolkit } from "@/lib/toolkitContext";
 
 export default function StickyProgress() {
   const { selectedSkills } = useToolkit();
-  const [visible, setVisible] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
+  const [skillsInView, setSkillsInView] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setVisible(window.scrollY > 400);
+    const handleScroll = () => setPastHero(window.scrollY > 400);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    const skillsEl = document.getElementById("skills");
+    const observer = new IntersectionObserver(([entry]) => setSkillsInView(entry.isIntersecting));
+    if (skillsEl) observer.observe(skillsEl);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
+  const visible = pastHero && !skillsInView;
   const count = selectedSkills.size;
 
   return (

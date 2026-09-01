@@ -185,7 +185,7 @@ if echo " $TOOLS_TO_RUN " | grep -q " claude "; then
     echo "  * Claude Code: reinicie sua sessao e digite '/skills' ou '/plugins' para conferir."
 fi
 if echo " $TOOLS_TO_RUN " | grep -q " codex "; then
-    echo "  * Codex: reinicie o codex e digite '/skills' para conferir; MCP em ~/.codex/config.toml."
+    echo "  * Codex: reinicie o codex e digite '/skills' para conferir."
 fi
 if echo " $TOOLS_TO_RUN " | grep -q " agents "; then
     echo "  * Universal Agents: skills disponiveis em ~/.agents/skills."

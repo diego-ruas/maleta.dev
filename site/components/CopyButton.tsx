@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { useToast } from "@/components/Toast";
 
-function fallbackCopy(text: string) {
+function fallbackCopy(text: string): boolean {
   const ta = document.createElement("textarea");
   ta.value = text;
   ta.setAttribute("readonly", "");
@@ -12,8 +12,9 @@ function fallbackCopy(text: string) {
   ta.style.left = "-9999px";
   document.body.appendChild(ta);
   ta.select();
-  document.execCommand("copy");
+  const ok = document.execCommand("copy");
   ta.remove();
+  return ok;
 }
 
 interface CopyButtonProps
@@ -30,15 +31,16 @@ export default function CopyButton({ text, className, children, ...rest }: CopyB
     try {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(text);
-      } else {
-        fallbackCopy(text);
+      } else if (!fallbackCopy(text)) {
+        throw new Error("execCommand copy failed");
       }
     } catch {
       showToast("Não foi possível copiar", "warning");
       return;
     }
-    // Feedback local (icone + classe .copied) ja cobre o caso de sucesso —
-    // toast reservado para o caso de erro acima.
+    // Feedback visual local (icone + classe .copied) + toast (anunciado por
+    // leitores de tela via aria-live, o que o visual sozinho nao cobre).
+    showToast("Copiado!", "check");
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   }

@@ -36,7 +36,6 @@ Maleta.dev includes over 80 curated skills organized by category:
 - **claude-mem (`claude-mem@thedotmack`)**: Cross-session persistent memory for Claude Code.
 - **superpowers**: Structured brainstorming, step-by-step planning, TDD workflows.
 - **ponytail**: Enforces concise, minimal, boilerplate-free solutions.
-- **open-websearch (MCP)**: Native web search capabilities via DuckDuckGo without API keys.
 
 ## Security & Privacy Guarantee
 

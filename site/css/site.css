@@ -76,7 +76,7 @@ header {
 
 .site-title::before {
     content: '~/';
-    color: var(--color-steel);
+    color: var(--color-ash);
     font-weight: var(--font-regular);
 }
 
@@ -216,7 +216,7 @@ h2 {
 
 h2::before {
     content: '// ';
-    color: var(--color-steel);
+    color: var(--color-ash);
     font-weight: var(--font-regular);
     margin-right: 4px;
 }
@@ -1404,7 +1404,7 @@ section > p {
 
 .cmd::before {
     content: '\0024';
-    color: var(--color-steel);
+    color: var(--color-ash);
     font-size: var(--text-xs);
     flex-shrink: 0;
 }
@@ -2028,10 +2028,19 @@ button.copied .icon-check {
 }
 
 /* Toast */
-.toast {
+.toast-stack {
     position: fixed;
     bottom: calc(2rem + env(safe-area-inset-bottom));
     left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.toast {
     background: var(--color-graphite);
     color: var(--fg);
     padding: var(--space-2);
@@ -2040,7 +2049,6 @@ button.copied .icon-check {
     font-size: var(--text-sm);
     font-weight: var(--font-regular);
     line-height: 1.4;
-    z-index: 9999;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -3080,6 +3088,17 @@ footer {
     background: var(--color-graphite);
 }
 
+/* Scroll aninhado (lista dentro de max-height) atrapalha o gesto de rolar a
+   pagina no mobile — no celular a lista acompanha o scroll da pagina. */
+@media (max-width: 600px) {
+    .plugins-list,
+    .repo-results,
+    .skills-list {
+        max-height: none;
+        overflow-y: visible;
+    }
+}
+
 .repo-chip-tag {
     font-size: 9px;
     padding: 1px 4px;
@@ -3133,6 +3152,13 @@ footer {
 .repo-topic-btn:hover {
     border-color: var(--color-slate);
     color: var(--fg);
+}
+
+.repo-topic-btn:disabled,
+.repo-recent-chip:disabled,
+.repo-source-chip:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 .repo-topic-btn.active {
@@ -3789,7 +3815,7 @@ footer {
 
 .about-pillars-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--space-2);
     margin-bottom: var(--space-2);
     width: 100%;
@@ -3988,7 +4014,7 @@ footer {
 
 .about-stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: var(--space-2);
     padding-bottom: var(--space-3);
     border-bottom: 1px solid var(--color-iron);
@@ -4080,18 +4106,9 @@ footer {
         justify-content: flex-start;
     }
 
-    .explorer-pipeline-nav {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 6px;
-    }
-
     .summary-stage-grid {
         grid-template-columns: 1fr;
         gap: var(--space-2);
-    }
-
-    .about-pillars-grid {
-        grid-template-columns: repeat(2, 1fr);
     }
 
     .process-card {
@@ -4610,7 +4627,7 @@ footer {
     }
 
     .selection-quick-btns .btn-gh-sm {
-        min-height: 40px;
+        min-height: 44px;
         justify-content: center;
         font-size: 11px;
     }
@@ -4720,7 +4737,6 @@ footer {
     }
 
     .about-pillars-grid {
-        grid-template-columns: 1fr;
         gap: var(--space-2);
         margin-bottom: var(--space-2);
         width: 100%;
@@ -4744,7 +4760,6 @@ footer {
     }
 
     .about-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
         gap: 8px;
         padding-bottom: var(--space-2);
         width: 100%;
@@ -5231,6 +5246,9 @@ footer {
     gap: var(--space-6);
     padding-right: var(--space-6);
     flex-shrink: 0;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
 }
 
 .agents-ticker-item {

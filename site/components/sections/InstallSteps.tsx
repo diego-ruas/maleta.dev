@@ -89,10 +89,13 @@ export default function InstallSteps() {
       </p>
 
       {/* Recommended path first; alternative setup modes stay opt-in. */}
-      <div className="install-mode-toggle" role="group" aria-label="Métodos de instalação e onboarding">
+      <div className="install-mode-toggle" role="tablist" aria-label="Métodos de instalação e onboarding">
         <button
           type="button"
-          aria-pressed={activeTab === "oneliner"}
+          role="tab"
+          id="install-tab-oneliner"
+          aria-selected={activeTab === "oneliner"}
+          aria-controls="install-panel-oneliner"
           className={`install-tab-btn${activeTab === "oneliner" ? " active" : ""}`}
           onClick={() => {
             setActiveTab("oneliner");
@@ -118,10 +121,13 @@ export default function InstallSteps() {
       </button>
 
       {showAdvancedModes && (
-        <div className="install-advanced-tabs" role="group" aria-label="Métodos alternativos de instalação">
+        <div className="install-advanced-tabs" role="tablist" aria-label="Métodos alternativos de instalação">
         <button
           type="button"
-          aria-pressed={activeTab === "fresh"}
+          role="tab"
+          id="install-tab-fresh"
+          aria-selected={activeTab === "fresh"}
+          aria-controls="install-panel-fresh"
           className={`install-tab-btn${activeTab === "fresh" ? " active" : ""}`}
           onClick={() => setActiveTab("fresh")}
         >
@@ -130,7 +136,10 @@ export default function InstallSteps() {
         </button>
         <button
           type="button"
-          aria-pressed={activeTab === "local"}
+          role="tab"
+          id="install-tab-local"
+          aria-selected={activeTab === "local"}
+          aria-controls="install-panel-local"
           className={`install-tab-btn${activeTab === "local" ? " active" : ""}`}
           onClick={() => setActiveTab("local")}
         >
@@ -142,8 +151,26 @@ export default function InstallSteps() {
 
       {/* Conteúdo dinâmico por aba */}
       {activeTab === "oneliner" && (
-        <div className="install-workflow process-grid">
+        <div className="install-workflow process-grid" role="tabpanel" id="install-panel-oneliner" aria-labelledby="install-tab-oneliner">
           <div className="install-workflow-content">
+            <details className="install-prerequisites" open>
+              <summary><span>01</span> Antes de começar</summary>
+              <p>
+                {isUnix ? "Use Linux ou macOS com bash ou zsh." : "Use Windows 10/11 com PowerShell 5.1+."} Instale pelo menos um agente antes de rodar o comando.
+              </p>
+              {AGENT_INSTALL_COMMANDS
+                .filter(({ target }) => targetTool === "all" || targetTool === "agents" || targetTool === target)
+                .map(({ label, command }) => (
+                  <div className="cmd" key={command}>
+                    <code>{command}</code>
+                    <CopyButton className="cmd-copy" text={command} aria-label={`Copiar comando de instalação do ${label}`}>
+                      <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
+                      <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
+                    </CopyButton>
+                  </div>
+                ))}
+            </details>
+
             <section className="install-command-stage" aria-labelledby="install-command-heading">
               <div className="install-command-stage-header">
                 <div>
@@ -177,24 +204,6 @@ export default function InstallSteps() {
                 <span>Baixar script .{isUnix ? "sh" : "ps1"} sob medida</span>
               </button>
             </section>
-
-            <details className="install-prerequisites">
-              <summary><span>01</span> Antes de começar</summary>
-              <p>
-                {isUnix ? "Use Linux ou macOS com bash ou zsh." : "Use Windows 10/11 com PowerShell 5.1+."} Instale pelo menos um agente antes de rodar o comando.
-              </p>
-              {AGENT_INSTALL_COMMANDS
-                .filter(({ target }) => targetTool === "all" || targetTool === "agents" || targetTool === target)
-                .map(({ label, command }) => (
-                  <div className="cmd" key={command}>
-                    <code>{command}</code>
-                    <CopyButton className="cmd-copy" text={command} aria-label={`Copiar comando de instalação do ${label}`}>
-                      <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
-                      <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
-                    </CopyButton>
-                  </div>
-                ))}
-            </details>
 
             <div className="install-follow-up-grid">
               <section className="install-follow-up-card">
@@ -265,7 +274,7 @@ export default function InstallSteps() {
       )}
 
       {activeTab === "fresh" && (
-        <div className="process-grid">
+        <div className="process-grid" role="tabpanel" id="install-panel-fresh" aria-labelledby="install-tab-fresh">
           <div className="process-card">
             <div className="process-card-header">
               <div className="process-icon-box">
@@ -350,7 +359,7 @@ export default function InstallSteps() {
       )}
 
       {activeTab === "local" && (
-        <div className="process-grid">
+        <div className="process-grid" role="tabpanel" id="install-panel-local" aria-labelledby="install-tab-local">
           <div className="process-card">
             <div className="process-card-header">
               <div className="process-icon-box">

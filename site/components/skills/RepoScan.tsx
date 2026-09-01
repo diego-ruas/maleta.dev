@@ -60,6 +60,11 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
   const [showTokenInput, setShowTokenInput] = useState(false);
   const [searchTopic, setSearchTopic] = useState<"skills" | "plugins" | "mcp">("skills");
   const scanningRef = useRef(false);
+  const abortRef = useRef<AbortController | null>(null);
+
+  function cancelScan() {
+    abortRef.current?.abort();
+  }
 
   useEffect(() => {
     try {
@@ -127,10 +132,13 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
     setResults([]);
     setResultFilter("");
     saveRecent(key);
+    const controller = new AbortController();
+    abortRef.current = controller;
 
     try {
       const treeRes = await fetch(`https://api.github.com/repos/${key}/git/trees/HEAD?recursive=1`, {
         headers: getHeaders(),
+        signal: controller.signal,
       });
       if (treeRes.status === 403) {
         throw new Error(
@@ -163,8 +171,12 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
       setStatus(`${skills.length} skill(s) encontrada(s) em ${key}.`);
       setResults(skills);
     } catch (err) {
-      setError(true);
-      setStatus(err instanceof Error ? err.message : "Falha ao escanear o repositório.");
+      if (err instanceof DOMException && err.name === "AbortError") {
+        setStatus("Busca cancelada.");
+      } else {
+        setError(true);
+        setStatus(err instanceof Error ? err.message : "Falha ao escanear o repositório.");
+      }
     } finally {
       scanningRef.current = false;
       setScanning(false);
@@ -192,6 +204,8 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
     setResults([]);
     setResultFilter("");
     if (qTerm.trim()) saveRecent(qTerm.trim());
+    const controller = new AbortController();
+    abortRef.current = controller;
 
     try {
       const q = qTerm.trim()
@@ -200,6 +214,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
 
       const searchRes = await fetch(`https://api.github.com/search/repositories?q=${q}&per_page=6`, {
         headers: getHeaders(),
+        signal: controller.signal,
       });
       if (searchRes.status === 403) {
         throw new Error(
@@ -222,11 +237,13 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
       const allFound: RepoResult[] = [];
 
       for (let i = 0; i < repos.length; i++) {
+        if (controller.signal.aborted) break;
         const repo = repos[i];
         setScanStep(`[${i + 1}/${repos.length}] Analisando ${repo}...`);
         try {
           const treeRes = await fetch(`https://api.github.com/repos/${repo}/git/trees/HEAD?recursive=1`, {
             headers: getHeaders(),
+            signal: controller.signal,
           });
           if (treeRes.ok) {
             const tree = await treeRes.json();
@@ -251,6 +268,12 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
         }
       }
 
+      if (controller.signal.aborted) {
+        setStatus("Busca cancelada.");
+        if (allFound.length) setResults(allFound);
+        return;
+      }
+
       if (!allFound.length) {
         setStatus(`Nenhuma skill/plugin com SKILL.md encontrada nos ${repos.length} repositórios retornados.`);
         return;
@@ -259,8 +282,12 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
       setStatus(`${allFound.length} recurso(s) descoberto(s) na comunidade (${activeTopic}).`);
       setResults(allFound);
     } catch (err) {
-      setError(true);
-      setStatus(err instanceof Error ? err.message : "Falha ao pesquisar na comunidade.");
+      if (err instanceof DOMException && err.name === "AbortError") {
+        setStatus("Busca cancelada.");
+      } else {
+        setError(true);
+        setStatus(err instanceof Error ? err.message : "Falha ao pesquisar na comunidade.");
+      }
     } finally {
       scanningRef.current = false;
       setScanning(false);
@@ -329,7 +356,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
 
   function addAllResults() {
     let addedCount = 0;
-    for (const r of results) {
+    for (const r of filteredResults) {
       if (!builtInSkills.includes(r.name) && !existing.some((e) => e.name === r.name && e.repo === r.repo)) {
         onAdd({
           name: r.name,
@@ -402,6 +429,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
                 <input
                   type="password"
                   id="gh-token-input"
+                  autoComplete="off"
                   placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
                   value={ghToken}
                   onChange={(e) => setGhToken(e.target.value)}
@@ -441,11 +469,11 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
                   type="button"
                   className="repo-source-chip"
                   disabled={scanning}
+                  title={scanning ? "Aguarde a busca atual terminar" : `Escanear ${src.repo}`}
                   onClick={() => {
                     setRepoInput(src.repo);
                     scanRepo(src.repo);
                   }}
-                  title={`Escanear ${src.repo}`}
                 >
                   <span className="repo-chip-name">{src.label}</span>
                   <span className={`repo-chip-tag ${src.tag.toLowerCase()}`}>{src.tag}</span>
@@ -460,6 +488,8 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
               type="button"
               className={`repo-topic-btn${searchTopic === "skills" ? " active" : ""}`}
               aria-pressed={searchTopic === "skills"}
+              disabled={scanning}
+              title={scanning ? "Aguarde a busca atual terminar" : undefined}
               onClick={() => {
                 setSearchTopic("skills");
                 searchCommunity(undefined, "skills");
@@ -471,6 +501,8 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
               type="button"
               className={`repo-topic-btn${searchTopic === "plugins" ? " active" : ""}`}
               aria-pressed={searchTopic === "plugins"}
+              disabled={scanning}
+              title={scanning ? "Aguarde a busca atual terminar" : undefined}
               onClick={() => {
                 setSearchTopic("plugins");
                 searchCommunity(undefined, "plugins");
@@ -482,6 +514,8 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
               type="button"
               className={`repo-topic-btn${searchTopic === "mcp" ? " active" : ""}`}
               aria-pressed={searchTopic === "mcp"}
+              disabled={scanning}
+              title={scanning ? "Aguarde a busca atual terminar" : undefined}
               onClick={() => {
                 setSearchTopic("mcp");
                 searchCommunity(undefined, "mcp");
@@ -531,6 +565,8 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
                     key={term}
                     type="button"
                     className="repo-recent-chip"
+                    disabled={scanning}
+                    title={scanning ? "Aguarde a busca atual terminar" : undefined}
                     onClick={() => {
                       if (term.includes("/")) {
                         setRepoInput(term);
@@ -588,11 +624,19 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
             <div className="repo-scanning-progress" />
           </div>
           <p className="repo-scanning-text">{scanStep}</p>
+          <button type="button" className="btn-gh-sm" onClick={cancelScan}>
+            Cancelar
+          </button>
         </div>
       )}
 
       {status && !scanning && (
-        <p id="repo-status" className={error ? "repo-status error" : "repo-status"} role="status" aria-live="polite">
+        <p
+          id="repo-status"
+          className={error ? "repo-status error" : "repo-status"}
+          role={error ? "alert" : "status"}
+          aria-live={error ? "assertive" : "polite"}
+        >
           {error ? `[!] ${status}` : `[ok] ${status}`}
         </p>
       )}

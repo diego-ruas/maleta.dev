@@ -78,14 +78,13 @@ bash scripts/install.sh
 
 - **Mais de 80 Skills Curadas:** Instruções especializadas para frontend, backend, testes, refatoração, cloud, acessibilidade e documentação (`claude/skills/`).
 - **Hub Comunitário (GitHub):** Descubra e importe skills de qualquer repositório aberto na comunidade diretamente no instalador.
-- **Plugins e MCP Selecionados:**
+- **Plugins Selecionados:**
   - **Memória entre sessões (`claude-mem`):** Mantém o contexto persistente entre conversas.
   - **Workflow Ágil (`superpowers`):** Estrutura de brainstorming, planejamento e TDD antes de codificar.
   - **Design de Qualidade (`frontend-design`, `figma`):** Interfaces modernas e integração com componentes.
   - **Código Limpo (`ponytail`, `code-simplifier`):** Respostas diretas ao ponto, sem complexidade desnecessária.
   - **Planejamento (`planning-with-files`):** Gestão de contexto e execução estruturada em arquivos.
-- **Busca na Web (MCP):** Suporte nativo a pesquisas via DuckDuckGo (`open-websearch`).
-- **Codex:** Skills em `~/.agents/skills/` e servidores MCP em `~/.codex/config.toml`.
+- **Codex:** Skills em `~/.agents/skills/`.
 Consulte a [Matriz de Compatibilidade](docs/TOOL-MATRIX.md) para detalhes de mapeamento por ferramenta.
 
 ---

@@ -225,7 +225,7 @@ try {
         Write-Host "  * Claude Code: reinicie sua sessao e digite '/skills' ou '/plugins' para conferir." -ForegroundColor White
     }
     if ($toolsToRun -contains 'codex') {
-        Write-Host "  * Codex: reinicie o codex e digite '/skills' para conferir; MCP em ~/.codex/config.toml." -ForegroundColor White
+        Write-Host "  * Codex: reinicie o codex e digite '/skills' para conferir." -ForegroundColor White
     }
     if ($toolsToRun -contains 'agents') {
         Write-Host "  * Universal Agents: skills disponiveis em ~/.agents/skills." -ForegroundColor White

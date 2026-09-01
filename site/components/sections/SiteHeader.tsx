@@ -19,6 +19,7 @@ export default function SiteHeader() {
   const [activeSection, setActiveSection] = useState<string>("");
   const menuToggleRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const firstMobileLinkRef = useRef<HTMLAnchorElement>(null);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -65,7 +66,7 @@ export default function SiteHeader() {
       animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
     >
-      <Link href="/" className="site-name" aria-current="page" onClick={close}>
+      <Link href="/" className="site-name" onClick={close}>
         <Image
           src="/logo.png"
           alt="Mascote da Maleta.dev"
@@ -113,11 +114,17 @@ export default function SiteHeader() {
         hidden={!open}
       >
         <ul>
-          {NAV_LINKS.map(({ href, label }) => {
+          {NAV_LINKS.map(({ href, label }, i) => {
             const isActive = activeSection === href.replace("#", "");
             return (
               <li key={href}>
-                <a href={href} className={isActive ? "active" : ""} aria-current={isActive ? "location" : undefined} onClick={close}>
+                <a
+                  href={href}
+                  ref={i === 0 ? firstMobileLinkRef : undefined}
+                  className={isActive ? "active" : ""}
+                  aria-current={isActive ? "location" : undefined}
+                  onClick={close}
+                >
                   {label}
                 </a>
               </li>

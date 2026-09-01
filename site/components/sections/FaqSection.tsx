@@ -66,7 +66,7 @@ export default function FaqSection() {
           </p>
           <ul className="faq-list-detail">
             <li><strong>Claude Code (<code>-Tools claude</code>)</strong>: Injeta apenas em <code>~/.claude/skills/</code> e <code>settings.json</code>.</li>
-            <li><strong>Codex (<code>-Tools codex</code>)</strong>: Injeta as skills em <code>~/.agents/skills/</code> e os servidores MCP em <code>~/.codex/config.toml</code>.</li>
+            <li><strong>Codex (<code>-Tools codex</code>)</strong>: Injeta as skills em <code>~/.agents/skills/</code>.</li>
             <li><strong>Agentes & IDEs (<code>-Tools agents</code>)</strong>: Injeta as skills em <code>~/.agents/skills/</code> para Antigravity, Cursor, Windsurf, Cline, Roo Code, Gemini e Codex.</li>
             <li><strong>Todos / Completo (<code>-Tools all</code>)</strong>: Instalação total que sincroniza simultaneamente o Claude Code, Codex e todas as IDEs/Agentes.</li>
           </ul>

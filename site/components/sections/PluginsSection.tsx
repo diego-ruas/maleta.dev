@@ -7,10 +7,7 @@ import CopyButton from "@/components/CopyButton";
 import { CheckIcon } from "@/components/icons/check";
 import { CopyIcon } from "@/components/icons/copy";
 import { ClaudeIcon } from "@/components/icons/claude";
-import { CodexIcon } from "@/components/icons/codex";
-import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import { useToast } from "@/components/Toast";
-import { useToolkit } from "@/lib/toolkitContext";
 import { PLUGIN_GROUPS, type PluginItem } from "@/lib/data";
 
 interface FlatPlugin extends PluginItem {
@@ -33,9 +30,7 @@ const PLUGINS_SELECTED_KEY = "maleta-selected-plugins";
 
 export default function PluginsSection() {
   const showToast = useToast();
-  const { targetOs } = useToolkit();
   const [search, setSearch] = useState("");
-  const [activeTool, setActiveTool] = useState<"all" | "Claude Code" | "Codex">("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const [selected, setSelected] = useState<Set<string>>(() => new Set());
@@ -84,46 +79,26 @@ export default function PluginsSection() {
   const filteredPlugins = useMemo(() => {
     const q = search.trim().toLowerCase();
     return ALL_PLUGINS.filter((plugin) => {
-      const matchTool = activeTool === "all" || plugin.tool === activeTool;
       const matchCategory = selectedCategory === "all" || plugin.category === selectedCategory;
       const matchQ =
         !q ||
         plugin.name.toLowerCase().includes(q) ||
         plugin.description.toLowerCase().includes(q) ||
-        plugin.tool.toLowerCase().includes(q) ||
         (plugin.category && plugin.category.toLowerCase().includes(q));
-      return matchTool && matchCategory && matchQ;
+      return matchCategory && matchQ;
     });
-  }, [activeTool, selectedCategory, search]);
+  }, [selectedCategory, search]);
 
   const claudeSelected = useMemo(() => {
     return ALL_PLUGINS
-      .filter((p) => p.tool === "Claude Code" && selected.has(`${p.tool}:${p.name}`))
-      .map((p) => p.name);
-  }, [selected]);
-
-  const codexSelected = useMemo(() => {
-    return ALL_PLUGINS
-      .filter((p) => p.tool === "Codex" && selected.has(`${p.tool}:${p.name}`))
+      .filter((p) => selected.has(`${p.tool}:${p.name}`))
       .map((p) => p.name);
   }, [selected]);
 
   const pluginInstallCommand = useMemo(() => {
-    if (selected.size === 0) return "# Nenhum plugin selecionado";
-    const lines: string[] = [];
-    if (claudeSelected.length > 0) {
-      lines.push(claudeSelected.map((n) => `claude plugin install ${n}`).join(" ; "));
-    }
-    if (codexSelected.length > 0) {
-      const isUnix = targetOs === "unix";
-      lines.push(
-        isUnix
-          ? `curl -fsSL https://maleta.dev/install.sh | bash -s -- --tools codex`
-          : `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1))) -Tools codex`
-      );
-    }
-    return lines.join("\n");
-  }, [selected.size, claudeSelected, codexSelected, targetOs]);
+    if (claudeSelected.length === 0) return "# Nenhum plugin selecionado";
+    return claudeSelected.map((n) => `claude plugin install ${n}`).join(" ; ");
+  }, [claudeSelected]);
 
   return (
     <Reveal id="plugins" className="reveal" ariaLabelledby="plugins-heading">
@@ -131,13 +106,13 @@ export default function PluginsSection() {
         <div>
           <h2 id="plugins-heading">Plugins</h2>
           <p className="section-glossary">
-            {"// Plugin = pacote que adiciona comandos ao Claude Code. MCP = servidor externo que dá novas ferramentas ao agente (busca, docs)."}
+            {"// Plugin = pacote que adiciona comandos ao Claude Code."}
           </p>
           <p>Potencialize seus assistentes com memória persistente, fluxos de engenharia estruturados, design e código limpo.</p>
         </div>
       </div>
 
-      <details className="plugins-disclosure">
+      <details className="plugins-disclosure" open>
         <summary>
           <span>Configurar plugins opcionais</span>
           <span className="plugins-disclosure-count">{ALL_PLUGINS.length} disponíveis</span>
@@ -150,42 +125,13 @@ export default function PluginsSection() {
             <input
               type="search"
               id="plugins-search"
-              placeholder="Buscar plugins (ex.: superpowers, memory, ponytail, figma, mcp, git…)"
+              placeholder="Buscar plugins (ex.: superpowers, memory, ponytail, figma, git…)"
               autoComplete="off"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
 
-          <div className="plugins-tool-tabs" role="group" aria-label="Filtrar por ferramenta">
-            <button
-              type="button"
-              className={`plugin-tab-btn${activeTool === "all" ? " active" : ""}`}
-              aria-pressed={activeTool === "all"}
-              onClick={() => setActiveTool("all")}
-            >
-              <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={14} />
-              <span>Todos ({ALL_PLUGINS.length})</span>
-            </button>
-            <button
-              type="button"
-              className={`plugin-tab-btn${activeTool === "Claude Code" ? " active" : ""}`}
-              aria-pressed={activeTool === "Claude Code"}
-              onClick={() => setActiveTool("Claude Code")}
-            >
-              <AnimatedIcon Icon={ClaudeIcon} className="icon" size={14} />
-              <span>Claude Code ({ALL_PLUGINS.filter((p) => p.tool === "Claude Code").length})</span>
-            </button>
-            <button
-              type="button"
-              className={`plugin-tab-btn${activeTool === "Codex" ? " active" : ""}`}
-              aria-pressed={activeTool === "Codex"}
-              onClick={() => setActiveTool("Codex")}
-            >
-              <AnimatedIcon Icon={CodexIcon} className="icon" size={14} />
-              <span>Codex ({ALL_PLUGINS.filter((p) => p.tool === "Codex").length})</span>
-            </button>
-          </div>
         </div>
 
         {/* Chips de Categoria de Plugins */}
@@ -245,20 +191,16 @@ export default function PluginsSection() {
           {filteredPlugins.map((plugin) => {
             const pluginKey = `${plugin.tool}:${plugin.name}`;
             const isSelected = selected.has(pluginKey);
-            const ToolIcon = plugin.tool === "Claude Code" ? ClaudeIcon : CodexIcon;
 
             return (
               <li key={pluginKey} className={`plugin-row-item${isSelected ? " selected" : ""}`}>
                 <div className="plugin-row-main">
                   <div className="plugin-row-icon-cell">
-                    <AnimatedIcon Icon={ToolIcon} className="plugin-item-icon" size={20} />
+                    <AnimatedIcon Icon={ClaudeIcon} className="plugin-item-icon" size={20} />
                   </div>
                   <div className="plugin-row-info">
                     <div className="plugin-row-title-row">
                       <span className="plugin-row-name">{plugin.name}</span>
-                      <span className={`plugin-row-tool-chip ${plugin.tool === "Claude Code" ? "claude" : "codex"}`}>
-                        {plugin.tool}
-                      </span>
                       {plugin.category && (
                         <span className="plugin-row-category-chip">
                           {plugin.category}
@@ -299,7 +241,6 @@ export default function PluginsSection() {
               className="btn-gh"
               onClick={() => {
                 setSearch("");
-                setActiveTool("all");
                 setSelectedCategory("all");
               }}
             >

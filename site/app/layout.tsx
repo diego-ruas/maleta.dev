@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { MotionConfig } from "motion/react";
 import { ToastProvider } from "@/components/Toast";
 import "../css/base.css";
 import "../css/site.css";
@@ -58,7 +59,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={jetbrainsMono.variable}>
       <body>
-        <ToastProvider>{children}</ToastProvider>
+        <MotionConfig reducedMotion="user">
+          <ToastProvider>{children}</ToastProvider>
+        </MotionConfig>
         <Analytics />
       </body>
     </html>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import CopyButton from "@/components/CopyButton";
 import { CopyIcon } from "@/components/icons/copy";
@@ -32,6 +32,8 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
   const {
     targetTool,
     setTargetTool,
+    targetOs,
+    setTargetOs,
     selectedSkills,
     activePreset,
     isPresetActive,
@@ -50,37 +52,35 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
 
   const [activeStep, setActiveStep] = useState<ExplorerStep>("presets");
   const [search, setSearch] = useState("");
+  const [announcedCount, setAnnouncedCount] = useState<number | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [viewScope, setViewScope] = useState<"all" | "selected">("all");
+  const panelRef = useRef<HTMLElement>(null);
+  const isFirstRender = useRef(true);
+
+  // Move o foco pro painel a cada troca de etapa: sem isso o foco fica preso
+  // no botão do stepper (ruim pra teclado/leitor de tela e no mobile o
+  // usuário não percebe que o conteúdo mudou). Pula o mount inicial: focar
+  // ali rola a página pra seção ao simplesmente abrir o site.
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    panelRef.current?.focus();
+  }, [activeStep]);
 
   useEffect(() => {
-    const handleNav = (targetId: string) => {
-      if (targetId === "repo-add" || targetId === "hub") {
-        setActiveStep("hub");
-      }
-    };
-
     const handleHash = () => {
       const hash = window.location.hash.replace("#", "");
-      if (hash) {
-        handleNav(hash);
-      }
-    };
-
-    const onCustomNav = (e: Event) => {
-      const ce = e as CustomEvent<string>;
-      if (ce.detail) {
-        handleNav(ce.detail);
+      if (hash === "repo-add" || hash === "hub") {
+        setActiveStep("hub");
       }
     };
 
     handleHash();
     window.addEventListener("hashchange", handleHash);
-    window.addEventListener("maleta-navigate", onCustomNav);
-    return () => {
-      window.removeEventListener("hashchange", handleHash);
-      window.removeEventListener("maleta-navigate", onCustomNav);
-    };
+    return () => window.removeEventListener("hashchange", handleHash);
   }, []);
 
   const visibleSkills = useMemo(() => {
@@ -95,6 +95,13 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
       return matchCat && matchQ;
     });
   }, [allMergedSkills, activeCategory, search, viewScope, selectedSkills]);
+
+  // Anuncio de contagem debounced: a contagem visivel atualiza a cada tecla,
+  // mas anunciar isso via aria-live a cada tecla e ruido pro leitor de tela.
+  useEffect(() => {
+    const t = setTimeout(() => setAnnouncedCount(visibleSkills.length), 500);
+    return () => clearTimeout(t);
+  }, [visibleSkills.length]);
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -121,6 +128,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
   const steps = [
     {
       id: "presets" as const,
+      panelId: undefined as string | undefined,
       num: "01",
       title: "Presets & Base",
       subtitle: activePreset ? selectedPresetObj?.name ?? "Preset Ativo" : "Escolha inicial",
@@ -137,6 +145,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
     },
     {
       id: "hub" as const,
+      panelId: "repo-add",
       num: "03",
       title: "Hub GitHub",
       subtitle: "Skills comunitárias",
@@ -160,9 +169,9 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
         {steps.map((step) => {
           const isActive = activeStep === step.id;
           const isDone =
-            (step.id === "presets" && activeStep !== "presets") ||
-            (step.id === "skills" && (activeStep === "hub" || activeStep === "summary")) ||
-            (step.id === "hub" && activeStep === "summary");
+            (step.id === "presets" && selectedSkills.size > 0) ||
+            (step.id === "skills" && selectedSkills.size > 0) ||
+            (step.id === "hub" && customSkills.length > 0);
 
           return (
             <button
@@ -170,6 +179,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
               type="button"
               className={`explorer-pipeline-step${isActive ? " active" : ""}${isDone ? " done" : ""}`}
               aria-current={isActive ? "step" : undefined}
+              aria-controls={step.panelId ?? `explorer-panel-${step.id}`}
               onClick={() => setActiveStep(step.id)}
             >
               <div className="pipeline-step-header">
@@ -190,7 +200,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
 
       {/* 2. ETAPA 01: PRESETS & BASE */}
       {activeStep === "presets" && (
-        <section className="explorer-stage-panel" aria-label="Etapa 1: Presets recomendados">
+        <section ref={panelRef} tabIndex={-1} id="explorer-panel-presets" className="explorer-stage-panel" aria-label="Etapa 1: Presets recomendados">
           <div className="stage-panel-header">
             <div>
               <span className="section-tag-prefix">{"// ETAPA 01"}</span>
@@ -293,7 +303,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
 
       {/* 3. ETAPA 02: AJUSTE FINO (CATÁLOGO DE SKILLS) */}
       {activeStep === "skills" && (
-        <section className="explorer-stage-panel" aria-label="Etapa 2: Ajuste fino de skills">
+        <section ref={panelRef} tabIndex={-1} id="explorer-panel-skills" className="explorer-stage-panel" aria-label="Etapa 2: Ajuste fino de skills">
           <div className="stage-panel-header">
             <div>
               <span className="section-tag-prefix">{"// ETAPA 02"}</span>
@@ -376,8 +386,11 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 Desmarcar Todas
               </button>
             </div>
-            <span className="skills-viewing-count" aria-live="polite">
+            <span className="skills-viewing-count">
               Exibindo <strong>{visibleSkills.length}</strong> de {allMergedSkills.length} skills
+            </span>
+            <span className="sr-only" aria-live="polite">
+              {announcedCount !== null && `Exibindo ${announcedCount} de ${allMergedSkills.length} skills`}
             </span>
           </div>
 
@@ -451,7 +464,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
 
       {/* 4. ETAPA 03: HUB COMUNITÁRIO GITHUB */}
       {activeStep === "hub" && (
-        <section className="explorer-stage-panel" id="repo-add" aria-label="Etapa 3: Hub Comunitário do GitHub">
+        <section ref={panelRef} tabIndex={-1} className="explorer-stage-panel" id="repo-add" aria-label="Etapa 3: Hub Comunitário do GitHub">
           <div className="stage-panel-header">
             <div>
               <span className="section-tag-prefix">{"// ETAPA 03"}</span>
@@ -496,7 +509,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
 
       {/* 5. ETAPA 04: PACOTE FINAL & INSTALAÇÃO */}
       {activeStep === "summary" && (
-        <section className="explorer-stage-panel" aria-label="Etapa 4: Resumo do Pacote e Instalação">
+        <section ref={panelRef} tabIndex={-1} id="explorer-panel-summary" className="explorer-stage-panel" aria-label="Etapa 4: Resumo do Pacote e Instalação">
           <div className="stage-panel-header">
             <div>
               <span className="section-tag-prefix">{"// ETAPA 04"}</span>
@@ -551,6 +564,28 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 </button>
               </div>
 
+              <div className="summary-section-label">
+                <span>{"// Sistema Operacional"}</span>
+              </div>
+              <div className="summary-tool-switcher" role="group" aria-label="Sistema operacional de destino">
+                <button
+                  type="button"
+                  className={`summary-tool-btn${targetOs === "windows" ? " active" : ""}`}
+                  aria-pressed={targetOs === "windows"}
+                  onClick={() => setTargetOs("windows")}
+                >
+                  <span>Windows (PowerShell)</span>
+                </button>
+                <button
+                  type="button"
+                  className={`summary-tool-btn${targetOs === "unix" ? " active" : ""}`}
+                  aria-pressed={targetOs === "unix"}
+                  onClick={() => setTargetOs("unix")}
+                >
+                  <span>Linux / macOS (bash)</span>
+                </button>
+              </div>
+
               <div className="summary-section-label" style={{ marginTop: "1rem" }}>
                 <span>{`// Skills Ativas no Pacote (${selectedSkills.size})`}</span>
               </div>
@@ -578,7 +613,10 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                   <button
                     type="button"
                     className="btn-gh-sm"
-                    onClick={() => setActiveStep("presets")}
+                    onClick={() => {
+                      togglePreset("essentials");
+                      setActiveStep("presets");
+                    }}
                   >
                     Carregar preset Essenciais
                   </button>

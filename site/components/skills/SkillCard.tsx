@@ -25,39 +25,39 @@ export default function SkillCard({
 
   return (
     <li className={`skill-row-item${selected ? " selected" : ""}`}>
-      <div className="skill-row-main">
-        <div className="skill-row-icon-cell">
+      {/* A linha inteira e clicavel (nao so o botao) para casar com a
+          affordance visual e aumentar a area de toque no mobile. */}
+      <button
+        type="button"
+        className="skill-row-main"
+        onClick={onToggleSelect}
+        aria-pressed={selected}
+      >
+        <span className="skill-row-icon-cell">
           <AnimatedIcon Icon={CategoryIcon} className="skill-item-icon" size={20} />
-        </div>
-        <div className="skill-row-info">
-          <div className="skill-row-title-row">
+        </span>
+        <span className="skill-row-info">
+          <span className="skill-row-title-row">
             <span className="skill-row-name">{skill.name}</span>
             <span className="skill-row-category-chip">
               {skill.category}
             </span>
-          </div>
+          </span>
 
-          <p className="skill-row-desc">{skill.description}</p>
-        </div>
+          <span className="skill-row-desc">{skill.description}</span>
+        </span>
 
-        <div className="skill-row-actions-cell">
-          <button
-            type="button"
-            className={`btn-gh skill-row-select-btn${selected ? " active" : ""}`}
-            onClick={onToggleSelect}
-            aria-pressed={selected}
-          >
-            {selected ? (
-              <>
-                <span>Selecionada</span>
-                <AnimatedIcon Icon={CheckIcon} className="icon icon-check-small" size={14} />
-              </>
-            ) : (
-              <span>+ Selecionar</span>
-            )}
-          </button>
-        </div>
-      </div>
+        <span className={`btn-gh skill-row-select-btn skill-row-actions-cell${selected ? " active" : ""}`}>
+          {selected ? (
+            <>
+              <span>Selecionada</span>
+              <AnimatedIcon Icon={CheckIcon} className="icon icon-check-small" size={14} />
+            </>
+          ) : (
+            <span>+ Selecionar</span>
+          )}
+        </span>
+      </button>
     </li>
   );
 }

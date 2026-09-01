@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useInView } from "motion/react";
 import { CODEX_ICON_PATH } from "@/lib/codexIconPath";
 
@@ -92,20 +92,26 @@ const SUPPORTED_AGENTS: AgentItem[] = [
 export default function AgentsTicker() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(wrapperRef, { margin: "0px 0px 200px 0px" });
+  const [userPaused, setUserPaused] = useState(false);
+  const paused = !isInView || userPaused;
 
   return (
     <section className="agents-ticker-section" aria-label="Agentes Suportados">
       <div className="agents-ticker-header">
         <span className="agents-ticker-label">{"// AGENTES & ECOSSISTEMAS COMPATÍVEIS"}</span>
         <span className="agents-ticker-sub">Provisionamento determinístico e instalação de skills</span>
+        {/* WCAG 2.2.2: conteudo em movimento continuo precisa de controle do usuario */}
+        <button type="button" className="btn-gh-sm agents-ticker-pause" onClick={() => setUserPaused((v) => !v)}>
+          {userPaused ? "Retomar" : "Pausar"} animação
+        </button>
       </div>
 
       <div className="agents-ticker-track-wrapper" ref={wrapperRef}>
-        <div className={`agents-ticker-track${isInView ? "" : " paused"}`}>
+        <div className={`agents-ticker-track${paused ? " paused" : ""}`}>
           {/* Trilha 1 */}
-          <div className="agents-ticker-group" role="list" aria-label="Agentes e ecossistemas compatíveis">
+          <ul className="agents-ticker-group" aria-label="Agentes e ecossistemas compatíveis">
             {SUPPORTED_AGENTS.map((agent) => (
-              <div key={`track-1-${agent.id}`} className="agents-ticker-item" role="listitem">
+              <li key={`track-1-${agent.id}`} className="agents-ticker-item">
                 <svg
                   viewBox={agent.viewBox || "0 0 24 24"}
                   fill="currentColor"
@@ -117,9 +123,9 @@ export default function AgentsTicker() {
                   <path d={agent.svgPath} />
                 </svg>
                 <span className="agents-ticker-name">{agent.name}</span>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
 
           {/* Trilha 2 (Duplicada para loop infinito perfeito) */}
           <div className="agents-ticker-group" aria-hidden="true">

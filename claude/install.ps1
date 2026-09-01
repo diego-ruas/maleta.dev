@@ -116,21 +116,5 @@ foreach ($p in $plugins.plugins) {
     if ($LASTEXITCODE -ne 0) { throw "claude plugin install '$($p.id)' failed (exit $LASTEXITCODE)" }
 }
 
-# --- 5. MCP servers (user scope; deep-merged into ~/.claude.json, repo wins per server) ---
-$mcpSrc = Join-Path $srcClaude 'mcp.json'
-if (Test-Path -LiteralPath $mcpSrc) {
-    $claudeJson = Join-Path $env:USERPROFILE '.claude.json'
-    if (Test-Path -LiteralPath $claudeJson) {
-        Copy-Item $claudeJson "$claudeJson.pre-install.bak" -Force
-        $localCj = ConvertTo-Hashtable (Get-Content -LiteralPath $claudeJson -Raw | ConvertFrom-Json)
-        $repoMcp = ConvertTo-Hashtable (Get-Content -LiteralPath $mcpSrc -Raw | ConvertFrom-Json)
-        Merge-Hashtables $localCj $repoMcp | ConvertTo-Json -Depth 100 | Set-Content -LiteralPath $claudeJson -Encoding UTF8
-        Write-Host '[ok] mcpServers merged into ~/.claude.json (previous saved as .claude.json.pre-install.bak)'
-    } else {
-        Copy-Item $mcpSrc $claudeJson -Force
-        Write-Host '[ok] ~/.claude.json created from repo mcp.json'
-    }
-}
-
 Write-Host ''
 Write-Host 'Claude install complete. Restart Claude Code to load plugins.'

@@ -102,7 +102,6 @@ html {
     scrollbar-width: thin;
     scrollbar-color: var(--border-light) var(--bg);
     color-scheme: dark;
-    overflow-x: hidden;
 }
 
 button, input, select, textarea {

@@ -61,8 +61,16 @@ const ToolkitContext = createContext<ToolkitContextType | null>(null);
 
 export function ToolkitProvider({ children }: { children: React.ReactNode }) {
   const showToast = useToast();
-  const [targetTool, setTargetToolState] = useState<ToolTarget>("all");
-  const [targetOs, setTargetOsState] = useState<OsTarget>("windows");
+  const [targetTool, setTargetToolState] = useState<ToolTarget>(() => {
+    if (typeof window === "undefined") return "all";
+    const saved = localStorage.getItem(TOOL_KEY) as ToolTarget | null;
+    return saved === "all" || saved === "claude" || saved === "codex" || saved === "agents" ? saved : "all";
+  });
+  const [targetOs, setTargetOsState] = useState<OsTarget>(() => {
+    if (typeof window === "undefined") return "windows";
+    const saved = localStorage.getItem(OS_KEY) as OsTarget | null;
+    return saved === "windows" || saved === "unix" ? saved : detectOs();
+  });
   const [activePreset, setActivePreset] = useState<string | null>("essentials");
   const [activePresetIds, setActivePresetIds] = useState<Set<string>>(() => new Set(["essentials"]));
   const [customSkills, setCustomSkills] = useState<CustomSkill[]>([]);
@@ -72,18 +80,6 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-    const savedTool = localStorage.getItem(TOOL_KEY) as ToolTarget | null;
-    if (savedTool && (savedTool === "all" || savedTool === "claude" || savedTool === "codex" || savedTool === "agents")) {
-      setTargetToolState(savedTool);
-    }
-
-    const savedOs = localStorage.getItem(OS_KEY) as OsTarget | null;
-    if (savedOs === "windows" || savedOs === "unix") {
-      setTargetOsState(savedOs);
-    } else {
-      setTargetOsState(detectOs());
-    }
-
     const savedCustom = loadJSON<CustomSkill[]>(CUSTOM_KEY, []);
     setCustomSkills(savedCustom);
 
@@ -111,45 +107,6 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
         // mantém padrão
       }
     }
-  }, []);
-
-  useEffect(() => {
-    if (window.location.hash) {
-      window.history.replaceState(null, "", window.location.pathname + window.location.search);
-    }
-
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement)?.closest("a");
-      if (!target) return;
-      const href = target.getAttribute("href");
-      if (!href || !href.startsWith("#") || href === "#") return;
-
-      e.preventDefault();
-      const id = href.slice(1);
-
-      window.dispatchEvent(new CustomEvent("maleta-navigate", { detail: id }));
-
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const scrollToElement = () => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.scrollIntoView({
-            behavior: prefersReducedMotion ? "instant" : "smooth",
-            block: "start",
-          });
-        }
-      };
-
-      scrollToElement();
-      setTimeout(scrollToElement, 50);
-
-      if (window.location.hash) {
-        window.history.replaceState(null, "", window.location.pathname + window.location.search);
-      }
-    };
-
-    document.addEventListener("click", handleAnchorClick);
-    return () => document.removeEventListener("click", handleAnchorClick);
   }, []);
 
   const setTargetTool = (tool: ToolTarget) => {

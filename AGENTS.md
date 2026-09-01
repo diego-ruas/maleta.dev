@@ -6,7 +6,7 @@ Guidance for any AI agent working inside this repository. Read this first.
 
 A public, install-only collection and custom builder of AI tooling: skills, plugins, presets, and configuration for **Claude Code** (`claude/`) and **Codex** (`codex/`). Clone it or generate custom installation commands; nothing private is synced back here.
 
-The `site/` folder is the public web application ([maleta.dev](https://maleta.dev)) — a Next.js 15 App Router app (TypeScript, `output: 'export'`) served as static HTML on Vercel. It provides a real-time **Custom AI Toolkit Builder**, allowing developers to pick presets, toggle skills, discover community GitHub skills, and copy tailored PowerShell installation one-liners.
+The `site/` folder is the public web application ([maleta.dev](https://maleta.dev)) — a Next.js 15 App Router app (TypeScript, `output: 'export'`) served as static HTML on Vercel. It provides a real-time **Custom AI Toolkit Builder**, allowing developers to pick presets, toggle skills, discover community GitHub skills, and copy a tailored installation one-liner (PowerShell or bash, per selected OS).
 
 ## Golden rules (do not violate)
 
@@ -20,9 +20,7 @@ The `site/` folder is the public web application ([maleta.dev](https://maleta.de
 3. **`claude/plugins/plugins.json` and `claude/plugins/marketplaces.json` are
    static manifests** (no longer regenerated). Edit them deliberately to change
    the installed plugin set.
-4. **Never store API keys, tokens, or model secrets** in any tracked file. The
-   Codex config (`codex/config.toml`) only lists MCP server references — no provider
-   credentials — keep it that way.
+4. **Never store API keys, tokens, or model secrets** in any tracked file.
 5. **Do not add new files to the repo root** unless they belong there
    (README, LICENSE, AGENTS.md, CLAUDE.md, .cursorrules, .windsurfrules, .clinerules, .gitignore, docs/). Tool-specific assets go in
    their own subfolder.
@@ -107,11 +105,6 @@ The Codex discovers the same skills in `~/.agents/skills`; there is no separate 
 3. Update `site/lib/data.ts` if featured in the site manifest list.
 4. Commit.
 
-### Update Codex
-
-- Config lives in `codex/config.toml` (MCP servers). Edit and run
-  `codex/install.ps1` locally to apply.
-
 ### Work on the website (`site/`)
 
 Next.js App Router (TypeScript, `output: 'export'`), no CSS framework — plain
@@ -127,12 +120,12 @@ npm run build      # static export to out/ — must pass before claiming done
 
 - `app/layout.tsx` — head/metadata, Departure Mono via `next/font/local`, global CSS.
 - `app/page.tsx` — landing page assembling section components inside `ToolkitProvider`.
-- `lib/toolkitContext.tsx` — shared state for active tool target, skill selections, presets, custom GitHub imports, and dynamic PowerShell installer generation.
+- `lib/toolkitContext.tsx` — shared state for active tool target, target OS (Windows/Unix), skill selections, presets, custom GitHub imports, and dynamic installer command generation.
 - `lib/iconMap.ts` — category-to-Pixelarticon resolver.
 - `lib/data.ts` — structured, typed catalogue of all skills, categories, presets, and plugin manifests.
 - `components/sections/` — modular page sections (`Hero`, `AboutSection`, `ToolsGrid`, `SkillsSection`, `PluginsSection`, `InstallSteps`, `FaqSection`, `SiteHeader`, `SiteFooter`).
 - `components/skills/` — interactive client components (`SkillsExplorer`, `RepoScan`, `SkillCard`) for filtering, searching, and community GitHub imports.
-- `components/CopyButton.tsx` & `components/Toast.tsx` — interactive copy-to-clipboard and toast feedback system with high-contrast states.
+- `components/CopyButton.tsx` & `components/Toast.tsx` — interactive copy-to-clipboard and queued toast feedback system (`aria-live`, high-contrast states).
 - `components/icons/*.tsx` — Pixelarticons (rule 8). MIT, animated with `motion/react` stepped transitions.
 - `components/AnimatedIcon.tsx` — client wrapper: delegates hover from the parent button/link to the icon.
 - `public/install.ps1` — parameterized one-liner installer hosted at `https://maleta.dev/install.ps1`.

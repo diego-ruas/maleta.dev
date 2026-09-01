@@ -110,36 +110,5 @@ while IFS= read -r id; do
     claude plugin install "$id"
 done <<< "$PLUGINS"
 
-# --- 5. MCP servers (user scope; deep-merged into ~/.claude.json, repo wins per server) ---
-MCP_SRC="$SRC_CLAUDE/mcp.json"
-if [ -f "$MCP_SRC" ]; then
-    CLAUDE_JSON="$HOME/.claude.json"
-    if [ -f "$CLAUDE_JSON" ]; then
-        cp -f "$CLAUDE_JSON" "$CLAUDE_JSON.pre-install.bak"
-        node -e '
-            const fs = require("fs");
-            const [localPath, repoPath, outPath] = process.argv.slice(1);
-            function merge(base, repo) {
-                for (const k of Object.keys(repo)) {
-                    if (base[k] && repo[k] && typeof base[k] === "object" && !Array.isArray(base[k])
-                        && typeof repo[k] === "object" && !Array.isArray(repo[k])) {
-                        merge(base[k], repo[k]);
-                    } else {
-                        base[k] = repo[k];
-                    }
-                }
-                return base;
-            }
-            const local = JSON.parse(fs.readFileSync(localPath, "utf8"));
-            const repo = JSON.parse(fs.readFileSync(repoPath, "utf8"));
-            fs.writeFileSync(outPath, JSON.stringify(merge(local, repo), null, 2));
-        ' "$CLAUDE_JSON" "$MCP_SRC" "$CLAUDE_JSON"
-        echo "[ok] mcpServers merged into ~/.claude.json (previous saved as .claude.json.pre-install.bak)"
-    else
-        cp -f "$MCP_SRC" "$CLAUDE_JSON"
-        echo "[ok] ~/.claude.json created from repo mcp.json"
-    fi
-fi
-
 echo ""
 echo "Claude install complete. Restart Claude Code to load plugins."

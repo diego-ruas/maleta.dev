@@ -19,7 +19,9 @@ export default function BackToTop() {
   }, []);
 
   const scrollToTop = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.currentTarget.blur();
+    // detail === 0 indica ativação via teclado (Enter/Espaço); só limpa o
+    // foco em clique de mouse, senão o usuário de teclado perde a posição.
+    if (e.detail !== 0) e.currentTarget.blur();
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;

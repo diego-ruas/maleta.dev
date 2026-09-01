@@ -699,29 +699,9 @@ export const PLUGIN_GROUPS: PluginGroup[] = [
         category: "Design UI",
       },
       {
-        name: "context7",
-        description: "docs atualizadas das libs (MCP)",
-        category: "MCP & Docs",
-      },
-      {
         name: "planning-with-files",
         description: "planos em markdown que sobrevivem a /clear",
         category: "Workflow",
-      },
-    ],
-  },
-  {
-    tool: "Codex",
-    items: [
-      {
-        name: "open-websearch",
-        description: "busca na web sem API key (MCP)",
-        category: "MCP",
-      },
-      {
-        name: "context7",
-        description: "docs atualizadas das libs (MCP)",
-        category: "MCP",
       },
     ],
   },

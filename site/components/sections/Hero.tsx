@@ -113,7 +113,6 @@ export default function Hero() {
 
       <motion.div
         className="hero-console-wrapper"
-        id="configurador"
         initial={reduceMotion ? false : { opacity: 0, scale: 0.97, y: 10 }}
         animate={reduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.15 }}
@@ -141,6 +140,7 @@ export default function Hero() {
                 <CopyButton
                   className="hero-code-copy-btn"
                   text={installCommand}
+                  disabled={selectedSkills.size === 0}
                   aria-label="Copiar comando de instalação"
                   title="Copiar comando completo para a área de transferência"
                 >
