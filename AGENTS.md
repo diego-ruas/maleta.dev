@@ -47,6 +47,16 @@ This repository provides native entry point configurations so that any LLM/agent
 - **Roo Code / Cline**: Reads [`.clinerules`](./.clinerules).
 - **GitHub Copilot**: Reads [`.github/copilot-instructions.md`](./.github/copilot-instructions.md).
 
+## CodeGraph usage
+
+`claude/skills/` (25M of unedited upstream copies, rule 2) dominates CodeGraph's
+default ranking with markdown noise. When running the CLI directly, exclude it:
+`codegraph orient --root . --ignore-glob "claude/skills/**"` (same for
+`explore`, `hotspots`, `impact`). It cannot be gitignored — new skill folders
+must stay `git add`-able (see "Add a new skill" below) — so this is a
+per-invocation flag, not a persisted setting. The MCP `codegraph_explore` tool
+does not accept this flag; expect skill files to surface in its results.
+
 ## Common tasks
 
 ### Install a customized environment on a machine

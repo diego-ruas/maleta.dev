@@ -3785,7 +3785,7 @@ footer {
 
 .about-pillars-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: var(--space-2);
     margin-bottom: var(--space-2);
     width: 100%;
@@ -3980,11 +3980,6 @@ footer {
     flex-direction: column;
     gap: var(--space-2);
     padding: 0 10px 10px;
-}
-
-.about-pillars-grid--advanced {
-    grid-template-columns: minmax(0, 1fr);
-    margin-bottom: 0;
 }
 
 .about-stats-grid {

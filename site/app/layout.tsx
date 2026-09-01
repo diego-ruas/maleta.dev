@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Roboto } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { ToastProvider } from "@/components/Toast";
 import "../css/base.css";
@@ -9,6 +10,13 @@ import "../css/transitions.css";
 const departureMono = localFont({
   src: "./fonts/DepartureMono-Regular.woff2",
   variable: "--font-departure-mono",
+  display: "swap",
+});
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-body",
   display: "swap",
 });
 
@@ -55,7 +63,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={departureMono.variable}>
+    <html lang="pt-BR" className={`${departureMono.variable} ${roboto.variable}`}>
       <body>
         <ToastProvider>{children}</ToastProvider>
         <Analytics />

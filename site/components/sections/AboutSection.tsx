@@ -90,73 +90,42 @@ export default function AboutSection() {
         Agentes de código são assistentes que escrevem e editam seu projeto. As <strong>skills</strong> são instruções prontas que ajudam esses agentes a seguir seu jeito de trabalhar, sem você repetir as mesmas regras em cada pedido.
       </p>
 
-      {/* Manifesto com Estética de Terminal & Alta Escaneabilidade */}
-      <div className="about-manifesto-card">
-        <div className="about-manifesto-header">
-          <div className="about-manifesto-left">
-            <div className="about-window-dots" aria-hidden="true">
-              <span className="about-dot" />
-              <span className="about-dot" />
-              <span className="about-dot" />
-            </div>
-            <div className="about-manifesto-badge">
-              <AnimatedIcon Icon={BriefcaseIcon} className="icon" size={16} />
-              <span>MANIFESTO // MALETA.DEV</span>
-            </div>
-          </div>
-          <span className="about-manifesto-status">SYS_STATUS: LOCAL-FIRST [ACTIVE]</span>
-        </div>
-        <div className="about-manifesto-body">
-          <div className="about-terminal-prompt">
-            <span className="about-prompt-user">dev@local:~$</span>
-            <span className="about-prompt-cmd">maleta init --skills={SKILLS.length} --deterministic --privacy=strict</span>
-          </div>
-          <p>
-            O <strong>maleta.dev</strong> reúne skills auditáveis para <strong>Claude Code</strong>, <strong>Codex</strong> e outros agentes. Escolha uma base, ajuste o pacote e copie um comando pronto para instalar tudo localmente, sem telemetria.
-          </p>
-        </div>
-      </div>
-
-      {/* Grid Nivelado de Pilares com Altura Uniforme */}
-      <div className="about-pillars-grid">
-        {PILLARS.slice(0, 3).map((pillar, idx) => (
-          <div key={idx} className="about-pillar-card">
-            <div className="about-pillar-top">
-              <div className="about-pillar-icon-box">
-                <AnimatedIcon Icon={pillar.icon} className="icon" size={20} />
-              </div>
-              <span className="about-pillar-tag">{pillar.tag}</span>
-            </div>
-
-            <h3 className="about-pillar-title">{pillar.title}</h3>
-
-            <p className="about-pillar-desc">{pillar.description}</p>
-
-            {/* <details> nativo por ser conteudo secundario e leve — sem JS de animacao,
-                ao contrario do FaqSection (interacao central da secao, justifica motion). */}
-            <details className="about-card-details">
-              <summary>Ver detalhes</summary>
-              <ul className="about-pillar-highlights">
-                {pillar.highlights.map((item, hIdx) => (
-                  <li key={hIdx} className="about-highlight-item">
-                    <AnimatedIcon Icon={CheckIcon} className="icon about-highlight-icon" size={14} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </details>
-          </div>
-        ))}
-      </div>
-
       <details className="about-advanced-details">
         <summary>
-          <span>Mais detalhes e métricas do projeto</span>
-          <span className="about-advanced-count">+1 pilar · 4 métricas</span>
+          <span>Ver mais sobre o projeto</span>
+          <span className="about-advanced-count">manifesto · {PILLARS.length} pilares · 4 métricas</span>
         </summary>
         <div className="about-advanced-body">
-          <div className="about-pillars-grid about-pillars-grid--advanced">
-            {PILLARS.slice(3).map((pillar, idx) => (
+          {/* Manifesto com Estética de Terminal & Alta Escaneabilidade */}
+          <div className="about-manifesto-card">
+            <div className="about-manifesto-header">
+              <div className="about-manifesto-left">
+                <div className="about-window-dots" aria-hidden="true">
+                  <span className="about-dot" />
+                  <span className="about-dot" />
+                  <span className="about-dot" />
+                </div>
+                <div className="about-manifesto-badge">
+                  <AnimatedIcon Icon={BriefcaseIcon} className="icon" size={16} />
+                  <span>MANIFESTO // MALETA.DEV</span>
+                </div>
+              </div>
+              <span className="about-manifesto-status">SYS_STATUS: LOCAL-FIRST [ACTIVE]</span>
+            </div>
+            <div className="about-manifesto-body">
+              <div className="about-terminal-prompt">
+                <span className="about-prompt-user">dev@local:~$</span>
+                <span className="about-prompt-cmd">maleta init --skills={SKILLS.length} --deterministic --privacy=strict</span>
+              </div>
+              <p>
+                O <strong>maleta.dev</strong> reúne skills auditáveis para <strong>Claude Code</strong>, <strong>Codex</strong> e outros agentes. Escolha uma base, ajuste o pacote e copie um comando pronto para instalar tudo localmente, sem telemetria.
+              </p>
+            </div>
+          </div>
+
+          {/* Grid Nivelado de Pilares com Altura Uniforme */}
+          <div className="about-pillars-grid">
+            {PILLARS.map((pillar, idx) => (
               <div key={idx} className="about-pillar-card">
                 <div className="about-pillar-top">
                   <div className="about-pillar-icon-box">

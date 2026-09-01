@@ -40,6 +40,10 @@ site/public/*.png
 site/public/*.woff2
 site/app/fonts/*.woff2
 
+# --- Static upstream copies / generated docs (never read whole; CodeGraph noise) ---
+claude/skills/
+docs/DISCOVERED_SKILLS.md
+
 # --- OS / editor noise ---
 Thumbs.db
 Desktop.ini
