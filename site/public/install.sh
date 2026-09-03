@@ -56,7 +56,7 @@ trap cleanup EXIT
 
 # 1. Determinar raiz do repositorio (local ou download remoto)
 if [ -z "$REPO_ROOT" ]; then
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd || true)"
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-.}")" 2>/dev/null && pwd)" || SCRIPT_DIR=""
     if [ -n "$SCRIPT_DIR" ] && [ -d "$SCRIPT_DIR/claude/skills" ]; then
         REPO_ROOT="$SCRIPT_DIR"
     elif [ -n "$SCRIPT_DIR" ] && [ -d "$(dirname "$SCRIPT_DIR")/claude/skills" ]; then
