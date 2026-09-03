@@ -7,7 +7,6 @@
     --color-graphite: #191919;
     --color-iron: #202020;
     --color-slate: #3a3a3a;
-    --color-pewter: #505050;
     --color-steel: #606060;
     --color-ash: #7e7e7e;
     --color-fog: #b4b4b4;
@@ -23,14 +22,10 @@
     --fg: var(--color-paper);
     --fg-muted: var(--color-fog);
     --fg-faint: var(--color-ash);
-    --accent: var(--color-accent);
     --border-light: var(--color-iron);
 
     /* Semantic Colors */
-    --color-success: #10b981;
     --color-error: #ef4444;
-    --color-warning: #f59e0b;
-    --color-info: #3b82f6;
 
     /* Tipografia — fonte unica (JetBrains Mono) em todo o site, sem par de display */
     --font-body: var(--font-body, 'JetBrains Mono'), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -44,7 +39,6 @@
     --text-xl: 1.125rem;   /* 18px */
     --text-2xl: 1.25rem;   /* 20px */
     --text-3xl: 1.5rem;    /* 24px */
-    --text-4xl: 2rem;      /* 32px */
 
     --font-regular: 400;
     --font-medium: 500;
@@ -61,14 +55,13 @@
     --space-8: 4rem;        /* 64px */
     --space-10: 5rem;       /* 80px */
     --space-12: 6rem;       /* 96px */
-    --space-16: 8rem;       /* 128px */
-    --space-20: 10rem;      /* 160px */
-    --space-24: 12rem;      /* 192px */
 
     /* Layout */
     --max-width: 1200px;
 
     /* Radius — geometria afiada: 2px em tudo, redondo so em pills < 32px */
+    --leading-relaxed: 1.71;
+    --radius-xs: 2px;
     --radius-sm: 2px;
     --radius-md: 2px;
     --radius-lg: 2px;
@@ -79,7 +72,6 @@
     /* Transitions */
     --transition-fast: 0.15s ease;
     --transition-normal: 0.25s ease;
-    --transition-slow: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 *,
