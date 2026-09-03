@@ -52,8 +52,8 @@ default ranking with markdown noise. When running the CLI directly, exclude it:
 `codegraph orient --root . --ignore-glob "claude/skills/**"` (same for
 `explore`, `hotspots`, `impact`). It cannot be gitignored — new skill folders
 must stay `git add`-able (see "Add a new skill" below) — so this is a
-per-invocation flag, not a persisted setting. The MCP `codegraph_explore` tool
-does not accept this flag; expect skill files to surface in its results.
+per-invocation flag, not a persisted setting. The local `.codegraph/` cache is
+gitignored; never commit it (it embeds absolute machine paths).
 
 ## Common tasks
 
@@ -118,7 +118,7 @@ npm run lint       # ESLint check — must pass with 0 errors
 npm run build      # static export to out/ — must pass before claiming done
 ```
 
-- `app/layout.tsx` — head/metadata, Departure Mono via `next/font/local`, global CSS.
+- `app/layout.tsx` — head/metadata, JetBrains Mono via `next/font/google`, global CSS.
 - `app/page.tsx` — landing page assembling section components inside `ToolkitProvider`.
 - `lib/toolkitContext.tsx` — shared state for active tool target, target OS (Windows/Unix), skill selections, presets, custom GitHub imports, and dynamic installer command generation.
 - `lib/iconMap.ts` — category-to-Pixelarticon resolver.

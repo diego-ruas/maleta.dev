@@ -3,7 +3,7 @@
 See [AGENTS.md](./AGENTS.md) for full project architecture, golden rules, and standard workflows.
 
 ## Key Instructions
-- **Project Scope**: Curated AI tooling and custom package builder for Claude Code (`claude/`), opencode (`opencode/`), and Next.js website (`site/`).
+- **Project Scope**: Curated AI tooling and custom package builder for Claude Code (`claude/`), Codex (`codex/`), and Next.js website (`site/`).
 - **Inviolable Constraints**:
   - Never commit private data, API keys, credentials, or sessions (`.claude-mem/`, `.env*`).
   - Never customize third-party skills in `claude/skills/` directly. Keep upstream licenses intact.

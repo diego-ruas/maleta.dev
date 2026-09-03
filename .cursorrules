@@ -3,7 +3,7 @@
 See [AGENTS.md](./AGENTS.md) for full project architecture, golden rules, and standard workflows.
 
 ## Key Instructions for Cursor
-- **Repository Nature**: Public, install-only collection and custom builder of AI skills, presets, plugins, and configs for Claude Code (`claude/`) and opencode (`opencode/`), with a static Next.js 15 site in `site/`.
+- **Repository Nature**: Public, install-only collection and custom builder of AI skills, presets, plugins, and configs for Claude Code (`claude/`) and Codex (`codex/`), with a static Next.js 15 site in `site/`.
 - **Zero-Tolerance Rules**:
   - Never commit private data, API keys, tokens, session caches, or `.env*` files.
   - Never edit upstream skills under `claude/skills/` directly.

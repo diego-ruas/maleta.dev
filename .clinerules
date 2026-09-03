@@ -5,9 +5,9 @@ See [AGENTS.md](./AGENTS.md) for full project architecture, golden rules, and st
 ## Key Directives
 - **Project Structure**:
   - `claude/`: Skills (`claude/skills/`), manifest configs, and installer.
-  - `opencode/`: Config, plugins, and installer.
+  - `codex/`: Installer that delegates to `agents/` and cleans legacy MCP config.
   - `site/`: Next.js 15 static export (`output: 'export'`) deployed on Vercel (Custom AI Toolkit Builder).
-  - `public/install.ps1`: Parameterized web installer (`-Tools`, `-Skills`).
+  - `site/public/install.ps1`: Parameterized web installer (`-Tools`, `-Skills`).
 - **Rules & Verification**:
   - Zero private/secret data commits.
   - Upstream skills in `claude/skills/` must remain untouched copies with licenses.
