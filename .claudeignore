@@ -40,7 +40,7 @@ site/public/*.png
 site/public/*.woff2
 site/app/fonts/*.woff2
 
-# --- Static upstream copies / generated docs (never read whole; CodeGraph noise) ---
+# --- Static upstream copies / generated docs (never read whole; graphify noise) ---
 claude/skills/
 docs/DISCOVERED_SKILLS.md
 

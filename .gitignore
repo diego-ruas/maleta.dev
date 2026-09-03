@@ -44,7 +44,7 @@ antigravity/*.local*
 # --- Selecao de skills gerada pelo site (local) ---
 claude/skills-selection.txt
 
-# --- Gerado por scripts/crawl-anthropic-skills.ps1 (ruido para CodeGraph) ---
+# --- Gerado por scripts/crawl-anthropic-skills.ps1 (ruido para o grafo) ---
 docs/DISCOVERED_SKILLS.md
 
 # --- graphify (grafo local gerado, nao versionado) ---
@@ -57,4 +57,3 @@ Desktop.ini
 *.log
 .vscode/
 .idea/
-.codegraph/

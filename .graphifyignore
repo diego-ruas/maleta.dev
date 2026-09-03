@@ -1,0 +1,5 @@
+# Copias upstream sem edicao (regra 2 do AGENTS.md): 25M de markdown que
+# domina o ranking do grafo. Nao pode ir para .gitignore — novas skills
+# precisam continuar git add-aveis.
+claude/skills/
+docs/DISCOVERED_SKILLS.md
