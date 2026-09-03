@@ -15,7 +15,7 @@ param(
     [string]$RepoRoot = (Split-Path -Parent $PSScriptRoot)
 )
 
-$ErrorActionPreference = 'Continue'
+$ErrorActionPreference = 'Stop'
 
 Write-Host '===== Claude Code ====='
 & (Join-Path $RepoRoot 'claude\install.ps1') -RepoRoot $RepoRoot

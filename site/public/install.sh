@@ -15,6 +15,10 @@
 
 set -uo pipefail
 
+# Sem -e de proposito: cada delegacao precisa restaurar skills-selection.txt
+# antes de propagar a falha. FAILED acumula quem quebrou.
+FAILED=""
+
 TOOLS="all"
 SKILLS=""
 REPO_ROOT=""
@@ -100,14 +104,17 @@ if echo " $TOOLS_TO_RUN " | grep -q " claude "; then
             echo "[info] Instalando skills selecionadas: $SKILLS"
         fi
 
-        bash "$CLAUDE_INSTALL" "$REPO_ROOT"
+        bash "$CLAUDE_INSTALL" "$REPO_ROOT" || FAILED="$FAILED claude"
 
         if [ "$HAD_SELECTION" = false ] && [ -f "$SELECTION_FILE" ]; then
             rm -f "$SELECTION_FILE"
         elif [ "$HAD_SELECTION" = true ]; then
             echo "$ORIGINAL_SELECTION" > "$SELECTION_FILE"
         fi
-        echo "[ok]   Claude Code configurado."
+        case "$FAILED" in
+            *claude*) echo "[erro] Claude Code falhou." ;;
+            *) echo "[ok]   Claude Code configurado." ;;
+        esac
     else
         echo "[warn] Script do Claude nao encontrado em $CLAUDE_INSTALL"
     fi
@@ -131,14 +138,17 @@ if echo " $TOOLS_TO_RUN " | grep -q " codex "; then
             echo "$SKILLS" | tr ',' '\n' > "$SELECTION_FILE"
         fi
 
-        bash "$CODEX_INSTALL" "$REPO_ROOT"
+        bash "$CODEX_INSTALL" "$REPO_ROOT" || FAILED="$FAILED codex"
 
         if [ "$HAD_SELECTION" = false ] && [ -f "$SELECTION_FILE" ]; then
             rm -f "$SELECTION_FILE"
         elif [ "$HAD_SELECTION" = true ]; then
             echo "$ORIGINAL_SELECTION" > "$SELECTION_FILE"
         fi
-        echo "[ok]   Codex configurado."
+        case "$FAILED" in
+            *codex*) echo "[erro] Codex falhou." ;;
+            *) echo "[ok]   Codex configurado." ;;
+        esac
     else
         echo "[warn] Script do Codex nao encontrado em $CODEX_INSTALL"
     fi
@@ -162,18 +172,29 @@ if [ "$RUN_AGENTS_DIRECT" = true ] && echo " $TOOLS_TO_RUN " | grep -q " agents 
             echo "$SKILLS" | tr ',' '\n' > "$SELECTION_FILE"
         fi
 
-        bash "$AGENTS_INSTALL" "$REPO_ROOT"
+        bash "$AGENTS_INSTALL" "$REPO_ROOT" || FAILED="$FAILED agents"
 
         if [ "$HAD_SELECTION" = false ] && [ -f "$SELECTION_FILE" ]; then
             rm -f "$SELECTION_FILE"
         elif [ "$HAD_SELECTION" = true ]; then
             echo "$ORIGINAL_SELECTION" > "$SELECTION_FILE"
         fi
-        echo "[ok]   Universal Agents configurado (~/.agents/skills)."
+        case "$FAILED" in
+            *agents*) echo "[erro] Universal Agents falhou." ;;
+            *) echo "[ok]   Universal Agents configurado (~/.agents/skills)." ;;
+        esac
     else
         echo "[warn] Script universal de agents nao encontrado em $AGENTS_INSTALL"
     fi
     echo ""
+fi
+
+if [ -n "$FAILED" ]; then
+    echo "  +------------------------------------------------------------+"
+    echo "  | Instalacao INCOMPLETA — falhou:$FAILED"
+    echo "  +------------------------------------------------------------+"
+    echo ""
+    exit 1
 fi
 
 echo "  +------------------------------------------------------------+"

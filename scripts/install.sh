@@ -8,7 +8,7 @@
 # Usage:
 #     bash scripts/install.sh
 
-set -uo pipefail
+set -euo pipefail
 
 REPO_ROOT="${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 
