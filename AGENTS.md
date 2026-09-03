@@ -45,15 +45,29 @@ This repository provides native entry point configurations so that any LLM/agent
 - **Roo Code / Cline**: Reads [`.clinerules`](./.clinerules).
 - **GitHub Copilot**: Reads [`.github/copilot-instructions.md`](./.github/copilot-instructions.md).
 
-## CodeGraph usage
+## graphify usage
 
-`claude/skills/` (25M of unedited upstream copies, rule 2) dominates CodeGraph's
-default ranking with markdown noise. When running the CLI directly, exclude it:
-`codegraph orient --root . --ignore-glob "claude/skills/**"` (same for
-`explore`, `hotspots`, `impact`). It cannot be gitignored — new skill folders
-must stay `git add`-able (see "Add a new skill" below) — so this is a
-per-invocation flag, not a persisted setting. The local `.codegraph/` cache is
-gitignored; never commit it (it embeds absolute machine paths).
+[graphify](https://github.com/Graphify-Labs/graphify) mapeia o repositorio num
+grafo consultavel (`graphify query`, `path`, `explain`) em vez de grepar
+arquivo a arquivo. Instalado neste repo com escopo de projeto
+(`uv tool install graphifyy` e `graphify install --project`): a skill fica em
+`.claude/skills/graphify/` e os hooks `PreToolUse` em `.claude/settings.json`.
+
+`claude/skills/` (25M de copias upstream sem edicao, regra 2) domina o ranking
+com ruido de markdown, e nao pode ser gitignorado (novas skills precisam
+continuar `git add`-aveis, ver "Add a new skill"). A exclusao fica em
+[`.graphifyignore`](./.graphifyignore) na raiz — mesma sintaxe do `.gitignore`,
+mergeado com ele e avaliado por ultimo. Nao ha flag por invocacao a lembrar.
+
+```bash
+graphify extract . --code-only   # AST local, sem API key (docs/imagens exigem backend LLM)
+graphify update .                # depois de cada git pull/merge
+graphify query "o que liga o instalador ao catalogo do site?"
+```
+
+`graphify hook install` (uma vez por clone) reconstroi o grafo no `git commit` e
+na troca de branch. O diretorio `graphify-out/` e gitignorado; nunca commite
+(cache e manifest carregam caminhos absolutos da maquina).
 
 ## Common tasks
 
