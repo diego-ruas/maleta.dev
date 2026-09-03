@@ -38,6 +38,9 @@ if ($selected.Count -gt 0) {
         if ($LASTEXITCODE -gt 7) { throw "robocopy shared failed (exit $LASTEXITCODE)" }
     }
     foreach ($s in $selected) {
+        if ($s -notmatch '^[A-Za-z0-9._-]+$' -or $s -match '\.\.') {
+            throw "invalid skill name '$s' (expected ^[A-Za-z0-9._-]+$)"
+        }
         $src = Join-Path $srcSkills $s
         if (Test-Path -LiteralPath $src) {
             robocopy $src (Join-Path $dstSkills $s) /E /NFL /NDL /NJH /NJS /NC /NS /NP | Out-Null

@@ -38,6 +38,12 @@ if [ "${#SELECTED[@]}" -gt 0 ]; then
         cp -a "$SRC_SKILLS/shared/." "$DST_SKILLS/shared/"
     fi
     for s in "${SELECTED[@]}"; do
+        case "$s" in
+            *[!A-Za-z0-9._-]*|*..*)
+                echo "[erro] nome de skill invalido: '$s'" >&2
+                exit 1
+                ;;
+        esac
         if [ -d "$SRC_SKILLS/$s" ]; then
             mkdir -p "$DST_SKILLS/$s"
             cp -a "$SRC_SKILLS/$s/." "$DST_SKILLS/$s/"

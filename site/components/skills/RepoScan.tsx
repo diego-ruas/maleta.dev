@@ -27,6 +27,10 @@ const COMMUNITY_SOURCES = [
 const GH_TOKEN_KEY = "maleta-gh-token";
 const RECENT_SEARCHES_KEY = "maleta-recent-scans";
 
+// Nomes vindos de repos de terceiros entram no comando de instalacao gerado.
+// Rejeita qualquer coisa fora do formato de pasta de skill.
+const SAFE_SKILL_NAME = /^[a-z0-9._-]+$/i;
+
 function repoKey(url: string): string {
   const m = url.match(/github\.com\/([^/]+\/[^/]+)/);
   if (m) return m[1].replace(/\.git$/, "");
@@ -162,7 +166,7 @@ export default function RepoScan({ existing, builtInSkills = [], onAdd, onRemove
             isOfficial: key === "anthropics/skills",
           };
         })
-        .filter((s: RepoResult) => s.name && !s.name.startsWith("."));
+        .filter((s: RepoResult) => SAFE_SKILL_NAME.test(s.name) && !s.name.startsWith("."));
 
       if (!skills.length) {
         setStatus(`Nenhuma SKILL.md encontrada em ${key}.`);
