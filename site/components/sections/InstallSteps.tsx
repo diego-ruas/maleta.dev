@@ -17,6 +17,7 @@ import { ClaudeIcon } from "@/components/icons/claude";
 import { CodexIcon } from "@/components/icons/codex";
 import { NotesIcon } from "@/components/icons/notes";
 import { useToolkit } from "@/lib/toolkitContext";
+import { buildInstallCommand } from "@/lib/installCommand";
 
 type InstallTab = "oneliner" | "fresh" | "local";
 
@@ -67,15 +68,13 @@ export default function InstallSteps() {
   const previewCommand = useMemo(() => {
     if (selectedSkills.size === 0) return "# Selecione ao menos uma skill no catálogo acima";
     if (selectedSkills.size <= 2) return installCommand;
-    const sample = [...selectedSkills].slice(0, 2);
-    if (isUnix) {
-      const toolFlag = targetTool !== "all" ? ` --tools ${targetTool}` : "";
-      return `curl -fsSL https://maleta.dev/install.sh | bash -s --${toolFlag} --skills ${sample.join(",")},… +${selectedSkills.size - 2}`;
-    }
-    const toolParam = targetTool !== "all" ? ` -Tools ${targetTool}` : "";
-    const sampleQuoted = sample.map((n) => `'${n}'`).join(", ");
-    return `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1)))${toolParam} -Skills @(${sampleQuoted}, … +${selectedSkills.size - 2})`;
-  }, [selectedSkills, installCommand, targetTool, isUnix]);
+    return buildInstallCommand({
+      skills: [...selectedSkills],
+      tool: targetTool,
+      os: targetOs,
+      preview: 2,
+    });
+  }, [selectedSkills, installCommand, targetTool, targetOs]);
 
   return (
     <Reveal id="instalar" className="reveal" ariaLabelledby="instalar-heading">

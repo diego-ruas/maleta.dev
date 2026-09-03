@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useToast } from "@/components/Toast";
 import { SKILLS, SKILL_PRESETS, type Skill } from "@/lib/data";
+import { buildInstallCommand, buildInstallScript } from "@/lib/installCommand";
 
 export interface CustomSkill {
   name: string;
@@ -290,36 +291,11 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
   }
 
   function downloadScript() {
-    const isUnix = targetOs === "unix";
-    const skillsList = [...selectedSkills].sort();
-    const toolParam = targetTool !== "all" ? ` -Tools ${targetTool}` : "";
-    let scriptContent: string;
-    let filename: string;
-    if (isUnix) {
-      const toolFlag = targetTool !== "all" ? ` --tools ${targetTool}` : "";
-      scriptContent = `#!/usr/bin/env bash
-# Maleta.dev — Instalador Customizado Sob Medida
-# Execute no bash/zsh (sem necessidade de git clone previo):
-set -euo pipefail
-echo "[maleta.dev] Instalando ${skillsList.length} skills customizadas..."
-curl -fsSL https://maleta.dev/install.sh | bash -s --${toolFlag} --skills ${skillsList.join(",")}
-`;
-      filename = "instalar-maleta.sh";
-    } else {
-      const list = skillsList.map((n) => `'${n.replace(/'/g, "''")}'`).join(",\n    ");
-      scriptContent = `<#
-  Maleta.dev — Instalador Customizado Sob Medida
-  Execute no PowerShell (sem necessidade de admin ou git clone prévio):
-#>
-$ErrorActionPreference = 'Stop'
-$Skills = @(
-    ${list}
-)
-Write-Host "[maleta.dev] Instalando $($Skills.Count) skills customizadas..." -ForegroundColor Cyan
-& ([scriptblock]::Create((irm https://maleta.dev/install.ps1)))${toolParam} -Skills $Skills
-`;
-      filename = "instalar-maleta.ps1";
-    }
+    const { content: scriptContent, filename } = buildInstallScript(
+      [...selectedSkills].sort(),
+      targetTool,
+      targetOs
+    );
     const blob = new Blob([scriptContent], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -334,14 +310,11 @@ Write-Host "[maleta.dev] Instalando $($Skills.Count) skills customizadas..." -Fo
 
   const installCommand = useMemo(() => {
     if (selectedSkills.size === 0) return "# Selecione ao menos uma skill para gerar seu comando";
-    const skillsList = [...selectedSkills].sort();
-    if (targetOs === "unix") {
-      const toolFlag = targetTool !== "all" ? ` --tools ${targetTool}` : "";
-      return `curl -fsSL https://maleta.dev/install.sh | bash -s --${toolFlag} --skills ${skillsList.join(",")}`;
-    }
-    const list = skillsList.map((n) => `'${n.replace(/'/g, "''")}'`).join(", ");
-    const toolParam = targetTool !== "all" ? ` -Tools ${targetTool}` : "";
-    return `& ([scriptblock]::Create((irm https://maleta.dev/install.ps1)))${toolParam} -Skills @(${list})`;
+    return buildInstallCommand({
+      skills: [...selectedSkills].sort(),
+      tool: targetTool,
+      os: targetOs,
+    });
   }, [selectedSkills, targetTool, targetOs]);
 
   return (
