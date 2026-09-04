@@ -15,7 +15,6 @@ import { CodexIcon } from "@/components/icons/codex";
 import { ZapIcon } from "@/components/icons/zap";
 import { ChevronRightIcon } from "@/components/icons/chevron-right";
 import { ChevronLeftIcon } from "@/components/icons/chevron-left";
-import { ChevronDownIcon } from "@/components/icons/chevron-down";
 import SkillCard from "@/components/skills/SkillCard";
 import RepoScan from "@/components/skills/RepoScan";
 import { SKILL_PRESETS, type SkillPreset } from "@/lib/data";
@@ -41,6 +40,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
     customSkills,
     allMergedSkills,
     installCommand,
+    selectedPlugins,
     togglePreset,
     toggleSkill,
     selectAllSkills,
@@ -632,7 +632,7 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                   <span className="terminal-dot"></span>
                   <span className="terminal-dot"></span>
                 </div>
-                <span className="summary-command-title">install.ps1</span>
+                <span className="summary-command-title">{targetOs === "unix" ? "install.sh" : "install.ps1"}</span>
               </div>
 
               <div className="summary-code-box">
@@ -649,7 +649,10 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                 >
                   <AnimatedIcon Icon={CopyIcon} className="icon" size={14} />
                   <AnimatedIcon Icon={CheckIcon} className="icon-check" size={14} />
-                  <span>Copiar One-Liner ({selectedSkills.size} skills)</span>
+                  <span>
+                    Copiar One-Liner ({selectedSkills.size} skills
+                    {selectedPlugins.size > 0 ? ` + ${selectedPlugins.size} plugins` : ""})
+                  </span>
                 </CopyButton>
 
                 <button
@@ -660,9 +663,17 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
                   title="Baixar arquivo .ps1 customizado"
                 >
                   <AnimatedIcon Icon={DownloadIcon} className="icon" size={14} />
-                  <span>Baixar .ps1</span>
+                  <span>Baixar .{targetOs === "unix" ? "sh" : "ps1"}</span>
                 </button>
               </div>
+
+              <p className="stage-panel-desc">
+                Precisa do agente antes? <code>npm install -g @anthropic-ai/claude-code</code>
+                {targetTool === "codex" || targetTool === "all" ? (
+                  <> ou <code>npm install -g @openai/codex</code></>
+                ) : null}
+                . Depois de rodar o comando, confirme com <code>/skills</code> no agente.
+              </p>
             </div>
           </div>
 
@@ -675,10 +686,6 @@ export default function SkillsExplorer({ categories }: SkillsExplorerProps) {
               <AnimatedIcon Icon={ChevronLeftIcon} className="icon" size={16} />
               <span>Voltar e Ajustar Skills</span>
             </button>
-            <a href="#instalar" className="btn-gh">
-              <span>Ver Tutorial de Instalação Completo</span>
-              <AnimatedIcon Icon={ChevronDownIcon} className="icon" size={16} />
-            </a>
           </div>
         </section>
       )}

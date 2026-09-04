@@ -16,6 +16,8 @@ export type ToolTarget = "all" | "claude" | "codex" | "agents";
 export type OsTarget = "windows" | "unix";
 
 const SELECTED_KEY = "aitoolkit-selected-skills";
+// v2: guarda ids de plugin; a v1 guardava chaves "tool:name", incompatíveis.
+const PLUGINS_KEY = "maleta-selected-plugins-v2";
 const CUSTOM_KEY = "aitoolkit-custom-skills";
 const TOOL_KEY = "aitoolkit-target-tool";
 const OS_KEY = "aitoolkit-target-os";
@@ -48,6 +50,9 @@ interface ToolkitContextType {
   activePresets: Set<string>;
   customSkills: CustomSkill[];
   allMergedSkills: Skill[];
+  selectedPlugins: Set<string>;
+  togglePlugin: (id: string) => void;
+  setSelectedPlugins: (ids: Set<string>) => void;
   installCommand: string;
   togglePreset: (presetId: string) => void;
   toggleSkill: (name: string) => void;
@@ -75,12 +80,15 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
   const [activePreset, setActivePreset] = useState<string | null>("essentials");
   const [activePresetIds, setActivePresetIds] = useState<Set<string>>(() => new Set(["essentials"]));
   const [customSkills, setCustomSkills] = useState<CustomSkill[]>([]);
+  const [selectedPlugins, setSelectedPluginsState] = useState<Set<string>>(() => new Set());
   const [selectedSkills, setSelectedSkills] = useState<Set<string>>(() => {
     const defaultPreset = SKILL_PRESETS.find((p) => p.id === "essentials");
     return new Set(defaultPreset ? defaultPreset.skills : []);
   });
 
   useEffect(() => {
+    setSelectedPluginsState(new Set(loadJSON<string[]>(PLUGINS_KEY, [])));
+
     const savedCustom = loadJSON<CustomSkill[]>(CUSTOM_KEY, []);
     setCustomSkills(savedCustom);
 
@@ -145,6 +153,22 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
   };
 
   const activePresets = activePresetIds;
+
+  function setSelectedPlugins(next: Set<string>) {
+    setSelectedPluginsState(next);
+    try {
+      localStorage.setItem(PLUGINS_KEY, JSON.stringify([...next]));
+    } catch {
+      // ignore
+    }
+  }
+
+  function togglePlugin(id: string) {
+    const next = new Set(selectedPlugins);
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
+    setSelectedPlugins(next);
+  }
 
   function persistSelected(next: Set<string>) {
     setSelectedSkills(next);
@@ -294,7 +318,8 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
     const { content: scriptContent, filename } = buildInstallScript(
       [...selectedSkills].sort(),
       targetTool,
-      targetOs
+      targetOs,
+      [...selectedPlugins].sort()
     );
     const blob = new Blob([scriptContent], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -314,8 +339,9 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
       skills: [...selectedSkills].sort(),
       tool: targetTool,
       os: targetOs,
+      plugins: [...selectedPlugins].sort(),
     });
-  }, [selectedSkills, targetTool, targetOs]);
+  }, [selectedSkills, targetTool, targetOs, selectedPlugins]);
 
   return (
     <ToolkitContext.Provider
@@ -330,6 +356,9 @@ export function ToolkitProvider({ children }: { children: React.ReactNode }) {
         activePresets,
         customSkills,
         allMergedSkills,
+        selectedPlugins,
+        togglePlugin,
+        setSelectedPlugins,
         installCommand,
         togglePreset,
         toggleSkill,

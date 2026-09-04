@@ -7,10 +7,8 @@ import { motion, useReducedMotion } from "motion/react";
 
 const NAV_LINKS = [
   { href: "#sobre", label: "Sobre" },
-  { href: "#ferramentas", label: "Ferramentas" },
   { href: "#skills", label: "Skills" },
   { href: "#plugins", label: "Plugins" },
-  { href: "#instalar", label: "Instalar" },
   { href: "#faq", label: "FAQ" },
 ];
 
@@ -23,30 +21,44 @@ export default function SiteHeader() {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
+    const header = headerRef.current;
     const ids = NAV_LINKS.map((link) => link.href.replace("#", ""));
-    // Margem superior = altura real do header sticky, para nao considerar
-    // "ativa" uma secao ainda coberta por ele.
-    const headerHeight = headerRef.current?.offsetHeight ?? 96;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActiveSection(visible.target.id);
-      },
-      { rootMargin: `-${headerHeight}px 0px -55% 0px`, threshold: [0, 0.25, 0.5, 1] }
-    );
+    let observer: IntersectionObserver | null = null;
 
-    ids.forEach((id) => {
-      const section = document.getElementById(id);
-      if (section) observer.observe(section);
-    });
+    // O header tem flex-wrap e muda de altura conforme a viewport; o rootMargin
+    // depende dessa altura, entao o observer e refeito a cada resize dele.
+    function observeSections() {
+      observer?.disconnect();
+      const headerHeight = header?.offsetHeight ?? 96;
+      observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (visible) setActiveSection(visible.target.id);
+        },
+        { rootMargin: `-${headerHeight}px 0px -55% 0px`, threshold: [0, 0.25, 0.5, 1] }
+      );
+      for (const id of ids) {
+        const section = document.getElementById(id);
+        if (section) observer.observe(section);
+      }
+    }
 
-    return () => observer.disconnect();
+    observeSections();
+    if (!header) return () => observer?.disconnect();
+
+    const ro = new ResizeObserver(observeSections);
+    ro.observe(header);
+    return () => {
+      ro.disconnect();
+      observer?.disconnect();
+    };
   }, []);
 
   useEffect(() => {
     if (!open) return;
+    firstMobileLinkRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOpen(false);
@@ -111,7 +123,7 @@ export default function SiteHeader() {
         id="mobile-menu"
         aria-label="Navegação mobile"
         className={`mobile-menu${open ? " is-open" : ""}`}
-        hidden={!open}
+        inert={!open}
       >
         <ul>
           {NAV_LINKS.map(({ href, label }, i) => {

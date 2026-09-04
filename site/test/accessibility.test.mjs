@@ -10,7 +10,9 @@ async function source(file) {
 
 test("keeps the closed mobile menu out of the tab order", async () => {
   const header = await source("components/sections/SiteHeader.tsx");
-  assert.match(header, /hidden=\{!open\}/);
+  // inert, nao hidden: hidden traz display:none !important (base.css) e mata a
+  // transicao de max-height do menu; inert tira do foco sem tocar no layout.
+  assert.match(header, /inert=\{!open\}/);
 });
 
 test("labels every dynamic search field", async () => {
@@ -43,73 +45,24 @@ test("disables non-essential motion when reduced motion is requested", async () 
   assert.match(reducedMotion, /\.repo-scanning-progress/);
 });
 
-test("keeps supported agent IDs unique", async () => {
-  const ticker = await source("components/sections/AgentsTicker.tsx");
-  const ids = [...ticker.matchAll(/id: "([^"]+)"/g)].map((match) => match[1]);
-  assert.equal(new Set(ids).size, ids.length);
-});
-
 test("uses the Codex brand icon in Codex-specific controls", async () => {
   const codexIcon = await source("components/icons/codex.tsx");
-  const tools = await source("components/sections/ToolsGrid.tsx");
   const explorer = await source("components/skills/SkillsExplorer.tsx");
-  const install = await source("components/sections/InstallSteps.tsx");
-  const ticker = await source("components/sections/AgentsTicker.tsx");
-
   assert.match(codexIcon, /CODEX_ICON_PATH/);
-  assert.match(tools, /CodexIcon/);
   assert.match(explorer, /CodexIcon/);
-  assert.match(install, /CodexIcon/);
-  assert.match(install, /<div className="process-card">\s*<div className="process-card-header">\s*<div className="process-icon-box">\s*<AnimatedIcon Icon=\{CodexIcon\}[\s\S]*?<div className="process-num">02<\/div>[\s\S]*?Instalar o Codex/);
-  assert.match(ticker, /CODEX_ICON_PATH/);
 });
 
-test("prioritizes the custom command in the installation workflow", async () => {
-  const install = await source("components/sections/InstallSteps.tsx");
-  assert.match(install, /className="section-header-badge"/);
-  assert.match(install, /className="install-workflow process-grid"/);
-  assert.match(install, /className="install-command-stage"/);
-  assert.match(install, /className="install-prerequisites"/);
-  assert.match(install, /Antes de começar/);
-  assert.match(install, /Executar Comando Customizado/);
-  assert.match(install, /Primeiro Uso — Prompts Recomendados/);
-  assert.doesNotMatch(install, /className="install-step-rail"/);
-});
-
-test("keeps installation follow-up content aligned and contained", async () => {
-  const install = await source("components/sections/InstallSteps.tsx");
-  const css = await source("css/site.css");
-  assert.match(install, /className="install-follow-up-card"/);
-  assert.match(css, /\.install-follow-up-grid\s*\{[\s\S]*?display: contents/);
-  assert.match(css, /\.install-command-stage,\s*\.install-prerequisites,\s*\.install-follow-up-grid\s*\{[\s\S]*?min-width: 0/);
-  assert.match(css, /\.install-follow-up-card\s*\{[\s\S]*?min-width: 0/);
-  assert.match(css, /\.prompt-example-card\s*\{[\s\S]*?min-width: 0/);
-});
-
-test("keeps the follow-up cards on the workflow grid rhythm", async () => {
-  const css = await source("css/site.css");
-  const cardRule = css.match(/\.install-follow-up-card\s*\{[^}]*\}/)?.[0] ?? "";
-  assert.match(cardRule, /margin-bottom: 0/);
-});
-
-test("keeps the original prompt card hierarchy", async () => {
-  const install = await source("components/sections/InstallSteps.tsx");
-  const css = await source("css/site.css");
-  assert.match(install, /className="prompt-examples-grid"/);
-  assert.match(install, /className="prompt-example-card"/);
-  assert.match(install, /className="prompt-example-text"/);
-  assert.match(css, /\.prompt-examples-grid\s*\{[\s\S]*?grid-template-columns: repeat\(2/);
-});
-
-test("keeps install mode state and prerequisite scope consistent", async () => {
-  const install = await source("components/sections/InstallSteps.tsx");
-  assert.match(install, /useState<InstallTab>\("oneliner"\)/);
-  assert.match(install, /AGENT_INSTALL_COMMANDS\s*\.filter/);
-  assert.match(install, /className="prompt-example-text"/);
+test("keeps a single install command sourced from the shared cart", async () => {
+  const explorer = await source("components/skills/SkillsExplorer.tsx");
+  const plugins = await source("components/sections/PluginsSection.tsx");
+  // Plugins nao podem voltar a manter carrinho/comando proprios.
+  assert.doesNotMatch(plugins, /localStorage/);
+  assert.doesNotMatch(plugins, /plugin install/);
+  assert.match(plugins, /useToolkit/);
+  assert.match(explorer, /selectedPlugins/);
 });
 
 test("keeps the install flow below the mobile header", async () => {
   const css = await source("css/site.css");
   assert.match(css, /@media \(max-width: 768px\) \{[\s\S]*?section\s*\{[^}]*scroll-margin-top: 6rem/);
-  assert.match(css, /@media \(max-width: 640px\) \{[\s\S]*?\.prompt-examples-grid\s*\{[\s\S]*?grid-template-columns: 1fr/);
 });

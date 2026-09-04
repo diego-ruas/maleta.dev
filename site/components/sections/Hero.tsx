@@ -1,22 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import AnimatedIcon from "@/components/AnimatedIcon";
-import AnimatedCounter from "@/components/AnimatedCounter";
-import CopyButton from "@/components/CopyButton";
-import TypewriterText from "@/components/TypewriterText";
-import DecryptedText from "@/components/DecryptedText";
 import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import { ArrowUpRightIcon } from "@/components/icons/arrow-up-right";
-import { ChevronRightIcon } from "@/components/icons/chevron-right";
-import { CopyIcon } from "@/components/icons/copy";
-import { CheckIcon } from "@/components/icons/check";
-import { ShieldIcon } from "@/components/icons/shield";
-import { useToolkit } from "@/lib/toolkitContext";
-import { SKILLS } from "@/lib/data";
 
 export default function Hero() {
-  const { selectedSkills, targetOs, installCommand } = useToolkit();
   const reduceMotion = useReducedMotion();
 
   return (
@@ -41,21 +31,18 @@ export default function Hero() {
             visible: { opacity: 1, y: 0 },
           }}
         >
-          <TypewriterText text="~/maleta.dev - Custom AI Toolkit Builder" speed={16} delay={40} />
+          ~/maleta.dev - Custom AI Toolkit Builder
         </motion.span>
 
         <motion.h1
-          aria-label="Monte seu toolkit de IA sob medida"
           variants={{
             hidden: { opacity: 0, y: 8 },
             visible: { opacity: 1, y: 0 },
           }}
         >
-          <span aria-hidden="true">
+          <span>
             Monte seu toolkit de IA{" "}
-            <span className="highlight-word">
-              <DecryptedText text="sob medida" speed={22} maxIterations={6} />
-            </span>
+            <span className="highlight-word">sob medida</span>
           </span>
         </motion.h1>
 
@@ -68,23 +55,6 @@ export default function Hero() {
         >
           O Maleta.dev não instala nada sozinho: é um construtor que gera um comando de instalação a partir das skills, plugins e presets de IA que você escolher no catálogo abaixo. Você vê o comando completo, copia e roda quando quiser, no seu terminal, para <span className="highlight-word">Claude Code</span>, <span className="highlight-word">Codex</span> ou outras IDEs.
         </motion.p>
-
-        <motion.div
-          className="intro-highlights"
-          variants={{
-            hidden: { opacity: 0, y: 8 },
-            visible: { opacity: 1, y: 0 },
-          }}
-        >
-          <a href="#skills" className="intro-badge-item intro-badge-link" title={`Explorar ${SKILLS.length} skills curadas`}>
-            <AnimatedIcon Icon={SlidersHorizontalIcon} className="icon" size={16} />
-            <span>{SKILLS.length} skills curadas</span>
-          </a>
-          <a href="#sobre" className="intro-badge-item intro-badge-link" title="Saiba como funciona o provisionamento local">
-            <AnimatedIcon Icon={ShieldIcon} className="icon" size={16} />
-            <span>100% local - sem telemetria, sem enviar nada pra fora</span>
-          </a>
-        </motion.div>
 
         <motion.div
           className="intro-links"
@@ -112,59 +82,13 @@ export default function Hero() {
       </motion.div>
 
       <motion.div
-        className="hero-console-wrapper"
-        initial={reduceMotion ? false : { opacity: 0, scale: 0.97, y: 10 }}
-        animate={reduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.15 }}
+        className="intro-logo"
+        aria-hidden="true"
+        initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
+        animate={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="hero-terminal">
-          <div className="hero-terminal-header">
-            <div className="hero-terminal-header-left">
-              <div className="terminal-dots" aria-hidden="true">
-                <span className="terminal-dot" />
-                <span className="terminal-dot" />
-                <span className="terminal-dot" />
-              </div>
-              <span className="terminal-title">{targetOs === "unix" ? "install.sh" : "install.ps1"}</span>
-            </div>
-            <span className="terminal-badge"><AnimatedCounter value={selectedSkills.size} /> SKILLS</span>
-          </div>
-
-          <div className="hero-terminal-body">
-            <div className="hero-terminal-section">
-              <span className="hero-section-label">COMANDO PRONTO:</span>
-              <div className="hero-code-box">
-                <pre>
-                  <code>{installCommand}</code>
-                </pre>
-                <CopyButton
-                  className="hero-code-copy-btn"
-                  text={installCommand}
-                  disabled={selectedSkills.size === 0}
-                  aria-label="Copiar comando de instalação"
-                  title="Copiar comando completo para a área de transferência"
-                >
-                  <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
-                  <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
-                </CopyButton>
-              </div>
-            </div>
-
-            <p className="hero-command-hint">
-              {`// O comando inicial instala a base recomendada. Personalize o alvo e as skills no catálogo.`}
-            </p>
-
-            <div className="hero-terminal-actions">
-              <span className="hero-terminal-actions-hint">
-                {`// Clique no ícone acima para copiar o comando`}
-              </span>
-              <a href="#skills" className="hero-terminal-explore-link">
-                <span>Personalizar no Catálogo</span>
-                <AnimatedIcon Icon={ChevronRightIcon} className="icon" size={14} />
-              </a>
-            </div>
-          </div>
-        </div>
+        <Image src="/logo.png" alt="" width={320} height={320} priority />
       </motion.div>
     </section>
   );

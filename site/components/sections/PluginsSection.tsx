@@ -1,13 +1,12 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import Reveal from "@/components/Reveal";
 import AnimatedIcon from "@/components/AnimatedIcon";
-import CopyButton from "@/components/CopyButton";
 import { CheckIcon } from "@/components/icons/check";
-import { CopyIcon } from "@/components/icons/copy";
 import { ClaudeIcon } from "@/components/icons/claude";
 import { useToast } from "@/components/Toast";
+import { useToolkit } from "@/lib/toolkitContext";
 import { PLUGIN_GROUPS, type PluginItem } from "@/lib/data";
 
 interface FlatPlugin extends PluginItem {
@@ -26,53 +25,19 @@ const ALL_PLUGIN_CATEGORIES: string[] = [
   ...Array.from(new Set(ALL_PLUGINS.map((p) => p.category).filter(Boolean) as string[])),
 ];
 
-const PLUGINS_SELECTED_KEY = "maleta-selected-plugins";
-
 export default function PluginsSection() {
   const showToast = useToast();
+  const { selectedPlugins: selected, togglePlugin, setSelectedPlugins } = useToolkit();
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  const [selected, setSelected] = useState<Set<string>>(() => new Set());
-
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(PLUGINS_SELECTED_KEY);
-      if (raw !== null) {
-        const saved = JSON.parse(raw);
-        if (Array.isArray(saved)) {
-          setSelected(new Set(saved));
-        }
-      }
-    } catch {
-      // ignore
-    }
-  }, []);
-
-  function persistSelected(next: Set<string>) {
-    setSelected(next);
-    try {
-      localStorage.setItem(PLUGINS_SELECTED_KEY, JSON.stringify([...next]));
-    } catch {
-      // ignore
-    }
-  }
-
-  function togglePlugin(pluginKey: string) {
-    const next = new Set(selected);
-    if (next.has(pluginKey)) next.delete(pluginKey);
-    else next.add(pluginKey);
-    persistSelected(next);
-  }
-
   function selectAll() {
-    const next = new Set(ALL_PLUGINS.map((p) => `${p.tool}:${p.name}`));
-    persistSelected(next);
+    setSelectedPlugins(new Set(ALL_PLUGINS.map((p) => p.id)));
     showToast(`Todos os ${ALL_PLUGINS.length} plugins selecionados`, "check");
   }
 
   function selectNone() {
-    persistSelected(new Set());
+    setSelectedPlugins(new Set());
     showToast("Seleção de plugins limpa", "check");
   }
 
@@ -88,17 +53,6 @@ export default function PluginsSection() {
       return matchCategory && matchQ;
     });
   }, [selectedCategory, search]);
-
-  const claudeSelected = useMemo(() => {
-    return ALL_PLUGINS
-      .filter((p) => selected.has(`${p.tool}:${p.name}`))
-      .map((p) => p.id);
-  }, [selected]);
-
-  const pluginInstallCommand = useMemo(() => {
-    if (claudeSelected.length === 0) return "# Nenhum plugin selecionado";
-    return claudeSelected.map((id) => `claude plugin install ${id}`).join(" ; ");
-  }, [claudeSelected]);
 
   return (
     <Reveal id="plugins" className="reveal" ariaLabelledby="plugins-heading">
@@ -170,30 +124,18 @@ export default function PluginsSection() {
               </button>
             </div>
           </div>
-          <p className="plugins-persist-note">Sua seleção fica salva neste navegador.</p>
-
-          <div className="plugins-command-action">
-            <CopyButton
-              id="copy-plugins-cmd"
-              className="btn-primary copy-installer-btn"
-              text={pluginInstallCommand}
-              disabled={selected.size === 0}
-            >
-              <span>Copiar Comando de Plugins</span>
-              <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
-              <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
-            </CopyButton>
-          </div>
+          <p className="plugins-persist-note">
+            Os plugins escolhidos entram no mesmo comando gerado na Etapa 04 do catálogo.
+          </p>
         </div>
 
         {/* 3. LISTA DE PLUGINS */}
         <ul className="plugins-list">
           {filteredPlugins.map((plugin) => {
-            const pluginKey = `${plugin.tool}:${plugin.name}`;
-            const isSelected = selected.has(pluginKey);
+            const isSelected = selected.has(plugin.id);
 
             return (
-              <li key={pluginKey} className={`plugin-row-item${isSelected ? " selected" : ""}`}>
+              <li key={plugin.id} className={`plugin-row-item${isSelected ? " selected" : ""}`}>
                 <div className="plugin-row-main">
                   <div className="plugin-row-icon-cell">
                     <AnimatedIcon Icon={ClaudeIcon} className="plugin-item-icon" size={20} />
@@ -214,7 +156,7 @@ export default function PluginsSection() {
                     <button
                       type="button"
                       className={`btn-gh plugin-row-select-btn${isSelected ? " active" : ""}`}
-                      onClick={() => togglePlugin(pluginKey)}
+                      onClick={() => togglePlugin(plugin.id)}
                       aria-pressed={isSelected}
                     >
                       {isSelected ? (
