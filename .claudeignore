@@ -8,23 +8,16 @@ site/next-env.d.ts
 package-lock.json
 
 # --- Private / sensitive Claude Code data ---
+# Mesma allowlist do .gitignore, pelo mesmo motivo: diretorio privado novo do
+# Claude Code nao deve virar contexto por omissao.
+.claude/*
+!.claude/CLAUDE.md
+!.claude/settings.json
+!.claude/skills/
+.claude/settings.local.json
+
 .claude-mem/
 **/.claude-mem/
-.claude/cache/
-.claude/sessions/
-.claude/file-history/
-.claude/shell-snapshots/
-.claude/paste-cache/
-.claude/downloads/
-.claude/chrome/
-.claude/backups/
-.claude/security/
-.claude/projects/
-.claude/plans/
-.claude/session-env/
-.claude/.credentials.json
-.claude/history.jsonl
-.claude/settings.local.json
 
 # --- Environment / secrets ---
 .env
@@ -43,6 +36,9 @@ site/app/fonts/*.woff2
 # --- Static upstream copies / generated docs (never read whole; graphify noise) ---
 claude/skills/
 docs/DISCOVERED_SKILLS.md
+
+# --- graphify (grafo local gerado; consultar via CLI, nao ler cru) ---
+graphify-out/
 
 # --- OS / editor noise ---
 Thumbs.db
