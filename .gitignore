@@ -1,28 +1,16 @@
 # --- Private / sensitive Claude Code data (never commit) ---
+# Allowlist, nao denylist: o Claude Code cria diretorios privados novos a cada
+# versao (sessions, projects, shell-snapshots, ...). Enumerar o que excluir faz
+# com que qualquer diretorio futuro entre no commit por omissao. Aqui o padrao e
+# ignorar tudo em .claude/ e liberar so o que e config versionada.
+.claude/*
+!.claude/CLAUDE.md
+!.claude/settings.json
+!.claude/skills/
+.claude/settings.local.json
+
 .claude-mem/
 **/.claude-mem/
-.claude/cache/
-.claude/sessions/
-.claude/file-history/
-.claude/shell-snapshots/
-.claude/paste-cache/
-.claude/downloads/
-.claude/chrome/
-.claude/backups/
-.claude/security/
-.claude/projects/
-.claude/plans/
-.claude/session-env/
-.claude/.credentials.json
-.claude/history.jsonl
-.claude/.last-cleanup
-.claude/.last-update-result.json
-.claude/mcp-needs-auth-cache.json
-.claude/policy-limits.json
-.claude/remote-settings.json
-.claude/settings.local.json
-.claude/.ponytail-active
-.claude/.ponytail-statusline-nudged
 
 # --- opencode ---
 .opencode/
