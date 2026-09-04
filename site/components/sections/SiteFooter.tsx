@@ -1,3 +1,4 @@
+import Link from "next/link";
 import AnimatedIcon from "@/components/AnimatedIcon";
 import { SparklesIcon } from "@/components/icons/sparkles";
 
@@ -27,6 +28,15 @@ export default function SiteFooter() {
           Co-criado com IA
         </span>
       </div>
+      <nav className="footer-nav" aria-label="Páginas institucionais">
+        <Link href="/about">Sobre</Link>
+        <span className="footer-sep">|</span>
+        <Link href="/contact">Contato</Link>
+        <span className="footer-sep">|</span>
+        <Link href="/privacy">Privacidade</Link>
+        <span className="footer-sep">|</span>
+        <a href="/llms.txt">llms.txt</a>
+      </nav>
       <div className="footer-links">
         <a
           href="https://github.com/diego-ruas/maleta.dev"

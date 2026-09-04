@@ -3,6 +3,7 @@ import { JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { MotionConfig } from "motion/react";
 import { ToastProvider } from "@/components/Toast";
+import { SITE_JSON_LD } from "@/lib/siteMeta";
 import "../css/base.css";
 import "../css/site.css";
 import "../css/transitions.css";
@@ -33,6 +34,7 @@ export const metadata: Metadata = {
     title: "Maleta.dev | AI Toolkit",
     description:
       "Coleção curada e instalável de skills, plugins e configurações de IA para Claude Code e Codex. 100% local e configurado em segundos.",
+    locale: "pt_BR",
   },
   twitter: {
     card: "summary_large_image",
@@ -59,6 +61,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={jetbrainsMono.variable}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSON_LD) }}
+        />
         <MotionConfig reducedMotion="user">
           <ToastProvider>{children}</ToastProvider>
         </MotionConfig>
