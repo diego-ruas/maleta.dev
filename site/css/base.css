@@ -11,9 +11,10 @@
     --color-ash: #7e7e7e;
     --color-fog: #b4b4b4;
     --color-paper: #eeeeee;
-    /* Decisao intencional: sem cor de destaque propria (sistema monocromatico).
-       Hierarquia do CTA primario vem do fill invertido (--color-void sobre --color-accent) + peso 700, nao de cor. */
-    --color-accent: #eeeeee;
+    /* Destaque cromatico unico. Contraste medido: 5.47:1 sobre --color-void e
+       4.92:1 sobre --color-carbon; --color-void sobre ele da os mesmos 5.47:1,
+       entao serve como texto e como fill invertido do CTA primario. */
+    --color-accent: #e0533c;
 
     /* Aliases usados pelo site.css */
     --bg: var(--color-void);
@@ -24,8 +25,17 @@
     --fg-faint: var(--color-ash);
     --border-light: var(--color-iron);
 
-    /* Semantic Colors */
-    --color-error: #ef4444;
+    /* Cores de marca de terceiros (tags de origem no RepoScan). Valores fixos
+       por serem de terceiros — nao derivam da paleta e nao seguem o accent. */
+    --color-tag-oficial: #3fb950;
+    --color-tag-cloudflare: #f6821f;
+    --color-tag-comunidade: #58a6ff;
+
+    /* Semantic Colors — erro precisa se distinguir de --color-accent, que agora
+       e quente. Matiz nao separa (8 graus entre eles); luminosidade sim:
+       8.33:1 sobre --color-void contra 5.47:1 do accent. Legivel tambem para
+       quem nao discrimina vermelho/laranja. */
+    --color-error: #ff7b72;
 
     /* Tipografia — fonte unica (JetBrains Mono) em todo o site, sem par de display */
     --font-body: var(--font-body, 'JetBrains Mono'), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;

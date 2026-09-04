@@ -5,6 +5,8 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "Maleta.dev — AI Toolkit para Claude Code e Codex";
 
+// Satori nao resolve custom properties: os hex abaixo sao copias manuais de
+// --color-void/paper/ash/fog (css/base.css). Mudou o token la, mude aqui.
 export default function OpengraphImage() {
   return new ImageResponse(
     (

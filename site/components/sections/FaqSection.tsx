@@ -74,27 +74,9 @@ export default function FaqSection() {
           </p>
         </FaqItem>
 
-        <FaqItem id="update" question="O instalador sobrescreve minhas configurações existentes?">
-          <p>
-            Não de forma destrutiva. Antes de qualquer alteração ele cria um backup automático (<code>settings.json.pre-install.bak</code>) e mescla suas configurações e plugins já existentes com os novos.
-          </p>
-        </FaqItem>
-
-        <FaqItem id="git" question="Preciso de Git ou privilégios de administrador?">
-          <p>
-            Não. A Instalação Expressa roda direto no PowerShell (Windows 5.1+) ou bash/zsh (Linux/macOS), sem Git e gravando apenas na sua pasta de usuário — sem tocar em políticas do sistema.
-          </p>
-        </FaqItem>
-
         <FaqItem id="hub" question="Como funciona o Hub Comunitário no site?">
           <p>
             Busca na API do GitHub repositórios com a tag <code>topic:claude-skills</code> e repositórios oficiais como <code>anthropics/skills</code>. Localiza arquivos <code>SKILL.md</code> e deixa adicioná-los à sua seleção com 1 clique.
-          </p>
-        </FaqItem>
-
-        <FaqItem id="agentes" question="Qual a diferença entre Claude Code e Codex?">
-          <p>
-            São dois agentes de terminal diferentes — <strong>Claude Code</strong> é da Anthropic, <strong>Codex</strong> é da OpenAI. Dá pra usar os dois na mesma máquina: ambos leem arquivos <code>SKILL.md</code>, o instalador só muda a pasta de destino.
           </p>
         </FaqItem>
 

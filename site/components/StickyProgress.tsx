@@ -3,12 +3,15 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import AnimatedIcon from "@/components/AnimatedIcon";
+import CopyButton from "@/components/CopyButton";
 import { SlidersHorizontalIcon } from "@/components/icons/sliders-horizontal";
 import { ChevronRightIcon } from "@/components/icons/chevron-right";
+import { CopyIcon } from "@/components/icons/copy";
+import { CheckIcon } from "@/components/icons/check";
 import { useToolkit } from "@/lib/toolkitContext";
 
 export default function StickyProgress() {
-  const { selectedSkills } = useToolkit();
+  const { selectedSkills, installCommand } = useToolkit();
   const [pastHero, setPastHero] = useState(false);
   const [skillsInView, setSkillsInView] = useState(false);
 
@@ -33,23 +36,34 @@ export default function StickyProgress() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.a
-          href="#skills"
+        <motion.div
           className="sticky-progress"
           initial={{ opacity: 0, y: 12, x: "-50%" }}
           animate={{ opacity: 1, y: 0, x: "-50%" }}
           exit={{ opacity: 0, y: 12, x: "-50%" }}
           transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          <AnimatedIcon Icon={SlidersHorizontalIcon} size={16} />
-          <span className="sticky-progress-count">
-            <strong>{count}</strong> skill{count === 1 ? "" : "s"} selecionada{count === 1 ? "" : "s"}
-          </span>
-          <span className="sticky-progress-cta">
-            Ver catálogo
-            <AnimatedIcon Icon={ChevronRightIcon} size={14} />
-          </span>
-        </motion.a>
+          <a href="#skills" className="sticky-progress-link">
+            <AnimatedIcon Icon={SlidersHorizontalIcon} size={16} />
+            <span className="sticky-progress-count">
+              <strong>{count}</strong> skill{count === 1 ? "" : "s"} selecionada{count === 1 ? "" : "s"}
+            </span>
+            <span className="sticky-progress-cta">
+              Ver catálogo
+              <AnimatedIcon Icon={ChevronRightIcon} size={14} />
+            </span>
+          </a>
+          <CopyButton
+            className="sticky-progress-copy"
+            text={installCommand}
+            disabled={count === 0}
+            aria-label="Copiar comando de instalação"
+            title="Copiar comando completo para a área de transferência"
+          >
+            <AnimatedIcon Icon={CopyIcon} className="icon icon-copy" size={16} />
+            <AnimatedIcon Icon={CheckIcon} className="icon icon-check" size={16} />
+          </CopyButton>
+        </motion.div>
       )}
     </AnimatePresence>
   );
