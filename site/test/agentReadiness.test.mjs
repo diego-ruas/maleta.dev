@@ -7,16 +7,38 @@ const read = (p) => readFile(new URL(`../${p}`, import.meta.url), "utf8");
 const TRUST_PAGES = ["about", "contact", "privacy"];
 
 test("markdown mirrors exist for every negotiated path", async () => {
-  const vercel = JSON.parse(await read("vercel.json"));
+  const { MARKDOWN_PATHS } = await import("../lib/acceptNegotiation.ts");
+  assert.deepEqual(Object.keys(MARKDOWN_PATHS), ["/", ...TRUST_PAGES.map((p) => `/${p}`)]);
 
-  const negotiated = vercel.rewrites.filter((r) =>
+  for (const target of Object.values(MARKDOWN_PATHS)) {
+    const body = await read(`public${target}`);
+    assert.match(body, /^# /m, `${target} must be markdown with a heading`);
+  }
+});
+
+test("markdown negotiation uses routes, which run before the filesystem", async () => {
+  // `rewrites` nunca dispara nestes paths: o filesystem tem precedência sobre
+  // eles, então / sempre resolveria index.html. `routes` roda antes.
+  // Middleware não é opção: incompatível com output: 'export'.
+  const vercel = JSON.parse(await read("vercel.json"));
+  assert.equal(vercel.rewrites, undefined, "accept rewrites never fire; use routes");
+
+  const { MARKDOWN_PATHS } = await import("../lib/acceptNegotiation.ts");
+  const negotiated = vercel.routes.filter((r) =>
     r.has?.some((h) => h.type === "header" && h.key === "accept" && /text\/markdown/.test(h.value)),
   );
   assert.equal(negotiated.length, 2, "expected / and the trust pages to negotiate markdown");
 
-  for (const file of ["index.md", ...TRUST_PAGES.map((p) => `${p}.md`)]) {
-    const body = await read(`public/${file}`);
-    assert.match(body, /^# /m, `${file} must be markdown with a heading`);
+  for (const route of negotiated) {
+    assert.equal(route.headers["Content-Type"], "text/markdown; charset=utf-8");
+    assert.match(route.headers.Vary, /\bAccept\b/, `${route.src} is missing Vary: Accept`);
+  }
+
+  // Todo path negociado tem uma rota que o cobre.
+  const srcs = negotiated.map((r) => r.src);
+  for (const path of Object.keys(MARKDOWN_PATHS)) {
+    const covered = srcs.some((s) => new RegExp(`^${s}$`).test(path));
+    assert.ok(covered, `no route matches ${path}`);
   }
 });
 

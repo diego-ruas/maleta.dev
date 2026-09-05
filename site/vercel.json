@@ -11,16 +11,24 @@
       "*": false
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
+      "src": "/",
       "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
-      "destination": "/index.md"
+      "dest": "/index.md",
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Vary": "Accept, Accept-Encoding"
+      }
     },
     {
-      "source": "/:page(about|contact|privacy)",
+      "src": "/(about|contact|privacy)",
       "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
-      "destination": "/:page.md"
+      "dest": "/$1.md",
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Vary": "Accept, Accept-Encoding"
+      }
     }
   ],
   "headers": [
